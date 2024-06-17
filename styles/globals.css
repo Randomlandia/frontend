@@ -26,6 +26,12 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.font-lucky {
+  font-family: "Luckiest Guy", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
