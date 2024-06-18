@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Avatar from "@/components/Avatar";
+import ContactoFooter from "@/components/ContactoFooter";
 
 export default function User() {
   return (
@@ -24,6 +25,7 @@ export default function User() {
       </div>
 
       {/* FOOTER CONTACTO */}
+      <ContactoFooter />
     </main>
   );
 }
