@@ -14,11 +14,10 @@ export default function Login() {
   } = useForm();
 
   async function onSubmit(dataLogIn) {
-    console.log(dataLogIn);
-    const response = await fetch("https://localhost:3005/login", {
+    const response = await fetch("http://localhost:3005/users/login", {
       method: "Post",
       body: JSON.stringify({
-        email: dataLogIn.user,
+        email: dataLogIn.email,
         password: dataLogIn.password,
       }),
       headers: {
@@ -29,11 +28,11 @@ export default function Login() {
     });
 
     const json = await response?.json();
-    if (json?.token) {
-      localStorage.setItem("token", json.token);
+    if (json?.data?.token) {
+      localStorage.setItem("token", json.data.token);
 
       console.log("Login Exitoso");
-      router.push("/userIndex");
+      router.push("/randomlandia");
       return;
     }
     console.log("Usuario o contraseña inválidos");
@@ -95,6 +94,10 @@ export default function Login() {
                     value: 3,
                     message: "Email o password inválido",
                   },
+                  maxLength: {
+                    value: 50,
+                    message: "Usuario debe contener a máximo 50 caracteres",
+                  },
                 })}
               />
             </div>
@@ -112,6 +115,10 @@ export default function Login() {
                   minLength: {
                     value: 3,
                     message: "Email o password inválido",
+                  },
+                  maxLength: {
+                    value: 50,
+                    message: "Usuario debe contener a máximo 50 caracteres",
                   },
                 })}
               />

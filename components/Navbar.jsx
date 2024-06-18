@@ -12,7 +12,9 @@ export default function Navbar() {
   return (
     <>
       <nav className="w-full h-14 bg-lorange  flex justify-between text-white font-lucky text-xl">
-        <div>logo</div>
+        <Link href="/randomlandia">
+          <div>logo</div>
+        </Link>
         <div className="flex">
           <div className="hidden lg:flex gap-7 items-center px-3">
             <Link href="/about">
