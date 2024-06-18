@@ -35,11 +35,13 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="flex lg:hidden items-center gap-2">
-            <button className="text-sm leading-4 bg-dorange px-6 py-1.5 rounded-[10px]">
-              INICIAR
-              <br />
-              SESIÓN
-            </button>
+            <Link href="/login">
+              <button className="text-sm leading-4 bg-dorange px-6 py-1.5 rounded-[10px]">
+                INICIAR
+                <br />
+                SESIÓN
+              </button>
+            </Link>
             <img src="/menu.svg" alt="menu" className="w-14 h-16" />
           </div>
         </div>
