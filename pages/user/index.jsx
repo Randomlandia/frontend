@@ -15,6 +15,10 @@ export default function User() {
             JuanElChato92
           </div>
           {/* SCORE */}
+          <div className="border-4 rounded-lg border-orange-500 text-black">
+            {" "}
+            SCORE 2024
+          </div>
           {/* BOTONES HACIA SUBMENUS */}
         </div>
       </div>
