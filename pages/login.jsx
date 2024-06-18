@@ -2,8 +2,13 @@ import Navbar from '@/components/Navbar'
 import Link from 'next/link'
 
 export default function Login() {
+  const defaultBackground = 'bg-booksflying.webp'
+  const [background, setBackground] = useState('bg-booksflying.webp')
   return (
-    <div className='min-h-screen bg-white flex flex-col gap-14 font-mont font-bold'>
+    <div
+      className='min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold'
+      style={{ backgroundImage: `url('/backgrounds/${background}')` }}
+    >
       <Navbar />
       <div className='grid justify-items-center bg-[#d9d9d930] h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-xl'>
         <div className='grid gap-7  text-white '>
@@ -14,7 +19,11 @@ export default function Login() {
             </p>
           </div>
           <div className='flex gap-2'>
-            <img src='/facebookblue.svg' alt='G' className='h-8 w-8 rounded-xl' />
+            <img
+              src='/facebookblue.svg'
+              alt='G'
+              className='h-8 w-8 rounded-xl'
+            />
             <p className=' bg-natD/60 text-sm text-center w-60 md:w-96 py-2 px-4 rounded-xl'>
               CONTINUA CON FACEBOOK
             </p>
@@ -62,13 +71,15 @@ export default function Login() {
             </div>
           </div>
           <div className='grid justify-center gap-3'>
-          <button
-            type='submit'
-            className='bg-[#0288D1] p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full'
-          >
-            iniciar sesión{' '}
-          </button>
-          <Link href="./register" className='text-natD underline text-center'>CREAR CUENTA</Link>
+            <button
+              type='submit'
+              className='bg-[#0288D1] p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full'
+            >
+              iniciar sesión{' '}
+            </button>
+            <Link href='./register' className='text-natD underline text-center'>
+              CREAR CUENTA
+            </Link>
           </div>
         </form>
       </div>
