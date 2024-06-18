@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isLogged, setIsLogged] = useState(false);
@@ -14,12 +15,24 @@ export default function Navbar() {
         <div>logo</div>
         <div className="flex">
           <div className="hidden lg:flex gap-7 items-center px-3">
-            <button>NOSOTROS</button>
-            <button>INICIAR SESIÓN</button>
-            <button className="bg-dorange h-9 px-5 rounded-[10px]">
-              CREAR CUENTA
-            </button>
-            <button className="bg-natL h-9 px-5 rounded-[10px]">¡JUGAR!</button>
+            <Link href="/about">
+              <button>NOSOTROS</button>
+            </Link>
+            <Link href="/login">
+              <button>INICIAR SESIÓN</button>
+            </Link>
+
+            <Link
+              href="/register"
+              className="bg-dorange h-9 px-5 rounded-[10px]"
+            >
+              <button>CREAR CUENTA</button>
+            </Link>
+            <Link href="/randomlandia">
+              <button className="bg-natL h-9 px-5 rounded-[10px]">
+                ¡JUGAR!
+              </button>
+            </Link>
           </div>
           <div className="flex lg:hidden items-center gap-2">
             <button className="text-sm leading-4 bg-dorange px-6 py-1.5 rounded-[10px]">

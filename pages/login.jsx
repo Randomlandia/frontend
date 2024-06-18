@@ -1,8 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import clsx from "clsx";
+//import clsx from "clsx";
 import { useRouter } from "next/router";
 
 export default function Login() {
@@ -47,7 +46,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col gap-14 font-mont font-bold">
-      <Navbar />
+      <Navbar /> {/* input 2 password */}
       <div className="grid justify-items-center bg-[#d9d9d930] h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-xl">
         <div className="grid gap-7  text-white ">
           <div className="flex gap-2">
