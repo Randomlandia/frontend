@@ -1,11 +1,9 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-//import clsx from "clsx";
 import { useRouter } from "next/router";
 
 export default function Login() {
-  // constantes
   const router = useRouter();
 
   const {
@@ -14,8 +12,6 @@ export default function Login() {
     setError,
     formState: { errors },
   } = useForm();
-
-  //funciones
 
   async function onSubmit(dataLogIn) {
     console.log(dataLogIn);
@@ -87,9 +83,8 @@ export default function Login() {
           <div className="grid gap-2">
             <div className="grid gap-0.5">
               <label name="email" className="px-2 ">
-                EMAIL{" "}
+                EMAIL
               </label>
-              {/* input 2 password */}
               <input
                 type="email"
                 name="email"
@@ -108,9 +103,8 @@ export default function Login() {
                 CONTRASEÑA{" "}
               </label>
 
-              {/* input 2 password */}
               <input
-                type="empasswordail"
+                type="password"
                 name="password"
                 placeholder="Min 8 letras y números."
                 className="bg-lorange/50 text-white p-2 rounded-lg"
@@ -124,7 +118,6 @@ export default function Login() {
             </div>
           </div>
 
-          {/* divs error */}
           <div id="errorPasswordEmail" className="p-1">
             {(errors.password || errors.email) && (
               <p
@@ -151,7 +144,7 @@ export default function Login() {
               type="submit"
               className="bg-[#0288D1] p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full"
             >
-              iniciar sesión{" "}
+              INICIAR SESIÓN
             </button>
             <Link href="./register" className="text-natD underline text-center">
               CREAR CUENTA

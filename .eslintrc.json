@@ -1,7 +1,5 @@
 {
   "parser": "babel-eslint",
   "extends": ["next", "next/core-web-vitals"],
-  "rules": {
-    // Tus reglas personalizadas aquí
-  }
+  "rules": {}
 }
