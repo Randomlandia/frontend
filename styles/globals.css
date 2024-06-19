@@ -26,11 +26,19 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+input::placeholder {
+  color: white;
+  font-weight: 500;
+}
+
 .font-lucky {
   font-family: "Luckiest Guy", cursive;
   font-weight: 400;
   font-style: normal;
 }
+
+
+
 
 @layer utilities {
   .text-balance {
