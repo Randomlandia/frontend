@@ -2,8 +2,10 @@ import Link from "next/link";
 
 export default function ContactoFooter() {
   return (
-    <div className="flex bg-oldwhite p-8 rounded-2xl ">
-      <div className="flex-col"></div>
+    <div className="flex bg-oldwhite p-8 rounded-2xl gap-20 justify-center ">
+      <div className="flex items-center">
+        <img src="/RANDY_08.svg" alt="Randy" className="h-40 w-40 " />
+      </div>
       <div className="flex-col justify-center">
         {/* TITLE + SUBTITLE */}
         <div className="flex-col">
