@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -5,6 +6,11 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
+=======
+import Navbar from '@/components/Navbar'
+import Link from 'next/link'
+import { useState } from 'react'
+>>>>>>> a491ecb (navbar updates)
 
 export default function Login() {
   const defaultBackground = "bg-booksflying.webp";
@@ -46,7 +52,11 @@ export default function Login() {
 
   return (
     <div
+<<<<<<< HEAD
       className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold"
+=======
+      className='max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold'
+>>>>>>> a491ecb (navbar updates)
       style={{ backgroundImage: `url('/backgrounds/${background}')` }}
     >
       <Navbar />

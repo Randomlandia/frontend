@@ -9,16 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@clerk/nextjs": "^5.1.5",
     "clx": "^1.0.0",
     "dotenv": "^16.4.5",
+=======
+    "@headlessui/react": "^2.0.4",
+>>>>>>> a491ecb (navbar updates)
     "install": "^0.13.0",
     "npm": "^10.5.2",
+<<<<<<< HEAD
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.0",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.23.1"
+=======
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hook-form": "^7.51.5",
+    "react-icons": "^5.0.1"
+>>>>>>> a491ecb (navbar updates)
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
