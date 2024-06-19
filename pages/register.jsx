@@ -10,23 +10,6 @@ export default function Register() {
 
   return (
     <div
-<<<<<<< HEAD
-      className=" min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat"
-      style={{ backgroundImage: `url('/backgrounds/${background}')` }}
-    >
-      <div className="w-full min-h-screen flex flex-col gap-5 font-mont font-bold">
-        <Navbar />
-
-        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-[#d9d9d930]   rounded-[50px] mt-[35px]">
-          <form className="mx-auto py-12  grid gap-7 text-sm font-bold">
-            <p className="text-[#2E7D32] font-lucky text-2xl text-center">
-              se parte de nosotros
-            </p>
-            <div className="flex gap-8 flex-col">
-              <div className="grid gap-0.5">
-                <div className="flex gap-2 font-bold justify-center">
-                  <img src="/account_circle.svg" alt="" className="w-9 h-9" />
-=======
       className=' min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat overflow-hidden'
       style={{ backgroundImage: `url('/backgrounds/${background}')` }}
     >
@@ -44,7 +27,6 @@ export default function Register() {
                 </label>
                 <div className='flex gap-2 font-bold justify-center'>
                   <img src='/account_circle.svg' alt='' className='w-9 h-9' />
->>>>>>> a491ecb (navbar updates)
                   <input
                     type="text"
                     name="user"

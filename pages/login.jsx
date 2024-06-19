@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -6,11 +5,6 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
-=======
-import Navbar from '@/components/Navbar'
-import Link from 'next/link'
-import { useState } from 'react'
->>>>>>> a491ecb (navbar updates)
 
 export default function Login() {
   const defaultBackground = "bg-booksflying.webp";
@@ -43,7 +37,7 @@ export default function Login() {
       localStorage.setItem("token", json.data.token);
 
       console.log("Login Exitoso");
-      router.push("/randomlandia");
+      router.push("/sandias");
       return;
     }
     console.log("Usuario o contraseña inválidos");
@@ -52,27 +46,22 @@ export default function Login() {
 
   return (
     <div
-<<<<<<< HEAD
-      className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold"
-=======
-      className='max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold'
->>>>>>> a491ecb (navbar updates)
+      className='min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden'
       style={{ backgroundImage: `url('/backgrounds/${background}')` }}
     >
       <Navbar />
-
-      <div className="grid justify-items-center bg-[#d9d9d930] h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-[50px]">
+      <div className="grid justify-items-center bg-grey/30 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-[50px]">
         <div className="grid gap-7  text-white ">
           <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
-              <p className="text-[#2E7D32] font-lucky text-2xl">
+              <p className="text-[#2E7D32] font-lucky text-3xl">
                 inicia sesión con
               </p>
               <div className="flex gap-6 mb-4">
                 <Image src="fb_icon.svg" width={40} height={40}></Image>
                 <Image src="google_icon.svg" width={40} height={40}></Image>
                 <Image src="tiktok_icon.svg" width={40} height={40}></Image>
-                <Image src="randy_wink.svg" width={40} height={40}></Image>
+                
               </div>
             </div>
           </SignInButton>
@@ -88,7 +77,7 @@ export default function Login() {
           autocomplete="off"
           onSubmit={handleSubmit(onSubmit)}
           name="formLogIn"
-          className="w-full md:w-[424px] pt-3 flex flex-col  text-sm font-bold"
+          className="w-full md:w-[424px] pt-3 flex flex-col text-sm font-bold"
         >
           <div className="flex flex-col gap-2">
             <div className="grid gap-0.5">
