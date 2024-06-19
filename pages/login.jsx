@@ -51,7 +51,7 @@ export default function Login() {
     >
       <Navbar />
 
-      <div className="grid justify-items-center bg-[#d9d9d930] h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-xl">
+      <div className="grid justify-items-center bg-[#d9d9d930] h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-[50px]">
         <div className="grid gap-7  text-white ">
           <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
@@ -75,19 +75,21 @@ export default function Login() {
           </div>
         </div>
         <form
+          autocomplete="off"
           onSubmit={handleSubmit(onSubmit)}
           name="formLogIn"
           className="w-full md:w-[424px] pt-3 flex flex-col  text-sm font-bold"
         >
           <div className="flex flex-col gap-2">
             <div className="grid gap-0.5">
-              <label name="email" className="px-2 py-4 text-black">
+              <label name="email" className=" b-0 px-2 py-4 text-[#2E7D32]">
                 EMAIL
               </label>
               <input
+                autocomplete="off"
                 type="email"
                 name="email"
-                className="bg-lorange/50 text-white p-2 rounded-lg"
+                className="bg-lorange/50  outline-lorange/50 outline-offset-1  text-white p-2 rounded-lg shadow-md "
                 {...register("email", {
                   minLength: {
                     value: 3,
@@ -101,14 +103,15 @@ export default function Login() {
               />
             </div>
             <div className="grid gap-0.5">
-              <label name="password" className="px-2 py-4 text-black">
+              <label name="password" className="px-2 py-4 text-[#2E7D32]">
                 CONTRASEÑA
               </label>
 
               <input
                 type="password"
                 name="password"
-                className="bg-lorange/50 text-white p-2 rounded-lg"
+                autocomplete="off"
+                className="bg-lorange/50 outline-lorange/50 outline-offset-1 text-white p-2 rounded-lg shadow-md"
                 {...register("password", {
                   minLength: {
                     value: 3,
@@ -147,7 +150,7 @@ export default function Login() {
           <div className="grid justify-center gap-3">
             <button
               type="submit"
-              className="bg-[#0288D1] p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full mt-5"
+              className="bg-[#0288D1] p-1.5 w-56 m-auto font-lucky text-white text-xl shadow-md tracking-wider rounded-full mt-5"
             >
               INICIAR SESIÓN
             </button>

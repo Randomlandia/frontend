@@ -16,7 +16,7 @@ export default function Register() {
       <div className="w-full min-h-screen flex flex-col gap-5 font-mont font-bold">
         <Navbar />
 
-        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-grey/30  rounded-[50px] ">
+        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-[#d9d9d930]   rounded-[50px] mt-[35px]">
           <form className="mx-auto py-12  grid gap-7 text-sm font-bold">
             <p className="text-[#2E7D32] font-lucky text-2xl text-center">
               se parte de nosotros
@@ -29,7 +29,7 @@ export default function Register() {
                     type="text"
                     name="user"
                     placeholder="Nombre del usuario"
-                    className="bg-lorange/90 w-60 rounded-xl px-3"
+                    className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
                   />
                 </div>
               </div>
@@ -40,7 +40,7 @@ export default function Register() {
                     type="email"
                     name="email"
                     placeholder="correo"
-                    className="bg-lorange/90 w-60 rounded-xl px-3"
+                    className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
                   />
                 </div>
               </div>
@@ -51,7 +51,7 @@ export default function Register() {
                     type="password"
                     name="password"
                     placeholder="contraseña"
-                    className="bg-lorange/90 w-60 rounded-xl px-3"
+                    className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
                   />
                 </div>
               </div>
@@ -62,7 +62,7 @@ export default function Register() {
                     type="password"
                     name="confirm-password"
                     placeholder="Repite tu contraseña"
-                    className="bg-lorange/90 w-60 rounded-xl px-3"
+                    className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
                   />
                 </div>
               </div>
