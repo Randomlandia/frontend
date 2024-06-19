@@ -31,7 +31,7 @@ module.exports = {
         worldL: { DEFAULT: '#7645fa' },
         nerdL: { DEFAULT: '#1b19d4' },
         sportL: { DEFAULT: '#0491e1' },
-        natD: { DEFAULT: '#127a12' },
+        natD: { DEFAULT: '#2E7D32' },
         langD: { DEFAULT: '#bac408' },
         mathD: { DEFAULT: '#c20a0a' },
         artD: { DEFAULT: '#801266' },
