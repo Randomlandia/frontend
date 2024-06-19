@@ -25,7 +25,9 @@ export default function User() {
       </div>
 
       {/* FOOTER CONTACTO */}
-      <ContactoFooter />
+      <div className="p-4">
+        <ContactoFooter />
+      </div>
     </main>
   );
 }
