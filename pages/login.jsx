@@ -2,10 +2,12 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export default function Login() {
-  const defaultBackground = 'bg-booksflying.webp'
-  const [background, setBackground] = useState('bg-booksflying.webp')
+  const defaultBackground = "bg-booksflying.webp";
+  const [background, setBackground] = useState("bg-booksflying.webp");
   const router = useRouter();
 
   const {
@@ -43,25 +45,25 @@ export default function Login() {
 
   return (
     <div
-      className='min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold'
+      className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold"
       style={{ backgroundImage: `url('/backgrounds/${background}')` }}
     >
       <Navbar />
-      <div className='grid justify-items-center bg-[#d9d9d930] h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-xl'>
-        <div className='grid gap-7  text-white '>
-          <div className='flex gap-2'>
-            <img src='/google.svg' alt='G' className='h-8 w-8' />
-            <p className='bg-natD/60 text-sm text-center w-60 md:w-96 py-2 px-4 rounded-xl'>
+      <div className="grid justify-items-center bg-[#d9d9d930] h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-xl">
+        <div className="grid gap-7  text-white ">
+          <div className="flex gap-2">
+            <img src="/google.svg" alt="G" className="h-8 w-8" />
+            <p className="bg-natD/60 text-sm text-center w-60 md:w-96 py-2 px-4 rounded-xl">
               CONTINUA CON GOOGLE
             </p>
           </div>
-          <div className='flex gap-2'>
+          <div className="flex gap-2">
             <img
-              src='/facebookblue.svg'
-              alt='G'
-              className='h-8 w-8 rounded-xl'
+              src="/facebookblue.svg"
+              alt="G"
+              className="h-8 w-8 rounded-xl"
             />
-            <p className=' bg-natD/60 text-sm text-center w-60 md:w-96 py-2 px-4 rounded-xl'>
+            <p className=" bg-natD/60 text-sm text-center w-60 md:w-96 py-2 px-4 rounded-xl">
               CONTINUA CON FACEBOOK
             </p>
           </div>
