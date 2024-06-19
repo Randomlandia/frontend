@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.1.5",
     "clx": "^1.0.0",
+    "dotenv": "^16.4.5",
     "install": "^0.13.0",
     "npm": "^10.5.2",
     "react": "^18",
