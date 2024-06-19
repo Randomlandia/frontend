@@ -137,7 +137,7 @@ export default function Login() {
           <br />
           {errors.root && (
             <p
-              className="bg-lorange/50 text-white p-2 rounded-lg flex justify-center items-center"
+              className=" my-5 bg-lorange/50 text-white p-2 rounded-lg flex justify-center items-center"
               id="letra"
             >
               {"⚠ "} {errors.root.message}
@@ -147,7 +147,7 @@ export default function Login() {
           <div className="grid justify-center gap-3">
             <button
               type="submit"
-              className="bg-[#0288D1] p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full"
+              className="bg-[#0288D1] p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full mt-5"
             >
               INICIAR SESIÓN
             </button>
