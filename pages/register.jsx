@@ -1,12 +1,49 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default function Register() {
   const defaultBackground = "bg-booksflying.webp";
   const [background, setBackground] = useState("bg-booksflying.webp");
+
+  async function onSubmit(dataRegistro) {
+    fetch("http://localhost:3005/users", {
+      method: "Post",
+      body: JSON.stringify({
+        name: dataRegistro.userRegistro,
+        email: dataRegistro.correoRegistro,
+        password: dataRegistro.contraseñaRegistro,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response?.json())
+      .then((json) => console.log(json))
+      .catch((error) => {
+        console.log("Error", error);
+      });
+
+    if (dataRegistro) {
+      localStorage.setItem("dataRegistro", JSON.stringify(dataRegistro));
+    }
+    reset();
+    router.push("/randomlandia");
+    return;
+  }
+
+  const router = useRouter();
+
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   return (
     <div
@@ -17,7 +54,11 @@ export default function Register() {
         <Navbar />
 
         <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-[#d9d9d930]   rounded-[50px] mt-[35px]">
-          <form className="mx-auto py-12  grid gap-7 text-sm font-bold">
+          <form
+            name="formRegister"
+            onSubmit={handleSubmit(onSubmit)}
+            className="mx-auto py-12  grid gap-7 text-sm font-bold"
+          >
             <p className="text-[#2E7D32] font-lucky text-2xl text-center">
               se parte de nosotros
             </p>
@@ -27,9 +68,19 @@ export default function Register() {
                   <img src="/account_circle.svg" alt="" className="w-9 h-9" />
                   <input
                     type="text"
-                    name="user"
+                    name="userRegistro"
                     placeholder="Nombre del usuario"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
+                    {...register("userRegistro", {
+                      minLength: {
+                        value: 3,
+                        message: "Usuario debe contener a mínimo 3 caracteres",
+                      },
+                      maxLength: {
+                        value: 50,
+                        message: "Usuario debe contener a máximo 50 caracteres",
+                      },
+                    })}
                   />
                 </div>
               </div>
@@ -38,9 +89,19 @@ export default function Register() {
                   <img src="/mail.svg" alt="" className="w-9 h-9" />
                   <input
                     type="email"
-                    name="email"
+                    name="correoRegistro"
                     placeholder="correo"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
+                    {...register("correoRegistro", {
+                      minLength: {
+                        value: 3,
+                        message: "Correo debe contener a mínimo 3 caracteres",
+                      },
+                      maxLength: {
+                        value: 50,
+                        message: "Correo debe contener a máximo 50 caracteres",
+                      },
+                    })}
                   />
                 </div>
               </div>
@@ -50,8 +111,20 @@ export default function Register() {
                   <input
                     type="password"
                     name="password"
-                    placeholder="contraseña"
+                    placeholder="contraseñaRegistro"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
+                    {...register("contraseñaRegistro", {
+                      minLength: {
+                        value: 3,
+                        message:
+                          "Contraseña debe contener a mínimo 3 caracteres",
+                      },
+                      maxLength: {
+                        value: 50,
+                        message:
+                          "Contraseña debe contener a máximo 50 caracteres",
+                      },
+                    })}
                   />
                 </div>
               </div>
