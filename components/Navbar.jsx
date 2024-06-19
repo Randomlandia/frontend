@@ -24,7 +24,7 @@ export default function Navbar() {
   return (
     <>
       <nav className='w-full h-14 bg-lorange flex justify-between text-white font-lucky text-xl'>
-        <Link href='/randomlandia'>
+        <Link href='/'>
           <div>logo</div>
         </Link>
         <div className='flex'>
@@ -43,14 +43,14 @@ export default function Navbar() {
             </Link>
           </div>
           <div className='flex lg:hidden items-center gap-2'>
-            <Link href='/login'>
+            <Link href='/login' className='flex'>
               <button className='text-sm leading-4 bg-dorange px-6 py-1.5 rounded-[10px]'>
                 INICIAR
                 <br />
                 SESIÓN
               </button>
             </Link>
-            <Menu as='div' className='relative inline-block text-left z-10 mr-2'>
+            <Menu as='div' className='relative inline-block text-left z-10 mr-2 mt-2'>
               <div>
                 <Menu.Button className='inline-flex w-full justify-center gap-x-1.5 shadow-sm'>
                   <img src='/menu.svg' alt='menu' className='w-14 h-16' />
