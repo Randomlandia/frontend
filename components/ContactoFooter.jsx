@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function ContactoFooter() {
   return (
-    <div className="flex bg-oldwhite p-8 rounded-2xl gap-20 justify-center ">
+    <div className="flex p-8 rounded-2xl gap-20 justify-center ">
       <div className="flex items-center">
         <img src="/RANDY_08.svg" alt="Randy" className="h-40 w-40 " />
       </div>
@@ -40,13 +40,13 @@ export default function ContactoFooter() {
         <div className="flex justify-center gap-10 p-2">
           <a
             href=""
-            className="font-mont text-black text-sm hover:font-semibold hover:text-dorange hover:underline"
+            className="font-mont text-black text-xs hover:font-semibold hover:text-dorange hover:underline"
           >
             Privacidad
           </a>
           <a
             href=""
-            className="font-mont text-black text-sm hover:font-semibold hover:text-dorange hover:underline"
+            className="font-mont text-black text-xs hover:font-semibold hover:text-dorange hover:underline"
           >
             Términos y Condiciones
           </a>

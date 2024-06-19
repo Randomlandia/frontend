@@ -8,22 +8,49 @@ export default function User() {
       {/* NAVBAR COMPONENT */}
       <Navbar />
       {/* BODY */}
-      <div className="flex m-6">
-        <div className="bg-yellow-200 rounded-xl p-4 w-full flex-row">
+      <div className="flex-col m-10 bg-oldwhite rounded-xl p-10">
+        <div className="inline-flex justify-center">
           {/* AVATAR COMPONENT Y NOMBRE USER*/}
-          <Avatar />
-          <div className="bg-orange-500 rounded-lg text-center p-2">
-            JuanElChato92
+          <div className="">
+            <Avatar />
           </div>
+
           {/* SCORE */}
-          <div className="border-4 rounded-lg border-orange-500 text-black">
+          <div className="border-4 p-4 rounded-xl border-lorange text-center">
             {" "}
-            SCORE 2024
+            <p className="font-lucky text-dgreen text-3xl">SCORE</p>
+            <p className="font-mont font-semibold text-black text-6xl">9,999</p>
           </div>
-          {/* BOTONES HACIA SUBMENUS */}
+        </div>
+
+        {/* BOTONES HACIA SUBMENUS */}
+        <div className="flex-row inline-flex gap-3 p-10 justify-center">
+          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
+            <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
+            <span className="font-lucky text-black text-xl text-center">
+              FAVS
+            </span>
+          </div>
+          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
+            <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
+            <span className="font-lucky text-black text-xl text-center">
+              FAVS
+            </span>
+          </div>
+          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
+            <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
+            <span className="font-lucky text-black text-xl text-center">
+              FAVS
+            </span>
+          </div>
+          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
+            <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
+            <span className="font-lucky text-black text-xl text-center">
+              FAVS
+            </span>
+          </div>
         </div>
       </div>
-
       {/* FOOTER CONTACTO */}
       <div className="p-4">
         <ContactoFooter />
