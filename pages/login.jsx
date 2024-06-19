@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Image from "next/image";
 
 export default function Login() {
   const defaultBackground = "bg-booksflying.webp";
@@ -49,40 +50,22 @@ export default function Login() {
       style={{ backgroundImage: `url('/backgrounds/${background}')` }}
     >
       <Navbar />
+
       <div className="grid justify-items-center bg-[#d9d9d930] h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-xl">
         <div className="grid gap-7  text-white ">
           <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
-            <button className="flex gap-2">
-              <img src="/google.svg" alt="G" className="h-8 w-8" />
-
-              <p className="bg-natD/60 text-sm text-center w-60 md:w-96 py-2 px-4 rounded-xl">
-                CONTINUA CON GOOGLE
+            <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
+              <p className="text-[#2E7D32] font-lucky text-2xl">
+                inicia sesión con
               </p>
-            </button>
+              <div className="flex gap-6 mb-4">
+                <Image src="fb_icon.svg" width={40} height={40}></Image>
+                <Image src="google_icon.svg" width={40} height={40}></Image>
+                <Image src="tiktok_icon.svg" width={40} height={40}></Image>
+                <Image src="randy_wink.svg" width={40} height={40}></Image>
+              </div>
+            </div>
           </SignInButton>
-
-          <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
-            <button className="flex gap-2">
-              <img
-                src="/facebookblue.svg"
-                alt="G"
-                className="h-8 w-8 rounded-xl"
-              />
-              <button className=" bg-natD/60 text-sm text-center w-60 md:w-96 py-2 px-4 rounded-xl">
-                CONTINUA CON FACEBOOK
-              </button>
-            </button>
-          </SignInButton>
-
-          <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
-            <button className="flex gap-2">
-              <img src="/tiktok.svg" alt="G" className="h-8 w-8" />
-              <p className="font-mont font-bold bg-natD/60 text-sm text-center w-60 md:w-96 py-2 px-4 rounded-lg">
-                CONTINUA CON TIKTOK
-              </p>
-            </button>
-          </SignInButton>
-
           <div className="flex">
             <div className="border-t-2 border-gray-800 w-full max-w-xs"></div>
             <p className="w-auto text-black -translate-y-2.5 text-center px-2">
@@ -94,17 +77,16 @@ export default function Login() {
         <form
           onSubmit={handleSubmit(onSubmit)}
           name="formLogIn"
-          className="w-full md:w-[424px] pt-3 grid gap-7 text-sm font-bold"
+          className="w-full md:w-[424px] pt-3 flex flex-col  text-sm font-bold"
         >
-          <div className="grid gap-2">
+          <div className="flex flex-col gap-2">
             <div className="grid gap-0.5">
-              <label name="email" className="px-2 ">
+              <label name="email" className="px-2 py-4 text-black">
                 EMAIL
               </label>
               <input
                 type="email"
                 name="email"
-                placeholder="ejemplo@email.com"
                 className="bg-lorange/50 text-white p-2 rounded-lg"
                 {...register("email", {
                   minLength: {
@@ -119,14 +101,13 @@ export default function Login() {
               />
             </div>
             <div className="grid gap-0.5">
-              <label name="password" className="px-2 ">
-                CONTRASEÑA{" "}
+              <label name="password" className="px-2 py-4 text-black">
+                CONTRASEÑA
               </label>
 
               <input
                 type="password"
                 name="password"
-                placeholder="Min 8 letras y números."
                 className="bg-lorange/50 text-white p-2 rounded-lg"
                 {...register("password", {
                   minLength: {
