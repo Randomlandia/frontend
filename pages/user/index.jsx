@@ -15,14 +15,14 @@ export default function User() {
             <Avatar />
           </div>
 
-          {/* SCORE */}
+          {/* SCORE
           <div className="border-4 h-fit p-4 rounded-xl border-lorange ">
             {" "}
             <p className="font-lucky text-dgreen text-xl text-center">SCORE</p>
             <p className="font-mont font-semibold text-black text-3xl text-center">
               9,999
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* BOTONES HACIA SUBMENUS
