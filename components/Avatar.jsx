@@ -2,7 +2,7 @@ export default function Avatar() {
   return (
     <div className="">
       {/* RANDY ICON FOR USER DEFAULT ONLY + SETTING ICON */}
-      <div className="inline-flex p-3">
+      <div className="grid grid-cols-2">
         <div className="rounded-full bg-lifeL size-24"></div>
         <div className="content-end">
           <img src="/icon_redsetting.svg" alt="setting" className="h-6 w-6 " />
@@ -10,12 +10,12 @@ export default function Avatar() {
       </div>
 
       {/* CARD USER NAME + SETTING ICON */}
-      <div className="inline-flex">
-        <div className="bg-lorange rounded-lg py-2 px-4 text-center">
+      <div className="">
+        <div className="bg-lorange rounded-lg p-2 w-fit">
           <p className="font-lucky text-black">JuanElChato92</p>
         </div>
         <div className="content-end">
-          <img src="/icon_purplesetting.svg" alt="setting" />
+          <img src="/icon_redsetting.svg" alt="setting" className="h-6 w-6 " />
         </div>
       </div>
     </div>
