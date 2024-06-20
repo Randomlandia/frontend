@@ -46,36 +46,21 @@ export default function Login() {
 
   return (
     <div
-      className='min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden'
+      className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden"
       style={{ backgroundImage: `url('/backgrounds/${background}')` }}
     >
       <Navbar />
-<<<<<<< HEAD
-
-      <div className="grid justify-items-center bg-[#d9d9d930] h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-24 px-8 mx-auto rounded-[50px]">
-        <div className="grid gap-7  text-white ">
-          <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
-            <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
-              <p className="text-[#2E7D32] font-lucky text-2xl">
-                inicia sesión con
-=======
       <div className="grid justify-items-center bg-grey/30 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
         <div className="grid gap-7  text-white ">
           <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
               <p className="text-natD font-lucky text-3xl">
                 inicia sesión con:
->>>>>>> develop
               </p>
               <div className="flex gap-6 mb-4">
                 <Image src="fb_icon.svg" width={40} height={40}></Image>
                 <Image src="google_icon.svg" width={40} height={40}></Image>
                 <Image src="tiktok_icon.svg" width={40} height={40}></Image>
-<<<<<<< HEAD
-                <Image src="randy_wink.svg" width={40} height={40}></Image>
-=======
-                
->>>>>>> develop
               </div>
             </div>
           </SignInButton>
@@ -91,29 +76,18 @@ export default function Login() {
           autocomplete="off"
           onSubmit={handleSubmit(onSubmit)}
           name="formLogIn"
-<<<<<<< HEAD
-          className="w-full md:w-[424px] pt-3 flex flex-col  text-sm font-bold"
-        >
-          <div className="flex flex-col gap-2">
-            <div className="grid gap-0.5">
-              <label name="email" className=" b-0 px-2 py-4 text-[#2E7D32]">
-=======
           className="w-full md:w-[424px] pt-3 flex flex-col text-sm "
         >
           <div className="flex flex-col gap-2">
             <div className="grid gap-0.5">
               <label name="email" className=" b-0 px-2 py-4 text-natD font-ram">
->>>>>>> develop
                 EMAIL
               </label>
               <input
                 autocomplete="off"
                 type="email"
                 name="email"
-<<<<<<< HEAD
-=======
                 placeholder="ejemplo@mail.com"
->>>>>>> develop
                 className="bg-lorange/50  outline-lorange/50 outline-offset-1  text-white p-2 rounded-lg shadow-md "
                 {...register("email", {
                   minLength: {
@@ -128,11 +102,7 @@ export default function Login() {
               />
             </div>
             <div className="grid gap-0.5">
-<<<<<<< HEAD
-              <label name="password" className="px-2 py-4 text-[#2E7D32]">
-=======
               <label name="password" className="px-2 py-4 text-natD font-ram">
->>>>>>> develop
                 CONTRASEÑA
               </label>
 
@@ -140,10 +110,7 @@ export default function Login() {
                 type="password"
                 name="password"
                 autocomplete="off"
-<<<<<<< HEAD
-=======
                 placeholder="********"
->>>>>>> develop
                 className="bg-lorange/50 outline-lorange/50 outline-offset-1 text-white p-2 rounded-lg shadow-md"
                 {...register("password", {
                   minLength: {

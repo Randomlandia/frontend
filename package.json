@@ -10,10 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.5",
-<<<<<<< HEAD
-=======
     "@headlessui/react": "^2.0.4",
->>>>>>> develop
     "clx": "^1.0.0",
     "dotenv": "^16.4.5",
     "install": "^0.13.0",
@@ -21,7 +18,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.52.0",
-    "react-icons": "^5.0.1"
+    "react-icons": "^5.0.1",
+    "rsuite": "^5.64.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
