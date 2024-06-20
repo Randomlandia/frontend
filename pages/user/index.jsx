@@ -10,10 +10,10 @@ export default function User() {
       {/* CARD CONTAINER */}
       <div className=" bg-oldwhite rounded-xl p-6 m-10 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
         {/* AVATAR COMPONENT Y NOMBRE USER*/}
-        <div className="border border-black ">
+        <div className="border border-black p-4">
           <Avatar />
         </div>
-        <div className="border border-black grid gap-4 w-full py-4 px-10">
+        <div className="border border-black w-full py-4 px-10">
           {/* SCORE */}
           <div className="border-4 border-lorange rounded-lg py-2 px-4 grid grid-rows-2 gap-2 place-items-center">
             {" "}
