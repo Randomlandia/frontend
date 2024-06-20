@@ -4,55 +4,62 @@ import ContactoFooter from "@/components/ContactoFooter";
 
 export default function User() {
   return (
-    <main className="w-full min-h-screen bg-white overflow-hidden">
+    <main className="w-full min-h-screen bg-white">
       {/* NAVBAR COMPONENT */}
       <Navbar />
       {/* BODY */}
-      <div className="m-10 bg-oldwhite rounded-xl p-10">
-        <div className="justify-center">
-          {/* AVATAR COMPONENT Y NOMBRE USER*/}
-          <div className="">
-            <Avatar />
+      <div className="p-4">
+        <div className="grid justify-items-center bg-oldwhite h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto ">
+          <div className="inline-flex gap-10 justify-center p-10">
+            {/* AVATAR COMPONENT Y NOMBRE USER*/}
+            <div className="">
+              <Avatar />
+            </div>
+
+            {/* SCORE */}
+            <div className="border-4 py-2 px-6 rounded-xl border-lorange content-center ">
+              {" "}
+              <p className="font-lucky text-dgreen text-3xl text-center">
+                SCORE
+              </p>
+              <p className="font-mont font-semibold text-black text-6xl text-center">
+                9,999
+              </p>
+            </div>
           </div>
 
-          {/* SCORE */}
-          <div className="border-4 p-4 rounded-xl border-lorange text-center">
-            {" "}
-            <p className="font-lucky text-dgreen text-3xl">SCORE</p>
-            <p className="font-mont font-semibold text-black text-6xl">9,999</p>
-          </div>
-        </div>
-
-        {/* BOTONES HACIA SUBMENUS */}
-        <div className="flex-wrap  gap-3 p-10 justify-center">
-          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
-            <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
-            <span className="font-lucky text-black text-xl text-center">
-              FAVS
-            </span>
-          </div>
-          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
-            <img src="/icon_userachieve.svg" alt="" className="h-8 w-8" />
-            <span className="font-lucky text-black text-xl text-center">
-              LOGROS
-            </span>
-          </div>
-          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
-            <img src="/icon_userview.svg" alt="" className="h-8 w-8" />
-            <span className="font-lucky text-black text-xl text-center">
-              VISTOS
-            </span>
-          </div>
-          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
-            <img src="/icon_userabt.svg" alt="" className="h-8 w-8" />
-            <span className="font-lucky text-black text-xl text-center">
-              NOSOTROS
-            </span>
+          {/* BOTONES HACIA SUBMENUS */}
+          <div className="p-8 flex gap-4 justify-center">
+            <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 ">
+              <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
+              <span className="font-lucky text-black text-xl text-center">
+                FAVS
+              </span>
+            </div>
+            <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 ">
+              <img src="/icon_userachieve.svg" alt="" className="h-8 w-8" />
+              <span className="font-lucky text-black text-xl text-center">
+                LOGROS
+              </span>
+            </div>
+            <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 ">
+              <img src="/icon_userview.svg" alt="" className="h-8 w-8" />
+              <span className="font-lucky text-black text-xl text-center">
+                VISTOS
+              </span>
+            </div>
+            <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 ">
+              <img src="/icon_userabt.svg" alt="" className="h-8 w-8" />
+              <span className="font-lucky text-black text-xl text-center">
+                NOSOTROS
+              </span>
+            </div>
           </div>
         </div>
       </div>
+
       {/* FOOTER CONTACTO */}
-      <div className="p-4">
+      <div className="">
         <ContactoFooter />
       </div>
     </main>
