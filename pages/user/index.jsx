@@ -4,12 +4,12 @@ import ContactoFooter from "@/components/ContactoFooter";
 
 export default function User() {
   return (
-    <main className="w-full min-h-screen bg-white">
+    <main className="w-full min-h-screen bg-white overflow-hidden">
       {/* NAVBAR COMPONENT */}
       <Navbar />
       {/* BODY */}
-      <div className="flex-col m-10 bg-oldwhite rounded-xl p-10">
-        <div className="inline-flex justify-center">
+      <div className="m-10 bg-oldwhite rounded-xl p-10">
+        <div className="justify-center">
           {/* AVATAR COMPONENT Y NOMBRE USER*/}
           <div className="">
             <Avatar />
@@ -24,7 +24,7 @@ export default function User() {
         </div>
 
         {/* BOTONES HACIA SUBMENUS */}
-        <div className="flex-row inline-flex gap-3 p-10 justify-center">
+        <div className="flex-wrap  gap-3 p-10 justify-center">
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
             <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
             <span className="font-lucky text-black text-xl text-center">
@@ -32,21 +32,21 @@ export default function User() {
             </span>
           </div>
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
-            <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
+            <img src="/icon_userachieve.svg" alt="" className="h-8 w-8" />
             <span className="font-lucky text-black text-xl text-center">
-              FAVS
+              LOGROS
             </span>
           </div>
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
-            <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
+            <img src="/icon_userview.svg" alt="" className="h-8 w-8" />
             <span className="font-lucky text-black text-xl text-center">
-              FAVS
+              VISTOS
             </span>
           </div>
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-10 align-middle">
-            <img src="/icon_userheart.svg" alt="" className="h-8 w-8" />
+            <img src="/icon_userabt.svg" alt="" className="h-8 w-8" />
             <span className="font-lucky text-black text-xl text-center">
-              FAVS
+              NOSOTROS
             </span>
           </div>
         </div>
