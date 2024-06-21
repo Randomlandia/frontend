@@ -27,7 +27,7 @@ export default function MenuSandias() {
         style={{ backgroundImage: `url('/backgrounds/${background}')` }}
       >
         <div name="menu" className="absolute top-20 left-0 w-full z-20 flex justify-center h-5/6">
-          <div className="lg:w-1/2 bg-oldwhite/70 shadow-lg px-7 md:py-10 lg:py-3 rounded-xl my-5 md:my-12 mx-7">
+          <div className="lg:w-1/2 bg-oldwhite/70 shadow-lg pt-10 px-7 md:py-10 lg:py-3 rounded-xl my-5 md:my-12 mx-7">
             {/* Esta parte muestra el carusel si la pantalla es mobile */}
             <div className="flex flex-col md:hidden justify-items-center">
               <TemaContainer bool={true} name="default" />
@@ -39,14 +39,14 @@ export default function MenuSandias() {
             </div>
           </div>
         </div>
-        <div name="randy" className="flex justify-center h-1/6 max-h-20">
+        <div name="randy" className="absolute bottom-20 sm:bottom:10 sm:right-10 h-1/6 md:h-1/4">
           <div className="block md:hidden">
             <RandyTextRight
               img={"/RANDY_08.svg"}
               text="¡Vamo, vamo, elige uno!"
             />
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex justify-end">
             <RandyTextLeft
               img={"/RANDY_08.svg"}
               text="¡Vamo, vamo, elige uno!"

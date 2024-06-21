@@ -1,6 +1,6 @@
 export default function RandyTextRight({ text, img }) {
   return (
-    <div className="absolute bottom-0 z-20 flex items-start lg:mx-auto p-3 md:pb-40 md:pr-20 lg:p-4">
+    <div className="relative z-50 flex items-start justify-end lg:mx-auto p-3 lg:pr-20 lg:p-4">
       <div
         className="relative flex items-start bg-contain bg-center bg-no-repeat p-2 w-40 -translate-y-7"
         style={{ backgroundImage: `url('/speech_bubbleLeft.png')` }}
