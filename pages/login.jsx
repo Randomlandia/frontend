@@ -46,7 +46,7 @@ export default function Login() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden"
+      className='min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden'
       style={{ backgroundImage: `url('/backgrounds/${background}')` }}
     >
       <Navbar />
@@ -61,6 +61,7 @@ export default function Login() {
                 <Image src="fb_icon.svg" width={40} height={40}></Image>
                 <Image src="google_icon.svg" width={40} height={40}></Image>
                 <Image src="tiktok_icon.svg" width={40} height={40}></Image>
+                
               </div>
             </div>
           </SignInButton>
