@@ -1,13 +1,14 @@
 import PropTypes from "prop-types"
 import { useRouter } from "next/router"
+import { useState } from "react"
 
 export default function TemaContainer({ bool, name }) {
   const router = useRouter()
-  
+
   const badges = {
     default: {
-      color: "/default_avatar.svg",
-      grey: "/default_avatar.svg"
+      color: "/default_avatar.png",
+      grey: "/default_avatar.png"
     },
     idiomas: {
       color: "/B_IDIOMAS.svg",
@@ -43,17 +44,43 @@ export default function TemaContainer({ bool, name }) {
     }
   }
 
+  const [isHovered, setIsHovered] = useState(false)
   const handleClick = () => {
     router.push(`/sandias/${name}`)
   }
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+  }
+
+  const handleTouchStart = () => {
+    setIsHovered(true)
+  }
+
+  const handleTouchEnd = () => {
+    setIsHovered(false)
+  }
 
   return (
-    <div onClick={handleClick} className="cursor-pointer">
-      <img
-        src={bool ? badges[name].color : badges[name].grey}
-        alt={name}
-        className={badges[name] == "default" ? "h-40 w-40" : "h-32 w-32"}
-      />
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="cursor-pointer flex items-center mx-auto"
+    >
+      {isHovered && name === "default" ? (
+        <p className="text-white font-bold">dato random</p>
+      ) : (
+        <img
+          src={bool ? badges[name].color : badges[name].grey}
+          alt={name}
+          className={name === "default" ? "h-36 w-36" : "h-32 w-32"}
+        />
+      )}
     </div>
   )
 }
