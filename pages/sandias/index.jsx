@@ -17,7 +17,7 @@ export default function MenuSandias() {
   }, [])
 
   return (
-    <div className="w-full max-h-screen flex flex-col  font-mont font-bold bg-white pb-8 ">
+    <div className="w-full max-h-screen flex flex-col bg-white pb-8 ">
       <Navbar />
       <button className="h-10 px-6 flex justify-end items-center">
         <img src="/icon_edit.svg" alt="edit" className="h-8 w-8" />
@@ -26,8 +26,8 @@ export default function MenuSandias() {
         className="h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat lg:mx-6 lg:rounded-2xl"
         style={{ backgroundImage: `url('/backgrounds/${background}')` }}
       >
-        <div className="absolute top-20 left-0 w-full z-20 flex justify-center h-5/6">
-          <div className="lg:w-1/3 bg-oldwhite/70 shadow-lg px-7 rounded-xl my-5 md:my-12 mx-7">
+        <div name="menu" className="absolute top-20 left-0 w-full z-20 flex justify-center h-5/6">
+          <div className="lg:w-1/2 bg-oldwhite/70 shadow-lg px-7 md:py-10 lg:py-3 rounded-xl my-5 md:my-12 mx-7">
             {/* Esta parte muestra el carusel si la pantalla es mobile */}
             <div className="flex flex-col md:hidden justify-items-center">
               <TemaContainer bool={true} name="default" />
@@ -39,7 +39,7 @@ export default function MenuSandias() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center h-1/6 max-h-20">
+        <div name="randy" className="flex justify-center h-1/6 max-h-20">
           <div className="block md:hidden">
             <RandyTextRight
               img={"/RANDY_08.svg"}
