@@ -1,4 +1,4 @@
-export default function Avatar() {
+export default function Avatar(props) {
   return (
     <div className="grid grid-cols-1 gap-3 place-items-center">
       {/* RANDY ICON FOR USER DEFAULT ONLY*/}
@@ -16,7 +16,7 @@ export default function Avatar() {
       {/* USER NAME +  SETTING ICON */}
       <div className="inline-flex gap-2">
         <div className="bg-lorange p-2 rounded-lg w-fit">
-          <span className="font-lucky text-black ">JuanElChato_92</span>
+          <span className="font-lucky text-black "> {props.userName}</span>
         </div>
         <div className="content-center">
           <img
