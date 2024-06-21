@@ -45,9 +45,11 @@ export default function TemaContainer({ bool, name }) {
   }
 
   const [isHovered, setIsHovered] = useState(false)
+
   const handleClick = () => {
     router.push(`/sandias/${name}`)
   }
+
   const handleMouseEnter = () => {
     setIsHovered(true)
   }
@@ -70,16 +72,20 @@ export default function TemaContainer({ bool, name }) {
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
-      className="cursor-pointer flex items-center mx-auto"
+      onClick={handleClick}
+      className="relative cursor-pointer flex justify-items-center mx-auto my-auto"
     >
-      {isHovered && name === "default" ? (
-        <p className="text-white font-bold">dato random</p>
-      ) : (
-        <img
-          src={bool ? badges[name].color : badges[name].grey}
-          alt={name}
-          className={name === "default" ? "h-36 w-36" : "h-32 w-32"}
-        />
+      <img
+        src={bool ? badges[name].color : badges[name].grey}
+        alt={name}
+        className={` ${name === "default" ? "h-36 w-36 md:h-44 md:w-44 lg:h-32 lg:w-32" : "h-32 w-32 lg:h-24 lg:w-24"}`}
+      />
+      {isHovered && (
+        <div className={`absolute`}>
+          <div className="bg-black/50 rounded-full flex justify-items-center text-center transition-opacity duration-300 mx-auto ">
+            <p className={`capitalize text-white font-bold ${name === "default" ? "h-36 w-36 md:h-44 md:w-44 lg:h-32 lg:w-32 translate-y-14 md:translate-y-12" : "h-28 w-28 md:h-32 md:w-32 lg:h-24 lg:w-24 translate-y-12 md:translate-y-10"}`}>{name === 'default' ? 'dato random' : name}</p>
+          </div>
+        </div>
       )}
     </div>
   )

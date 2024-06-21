@@ -10,7 +10,7 @@ export default function Background() {
 
   return (
     <div
-      className='min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10'
+      className='min-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10'
       style={{ backgroundImage: `url('/backgrounds/${background}')` }}
     ></div>
   )
