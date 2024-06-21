@@ -4,11 +4,12 @@ import ContactoFooter from "@/components/ContactoFooter";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import Link from "next/link";
+import { useForm } from "react-hook-form";
 
 export default function User() {
   const router = useRouter();
   const [user, setPost] = useState([]);
+  const [texto, setTexto] = useState("");
   let id = router.query.id;
 
   useEffect(() => {
@@ -17,14 +18,16 @@ export default function User() {
     })
       .then((response) => response?.json())
       .then((json) => {
-        setPost(json);
-        console.log(json);
+        setPost(json), setTexto(user.data.users.name);
       })
       .catch((error) => {
         console.log("Error", error);
       });
   }, [id]);
 
+  {
+    /* animate pulse temporal*/
+  }
   if (!user?.data) {
     return (
       <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full"></main>
@@ -41,6 +44,8 @@ export default function User() {
           {/* AVATAR COMPONENT Y NOMBRE USER*/}
           <div className="p-4 px-10 lg:px-2">
             <Avatar userName={user.data.users.name} />
+
+            {/*prueba*/}
           </div>
 
           {/* SCORE */}

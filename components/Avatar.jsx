@@ -8,9 +8,11 @@ export default function Avatar(props) {
           alt="randy default icon"
           className="h-32 w-32"
         />
-        <div className="content-center">
-          <img src="/icon_redsetting.svg" alt="setting" className="h-6 w-6" />
-        </div>
+        <button>
+          <div className="content-center">
+            <img src="/icon_redsetting.svg" alt="setting" className="h-6 w-6" />
+          </div>
+        </button>
       </div>
 
       {/* USER NAME +  SETTING ICON */}
@@ -18,13 +20,16 @@ export default function Avatar(props) {
         <div className="bg-lorange p-2 rounded-lg w-fit">
           <span className="font-lucky text-black "> {props.userName}</span>
         </div>
-        <div className="content-center">
-          <img
-            src="/icon_purplesetting.svg"
-            alt="setting"
-            className="h-6 w-6"
-          />
-        </div>
+
+        <button>
+          <div className="content-center">
+            <img
+              src="/icon_purplesetting.svg"
+              alt="setting"
+              className="h-6 w-6"
+            />
+          </div>
+        </button>
       </div>
     </div>
   );
