@@ -2,13 +2,14 @@ import Link from "next/link";
 
 export default function ContactoFooter() {
   return (
-    <div className="flex p-8 rounded-2xl gap-20 justify-center ">
-      <div className="flex items-center">
-        <img src="/RANDY_08.svg" alt="Randy" className="h-40 w-40 " />
-      </div>
-      <div className="flex-col justify-center">
+    <div className="grid grid-flow-row justify-items-center md:grid-flow-col md:place-items-center h-4/5 w-[350px] md:w-4/5  lg:w-1/2  mx-auto p-4">
+      {/* RANDY! */}
+
+      <img src="/RANDY_08.svg" alt="Randy" className="h-28" />
+
+      <div>
         {/* TITLE + SUBTITLE */}
-        <div className="flex-col">
+        <div className="grid-flow-col p-3">
           <h2 className="font-lucky text-dgreen text-3xl text-center">
             CONTÁCTANOS
           </h2>
@@ -17,8 +18,8 @@ export default function ContactoFooter() {
           </p>
         </div>
 
-        {/* ICONOS SOCIALMEDIA */}
-        <div className="flex gap-5 justify-center p-4">
+        {/* ICONOS SOCIAL MEDIA */}
+        <div className="flex grid-flow-col gap-6 justify-center p-3">
           <button className="bg-blue-200 p-3 rounded-full">
             <a href="https://www.facebook.com/">
               <img src="/facebookblue.svg" alt="G" className="h-8 w-8" />
@@ -37,16 +38,16 @@ export default function ContactoFooter() {
         </div>
 
         {/* LINKS A AVISOS  */}
-        <div className="flex justify-center gap-10 p-2">
+        <div className="flex grid-flow-col gap-6 justify-center p-3">
           <a
             href=""
-            className="font-mont text-black text-xs hover:font-semibold hover:text-dorange hover:underline"
+            className="font-mont text-black text-center text-xs hover:font-semibold hover:text-dorange hover:underline"
           >
             Privacidad
           </a>
           <a
             href=""
-            className="font-mont text-black text-xs hover:font-semibold hover:text-dorange hover:underline"
+            className="font-mont text-black text-center text-xs hover:font-semibold hover:text-dorange hover:underline"
           >
             Términos y Condiciones
           </a>
