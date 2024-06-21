@@ -2,7 +2,10 @@ import PropTypes from 'prop-types'
 
 export default function TemaContainer({ bool, name }) {
   const badges = {
-    default: '/default_avatar.svg',
+    default: {
+      color: '/default_avatar.svg',
+      grey: '/default_avatar.svg'
+    },
     idiomas: {
       color: '/B_IDIOMAS.svg',
       grey: '/B_IDIOMASgrey.svg'
@@ -39,7 +42,7 @@ export default function TemaContainer({ bool, name }) {
 
   return (
     <div>
-      <img src={badges[name]} alt={name} className='h-40 w-40'/>
+      {bool? <img src={badges[name].color} alt={name} className='h-40 w-40'/> : <img src={badges[name].grey} alt={name} className='h-40 w-40'/>}
     </div>
   )
 }
