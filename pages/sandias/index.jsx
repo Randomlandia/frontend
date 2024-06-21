@@ -1,11 +1,11 @@
 import Navbar from '@/components/Navbar'
 import Background from '@/components/Background'
-import MenuTemas from '@/components/MenuTemas'
+import MenuTemas from '@/components/MenuTemasSlider'
 import { useEffect } from 'react'
 
 export default function MenuSandias() {
   return (
-    <div className='relative overflow-hidden font-mont '>
+    <div className='relative overflow-hidden font-mont'>
       <Navbar />
       <Background />
       <div className='absolute top-20 left-0 w-full z-20'>
