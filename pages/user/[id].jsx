@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 export default function User() {
   const router = useRouter();
   const [user, setPost] = useState([]);
-  const [texto, setTexto] = useState("");
   let id = router.query.id;
 
   useEffect(() => {
@@ -18,7 +17,7 @@ export default function User() {
     })
       .then((response) => response?.json())
       .then((json) => {
-        setPost(json), setTexto(user.data.users.name);
+        setPost(json);
       })
       .catch((error) => {
         console.log("Error", error);

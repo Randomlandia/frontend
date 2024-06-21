@@ -8,28 +8,22 @@ export default function Avatar(props) {
           alt="randy default icon"
           className="h-32 w-32"
         />
-        <button>
-          <div className="content-center">
-            <img src="/icon_redsetting.svg" alt="setting" className="h-6 w-6" />
-          </div>
-        </button>
+        <div className="content-center">
+          <img src="/icon_redsetting.svg" alt="setting" className="h-6 w-6" />
+        </div>
       </div>
-
       {/* USER NAME +  SETTING ICON */}
       <div className="inline-flex gap-2">
         <div className="bg-lorange p-2 rounded-lg w-fit">
           <span className="font-lucky text-black "> {props.userName}</span>
         </div>
-
-        <button>
-          <div className="content-center">
-            <img
-              src="/icon_purplesetting.svg"
-              alt="setting"
-              className="h-6 w-6"
-            />
-          </div>
-        </button>
+        <div className="content-center">
+          <img
+            src="/icon_purplesetting.svg"
+            alt="setting"
+            className="h-6 w-6"
+          />
+        </div>
       </div>
     </div>
   );
