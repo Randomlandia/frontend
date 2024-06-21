@@ -1,13 +1,37 @@
 import Navbar from "@/components/Navbar";
 import Avatar from "@/components/Avatar";
 import ContactoFooter from "@/components/ContactoFooter";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function User() {
   const router = useRouter();
   const [user, setPost] = useState([]);
   let id = router.query.id;
+
+  useEffect(() => {
+    fetch(`http://localhost:3005/users/${id}`, {
+      method: "Get",
+    })
+      .then((response) => response?.json())
+      .then((json) => {
+        setPost(json);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  }, [id]);
+
+  {
+    /* animate pulse temporal*/
+  }
+  if (!user?.data) {
+    return (
+      <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full"></main>
+    );
+  }
 
   return (
     <main className="w-full min-h-screen bg-white overflow-hidden">
@@ -18,7 +42,9 @@ export default function User() {
         <div className="md:grid grid-cols-2 ">
           {/* AVATAR COMPONENT Y NOMBRE USER*/}
           <div className="p-4 px-10 lg:px-2">
-            <Avatar />
+            <Avatar userName={user.data.users.name} />
+
+            {/*prueba*/}
           </div>
 
           {/* SCORE */}
@@ -28,8 +54,8 @@ export default function User() {
               <p className="font-lucky text-dgreen text-2xl  text-center">
                 SCORE
               </p>
-              <p className="font-mont font-semibold text-black text-5xl text-center ">
-                9,999
+              <p className="font-mont font-semibold text-black text-5xl text-center min-w-[140px] ">
+                {user.data.users.score}
               </p>
             </div>
           </div>
