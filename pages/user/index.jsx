@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Avatar from "@/components/Avatar";
+import UserName from "@/components/UserName";
 import ContactoFooter from "@/components/ContactoFooter";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -13,6 +14,7 @@ export default function User() {
     <main className="w-full min-h-screen bg-white overflow-hidden">
       {/* NAVBAR COMPONENT */}
       <Navbar />
+      <UserName />
       {/* CARD CONTAINER */}
       <div className=" bg-oldwhite rounded-xl p-6 mt-10 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
         <div className="md:grid grid-cols-2 ">
