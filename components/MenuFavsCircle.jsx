@@ -1,7 +1,7 @@
 import React from "react"
 import TemaContainer from "./TemaContainer"
 
-export default function MenuTemasCircle() {
+export default function MenuFavsCircle() {
   const badgesList = [
     {
       id: 1,

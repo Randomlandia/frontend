@@ -12,7 +12,7 @@ const slides = [
   { id: 8, content: (<TemaContainer bool={true} name="matematicas" />) },
 ]
 
-export default function Carousel() {
+export default function MenuTemasSlider() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const totalSlides = slides.length
   const slidesPerPage = 2
