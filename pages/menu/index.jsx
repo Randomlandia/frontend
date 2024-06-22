@@ -1,28 +1,26 @@
-import Navbar from "@/components/Navbar"
-import TemaContainer from "@/components/TemaContainer"
-import MenuTemasSlider from "@/components/MenuTemasSlider"
-import MenuTemasCircle from "@/components/MenuTemasCircle"
-import RandyTextRight from "@/components/RandyTextRight"
-import RandyTextLeft from "@/components/RandyTextLeft"
-import BackgroundModal from "@/components/BackgroundModal"
-import { useState, useEffect } from "react"
+import Navbar from "@/components/Navbar";
+import TemaContainer from "@/components/TemaContainer";
+import MenuTemasSlider from "@/components/MenuTemasSlider";
+import MenuTemasCircle from "@/components/MenuTemasCircle";
+import RandyTextRight from "@/components/RandyTextRight";
+import RandyTextLeft from "@/components/RandyTextLeft";
+// import BackgroundModal from "@/components/BackgroundModal"
+import { useState, useEffect } from "react";
 
 export default function Menu() {
-  const [background, setBackground] = useState("bg-booksflying.webp")
+  const [background, setBackground] = useState("bg-booksflying.webp");
 
   useEffect(() => {
-    const bgNew = localStorage.getItem("bg")
+    const bgNew = localStorage.getItem("bg");
     if (bgNew) {
-      setBackground(bgNew)
+      setBackground(bgNew);
     }
-  }, [])
+  }, []);
 
   return (
     <div className="w-full max-h-screen flex flex-col bg-white pb-8 ">
       <Navbar />
-      <div className="flex justify-end">
-        <BackgroundModal />
-      </div>
+      <div className="flex justify-end">{/* <BackgroundModal /> */}</div>
       <div></div>
       <div
         className="h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat lg:mx-6 lg:rounded-2xl"
@@ -63,5 +61,5 @@ export default function Menu() {
         </div>
       </div>
     </div>
-  )
+  );
 }
