@@ -39,7 +39,8 @@ module.exports = {
         worldD: { DEFAULT: '#462896' },
         nerdD: { DEFAULT: '#3107a1' },
         sportD: { DEFAULT: '#0374b5' },
-        grey:{DEFAULT: '#D9D9D9'}
+        grey:{DEFAULT: '#D9D9D9'},
+        peach:{DEFAULT: '#FBCF8E'}
       }
     }
   },
