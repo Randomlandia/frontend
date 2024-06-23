@@ -20,7 +20,9 @@ const SpeechBubble = ({ text, trianglePosition, width, height }) => {
       className="relative bg-cream text-black p-4 rounded-lg"
       style={bubbleStyles}
     >
-      <div className="overflow-y-auto h-full speech-bubble">{text}</div>
+      <div className="overflow-y-auto h-full speech-bubble text-center">
+        {text}
+      </div>
       <div className={triangleClasses}></div>
     </div>
   );
