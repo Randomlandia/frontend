@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-const SpeechBubble = ({ text, trianglePosition }) => {
+const SpeechBubble = ({ text, trianglePosition, imageSrc, imageAlt }) => {
   const triangleClasses = classNames({
     "absolute bottom-[-10px] w-0 h-0 border-t-[10px] border-t-cream border-x-[10px] border-x-transparent": true,
     "left-6": trianglePosition === "left",
@@ -25,7 +25,7 @@ const SpeechBubble = ({ text, trianglePosition }) => {
     >
       <div className="overflow-y-auto h-full speech-bubble">{text}</div>
       <div className={triangleClasses}></div>
-      <img src="/randy.png" alt="Randy the cat" className={randyClasses} />
+      <img src={imageSrc} alt={imageAlt} className={randyClasses} />
     </div>
   );
 };
@@ -33,10 +33,14 @@ const SpeechBubble = ({ text, trianglePosition }) => {
 SpeechBubble.propTypes = {
   text: PropTypes.string.isRequired,
   trianglePosition: PropTypes.oneOf(["left", "right"]),
+  imageSrc: PropTypes.string,
+  imageAlt: PropTypes.string,
 };
 
 SpeechBubble.defaultProps = {
   trianglePosition: "left",
+  imageSrc: "/randy.png", // Default image path
+  imageAlt: "Randy the cat looking happy and content", // Default alt text
 };
 
 export default SpeechBubble;
