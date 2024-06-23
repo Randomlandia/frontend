@@ -1,4 +1,3 @@
-import RandyTextLeft from "@/components/RandyTextLeft";
 import SpeechBubble from "@/components/SpeechBubble";
 
 export default function Sandia() {
