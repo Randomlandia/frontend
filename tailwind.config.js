@@ -40,6 +40,7 @@ module.exports = {
         nerdD: { DEFAULT: "#3107a1" },
         sportD: { DEFAULT: "#0374b5" },
         grey: { DEFAULT: "#D9D9D9" },
+        peach: { DEFAULT: "#FBCF8E" },
       },
     },
   },
