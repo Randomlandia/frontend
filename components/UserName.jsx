@@ -22,7 +22,7 @@ export default function UserName() {
       <div className=" flex flex-col rounded-xl border-4 border-lorange p-2">
         <input
           type="text"
-          className="placeholder:text-black font-mont bg-transparent text-center text-xl focus:outline-none focus:ring-2 focus:ring-lorange"
+          className="text-black font-mont font-black placeholder:text-dorange font-mont bg-transparent text-center text-xl focus:outline-none focus:ring-2 focus:ring-lorange"
           placeholder="Randy es genial"
         />
       </div>
