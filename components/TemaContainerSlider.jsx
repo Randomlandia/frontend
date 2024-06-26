@@ -47,7 +47,7 @@ export default function TemaContainerSlider({ bool, name }) {
   const [isHovered, setIsHovered] = useState(false)
 
   const handleClick = () => {
-    router.push(`/sandias/${name}`)
+    router.push(`/menu/${name}`)
   }
 
   const handleMouseEnter = () => {
