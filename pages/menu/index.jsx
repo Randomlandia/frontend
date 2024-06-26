@@ -10,18 +10,22 @@ import { useState, useEffect } from "react"
 export default function Menu() {
   const [background, setBackground] = useState(null)
 
-  useEffect(() => {
-    const bgNew = localStorage.getItem("bg");
+  const updateBackground = () => {
+    const bgNew = localStorage.getItem("bg")
     if (bgNew) {
-      setBackground(bgNew);
+      setBackground(bgNew)
     }
-  }, []);
+  }
+
+  useEffect(() => {
+    updateBackground()
+  }, [])
 
   return (
     <div className="w-full max-h-screen max-w-screen flex flex-col bg-white pb-8 overflow-hidden">
       <Navbar />
       <div className="flex justify-end">
-        <BackgroundModal />
+        <BackgroundModal onClose={updateBackground} />
       </div>
       <div
         className="relative h-screen max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat lg:mx-6 lg:rounded-2xl"
@@ -56,7 +60,7 @@ export default function Menu() {
             <div className="lg:w-4/5 mx-auto">
               <MenuTemasCircle />
             </div>
-            <div>
+            <div className="mt-6">
               <p> </p>
               <RandyTextLeft
                 img={"/RANDY_08.svg"}
@@ -69,3 +73,4 @@ export default function Menu() {
     </div>
   )
 }
+

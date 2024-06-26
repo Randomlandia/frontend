@@ -66,6 +66,17 @@ export default function TemaContainerSlider({ bool, name }) {
     setIsHovered(false)
   }
 
+  const getHoverText = (name) => {
+    switch (name) {
+      case "default":
+        return "dato random"
+      case "matematicas":
+        return "mates"
+      default:
+        return name
+    }
+  }
+
   return (
     <div
       onMouseEnter={handleMouseEnter}
@@ -78,11 +89,22 @@ export default function TemaContainerSlider({ bool, name }) {
       <img
         src={bool ? badges[name].color : badges[name].grey}
         alt={name}
-        className={`max-h-full max-w-full sm:scale-125 ${name === "default" ? "w-1/2 mx-auto " : "w-full"}`}
+        className={`max-h-full max-w-full sm:scale-125 ${
+          name === "default" ? "w-1/2 mx-auto " : "w-full"
+        }`}
       />
       {isHovered && (
-        <div className={`absolute inset-0 flex justify-center items-center bg-black/50 rounded-full transition-opacity duration-300  ${name === "default" ? "w-1/2 mx-auto sm:scale-125 " : ""}`}>
-          <p className={`max-h-full max-w-full capitalize text-white font-bold text-center`}>{name === 'default' ? 'dato random' : name}</p>
+        <div
+          className={`absolute inset-0 flex justify-center items-center bg-black/50 rounded-full transition-opacity duration-300  ${
+            name === "default" ? "w-1/2 mx-auto sm:scale-125 " : ""
+          }`}
+        >
+          <p
+            className={`max-h-full max-w-full capitalize text-white font-bold text-center`}
+          >
+            {" "}
+            {getHoverText(name)}
+          </p>
         </div>
       )}
     </div>

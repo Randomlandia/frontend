@@ -1,54 +1,88 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import RandyTextRight from "./RandyTextRight"
 import BackgroundSlider from "@/components/BackgroundSlider"
+import BackgroundsList from "@/constants/BackgroundsList"
+import BackgroundCard from "./BackgroundCard"
 
-export default function ModalComponent() {
+export default function ModalComponent({ onClose }) {
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const [isDisabled, setIsDisabled] = useState(true)
   const [isOpen, setIsOpen] = useState(false)
-  const [bg, setBg] = useState(null)
+  const [selectedBg, setSelectedBg] = useState(null)
+  const [showError, setShowError] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
   const [stored, setStored] = useState(null)
-  const activadorRef = useRef(null)
 
   const openModal = () => setIsOpen(true)
-  const closeModal = () => setIsOpen(false)
-
-  const saveHandler = (e) => {
-    console.log("lo intento ama")
-    e.preventDefault()
-    if (bg) {
-      setStored(true)
-      localStorage.setItem("bg", bg) // Utiliza 'bg' en lugar de 'newBg'
-      localStorage.removeItem("bg2") // Utiliza 'removeItem' en lugar de 'deleteItem'
-      closeModal()
-    }
-    if (!bg) {
-      const bg2 = localStorage.getItem("bg2")
-      console.log("noworries, ya casi queda")
-      setBg(bg2)
-      setStored(true)
+  const closeModal = () => {
+    setIsOpen(false)
+    if (onClose) {
+      onClose()
     }
   }
 
-  // useEffect(() => {
-  //   const handleMouseOver = (e) => {
-  //     const activador = e.target.getAttribute("name")
-  //     if (activador == "activador") {
-  //       const bg2 = localStorage.getItem("bg2")
-  //       console.log("noworries, ya casi queda")
-  //       setBg(bg2)
-  //       setStored(true)
-  //     }
-  //   }
+  const handleBgSelect = (img) => {
+    setSelectedBg(img.bg)
+  }
 
-  //   if (activadorRef.current) {
-  //     activadorRef.current.addEventListener("mouseover", handleMouseOver)
-  //   }
+  useEffect(() => {
+    if (selectedBg) {
+      localStorage.setItem("bg2", selectedBg)
+    }
+  }, [selectedBg])
 
-  //   return () => {
-  //     if (activadorRef.current) {
-  //       activadorRef.current.removeEventListener("mouseover", handleMouseOver)
-  //     }
-  //   }
-  // }, [])
+  const saveHandler = (e) => {
+    e.preventDefault()
+    const bg = localStorage.getItem("bg")
+    const bg2 = localStorage.getItem("bg2")
+
+    if (!bg && !bg2) {
+      setStored(false)
+      setShowError(true)
+      return
+    }
+
+    if (bg2) {
+      setStored(true)
+      localStorage.setItem("bg", bg2)
+      setShowError(false)
+      setTimeout(() => {
+        setShowSuccess(true)
+        setTimeout(() => {
+          closeModal()
+          setShowSuccess(false)
+        }, 2000)
+        localStorage.removeItem("bg2")
+      }, 1000)
+    }
+    return
+  }
+
+  const checkLocalStorage = () => {
+    const bg2 = localStorage.getItem("bg2")
+    if (!bg2) {
+      setIsDisabled(true)
+      setShowError(true)
+    } else {
+      setIsDisabled(false)
+      setShowError(false)
+    }
+  }
+
+  useEffect(() => {
+    checkLocalStorage()
+
+    // Listen for changes in localStorage
+    const handleStorageChange = () => {
+      checkLocalStorage()
+    }
+
+    window.addEventListener("click", handleStorageChange)
+
+    return () => {
+      window.removeEventListener("click", handleStorageChange)
+    }
+  }, [])
 
   return (
     <div className="max-h-screen">
@@ -61,11 +95,13 @@ export default function ModalComponent() {
 
       {isOpen && (
         <div
-          className={`fixed w-full h-6/7 inset-0 z-40 overflow-hidden flex justify-center items-start animated fadeIn faster mt-14 py-5`}
+          className={`fixed w-full h-svh inset-0 z-40 overflow-hidden flex justify-center items-start animated fadeIn faster py-5 md:px-10`}
           style={{ background: "white" }}
         >
-          <div className="border-lgreen border-2 shadow-lg h-full bg-oldwhite/70 w-11/12 md:max-w-md mx-auto rounded-lg z-50">
-            <div className="relative py-2 text-left px-4 h-full">
+          <div className="border-lgreen border-2 shadow-lg h-full max-h-3/4 max-h-screen bg-oldwhite/70 w-11/12 md:w-full lg:max-w-1/2 mx-auto rounded-lg z-50">
+            <div className="py-2 px-4 h-full  flex flex-col">
+
+              {/* logica del titulo */}
               <div className="flex flex-col">
                 <div
                   className="cursor-pointer flex justify-end"
@@ -78,36 +114,67 @@ export default function ModalComponent() {
                 </p>
               </div>
 
-              {/* Aquí estoy insertando el slider para páginas móviles y mapeo para tablets y desktop */}
-              <div className="my-5 md:hidden" name="activador">
-                <BackgroundSlider />
+              {/* logica del slider o cuadricula */}
+              <div>
+                {/* Aquí estoy insertando el slider para páginas móviles */}
+                <div className="my-5 sm:hidden" name="activador">
+                  <BackgroundSlider />
+                </div>
+
+                {/* Aqui esta el mapeo para tablets y desktop */}
+                <div className="hidden py-6 sm:grid sm:grid-cols-2 lg:grid-cols-3 w-auto sm:gap-2 lg:gap-6">
+                  {BackgroundsList.map((image, index) => (
+                    <div
+                      key={index}
+                      className="w-full max-w-lg mx-auto"
+                    >
+                      <BackgroundCard
+                        img={`/backgrounds/${image.bg}`}
+                        onSelect={() => handleBgSelect(image)}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
+
               {/* Lógica botón save y Randy */}
-              <div className="absolute bottom-0">
+              <div className="flex items-center justify-around h-auto">
                 <RandyTextRight
                   img={"/RANDY_08.svg"}
                   text="¿Cuál será mi hogar?"
                 />
-              </div>
-              <div className="absolute bottom-4 right-4">
-                <button
-                  onClick={saveHandler}
-                  className={
-                    "focus:outline-none px-4 p-2 rounded-lg text-white font-lucky bg-pcyan hover:bg-sportL"
-                  }
-                >
-                  Guardar
-                </button>
-                <p
-                  className={`text-mathL font-mont text-xs font-medium ${
-                    stored ? "hidden" : "block"
-                  }`}
-                >
-                  Debes seleccionar <br /> un fondo primero
-                </p>
+                <div className="flex flex-col lg:pr-96">
+                  <button
+                    onClick={saveHandler}
+                    className={`focus:outline-none px-4 p-2 rounded-lg text-white font-lucky sm:text-2xl ${
+                      isDisabled
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-pcyan hover:bg-sportL"
+                    }`}
+                    disabled={isDisabled}
+                  >
+                    Guardar
+                  </button>
+                  {showError && (
+                    <p className="text-red-500 mt-2 font-mont font-semibold text-center text-xs sm:text-lg">
+                      ¡Oye! No has
+                      <br />
+                      elegido uno.
+                    </p>
+                  )}
+              
+                </div>
               </div>
             </div>
           </div>
+        </div>
+      )}
+      {showSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
+          <p className="text-ram text-center text-3xl font-bold text-dgreen">
+            ¡Perfecto!
+            <br /> Ya tenemos casa.
+          </p>
         </div>
       )}
     </div>
