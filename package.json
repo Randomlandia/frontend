@@ -11,6 +11,7 @@
   "dependencies": {
     "@clerk/nextjs": "^5.1.6",
     "@headlessui/react": "^2.1.0",
+    "@material-tailwind/react": "^2.1.9",
     "clx": "^1.0.0",
     "dotenv": "^16.4.5",
     "install": "^0.13.0",

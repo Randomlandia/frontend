@@ -23,12 +23,54 @@ export default function AvatarContainer() {
 
       {/* GALERÍA AVATARES */}
       <div className="grid grid-cols-3 gap-3 py-4 px-10 justify-items-center">
-        <div className="rounded-full border-4  border-white border-opacity-30 hover:border-dorange size-24"></div>
-        <div className="rounded-full border-4 border-white border-opacity-30 hover:border-dorange size-24"></div>
-        <div className="rounded-full border-4 border-white border-opacity-30 hover:border-dorange size-24"></div>
-        <div className="rounded-full border-4 border-white border-opacity-30 hover:border-dorange size-24"></div>
-        <div className="rounded-full border-4 border-white border-opacity-30 hover:border-dorange size-24"></div>
-        <div className="rounded-full border-4 border-white border-opacity-30 hover:border-dorange size-24"></div>
+        <div className="rounded-full border-4 border-transparent  hover:border-dorange">
+          {" "}
+          <img
+            src="/randy_icon.svg"
+            alt="randy default icon"
+            className="h-28 w-28"
+          />
+        </div>
+        <div className="rounded-full border-4 border-transparent hover:border-dorange">
+          {" "}
+          <img
+            src="/randy_icon.svg"
+            alt="randy default icon"
+            className="h-28 w-28"
+          />
+        </div>
+        <div className="rounded-full border-4 border-transparent hover:border-dorange">
+          {" "}
+          <img
+            src="/randy_icon.svg"
+            alt="randy default icon"
+            className="h-28 w-28"
+          />
+        </div>
+        <div className="rounded-full border-4 border-transparent hover:border-dorange">
+          {" "}
+          <img
+            src="/randy_icon.svg"
+            alt="randy default icon"
+            className="h-28 w-28"
+          />
+        </div>
+        <div className="rounded-full border-4 border-transparent hover:border-dorange">
+          {" "}
+          <img
+            src="/randy_icon.svg"
+            alt="randy default icon"
+            className="h-28 w-28"
+          />
+        </div>
+        <div className="rounded-full border-4 border-transparent hover:border-dorange">
+          {" "}
+          <img
+            src="/randy_icon.svg"
+            alt="randy default icon"
+            className="h-28 w-28"
+          />
+        </div>
       </div>
 
       {/* BOTÓN GUARDAR */}
