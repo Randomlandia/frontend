@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -14,19 +15,156 @@ export default function achv() {
       <Navbar />
       {/* TÍTULO  */}
       <div className="flex justify-center p-5">
-        <div className="flex-col bg-grey/50 rounded-xl w-fit p-3">
+        <div className="flex-col bg-oldwhite/50 rounded-xl shadow-md w-fit p-3">
           <p className="font-lucky text-dgreen text-center text-4xl">
             MEDALLAS
           </p>
         </div>
       </div>
-      {/* AQUÍ VAN LOS MODALES */}
 
-      <div></div>
+      <div className="flex justify-center p-5">
+        {/* CONTAINER DE MEDALLAS X TOPIC*/}
+        <div className=" grid grid-cols-4 gap- justify-items-center gap-2 bg-oldwhite/70 shadow-md rounded-xl p-5 w-fit">
+          {/* CONTAINER */}
+          <div className="flex-col justify-center w-fit">
+            {/* TITLE DEL TOPIC */}
+            <div className="flex-col p-2">
+              <p className="font-lucky text-langD text-2xl text-center">
+                IDIOMAS
+              </p>
+            </div>
 
-      {/* AQUÍ VA UN RANDY  QUE PUEDA HABLAR */}
-      <div className="flex absolute bottom-0 p-10">
-        <img src="/randy_wink.svg" alt="" className="h-28" />
+            {/* CARD MEDALLAS */}
+            <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl shadow-md">
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+            </div>
+          </div>
+          {/* CONTAINER */}
+          <div className="flex-col justify-center w-fit">
+            {/* TITLE DEL TOPIC */}
+            <div className="flex-col p-2">
+              <p className="font-lucky text-langD text-2xl text-center">
+                IDIOMAS
+              </p>
+            </div>
+
+            {/* CARD MEDALLAS */}
+            <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl">
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+            </div>
+          </div>
+          {/* CONTAINER */}
+          <div className="flex-col justify-center w-fit">
+            {/* TITLE DEL TOPIC */}
+            <div className="flex-col p-2">
+              <p className="font-lucky text-langD text-2xl text-center">
+                IDIOMAS
+              </p>
+            </div>
+
+            {/* CARD MEDALLAS */}
+            <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl">
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+            </div>
+          </div>
+          {/* CONTAINER */}
+          <div className="flex-col justify-center w-fit">
+            {/* TITLE DEL TOPIC */}
+            <div className="flex-col p-2">
+              <p className="font-lucky text-langD text-2xl text-center">
+                IDIOMAS
+              </p>
+            </div>
+
+            {/* CARD MEDALLAS */}
+            <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl">
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+            </div>
+          </div>
+          {/* CONTAINER */}
+          <div className="flex-col justify-center w-fit">
+            {/* TITLE DEL TOPIC */}
+            <div className="flex-col p-2">
+              <p className="font-lucky text-langD text-2xl text-center">
+                IDIOMAS
+              </p>
+            </div>
+
+            {/* CARD MEDALLAS */}
+            <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl">
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+            </div>
+          </div>
+          {/* CONTAINER */}
+          <div className="flex-col justify-center w-fit">
+            {/* TITLE DEL TOPIC */}
+            <div className="flex-col p-2">
+              <p className="font-lucky text-langD text-2xl text-center">
+                IDIOMAS
+              </p>
+            </div>
+
+            {/* CARD MEDALLAS */}
+            <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl">
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+            </div>
+          </div>
+          {/* CONTAINER */}
+          <div className="flex-col justify-center w-fit">
+            {/* TITLE DEL TOPIC */}
+            <div className="flex-col p-2">
+              <p className="font-lucky text-langD text-2xl text-center">
+                IDIOMAS
+              </p>
+            </div>
+
+            {/* CARD MEDALLAS */}
+            <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl">
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+            </div>
+          </div>
+          {/* CONTAINER */}
+          <div className="flex-col justify-center w-fit">
+            {/* TITLE DEL TOPIC */}
+            <div className="flex-col p-2">
+              <p className="font-lucky text-langD text-2xl text-center">
+                IDIOMAS
+              </p>
+            </div>
+
+            {/* CARD MEDALLAS */}
+            <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl">
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+              <img src="/B_IDIOMASgrey.svg" alt="" />
+            </div>
+          </div>
+        </div>
+
+        {/* AQUÍ VA UN RANDY  QUE PUEDA HABLAR */}
+        <div className="flex absolute bottom-0 p-5"></div>
       </div>
     </div>
   );
