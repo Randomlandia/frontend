@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import MedallaDetail from "@/components/modalsMedals/MedallaDetail";
 import { useState } from "react";
 
 export default function achv() {
@@ -18,6 +19,10 @@ export default function achv() {
             MEDALLAS
           </p>
         </div>
+      </div>
+
+      <div>
+        <MedallaDetail />
       </div>
 
       <div className="flex justify-center p-5">
