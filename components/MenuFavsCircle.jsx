@@ -1,66 +1,77 @@
-import React from "react"
-import TemaContainer from "./TemaContainer"
+import { useMemo } from "react"
+import { useRouter } from "next/router"
+import TemaContainerCircle from "./TemaContainerCircle"
+import TemporaryUser from "@/constants/TemporaryUser"
 
 export default function MenuFavsCircle() {
-  const badgesList = [
-    {
-      id: 1,
-      content: <TemaContainer bool={true} name="nerd" />,
-      style: "translate-x-12 translate-y-10"
-    },
-    {
-      id: 2,
-      content: <TemaContainer bool={true} name="ciencias" />,
-      style: ""
-    },
-    {
-      id: 3,
-      content: <TemaContainer bool={true} name="idiomas" />,
-      style: "-translate-x-12 translate-y-10"
-    },
-    {
-      id: 4,
-      content: <TemaContainer bool={true} name="matematicas" />,
-      style: ""
-    },
-    {
-      id: 5,
-      content: <p> </p>,
-      style: ""
-    },
-    {
-      id: 6,
-      content: <TemaContainer bool={true} name="deportes" />,
-      style: ""
-    },
-    {
-      id: 7,
-      content: <TemaContainer bool={true} name="mundo" />,
-      style: "translate-x-12 -translate-y-10"
-    },
-    {
-      id: 8,
-      content: <TemaContainer bool={true} name="artes" />,
-      style: ""
-    },
-    {
-      id: 9,
-      content: <TemaContainer bool={true} name="vida" />,
-      style: "-translate-x-12 -translate-y-10"
+  const router = useRouter();
+
+  const checkSandiaByTheme = (themeName) => {
+    const isFavRoute = router.pathname.includes("/user/favs");
+    const isAckRoute = router.pathname.includes("/user/ackn");
+
+    if (isFavRoute) {
+      const sandias = TemporaryUser.data.user.sandiasFavoritas;
+      return sandias.some((sandia) => sandia.topic.name === themeName);
+    } else if (isAckRoute) {
+      const vistos = TemporaryUser.data.user.vistos;
+      return vistos.some((visto) => visto.topic.name === themeName);
     }
+    return false;
+  };
+
+  const temas = [
+    "nerd",
+    "mundo",
+    "artes",
+    "ciencias",
+    "vida",
+    "idiomas",
+    "matematicas",
+    "deportes"
   ]
 
+  const checks = useMemo(() => {
+    return temas.reduce((acc, tema) => {
+      acc[tema] = checkSandiaByTheme(tema)
+      return acc
+    }, {})
+  }, [])
+
   return (
-    <div className="py-6 md:py-2 relative mx-auto">
-      <div className="grid grid-cols-3 mx-auto gap-1">
-        {badgesList.map((badge) => (
-          <div key={badge.id} className={`w-44 h-40 lg:w-36 lg:h-32 flex justify-items-center ${badge.style}`}>
-            {badge.content}
-          </div>
-        ))}
+    <div className="pt-4 mx-auto w-5/6 lg:w-3/4 xl:w-2/3 grid grid-cols-3">
+      <div className="flex flex-col">
+        <div className="flex justify-end items-end pt-7 pl-7">
+          <TemaContainerCircle bool={checks.nerd} name="nerd" />
+        </div>
+        <div className="flex items-center py-3 pr-7">
+          <TemaContainerCircle bool={checks.mundo} name="mundo" />
+        </div>
+        <div className="flex justify-end items-start pb-7 pl-7">
+          <TemaContainerCircle bool={checks.artes} name="artes" />
+        </div>
       </div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <TemaContainer bool={true} name="default" />
+      <div className="flex flex-col">
+        <div className="flex items-start justify-center pb-7 px-3">
+          <TemaContainerCircle bool={checks.ciencias} name="ciencias" />
+        </div>
+        <div className="flex items-center justify-center">
+          <TemaContainerCircle bool={true} name="default" />
+        </div>
+        <div className="flex items-end justify-center pt-7 px-3">
+          <TemaContainerCircle bool={checks.vida} name="vida" />
+        </div>
+      </div>
+      <div className="flex flex-col">
+        <div className="flex items-end pt-7 pr-7">
+          <TemaContainerCircle bool={checks.idiomas} name="idiomas" />
+        </div>
+        <div className="flex items-center justify-end py-3 pl-7">
+          <TemaContainerCircle bool={checks.matematicas} name="matematicas" />
+        </div>
+        <div className="flex items-start pb-7 pr-7">
+          <TemaContainerCircle bool={checks.deportes} name="deportes" />
+        </div>
       </div>
     </div>
   )

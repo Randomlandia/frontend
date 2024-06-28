@@ -9,7 +9,7 @@ export default function RandyTextRight({ text, img }) {
         style={{ backgroundImage: `url('/speech_bubble.png')` }}
       >
         <div className="relative p-3 flex items-start ">
-          <p className="text-dgreen font-mont font-semibold text-lg leading-5">
+          <p className="text-dgreen font-mont font-semibold text-lg leading-5 px-2">
             {text}
           </p>
         </div>

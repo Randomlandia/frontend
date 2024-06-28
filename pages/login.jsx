@@ -2,14 +2,22 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default function Login() {
-  const defaultBackground = "bg-booksflying.webp";
-  const [background, setBackground] = useState("bg-booksflying.webp");
+  const [background, setBackground] = useState(null);
   const router = useRouter();
+
+  useEffect(() => {
+    const bgNew = localStorage.getItem("bg")
+    if (bgNew) {
+      setBackground(`${bgNew}`)
+    } else {
+      setBackground("/backgrounds/bg-booksflying.webp")
+    }
+  }, [])
 
   const {
     handleSubmit,
@@ -47,8 +55,8 @@ export default function Login() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden"
-      style={{ backgroundImage: `url('/backgrounds/${background}')` }}
+      className="min-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
+      style={{ backgroundImage: `url(${background})` }}
     >
       <Navbar />
       <div className="grid justify-items-center bg-grey/30 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
