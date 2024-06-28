@@ -7,6 +7,9 @@ export default function MedallaDetail() {
       </div>
 
       {/* MEDALLAS */}
+      <div>
+        <img src="/stargrey.svg" alt="" />
+      </div>
     </div>
   );
 }
