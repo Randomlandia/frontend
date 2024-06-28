@@ -69,13 +69,13 @@ export default function TemaContainerCircle({ bool, name }) {
   const getHoverText = (name) => {
     switch (name) {
       case "default":
-        return "dato random"
+        return "dato random";
       case "matematicas":
-        return "mates"
+        return "mates";
       default:
-        return name
+        return name;
     }
-  }
+  };
 
   return (
     <div
@@ -89,9 +89,7 @@ export default function TemaContainerCircle({ bool, name }) {
       }`}
     >
       {isHovered && (
-        <div
-          className="absolute inset-0 flex justify-center items-center bg-black/50 rounded-full transition-opacity duration-300"
-        />
+        <div className="absolute inset-0 flex justify-center items-center bg-black/50 rounded-full transition-opacity duration-300" />
       )}
       <img
         src={bool ? badges[name].color : badges[name].grey}
@@ -99,9 +97,7 @@ export default function TemaContainerCircle({ bool, name }) {
         className={`w-full`}
       />
       {isHovered && (
-        <p
-          className={`absolute inset-0 capitalize text-white text-lg lg:text-xl font-bold text-center flex items-center justify-center`}
-        >
+        <p className={`absolute inset-0 capitalize text-white text-lg lg:text-xl font-bold text-center flex items-center justify-center`}>
           {getHoverText(name)}
         </p>
       )}
@@ -110,11 +106,7 @@ export default function TemaContainerCircle({ bool, name }) {
 }
 
 TemaContainerCircle.propTypes = {
-  bool: PropTypes.bool,
-  name: PropTypes.string,
+  bool: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
-TemaContainerCircle.defaultProps = {
-  bool: false,
-  name: "default",
-};

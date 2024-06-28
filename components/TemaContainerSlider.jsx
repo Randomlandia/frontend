@@ -116,7 +116,3 @@ TemaContainerSlider.propTypes = {
   name: PropTypes.string
 }
 
-TemaContainerSlider.defaultProps = {
-  bool: false,
-  name: "default"
-}

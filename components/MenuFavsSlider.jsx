@@ -1,22 +1,50 @@
+import { useRouter } from "next/router"
 import { useState } from "react"
 import TemaContainerSlider from "./TemaContainerSlider"
+import TemporaryUser from "@/constants/TemporaryUser"
 
-const slides = [
-  { id: 1, content: <TemaContainerSlider bool={true} name="nerd" /> },
-  { id: 2, content: <TemaContainerSlider bool={true} name="ciencias" /> },
-  { id: 3, content: <TemaContainerSlider bool={true} name="idiomas" /> },
-  { id: 4, content: <TemaContainerSlider bool={true} name="deportes" /> },
-  { id: 5, content: <TemaContainerSlider bool={true} name="vida" /> },
-  { id: 6, content: <TemaContainerSlider bool={true} name="artes" /> },
-  { id: 7, content: <TemaContainerSlider bool={true} name="mundo" /> },
-  { id: 8, content: <TemaContainerSlider bool={true} name="matematicas" /> }
+const prevSlides = [
+  "nerd",
+  "ciencias",
+  "idiomas",
+  "deportes",
+  "deportes",
+  "artes",
+  "mundo",
+  "matematicas"
 ]
 
 export default function MenuFavsSlider() {
+  const checkSandiaByTheme = (themeName) => {
+    const router = useRouter()
+    const isFavRoute = router.pathname.includes("/favs")
+    const isAckRoute = router.pathname.includes("/ackn")
+
+    if (isFavRoute) {
+      const sandias = TemporaryUser.data.user.sandiasFavoritas
+      return sandias.some((sandia) => sandia.topic.name === themeName)
+    } else if (isAckRoute) {
+      const vistos = TemporaryUser.data.user.vistos
+      return vistos.some((visto) => visto.topic.name === themeName)
+    }
+    return false
+  }
+
+  const slides = prevSlides.map((name, index) => ({
+    id: index,
+    content: (
+      <TemaContainerSlider
+        key={index}
+        bool={checkSandiaByTheme(name)}
+        name={name}
+      />
+    )
+  }))
+
   const [currentSlide, setCurrentSlide] = useState(0)
   const totalSlides = slides.length
   const slidesPerPage = 2
-
+  
   const goToSlide = (index) => {
     setCurrentSlide(index)
   }

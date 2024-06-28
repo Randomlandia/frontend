@@ -8,6 +8,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
+    console.log('Token:', token);
+
     if (token) {
       setIsLogged(true)
       const loggedUser = localStorage.getItem('user')

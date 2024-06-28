@@ -16,6 +16,7 @@ export default function ModalComponent({ onClose }) {
   const openModal = () => setIsOpen(true)
   const closeModal = () => {
     setIsOpen(false)
+    localStorage.removeItem("bg2")
     if (onClose) {
       onClose()
     }
