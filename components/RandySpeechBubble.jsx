@@ -1,15 +1,14 @@
-// components/RandySpeechBubble.js
 import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
 const RandySpeechBubble = ({
   text,
-  trianglePosition,
-  imageSrc,
-  imageAlt,
-  width,
-  height,
+  trianglePosition = "left",
+  imageSrc = "/randy.png", // Default image path
+  imageAlt = "Randy the cat looking happy and content", // Default alt text
+  width = "332.25px", // Default width
+  height = "329.34px", // Default height
 }) => {
   const triangleClasses = classNames({
     "absolute bottom-[-10px] w-0 h-0 border-t-[10px] border-t-cream border-x-[10px] border-x-transparent": true,
@@ -49,14 +48,6 @@ RandySpeechBubble.propTypes = {
   imageAlt: PropTypes.string,
   width: PropTypes.string,
   height: PropTypes.string,
-};
-
-RandySpeechBubble.defaultProps = {
-  trianglePosition: "left",
-  imageSrc: "/randy.png", // Default image path
-  imageAlt: "Randy the cat looking happy and content", // Default alt text
-  width: "332.25px", // Default width
-  height: "329.34px", // Default height
 };
 
 export default RandySpeechBubble;

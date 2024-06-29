@@ -8,11 +8,33 @@ import { useEffect, useState } from "react";
 // 2 un contador que llegue a 10
 
 export default function Sandia() {
+  const [seenSandias, setSeenSandias] = useState([]);
+  const [counter, setCounter] = useState(0);
+
+  const addSandia = (newSandia) => {
+    setSeenSandias((prevSeenSandias) => [...prevSeenSandias, newSandia]);
+  };
+
+  const getRandomSandia = () => {
+    const sandias = sandiasByTopic.data.sandias;
+    const randomSandiaIndex = Math.floor(Math.random() * sandias.length);
+    const randomSandia = sandias[randomSandiaIndex];
+    addSandia(randomSandia);
+  };
+
   const icons = [
     { src: "/icon_turn.svg", alt: "Turn Icon" },
     { src: "/icon_redheart.svg", alt: "Red Heart Icon" },
-    { src: "/icon_arrowleft.svg", alt: "Arrow Left Icon" },
-    { src: "/icon_turnright.svg", alt: "Turn Right Icon" },
+    {
+      src: "/icon_arrowleft.svg",
+      alt: "Arrow Left Icon",
+      onClick: getRandomSandia,
+    },
+    {
+      src: "/icon_turnright.svg",
+      alt: "Turn Right Icon",
+      onClick: getRandomSandia,
+    },
   ];
 
   const router = useRouter();
@@ -42,6 +64,12 @@ export default function Sandia() {
     }
   }, [topic]);
 
+  useEffect(() => {
+    if (!loading && sandiasByTopic.data.sandias.length > 0) {
+      getRandomSandia();
+    }
+  }, [loading, sandiasByTopic]);
+
   if (loading) {
     return (
       <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full"></main>
@@ -59,10 +87,7 @@ export default function Sandia() {
     );
   }
 
-  const sandias = sandiasByTopic.data.sandias;
-  const randomSandiaIndex = Math.floor(Math.random() * sandias.length);
-  const randomSandia = sandias[randomSandiaIndex];
-  console.log({ randomSandia });
+  console.log({ seenSandias });
 
   return (
     <>
@@ -86,12 +111,19 @@ export default function Sandia() {
               height={40}
             />
           </div>
-          {randomSandia?.content && (
-            <RandySpeechBubble text={randomSandia.content} />
+          {seenSandias[seenSandias.length - 1]?.content && (
+            <RandySpeechBubble
+              text={seenSandias[seenSandias.length - 1].content}
+            />
           )}
           <div className="grid grid-cols-2 gap-2 h-32 w-36 ml-[68%]">
             {icons.map((icon, index) => (
-              <SandiaIcon key={index} src={icon.src} alt={icon.alt} />
+              <SandiaIcon
+                key={index}
+                src={icon.src}
+                alt={icon.alt}
+                onClick={icon.onClick}
+              />
             ))}
           </div>
         </div>
