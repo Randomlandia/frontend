@@ -1,14 +1,22 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default function Register() {
-  const defaultBackground = "bg-booksflying.webp";
-  const [background, setBackground] = useState("bg-booksflying.webp");
+  const [background, setBackground] = useState("bg-booksflying.webp")
+
+  useEffect(() => {
+    const bgNew = localStorage.getItem("bg")
+    if (bgNew) {
+      setBackground(`${bgNew}`)
+    } else {
+      setBackground("/backgrounds/bg-booksflying.webp")
+    }
+  }, [])
 
   async function onSubmit(dataRegistro) {
     fetch("http://localhost:3005/users", {
@@ -47,8 +55,8 @@ export default function Register() {
 
   return (
     <div
-      className=" min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat"
-      style={{ backgroundImage: `url('/backgrounds/${background}')` }}
+      className="min-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
+      style={{ backgroundImage: `url(${background})` }}
     >
       <div className="w-full min-h-screen flex flex-col gap-5 font-mont font-bold">
         <Navbar />

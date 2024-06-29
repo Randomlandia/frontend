@@ -8,7 +8,6 @@ import {
 } from "@clerk/nextjs";
 
 export default function App({ Component, pageProps }) {
-  console.log(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}

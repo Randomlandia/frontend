@@ -1,40 +1,67 @@
-import { useState } from 'react'
-import TemaContainer from './TemaContainer'
+import { useRouter } from "next/router"
+import { useState } from "react"
+import TemaContainerSlider from "./TemaContainerSlider"
+import TemporaryUser from "@/constants/TemporaryUser"
 
-const slides = [
-  { id: 1, content: (<TemaContainer bool={true} name="nerd" />) },
-  { id: 2, content: (<TemaContainer bool={true} name="ciencias" />) },
-  { id: 3, content: (<TemaContainer bool={true} name="idiomas" />) },
-  { id: 4, content: (<TemaContainer bool={true} name="deportes" />) },
-  { id: 5, content: (<TemaContainer bool={true} name="vida" />) },
-  { id: 6, content: (<TemaContainer bool={true} name="artes" />) },
-  { id: 7, content: (<TemaContainer bool={true} name="mundo" />) },
-  { id: 8, content: (<TemaContainer bool={true} name="matematicas" />) },
+const prevSlides = [
+  "nerd",
+  "ciencias",
+  "idiomas",
+  "deportes",
+  "deportes",
+  "artes",
+  "mundo",
+  "matematicas"
 ]
 
 export default function MenuFavsSlider() {
+  const checkSandiaByTheme = (themeName) => {
+    const router = useRouter()
+    const isFavRoute = router.pathname.includes("/favs")
+    const isAckRoute = router.pathname.includes("/ackn")
+
+    if (isFavRoute) {
+      const sandias = TemporaryUser.data.user.sandiasFavoritas
+      return sandias.some((sandia) => sandia.topic.name === themeName)
+    } else if (isAckRoute) {
+      const vistos = TemporaryUser.data.user.vistos
+      return vistos.some((visto) => visto.topic.name === themeName)
+    }
+    return false
+  }
+
+  const slides = prevSlides.map((name, index) => ({
+    id: index,
+    content: (
+      <TemaContainerSlider
+        key={index}
+        bool={checkSandiaByTheme(name)}
+        name={name}
+      />
+    )
+  }))
+
   const [currentSlide, setCurrentSlide] = useState(0)
   const totalSlides = slides.length
   const slidesPerPage = 2
-
+  
   const goToSlide = (index) => {
     setCurrentSlide(index)
   }
 
   return (
-    <div className='grid justify-items-center'>
+    <div className="max-w-sm mx-auto w-auto">
       <div className="flex justify-between items-center">
         <div className="w-full overflow-hidden">
           <div
             className="flex transition-transform duration-500"
-            style={{ transform: `translateX(-${currentSlide * 100 / slidesPerPage}%)` }}
+            style={{
+              transform: `translateX(-${(currentSlide * 100) / slidesPerPage}%)`
+            }}
           >
-            {slides.map((slide, index) => (
-              <div
-                key={slide.id}
-                className="flex-shrink-0 w-1/2 p-2"
-              >
-                <div className="h-32 flex items-center justify-center">
+            {slides.map((slide) => (
+              <div key={slide.id} className="flex-shrink-0 w-1/2 p-3">
+                <div className="w-auto flex items-center justify-center">
                   {slide.content}
                 </div>
               </div>
@@ -42,14 +69,18 @@ export default function MenuFavsSlider() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center space-x-2 py-2 px-3 rounded-full bg-[#FBCF8E]">
-        {Array(Math.ceil(totalSlides / slidesPerPage)).fill().map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index * slidesPerPage)}
-            className={`w-4 h-4 rounded-full ${index * slidesPerPage === currentSlide ? 'bg-dgreen' : 'bg-grey'}`}
-          ></button>
-        ))}
+      <div className="flex justify-center py-2 px-3 rounded-full bg-peach w-max mx-auto">
+        {Array(Math.ceil(totalSlides / slidesPerPage))
+          .fill()
+          .map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index * slidesPerPage)}
+              className={`w-4 h-4 rounded-full ${
+                index * slidesPerPage === currentSlide ? "bg-dgreen" : "bg-grey"
+              } mx-1`}
+            ></button>
+          ))}
       </div>
     </div>
   )

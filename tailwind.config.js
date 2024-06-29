@@ -41,6 +41,7 @@ module.exports = {
         sportD: { DEFAULT: "#0374b5" },
         grey: { DEFAULT: "#D9D9D9" },
         peach: { DEFAULT: "#FBCF8E" },
+        cream: "#F7E9D8",
       },
     },
   },
