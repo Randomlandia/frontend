@@ -14,14 +14,15 @@ export default function achv() {
       <Navbar />
       {/* TÍTULO  */}
       <div className="flex justify-center p-5">
-        <div className="flex-col bg-oldwhite/50 rounded-xl shadow-md w-fit p-3">
-          <p className="font-lucky text-dgreen text-center text-4xl">
-            MEDALLAS
+        <div className="inline-flex gap-4 bg-oldwhite/60 rounded-xl shadow-md px-5 py-3">
+          <img src="/icon_userachieve.svg" alt="logros" className="h-12" />
+          <p className="flex  justify-center font-lucky text-dgreen text-5xl  ">
+            LOGROS
           </p>
         </div>
       </div>
 
-      <div>
+      <div className="flex flex-row justify-items-center p-4">
         <MedallaDetail />
       </div>
 

@@ -1,15 +1,14 @@
 export default function MedallaDetail() {
   return (
-    <div className="flex flex-col gap-2  bg-oldwhite/75 border-4 border-natL rounded-xl shadow-lg p-6 mt-10 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
+    <div className="flex flex-col  gap-2  bg-oldwhite/75 border-4 border-natL rounded-xl shadow-lg px-6 py-4 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
       {/* NOMBRE DEL TOPIC */}
-      <div className="flex justify-center">
-        <p className="font-lucky text-natD text-center text-4xl p-4">
-          CIENCIAS
-        </p>
+      <div className="flex justify-center py-2">
+        <p className="font-lucky text-natD text-center text-4xl">CIENCIAS</p>
       </div>
 
       {/* MEDALLAS */}
-      <div className="grid grid-cols-2 gap-10">
+      <div className="grid grid-cols-2 object-center gap-10 py-2">
+        {/* PRINCIPIANTE */}
         <div>
           <div className="grid grid-cols-5 justify-items-center gap-4">
             <img src="/stargrey.svg" alt="" />
@@ -22,26 +21,47 @@ export default function MedallaDetail() {
             <p className="font-lucky text-natD text-center p-2">PRINCIPIANTE</p>
           </div>
         </div>
-        <div className="grid grid-cols-5 justify-items-center gap-4">
-          <img src="/stargrey.svg" alt="" />
-          <img src="/stargrey.svg" alt="" />
-          <img src="/stargrey.svg" alt="" />
-          <img src="/stargrey.svg" alt="" />
-          <img src="/B_CIENCIAgrey.svg" alt="" />
+
+        {/* INTERMEDIO */}
+        <div>
+          <div className="grid grid-cols-5 justify-items-center gap-4">
+            <img src="/stargrey.svg" alt="" />
+            <img src="/stargrey.svg" alt="" />
+            <img src="/stargrey.svg" alt="" />
+            <img src="/stargrey.svg" alt="" />
+            <img src="/B_CIENCIAgrey.svg" alt="" />
+          </div>
+          <div className="flex justify-center">
+            <p className="font-lucky text-natD text-center p-2">INTERMEDIO</p>
+          </div>
         </div>
-        <div className="grid grid-cols-5 justify-items-center gap-4">
-          <img src="/stargrey.svg" alt="" />
-          <img src="/stargrey.svg" alt="" />
-          <img src="/stargrey.svg" alt="" />
-          <img src="/stargrey.svg" alt="" />
-          <img src="/B_CIENCIAgrey.svg" alt="" />
+
+        {/* AVANZADO */}
+        <div>
+          <div className="grid grid-cols-5 justify-items-center gap-4">
+            <img src="/stargrey.svg" alt="" />
+            <img src="/stargrey.svg" alt="" />
+            <img src="/stargrey.svg" alt="" />
+            <img src="/stargrey.svg" alt="" />
+            <img src="/B_CIENCIAgrey.svg" alt="" />
+          </div>
+          <div className="flex justify-center">
+            <p className="font-lucky text-natD text-center p-2">AVANZADO</p>
+          </div>
         </div>
-        <div className="grid grid-cols-5 justify-items-center gap-4">
-          <img src="/stargrey.svg" alt="" />
-          <img src="/stargrey.svg" alt="" />
-          <img src="/stargrey.svg" alt="" />
-          <img src="/stargrey.svg" alt="" />
-          <img src="/B_CIENCIAgrey.svg" alt="" />
+
+        {/* EXPERTO */}
+        <div>
+          <div className="grid grid-cols-5 justify-items-center gap-4">
+            <img src="/stargrey.svg" alt="" />
+            <img src="/stargrey.svg" alt="" />
+            <img src="/stargrey.svg" alt="" />
+            <img src="/stargrey.svg" alt="" />
+            <img src="/B_CIENCIAgrey.svg" alt="" />
+          </div>
+          <div className="flex justify-center">
+            <p className="font-lucky text-natD text-center p-2">EXPERTO</p>
+          </div>
         </div>
       </div>
     </div>
