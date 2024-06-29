@@ -9,7 +9,7 @@ export default function MedallaDetail() {
       {/* MEDALLAS */}
       <div className="grid grid-cols-2 object-center gap-10 py-2">
         {/* PRINCIPIANTE */}
-        <div>
+        <div className="order-1">
           <div className="grid grid-cols-5 justify-items-center gap-4">
             <img src="/stargrey.svg" alt="" />
             <img src="/stargrey.svg" alt="" />
@@ -23,7 +23,7 @@ export default function MedallaDetail() {
         </div>
 
         {/* INTERMEDIO */}
-        <div>
+        <div className="order-2">
           <div className="grid grid-cols-5 justify-items-center gap-4">
             <img src="/stargrey.svg" alt="" />
             <img src="/stargrey.svg" alt="" />
@@ -37,7 +37,7 @@ export default function MedallaDetail() {
         </div>
 
         {/* AVANZADO */}
-        <div>
+        <div className="-order-2">
           <div className="grid grid-cols-5 justify-items-center gap-4">
             <img src="/stargrey.svg" alt="" />
             <img src="/stargrey.svg" alt="" />
@@ -51,7 +51,7 @@ export default function MedallaDetail() {
         </div>
 
         {/* EXPERTO */}
-        <div>
+        <div className="-order-1">
           <div className="grid grid-cols-5 justify-items-center gap-4">
             <img src="/stargrey.svg" alt="" />
             <img src="/stargrey.svg" alt="" />
