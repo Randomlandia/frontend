@@ -1,6 +1,11 @@
 import Navbar from "@/components/Navbar";
 import RandySpeechBubble from "@/components/RandySpeechBubble";
 import SandiaIcon from "@/components/SandiaIcon";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
+// 1) guardar cada numero que salga en random en un arreglo
+// 2 un contador que llegue a 10
 
 export default function Sandia() {
   const icons = [
@@ -9,6 +14,55 @@ export default function Sandia() {
     { src: "/icon_arrowleft.svg", alt: "Arrow Left Icon" },
     { src: "/icon_turnright.svg", alt: "Turn Right Icon" },
   ];
+
+  const router = useRouter();
+  const [sandiasByTopic, setSandiasByTopic] = useState({
+    data: { sandias: [] },
+  });
+  const [loading, setLoading] = useState(true);
+  let topic = router.query.topic;
+
+  useEffect(() => {
+    if (topic) {
+      fetch(`http://localhost:3005/sandias/topic/${topic}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((json) => {
+          setSandiasByTopic(json);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setLoading(false);
+        });
+    }
+  }, [topic]);
+
+  if (loading) {
+    return (
+      <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full"></main>
+    );
+  }
+
+  if (!sandiasByTopic.data || sandiasByTopic.data.sandias.length === 0) {
+    return (
+      <main className="w-full h-full bg-white min-h-screen min-w-full">
+        <Navbar />
+        <section className="flex items-center justify-center min-h-screen">
+          <p>No sandias found for this topic.</p>
+        </section>
+      </main>
+    );
+  }
+
+  const sandias = sandiasByTopic.data.sandias;
+  const randomSandiaIndex = Math.floor(Math.random() * sandias.length);
+  const randomSandia = sandias[randomSandiaIndex];
+  console.log({ randomSandia });
 
   return (
     <>
@@ -32,7 +86,9 @@ export default function Sandia() {
               height={40}
             />
           </div>
-          <RandySpeechBubble text="Sabías que... una piña tarda de 1.5 a 3 años en crecer?" />
+          {randomSandia?.content && (
+            <RandySpeechBubble text={randomSandia.content} />
+          )}
           <div className="grid grid-cols-2 gap-2 h-32 w-36 ml-[68%]">
             {icons.map((icon, index) => (
               <SandiaIcon key={index} src={icon.src} alt={icon.alt} />
