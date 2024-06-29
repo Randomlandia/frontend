@@ -5,7 +5,7 @@ export default function MedallaDetail() {
       <div className="flex justify-center py-2">
         <p className="font-lucky text-natD text-center text-4xl">CIENCIAS</p>
       </div>
-
+      <img src="/M_CIENCIA_GREY.svg" alt="" />
       {/* MEDALLAS */}
       <div className="grid grid-cols-2 object-center gap-10 py-2">
         {/* PRINCIPIANTE */}
