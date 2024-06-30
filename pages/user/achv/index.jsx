@@ -22,10 +22,6 @@ export default function achv() {
         </div>
       </div>
 
-      <div className="flex flex-row justify-items-center p-4">
-        <MedallaDetail />
-      </div>
-
       <div className="flex justify-center p-5">
         {/* CONTAINER DE MEDALLAS X TOPIC*/}
         <div className=" grid sm:grid-cols-1 md:grid-cols-2 md:p-10 md:gap-6 lg:grid-cols-4 lg:gap-3 lg:p-5 justify-items-center bg-oldwhite/70 shadow-md rounded-xl p-5 ">

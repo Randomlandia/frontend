@@ -1,15 +1,25 @@
 export default function MedallaDetail() {
   return (
-    <div className="flex flex-col  gap-2  bg-oldwhite/75 border-4 border-natL rounded-xl shadow-lg px-6 py-4 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
-      {/* NOMBRE DEL TOPIC */}
-      <div className="flex justify-center py-2">
-        <p className="font-lucky text-natD text-center text-4xl">CIENCIAS</p>
+    <div className="flex flex-col gap-2  bg-oldwhite/75 border-4 border-natL rounded-xl shadow-lg px-6 py-4 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
+      <div className="inline-flex justify-center gap-6 ">
+        {/* MEDALLA GRANDE TOPIC */}
+        <div className="flex justify-start">
+          <img
+            src="/M_CIENCIA_GREY.svg"
+            alt="MEDALLA CIENCIA"
+            className="h-16"
+          />
+        </div>{" "}
+        {/* NOMBRE DEL TOPIC */}
+        <div className="flex place-items-center">
+          <p className="font-lucky text-natD text-center text-4xl">CIENCIAS</p>
+        </div>
       </div>
-      <img src="/M_CIENCIA_GREY.svg" alt="" />
-      {/* MEDALLAS */}
-      <div className="grid grid-cols-2 object-center gap-10 py-2">
+
+      {/* CAMINO BADGES + ESTRELLAS  */}
+      <div className="grid sm:grid-cols-1 lg:grid-cols-2 object-center  lg:gap-10 py-2">
         {/* PRINCIPIANTE */}
-        <div className="order-1">
+        <div className="">
           <div className="grid grid-cols-5 justify-items-center gap-4">
             <img src="/stargrey.svg" alt="" />
             <img src="/stargrey.svg" alt="" />
@@ -23,7 +33,7 @@ export default function MedallaDetail() {
         </div>
 
         {/* INTERMEDIO */}
-        <div className="order-2">
+        <div className="">
           <div className="grid grid-cols-5 justify-items-center gap-4">
             <img src="/stargrey.svg" alt="" />
             <img src="/stargrey.svg" alt="" />
@@ -37,7 +47,7 @@ export default function MedallaDetail() {
         </div>
 
         {/* AVANZADO */}
-        <div className="-order-2">
+        <div className="">
           <div className="grid grid-cols-5 justify-items-center gap-4">
             <img src="/stargrey.svg" alt="" />
             <img src="/stargrey.svg" alt="" />
@@ -51,7 +61,7 @@ export default function MedallaDetail() {
         </div>
 
         {/* EXPERTO */}
-        <div className="-order-1">
+        <div className="">
           <div className="grid grid-cols-5 justify-items-center gap-4">
             <img src="/stargrey.svg" alt="" />
             <img src="/stargrey.svg" alt="" />
