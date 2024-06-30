@@ -1,7 +1,5 @@
 import Navbar from "@/components/Navbar";
 import Avatar from "@/components/Avatar";
-import UserName from "@/components/UserName";
-import AvatarContainer from "@/components/AvatarContainer";
 import ContactoFooter from "@/components/ContactoFooter";
 import { useRouter } from "next/router";
 import { useState } from "react";

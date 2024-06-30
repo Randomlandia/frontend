@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar";
-import MedallaDetail from "@/components/modalsMedals/MedallaDetail";
 import { useState } from "react";
 
 export default function achv() {

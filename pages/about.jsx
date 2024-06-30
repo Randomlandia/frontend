@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import RandyNotFound from "@/components/RandyNotFound";
 
 export default function About() {
   return (
