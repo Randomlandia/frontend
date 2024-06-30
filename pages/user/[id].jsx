@@ -43,7 +43,7 @@ export default function User() {
         <div className="md:grid grid-cols-2 ">
           {/* AVATAR COMPONENT Y NOMBRE USER*/}
           <div className="p-4 px-10 lg:px-2">
-            <Avatar userName={user.data.users.name} />
+            <Avatar userName={user.data.users.name} id={user.data.users._id} />
 
             {/*prueba*/}
           </div>
