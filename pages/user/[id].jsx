@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import Link from "next/link";
 
 export default function User() {
   const router = useRouter();
@@ -87,9 +88,11 @@ export default function User() {
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
             <img src="/icon_userabt.svg" alt="" className="h-8 w-8" />
 
-            <span className="font-lucky text-black text-xl xl:text-lg">
-              NOSOTROS
-            </span>
+            <Link href="/about">
+              <span className="font-lucky text-black text-xl xl:text-lg">
+                NOSOTROS
+              </span>
+            </Link>
           </div>
         </div>
       </div>
