@@ -9,6 +9,12 @@ export default function Avatar(props) {
   console.log(avatarValue);
 
   async function onSubmit(avatarValue) {
+    if (!avatarValue) {
+      return (
+        <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full"></main>
+      );
+    }
+
     fetch(`http://localhost:3005/users/${props.id}`, {
       method: "Put",
       body: JSON.stringify({
@@ -23,15 +29,20 @@ export default function Avatar(props) {
       .catch((error) => {
         console.log("Error", error);
       });
+
+    return;
   }
 
   const {
-    handleSubmit,
     register,
-    reset,
     formState: { errors },
   } = useForm();
 
+  if (!props.id) {
+    return (
+      <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full "></main>
+    );
+  }
   return (
     <Fragment>
       <div className="grid grid-cols-1 gap-3 place-items-center">
@@ -40,7 +51,7 @@ export default function Avatar(props) {
           <img
             src="/randy_icon.svg"
             alt="randy default icon"
-            className="h-32 w-32"
+            className="h-32 w-32 "
           />
           <button onClick={() => setShowModal(true)}>
             <div className="content-center">
@@ -53,7 +64,7 @@ export default function Avatar(props) {
           </button>
         </div>
         {/* USER AVATAR */}
-        modalAvatarUser
+
         <ModalAvatar
           className="flex align-bottom"
           isVisible={showModal}
@@ -65,18 +76,8 @@ export default function Avatar(props) {
               onSubmit={onSubmit(avatarValue)}
               className="mx-auto py-12  grid gap-7 text-sm font-bold"
             >
-              <div className="flex gap-8 flex-col">
-                <div className="grid gap-0.5">
-                  <div className="flex gap-2 font-bold justify-center">
-                    <img src="/account_circle.svg" alt="" className="w-9 h-9" />
-                    <input
-                      type="text"
-                      placeholder="Nombre del usuario"
-                      className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                      {...register("userRegistro")}
-                    />
-                  </div>
-                </div>
+              <div className="flex flex-col">
+                <div className="grid gap-0.5"></div>
               </div>
               <button
                 onClick={() => setAvatarValue(1)}
