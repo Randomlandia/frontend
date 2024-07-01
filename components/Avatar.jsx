@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 export default function Avatar(props) {
   const [showModal, setShowModal] = useState(false);
   const [avatarValue, setAvatarValue] = useState();
-  console.log(avatarValue);
+  console.log(props.avatar);
 
   async function onSubmit(avatarValue) {
     if (!avatarValue) {
@@ -38,7 +38,7 @@ export default function Avatar(props) {
     formState: { errors },
   } = useForm();
 
-  if (!props.id) {
+  if (!props) {
     return (
       <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full "></main>
     );
@@ -48,11 +48,49 @@ export default function Avatar(props) {
       <div className="grid grid-cols-1 gap-3 place-items-center">
         {/* RANDY ICON FOR USER DEFAULT ONLY*/}
         <div className=" inline-flex gap-2">
-          <img
-            src="/randy_icon.svg"
-            alt="randy default icon"
-            className="h-32 w-32 "
-          />
+          {props.avatar == 1 && (
+            <img
+              src="/randy_icon.svg"
+              alt="randy default icon"
+              className="h-32 w-32 "
+            />
+          )}
+          {props.avatar == 2 && (
+            <img
+              src="/B_DEPORTE.svg"
+              alt="randy default icon"
+              className="h-32 w-32 "
+            />
+          )}
+          {props.avatar == 3 && (
+            <img
+              src="/B_ARTE.svg"
+              alt="randy default icon"
+              className="h-32 w-32 "
+            />
+          )}
+          {props.avatar == 4 && (
+            <img
+              src="/B_CIENCIA.svg"
+              alt="randy default icon"
+              className="h-32 w-32 "
+            />
+          )}
+          {props.avatar == 5 && (
+            <img
+              src="/B_IDIOMAS.svg"
+              alt="randy default icon"
+              className="h-32 w-32 "
+            />
+          )}
+          {props.avatar == 6 && (
+            <img
+              src="/B_MATE.svg"
+              alt="randy default icon"
+              className="h-32 w-32 "
+            />
+          )}
+
           <button onClick={() => setShowModal(true)}>
             <div className="content-center">
               <img
@@ -76,42 +114,117 @@ export default function Avatar(props) {
               onSubmit={onSubmit(avatarValue)}
               className="mx-auto py-12  grid gap-7 text-sm font-bold"
             >
-              <div className="flex flex-col">
-                <div className="grid gap-0.5"></div>
-              </div>
-              <button
-                onClick={() => setAvatarValue(1)}
-                name="boton"
-                className="bg-agreen p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full"
-                {...register("boton")}
-              >
-                1
-              </button>
-              <button
-                onClick={() => setAvatarValue(2)}
-                name="boton"
-                className="bg-agreen p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full"
-                {...register("boton")}
-              >
-                2
-              </button>
+              <div className="inline-flex justify-center relative">
+                {/* BOTÓN CERRAR */}
 
-              <button
-                onClick={() => setAvatarValue(3)}
-                name="boton"
-                className="bg-agreen p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full"
-                {...register("boton")}
-              >
-                3
-              </button>
-              <button
-                onClick={() => setAvatarValue(4)}
-                name="boton"
-                className="bg-agreen p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full"
-                {...register("boton")}
-              >
-                4
-              </button>
+                {/* TITULO DEL MODAL */}
+                <div className="flex p-4 ">
+                  <p className="font-lucky text-dgreen text-center text-3xl">
+                    ¡Elige tu estilo!
+                  </p>
+                </div>
+              </div>
+
+              {/* GALERÍA AVATARES */}
+              <div className="grid grid-cols-3 gap-3 py-4 px-10 justify-items-center">
+                <button
+                  onClick={() => setAvatarValue(1)}
+                  name="boton1"
+                  {...register("boton1")}
+                >
+                  <div className="rounded-full border-4 border-transparent  hover:border-dorange">
+                    {" "}
+                    <img
+                      src="/randy_icon.svg"
+                      alt="randy default icon"
+                      className="h-28 w-28"
+                    />
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setAvatarValue(2)}
+                  name="boton2"
+                  {...register("boton2")}
+                >
+                  <div className="rounded-full border-4 border-transparent hover:border-dorange">
+                    {" "}
+                    <img
+                      src="/B_DEPORTE.svg"
+                      alt="randy default icon"
+                      className="h-28 w-28"
+                    />
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setAvatarValue(3)}
+                  name="boton3"
+                  {...register("boton3")}
+                >
+                  <div className="rounded-full border-4 border-transparent hover:border-dorange">
+                    {" "}
+                    <img
+                      src="/B_ARTE.svg"
+                      alt="randy default icon"
+                      className="h-28 w-28"
+                    />
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setAvatarValue(4)}
+                  name="boton4"
+                  {...register("boton4")}
+                >
+                  <div className="rounded-full border-4 border-transparent hover:border-dorange">
+                    {" "}
+                    <img
+                      src="/B_CIENCIA.svg"
+                      alt="randy default icon"
+                      className="h-28 w-28"
+                    />
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setAvatarValue(5)}
+                  name="boton5"
+                  {...register("boton5")}
+                >
+                  <div className="rounded-full border-4 border-transparent hover:border-dorange">
+                    {" "}
+                    <img
+                      src="/B_IDIOMAS.svg"
+                      alt="randy default icon"
+                      className="h-28 w-28"
+                    />
+                  </div>
+                </button>
+
+                <button
+                  onClick={() => setAvatarValue(6)}
+                  name="boton6"
+                  {...register("boton6")}
+                >
+                  <div className="rounded-full border-4 border-transparent hover:border-dorange">
+                    {" "}
+                    <img
+                      src="/B_MATE.svg"
+                      alt="randy default icon"
+                      className="h-28 w-28"
+                    />
+                  </div>
+                </button>
+              </div>
+
+              {/* BOTÓN GUARDAR 
+              <div className="flex justify-center p-2">
+                <button className="p-2 w-fit rounded-lg border-2 bg-pcyan hover:border-blue-600  ">
+                  <p className="font-lucky text-white text-center">GUARDAR</p>
+                </button>
+              </div>
+*/}
             </form>
           </div>
           <br />
