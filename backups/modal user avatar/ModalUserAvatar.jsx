@@ -7,7 +7,7 @@ export default function AvatarContainer() {
           <button
             type=""
             className="rounded-full w-fit border-2 border-transparent
-            hover:border-red-500 p-2"
+              hover:border-red-500 p-2"
           >
             <img src="/close.svg" alt="close" className="h-4 w-4" />
           </button>

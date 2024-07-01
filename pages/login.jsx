@@ -42,10 +42,11 @@ export default function Login() {
 
     const json = await response?.json();
     if (json?.data?.token) {
-      localStorage.setItem("token", json.data.token);
+      localStorage.setItem("token", json.data.token.token);
+      localStorage.setItem("userID", json.data.token.userID);
 
       console.log("Login Exitoso");
-      router.push("/sandias");
+      // router.push("/sandias");
       return;
     }
     console.log("Usuario o contraseña inválidos");
