@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import TemaContainerSlider from "./TemaContainerSlider";
 import TemporaryUser from "@/constants/TemporaryUser";
 
+
 const prevSlides = [
   "nerd",
   "ciencias",
@@ -15,6 +16,7 @@ const prevSlides = [
 ];
 
 export default function MenuFavsSlider() {
+
   const router = useRouter();
   const [sandias, setSandias] = useState([]);
   const [vistos, setVistos] = useState([]);
