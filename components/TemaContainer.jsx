@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function TemaContainerCircle({ bool, name }) {
+export default function TemaContainer({ bool, name }) {
   const router = useRouter();
 
   const badges = {
@@ -32,7 +32,7 @@ export default function TemaContainerCircle({ bool, name }) {
     },
     vida: {
       color: "/B_VIDA.svg",
-      grey: "/B_VIDAgrey.svg",
+      grey: "/B_VIDA.svg",
     },
     nerd: {
       color: "/B_NERD.svg",
@@ -45,7 +45,6 @@ export default function TemaContainerCircle({ bool, name }) {
   };
 
   const [isHovered, setIsHovered] = useState(false);
-
   const isFavRoute = router.pathname.includes("/favs");
   const isAcknRoute = router.pathname.includes("/ackn");
   const isMenuRoute = router.pathname.includes("/menu")
@@ -75,17 +74,6 @@ export default function TemaContainerCircle({ bool, name }) {
     setIsHovered(false);
   };
 
-  const getHoverText = (name) => {
-    switch (name) {
-      case "default":
-        return "dato random";
-      case "matematicas":
-        return "mates";
-      default:
-        return name;
-    }
-  };
-
   return (
     <div
       onMouseEnter={handleMouseEnter}
@@ -93,29 +81,42 @@ export default function TemaContainerCircle({ bool, name }) {
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onClick={handleClick}
-      className={`relative cursor-pointer w-full h-full my-auto ${
-        name === "default" ? "scale-115" : "w-4/5"
-      }`}
+      className="relative cursor-pointer flex justify-items-center mx-auto my-auto"
     >
-      {isHovered && (
-        <div className="absolute inset-0 flex justify-center items-center bg-black/50 rounded-full transition-opacity duration-300" />
-      )}
       <img
         src={bool ? badges[name].color : badges[name].grey}
         alt={name}
-        className={`w-full`}
+        className={` ${
+          name === "default"
+            ? "h-36 w-36 md:h-44 md:w-44 lg:h-32 lg:w-32"
+            : "h-32 w-32 lg:h-24 lg:w-24"
+        }`}
       />
       {isHovered && (
-        <p className={`absolute inset-0 capitalize text-white text-lg lg:text-xl font-bold text-center flex items-center justify-center`}>
-          {getHoverText(name)}
-        </p>
+        <div className={`absolute`}>
+          <div className="bg-black/50 rounded-full flex justify-items-center text-center transition-opacity duration-300 mx-auto ">
+            <p
+              className={`capitalize text-white font-bold ${
+                name === "default"
+                  ? "h-36 w-36 md:h-44 md:w-44 lg:h-32 lg:w-32 translate-y-14 md:translate-y-12"
+                  : "h-28 w-28 md:h-32 md:w-32 lg:h-24 lg:w-24 translate-y-12 md:translate-y-10"
+              }`}
+            >
+              {name === "default" ? "dato random" : name}
+            </p>
+          </div>
+        </div>
       )}
     </div>
   );
 }
 
-TemaContainerCircle.propTypes = {
-  bool: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
+TemaContainer.propTypes = {
+  bool: PropTypes.bool,
+  name: PropTypes.string,
 };
 
+TemaContainer.defaultProps = {
+  bool: false,
+  name: "default",
+};

@@ -1,56 +1,90 @@
-import Navbar from "@/components/Navbar";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Image from "next/image";
+import Navbar from "@/components/Navbar"
+import Link from "next/link"
+import { useForm } from "react-hook-form"
+import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import Image from "next/image"
 
 export default function Login() {
-  const [background, setBackground] = useState(null);
-  const router = useRouter();
+  const [background, setBackground] = useState(null)
+  const router = useRouter()
 
   useEffect(() => {
-    const bgNew = localStorage.getItem("bg");
+    const bgNew = localStorage.getItem("bg")
     if (bgNew) {
-      setBackground(`${bgNew}`);
+      setBackground(`${bgNew}`)
     } else {
-      setBackground("/backgrounds/bg-booksflying.webp");
+      setBackground("/backgrounds/bg-booksflying.webp")
     }
-  }, []);
+  }, [])
 
   const {
     handleSubmit,
     register,
     setError,
-    formState: { errors },
-  } = useForm();
+    formState: { errors }
+  } = useForm()
 
   async function onSubmit(dataLogIn) {
     const response = await fetch("http://localhost:3005/users/login", {
       method: "Post",
       body: JSON.stringify({
         email: dataLogIn.email,
-        password: dataLogIn.password,
+        password: dataLogIn.password
       }),
       headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
+        "Content-type": "application/json; charset=UTF-8"
+      }
     }).catch((error) => {
-      console.log("Error", error);
-    });
+      console.log("Error", error)
+    })
 
-    const json = await response?.json();
+    const json = await response?.json()
     if (json?.data?.token) {
-      localStorage.setItem("token", json.data.token);
-      localStorage.setItem("userID", json.data.userID);
-      console.log(json);
-      console.log("Login Exitoso");
-      router.push("/menu");
-      return;
+      localStorage.setItem("token", json.data.token)
+      localStorage.setItem("userID", json.data.userID)
+      console.log(json)
+      console.log("Login Exitoso")
+
+      const userID = localStorage.getItem("userID")
+
+      // SEGUNDO FETCH (estoy obteniendo la informacion de username, avatar, favoritas, logros y vistos)
+      const userResponse = await fetch(
+        `http://localhost:3005/users/${userID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8"
+          }
+        }
+      )
+
+      const userJson = await userResponse.json()
+      if (userJson?.data) {
+        const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
+        const user = {
+          username: userJson.data.users.name,
+          avatar: userJson.data.users.avatar
+        }
+        console.log("Usuario obtenido con éxito", userJson.data)
+        localStorage.setItem("exp", JSON.stringify(exp))
+        localStorage.setItem("user", JSON.stringify(user))
+        localStorage.setItem("favs", JSON.stringify(userJson.data.users.sandiasFavoritas))
+        localStorage.setItem("view", JSON.stringify(userJson.data.users.sandiasVistas))
+        localStorage.setItem(
+          "achieve",
+          JSON.stringify(userJson.data.users.achievements)
+        )
+      } else {
+        console.log("No se pudieron obtener los datos del usuario")
+      }
+
+      router.push("/menu")
+      return
     }
-    console.log("Usuario o contraseña inválidos");
-    setError("root", { message: "Usuario o contraseña inválidos" });
+    console.log("Usuario o contraseña inválidos")
+    setError("root", { message: "Usuario o contraseña inválidos" })
   }
 
   return (
@@ -101,12 +135,12 @@ export default function Login() {
                 {...register("email", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Email o password inválido"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
-                  },
+                    message: "Usuario debe contener a máximo 50 caracteres"
+                  }
                 })}
               />
             </div>
@@ -124,12 +158,12 @@ export default function Login() {
                 {...register("password", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Email o password inválido"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
-                  },
+                    message: "Usuario debe contener a máximo 50 caracteres"
+                  }
                 })}
               />
             </div>
@@ -170,5 +204,5 @@ export default function Login() {
         </form>
       </div>
     </div>
-  );
+  )
 }

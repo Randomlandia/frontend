@@ -1,25 +1,25 @@
-import { useEffect, useState, Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import Link from "next/link";
+import { useEffect, useState, Fragment } from "react"
+import { Menu, Transition } from "@headlessui/react"
+import Link from "next/link"
 
 export default function Navbar() {
-  const [isLogged, setIsLogged] = useState(true);
-  const [user, setUser] = useState("Explorador");
+  const [isLogged, setIsLogged] = useState(true)
+  const [user, setUser] = useState("Explorador")
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token")
 
     if (token) {
-      setIsLogged(true);
-      const loggedUser = localStorage.getItem("user");
-      setUser(loggedUser);
+      setIsLogged(true)
+      const loggedUser = localStorage.getItem("user")
+      setUser(loggedUser)
     } else {
-      setIsLogged(false);
+      setIsLogged(false)
     }
-  }, []);
+  }, [])
 
   function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
+    return classes.filter(Boolean).join(" ")
   }
 
   return (
@@ -33,15 +33,31 @@ export default function Navbar() {
             <Link href="/about">
               <button>NOSOTROS</button>
             </Link>
-            <Link href="/login">
-              <button>INICIAR SESIÓN</button>
-            </Link>
-            <Link
-              href="/register"
-              className="bg-dorange h-9 px-5 rounded-[10px] flex"
-            >
-              <button>CREAR CUENTA</button>
-            </Link>
+            {isLogged ? (
+              <>
+                <Link href="/login">
+                  <button>INICIAR SESIÓN</button>
+                </Link>
+                <Link
+                  href="/register"
+                  className="bg-dorange h-9 px-5 rounded-[10px] flex"
+                >
+                  <button>CREAR CUENTA</button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <button>INICIAR SESIÓN</button>
+                </Link>
+                <Link
+                  href="/register"
+                  className="bg-dorange h-9 px-5 rounded-[10px] flex"
+                >
+                  <button>CREAR CUENTA</button>
+                </Link>
+              </>
+            )}
             <Link href="/randomlandia">
               <button className="bg-natL h-9 px-5 rounded-[10px]">
                 ¡JUGAR!
@@ -165,9 +181,9 @@ export default function Navbar() {
                             <button
                               type="submit"
                               onClick={() => {
-                                setIsLogged(false);
-                                localStorage.removeItem("token");
-                                localStorage.removeItem("user");
+                                setIsLogged(false)
+                                localStorage.removeItem("token")
+                                localStorage.removeItem("user")
                               }}
                               className={classNames(
                                 active
@@ -206,5 +222,5 @@ export default function Navbar() {
         </div>
       </nav>
     </>
-  );
+  )
 }

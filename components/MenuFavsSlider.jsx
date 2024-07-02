@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import TemaContainerSlider from "./TemaContainerSlider"
 import TemporaryUser from "@/constants/TemporaryUser"
 
@@ -15,16 +15,36 @@ const prevSlides = [
 ]
 
 export default function MenuFavsSlider() {
-  const checkSandiaByTheme = (themeName) => {
-    const router = useRouter()
-    const isFavRoute = router.pathname.includes("/favs")
-    const isAckRoute = router.pathname.includes("/ackn")
+  const router = useRouter()
+  const [sandias, setSandias] = useState([])
+  const [vistos, setVistos] = useState([])
+  const [loading, setLoading] = useState(true)
 
-    if (isFavRoute) {
-      const sandias = TemporaryUser.data.user.sandiasFavoritas
+  useEffect(() => {
+    const fetchData = () => {
+      const isFavRoute = router.pathname.includes("/favs")
+      const isAckRoute = router.pathname.includes("/ackn")
+
+      if (isFavRoute) {
+        const favs = JSON.parse(localStorage.getItem("favs")) || []
+        setSandias(favs)
+      } else if (isAckRoute) {
+        const views = JSON.parse(localStorage.getItem("view")) || []
+        setVistos(views)
+      }
+
+      setLoading(false)
+    }
+
+    if (typeof window !== "undefined") {
+      fetchData()
+    }
+  }, [router.pathname])
+
+  const checkSandiaByTheme = (themeName) => {
+    if (router.pathname.includes("/favs")) {
       return sandias.some((sandia) => sandia.topic.name === themeName)
-    } else if (isAckRoute) {
-      const vistos = TemporaryUser.data.user.vistos
+    } else if (router.pathname.includes("/ackn")) {
       return vistos.some((visto) => visto.topic.name === themeName)
     }
     return false
@@ -44,7 +64,7 @@ export default function MenuFavsSlider() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const totalSlides = slides.length
   const slidesPerPage = 2
-  
+
   const goToSlide = (index) => {
     setCurrentSlide(index)
   }

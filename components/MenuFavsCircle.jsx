@@ -1,20 +1,40 @@
 import { useMemo } from "react"
 import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
 import TemaContainerCircle from "./TemaContainerCircle"
 import TemporaryUser from "@/constants/TemporaryUser"
 
 export default function MenuFavsCircle() {
   const router = useRouter();
+  const [sandias, setSandias] = useState([]);
+  const [vistos, setVistos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = () => {
+      const isFavRoute = router.pathname.includes("/favs");
+      const isAckRoute = router.pathname.includes("/ackn");
+
+      if (isFavRoute) {
+        const favs = JSON.parse(localStorage.getItem("favs")) || []
+        setSandias(favs);
+      } else if (isAckRoute) {
+        const views =  JSON.parse(localStorage.getItem("view")) || []
+        setVistos(views);
+      }
+
+      setLoading(false);
+    };
+
+    if (typeof window !== "undefined") {
+      fetchData();
+    }
+  }, [router.pathname]);
 
   const checkSandiaByTheme = (themeName) => {
-    const isFavRoute = router.pathname.includes("/user/favs");
-    const isAckRoute = router.pathname.includes("/user/ackn");
-
-    if (isFavRoute) {
-      const sandias = TemporaryUser.data.user.sandiasFavoritas;
+    if (router.pathname.includes("/favs")) {
       return sandias.some((sandia) => sandia.topic.name === themeName);
-    } else if (isAckRoute) {
-      const vistos = TemporaryUser.data.user.vistos;
+    } else if (router.pathname.includes("/ackn")) {
       return vistos.some((visto) => visto.topic.name === themeName);
     }
     return false;
@@ -29,14 +49,19 @@ export default function MenuFavsCircle() {
     "idiomas",
     "matematicas",
     "deportes"
-  ]
+  ];
 
   const checks = useMemo(() => {
     return temas.reduce((acc, tema) => {
-      acc[tema] = checkSandiaByTheme(tema)
-      return acc
-    }, {})
-  }, [])
+      acc[tema] = checkSandiaByTheme(tema);
+      console.log(acc)
+      return acc;
+    }, {});
+  }, [sandias, vistos]);
+
+  if (loading) {
+    return <p>Cargando...</p>;
+  }
 
   return (
     <div className="pt-4 mx-auto w-5/6 lg:w-3/4 xl:w-2/3 grid grid-cols-3">
