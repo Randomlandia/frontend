@@ -20,7 +20,6 @@ export default function Register() {
     setError
   } = useForm();
 
-
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
     if (bgNew) {
