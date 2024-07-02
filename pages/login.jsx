@@ -11,13 +11,13 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    const bgNew = localStorage.getItem("bg")
+    const bgNew = localStorage.getItem("bg");
     if (bgNew) {
-      setBackground(`${bgNew}`)
+      setBackground(`${bgNew}`);
     } else {
-      setBackground("/backgrounds/bg-booksflying.webp")
+      setBackground("/backgrounds/bg-booksflying.webp");
     }
-  }, [])
+  }, []);
 
   const {
     handleSubmit,
@@ -42,9 +42,9 @@ export default function Login() {
 
     const json = await response?.json();
     if (json?.data?.token) {
-      localStorage.setItem("token", json.data.token.token);
-      localStorage.setItem("userID", json.data.token.userID);
-
+      localStorage.setItem("token", json.data.token);
+      localStorage.setItem("userID", json.data.userID);
+      console.log(json);
       console.log("Login Exitoso");
 
       const userID = localStorage.getItem("userID");
