@@ -7,16 +7,16 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default function Register() {
-  const [background, setBackground] = useState("bg-booksflying.webp")
+  const [background, setBackground] = useState("bg-booksflying.webp");
 
   useEffect(() => {
-    const bgNew = localStorage.getItem("bg")
+    const bgNew = localStorage.getItem("bg");
     if (bgNew) {
-      setBackground(`${bgNew}`)
+      setBackground(`${bgNew}`);
     } else {
-      setBackground("/backgrounds/bg-booksflying.webp")
+      setBackground("/backgrounds/bg-booksflying.webp");
     }
-  }, [])
+  }, []);
 
   async function onSubmit(dataRegistro) {
     fetch("http://localhost:3005/users", {
@@ -61,7 +61,7 @@ export default function Register() {
       <div className="w-full min-h-screen flex flex-col gap-5 font-mont font-bold">
         <Navbar />
 
-        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-[#d9d9d930]   rounded-[50px] mt-[35px]">
+        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-grey/50    rounded-[50px] mt-[35px]">
           <form
             name="formRegister"
             onSubmit={handleSubmit(onSubmit)}

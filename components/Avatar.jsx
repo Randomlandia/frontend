@@ -112,11 +112,21 @@ export default function Avatar(props) {
             <form
               name="formRegister"
               onSubmit={onSubmit(avatarValue)}
-              className="mx-auto py-12  grid gap-7 text-sm font-bold"
+              className="mx-auto py-12 bg-grey/50 rounded-3xl grid gap-7 text-sm font-bold"
             >
               <div className="inline-flex justify-center relative">
                 {/* BOTÓN CERRAR */}
 
+                <div className="absolute  top-0 right-0 ">
+                  <button
+                    onClick={() => onClose()}
+                    type=""
+                    className="rounded-full w-fit border-2 border-transparent
+              hover:border-red-500 p-2"
+                  >
+                    <img src="/close.svg" alt="close" className="h-4 w-4" />
+                  </button>
+                </div>
                 {/* TITULO DEL MODAL */}
                 <div className="flex p-4 ">
                   <p className="font-lucky text-dgreen text-center text-3xl">
