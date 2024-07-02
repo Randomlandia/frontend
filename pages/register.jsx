@@ -16,7 +16,6 @@ export default function Register() {
     register,
     reset,
     watch,
-    watch,
     formState: { errors },
     setError
   } = useForm();
