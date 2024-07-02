@@ -1,23 +1,23 @@
-import Navbar from "@/components/Navbar";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Image from "next/image";
+import Navbar from "@/components/Navbar"
+import Link from "next/link"
+import { useForm } from "react-hook-form"
+import { useRouter } from "next/router"
+import { useState, useEffect } from "react"
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import Image from "next/image"
 
 export default function Login() {
-  const [background, setBackground] = useState(null);
-  const router = useRouter();
+  const [background, setBackground] = useState(null)
+  const router = useRouter()
 
   useEffect(() => {
-    const bgNew = localStorage.getItem("bg");
+    const bgNew = localStorage.getItem("bg")
     if (bgNew) {
       setBackground(`/backgrounds/${bgNew}`);
     } else {
-      setBackground("/backgrounds/bg-booksflying.webp");
+      setBackground("/backgrounds/bg-booksflying.webp")
     }
-  }, []);
+  }, [])
 
   const {
     handleSubmit,
@@ -37,10 +37,10 @@ export default function Login() {
         "Content-type": "application/json; charset=UTF-8"
       }
     }).catch((error) => {
-      console.log("Error", error);
-    });
+      console.log("Error", error)
+    })
 
-    const json = await response?.json();
+    const json = await response?.json()
     if (json?.data?.token) {
       localStorage.setItem("token", json.data.token);
       localStorage.setItem("userID", json.data.userID);
@@ -89,8 +89,8 @@ export default function Login() {
       router.push("/menu");
       return;
     }
-    console.log("Usuario o contraseña inválidos");
-    setError("root", { message: "Usuario o contraseña inválidos" });
+    console.log("Usuario o contraseña inválidos")
+    setError("root", { message: "Usuario o contraseña inválidos" })
   }
 
   return (
@@ -210,5 +210,5 @@ export default function Login() {
         </form>
       </div>
     </div>
-  );
+  )
 }
