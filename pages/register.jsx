@@ -7,52 +7,125 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default function Register() {
-  const [background, setBackground] = useState("bg-booksflying.webp")
-
-  useEffect(() => {
-    const bgNew = localStorage.getItem("bg")
-    if (bgNew) {
-      setBackground(`${bgNew}`)
-    } else {
-      setBackground("/backgrounds/bg-booksflying.webp")
-    }
-  }, [])
-
-  async function onSubmit(dataRegistro) {
-    fetch("http://localhost:3005/users", {
-      method: "Post",
-      body: JSON.stringify({
-        name: dataRegistro.userRegistro,
-        email: dataRegistro.correoRegistro,
-        password: dataRegistro.contraseñaRegistro,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response?.json())
-      .then((json) => console.log(json))
-      .catch((error) => {
-        console.log("Error", error);
-      });
-
-    if (dataRegistro) {
-      localStorage.setItem("dataRegistro", JSON.stringify(dataRegistro));
-    }
-    reset();
-    router.push("/randomlandia");
-    return;
-  }
-
+  const [background, setBackground] = useState("bg-booksflying.webp");
+  const [showSuccess, setShowSuccess] = useState(false);
   const router = useRouter();
 
   const {
     handleSubmit,
     register,
     reset,
+    watch,
     formState: { errors },
+    setError
   } = useForm();
 
+  useEffect(() => {
+    const bgNew = localStorage.getItem("bg");
+    if (bgNew) {
+      setBackground(`/backgrounds/${bgNew}`);
+    } else {
+      setBackground("/backgrounds/bg-booksflying.webp");
+    }
+  }, []);
+
+  async function onSubmit(dataRegistro) {
+    try {
+      // Registro del usuario
+      const registroResponse = await fetch("http://localhost:3005/users", {
+        method: "POST",
+        body: JSON.stringify({
+          name: dataRegistro.userRegistro,
+          email: dataRegistro.correoRegistro,
+          password: dataRegistro.contraseñaRegistro
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      const registroJson = await registroResponse.json();
+
+      if (registroJson) {
+        // Almacenar los datos de registro en localStorage (aparecia en la funcion original, pero ya no es necesario)
+        // localStorage.setItem("dataRegistro", JSON.stringify(dataRegistro));
+
+        // Autenticación del usuario después del registro
+        const loginResponse = await fetch("http://localhost:3005/users/login", {
+          method: "POST",
+          body: JSON.stringify({
+            email: dataRegistro.correoRegistro,
+            password: dataRegistro.contraseñaRegistro
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          }
+        });
+
+        const loginJson = await loginResponse.json();
+
+        if (loginJson?.data?.token) {
+          localStorage.setItem("token", loginJson.data.token);
+          localStorage.setItem("userID", loginJson.data.userID);
+          console.log("Login Exitoso");
+
+          const userID = loginJson.data.userID;
+
+          // Obtener la información del usuario
+          const userResponse = await fetch(
+            `http://localhost:3005/users/${userID}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json; charset=UTF-8"
+              }
+            }
+          );
+
+          const userJson = await userResponse.json();
+
+          if (userJson?.data) {
+            const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
+            const user = {
+              username: userJson.data.users.name,
+              avatar: userJson.data.users.avatar
+            };
+
+            localStorage.setItem("exp", JSON.stringify(exp));
+            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem(
+              "favs",
+              JSON.stringify(userJson.data.users.sandiasFavoritas)
+            );
+            localStorage.setItem(
+              "view",
+              JSON.stringify(userJson.data.users.sandiasVistas)
+            );
+            localStorage.setItem(
+              "achieve",
+              JSON.stringify(userJson.data.users.achievements)
+            );
+            setShowSuccess(true);
+            setTimeout(() => {
+              setShowSuccess(false);
+              router.push("/menu");
+            }, 2000);
+          } else {
+            console.log("No se pudieron obtener los datos del usuario");
+          }
+
+          return;
+        } else {
+          console.log("Usuario o contraseña inválidos");
+          setError("root", { message: "Usuario o contraseña inválidos" });
+        }
+      } else {
+        console.log("Error en el registro");
+      }
+    } catch (error) {
+      console.log("Error", error);
+    }
+  }
   return (
     <div
       className="min-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
@@ -82,15 +155,24 @@ export default function Register() {
                     {...register("userRegistro", {
                       minLength: {
                         value: 3,
-                        message: "Usuario debe contener a mínimo 3 caracteres",
+                        message: "Usuario debe contener a mínimo 3 caracteres"
                       },
                       maxLength: {
                         value: 50,
-                        message: "Usuario debe contener a máximo 50 caracteres",
+                        message: "Usuario debe contener a máximo 50 caracteres"
                       },
+                      pattern: {
+                        value: /^[A-Za-z]+$/i,
+                        message: "Solo se permiten letras"
+                      }
                     })}
                   />
                 </div>
+                {errors.userRegistro && (
+                  <p className="text-red-500 text-center">
+                    {errors.userRegistro.message}
+                  </p>
+                )}
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
@@ -103,15 +185,25 @@ export default function Register() {
                     {...register("correoRegistro", {
                       minLength: {
                         value: 3,
-                        message: "Correo debe contener a mínimo 3 caracteres",
+                        message: "Correo debe contener a mínimo 3 caracteres"
                       },
                       maxLength: {
                         value: 50,
-                        message: "Correo debe contener a máximo 50 caracteres",
+                        message: "Correo debe contener a máximo 50 caracteres"
                       },
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                        message: "Correo no válido"
+                      }
                     })}
                   />
                 </div>
+                {errors.correoRegistro && (
+                  <p className="text-red-500 text-center">
+                    {errors.correoRegistro.message}
+                  </p>
+                )}
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
@@ -125,16 +217,26 @@ export default function Register() {
                       minLength: {
                         value: 3,
                         message:
-                          "Contraseña debe contener a mínimo 3 caracteres",
+                          "Contraseña debe contener mínimo 3 caracteres"
                       },
                       maxLength: {
                         value: 50,
                         message:
-                          "Contraseña debe contener a máximo 50 caracteres",
+                          "Contraseña debe contener máximo 50 caracteres"
                       },
+                      validate: {
+                        matches: (value) =>
+                          value === watch("contraseñaRegistro") ||
+                          "Las contraseñas no coinciden"
+                      }
                     })}
                   />
                 </div>
+                {errors.contraseñaRegistro && (
+                  <p className="text-red-500 text-center">
+                    {errors.contraseñaRegistro.message}
+                  </p>
+                )}
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
@@ -144,8 +246,20 @@ export default function Register() {
                     name="confirm-password"
                     placeholder="Repite tu contraseña"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
+                    {...register("confirmPassword", {
+                      validate: {
+                        matches: (value) =>
+                          value === watch("contraseñaRegistro") ||
+                          "Las contraseñas no coinciden"
+                      }
+                    })}
                   />
                 </div>
+                {errors.confirmPassword && (
+                  <p className="text-red-500 text-center">
+                    {errors.confirmPassword.message}
+                  </p>
+                )}
               </div>
             </div>
             <div className="grid justify-center gap-3">
@@ -161,7 +275,8 @@ export default function Register() {
             </div>
           </form>
 
-          <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
+          {/* REGISTRO CON CLERK */}
+          {/* <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
               <p className="text-[#2E7D32] font-lucky text-2xl">
                 O registrate con
@@ -173,9 +288,17 @@ export default function Register() {
                 <Image src="randy_wink.svg" width={40} height={40}></Image>
               </div>
             </div>
-          </SignInButton>
+          </SignInButton> */}
         </div>
       </div>
+      {showSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
+          <p className="text-ram text-center text-3xl font-bold text-dgreen">
+            ¡Bienvenido!
+            <br /> Ya estas listo para la aventura.
+          </p>
+        </div>
+      )}
     </div>
   );
 }

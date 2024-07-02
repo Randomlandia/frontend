@@ -1,5 +1,5 @@
-import { useState } from "react"
-import TemaContainerSlider from "./TemaContainerSlider"
+import { useState } from "react";
+import TemaContainerSlider from "./TemaContainerSlider";
 
 const slides = [
   { id: 1, content: <TemaContainerSlider bool={true} name="nerd" /> },
@@ -10,16 +10,16 @@ const slides = [
   { id: 6, content: <TemaContainerSlider bool={true} name="artes" /> },
   { id: 7, content: <TemaContainerSlider bool={true} name="mundo" /> },
   { id: 8, content: <TemaContainerSlider bool={true} name="matematicas" /> }
-]
+];
 
 export default function MenuTemasSlider() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const totalSlides = slides.length
-  const slidesPerPage = 2
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = slides.length;
+  const slidesPerPage = 2;
 
   const goToSlide = (index) => {
-    setCurrentSlide(index)
-  }
+    setCurrentSlide(index);
+  };
 
   return (
     <div className="max-w-sm mx-auto w-auto">
@@ -55,5 +55,5 @@ export default function MenuTemasSlider() {
           ))}
       </div>
     </div>
-  )
+  );
 }

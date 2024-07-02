@@ -1,8 +1,8 @@
-import { useMemo } from "react"
-import { useRouter } from "next/router"
-import { useState, useEffect } from "react"
-import TemaContainerCircle from "./TemaContainerCircle"
-import TemporaryUser from "@/constants/TemporaryUser"
+import { useMemo } from "react";
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import TemaContainerCircle from "./TemaContainerCircle";
+import TemporaryUser from "@/constants/TemporaryUser";
 
 export default function MenuFavsCircle() {
   const router = useRouter();
@@ -16,10 +16,10 @@ export default function MenuFavsCircle() {
       const isAckRoute = router.pathname.includes("/ackn");
 
       if (isFavRoute) {
-        const favs = JSON.parse(localStorage.getItem("favs")) || []
+        const favs = JSON.parse(localStorage.getItem("favs")) || [];
         setSandias(favs);
       } else if (isAckRoute) {
-        const views =  JSON.parse(localStorage.getItem("view")) || []
+        const views = JSON.parse(localStorage.getItem("view")) || [];
         setVistos(views);
       }
 
@@ -54,7 +54,7 @@ export default function MenuFavsCircle() {
   const checks = useMemo(() => {
     return temas.reduce((acc, tema) => {
       acc[tema] = checkSandiaByTheme(tema);
-      console.log(acc)
+      console.log(acc);
       return acc;
     }, {});
   }, [sandias, vistos]);
@@ -99,5 +99,5 @@ export default function MenuFavsCircle() {
         </div>
       </div>
     </div>
-  )
+  );
 }

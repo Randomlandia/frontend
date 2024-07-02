@@ -1,5 +1,5 @@
-import React from "react"
-import TemaContainerCircle from "./TemaContainerCircle"
+import React from "react";
+import TemaContainerCircle from "./TemaContainerCircle";
 
 export default function MenuTemasCircle() {
   return (
@@ -38,5 +38,5 @@ export default function MenuTemasCircle() {
         </div>
       </div>
     </div>
-  )
+  );
 }
