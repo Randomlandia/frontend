@@ -20,6 +20,7 @@ export default function Register() {
     setError
   } = useForm();
 
+
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
     if (bgNew) {
@@ -134,7 +135,7 @@ export default function Register() {
       <div className="w-full min-h-screen flex flex-col gap-5 font-mont font-bold">
         <Navbar />
 
-        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-[#d9d9d930]   rounded-[50px] mt-[35px]">
+        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-grey/50    rounded-[50px] mt-[35px]">
           <form
             name="formRegister"
             onSubmit={handleSubmit(onSubmit)}

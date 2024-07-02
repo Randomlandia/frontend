@@ -70,23 +70,29 @@ export default function User() {
         <div className="grid gap-4 w-full py-4 px-10 md:px-32 lg:grid-cols-2 lg:gap-2 lg:px-2 xl:grid-cols-4 ">
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
             <img src="/icon_userheart.svg" alt="" className="h-8 w-8 " />
-            <span className="font-lucky text-black text-xl xl:text-lg">
-              FAVS
-            </span>
+            <Link href="/user/favs">
+              <span className="font-lucky text-black text-xl xl:text-lg">
+                FAVS
+              </span>
+            </Link>
           </div>
 
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
             <img src="/icon_userachieve.svg" alt="" className="h-8 w-8 " />
-            <span className="font-lucky text-black text-xl xl:text-lg">
-              LOGROS
-            </span>
+            <Link href="/user/achv">
+              <span className="font-lucky text-black text-xl xl:text-lg">
+                LOGROS
+              </span>
+            </Link>
           </div>
 
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
             <img src="/icon_userview.svg" alt="" className="h-8 w-8 " />
-            <span className="font-lucky text-black text-xl xl:text-lg ">
-              VISTOS
-            </span>
+            <Link href="/user/ackn">
+              <span className="font-lucky text-black text-xl xl:text-lg ">
+                VISTOS
+              </span>
+            </Link>
           </div>
 
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
