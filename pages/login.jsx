@@ -67,11 +67,11 @@ export default function Login() {
           username: userJson.data.users.name,
           avatar: userJson.data.users.avatar
         }
-        console.log("Usuario obtenido con éxito", userJson.data.users.name)
+        console.log("Usuario obtenido con éxito", userJson.data)
         localStorage.setItem("exp", JSON.stringify(exp))
         localStorage.setItem("user", JSON.stringify(user))
-        localStorage.setItem("favs", userJson.data.users.sandiasFavoritas)
-        localStorage.setItem("view", userJson.data.users.vistos)
+        localStorage.setItem("favs", JSON.stringify(userJson.data.users.sandiasFavoritas))
+        localStorage.setItem("view", JSON.stringify(userJson.data.users.sandiasVistas))
         localStorage.setItem(
           "achieve",
           JSON.stringify(userJson.data.users.achievements)

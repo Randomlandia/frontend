@@ -32,7 +32,7 @@ export default function TemaContainerCircle({ bool, name }) {
     },
     vida: {
       color: "/B_VIDA.svg",
-      grey: "/B_VIDA.svg",
+      grey: "/B_VIDAgrey.svg",
     },
     nerd: {
       color: "/B_NERD.svg",
@@ -46,8 +46,17 @@ export default function TemaContainerCircle({ bool, name }) {
 
   const [isHovered, setIsHovered] = useState(false);
 
+  const isFavRoute = router.pathname.includes("/favs");
+  const isAcknRoute = router.pathname.includes("/ackn");
+  const isMenuRoute = router.pathname.includes("/menu")
+
   const handleClick = () => {
-    router.push(`/menu/${name}`);
+    if (isMenuRoute){router.push(`/menu/${name}`)}
+    else if (isFavRoute){
+       router.push(`/user/favs/${name}`)
+    }else if (isAcknRoute){
+       router.push(`/user/ackn/${name}`)
+    }
   };
 
   const handleMouseEnter = () => {

@@ -45,9 +45,17 @@ export default function TemaContainer({ bool, name }) {
   };
 
   const [isHovered, setIsHovered] = useState(false);
+  const isFavRoute = router.pathname.includes("/favs");
+  const isAcknRoute = router.pathname.includes("/ackn");
+  const isMenuRoute = router.pathname.includes("/menu")
 
   const handleClick = () => {
-    router.push(`/menu/${name}`);
+    if (isMenuRoute){router.push(`/menu/${name}`)}
+    else if (isFavRoute){
+       router.push(`/user/favs/${name}`)
+    }else if (isAcknRoute){
+       router.push(`/user/ackn/${name}`)
+    }
   };
 
   const handleMouseEnter = () => {
