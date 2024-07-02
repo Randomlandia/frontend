@@ -50,10 +50,6 @@ export default function TemaContainerSlider({ bool, name }) {
   const isAcknRoute = router.pathname.includes("/ackn");
   const isMenuRoute = router.pathname.includes("/menu");
 
-  const isFavRoute = router.pathname.includes("/favs");
-  const isAcknRoute = router.pathname.includes("/ackn");
-  const isMenuRoute = router.pathname.includes("/menu")
-
   const handleClick = () => {
 
     if (isMenuRoute) {
