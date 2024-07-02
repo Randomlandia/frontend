@@ -15,5 +15,5 @@ export default function RandyTextLeft({ text, img }) {
         <img src={img} alt="" className="w-36 md:w-44" />
       </div>
     </div>
-  )
+  );
 }

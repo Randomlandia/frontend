@@ -1,12 +1,8 @@
-
 export default function BackgroundCard({ img, onSelect }) {
-
-
   return (
     <div
       className="w-full h-52 flex justify-center items-center focus:outline-none focus:ring-8 focus:ring-lorange focus:rounded-md"
       tabIndex={0}
-      
     >
       <img
         src={img}
@@ -15,5 +11,5 @@ export default function BackgroundCard({ img, onSelect }) {
         onClick={onSelect}
       />
     </div>
-  )
+  );
 }

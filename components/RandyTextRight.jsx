@@ -15,5 +15,5 @@ export default function RandyTextRight({ text, img }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

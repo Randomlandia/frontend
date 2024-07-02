@@ -1,9 +1,9 @@
-import PropTypes from "prop-types"
-import { useRouter } from "next/router"
-import { useState } from "react"
+import PropTypes from "prop-types";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function TemaContainerSlider({ bool, name }) {
-  const router = useRouter()
+  const router = useRouter();
 
   const badges = {
     default: {
@@ -42,49 +42,56 @@ export default function TemaContainerSlider({ bool, name }) {
       color: "/B_ARTE.svg",
       grey: "/B_ARTEgrey.svg"
     }
-  }
+  };
 
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = useState(false);
+
+  const isFavRoute = router.pathname.includes("/favs");
+  const isAcknRoute = router.pathname.includes("/ackn");
+  const isMenuRoute = router.pathname.includes("/menu");
 
   const isFavRoute = router.pathname.includes("/favs");
   const isAcknRoute = router.pathname.includes("/ackn");
   const isMenuRoute = router.pathname.includes("/menu")
 
   const handleClick = () => {
-    if (isMenuRoute){router.push(`/menu/${name}`)}
-    else if (isFavRoute){
-       router.push(`/user/favs/${name}`)
-    }else if (isAcknRoute){
-       router.push(`/user/ackn/${name}`)
+
+    if (isMenuRoute) {
+      router.push(`/menu/${name}`);
+    } else if (isFavRoute) {
+      router.push(`/user/favs/${name}`);
+    } else if (isAcknRoute) {
+      router.push(`/user/ackn/${name}`);
+
     }
   };
 
   const handleMouseEnter = () => {
-    setIsHovered(true)
-  }
+    setIsHovered(true);
+  };
 
   const handleMouseLeave = () => {
-    setIsHovered(false)
-  }
+    setIsHovered(false);
+  };
 
   const handleTouchStart = () => {
-    setIsHovered(true)
-  }
+    setIsHovered(true);
+  };
 
   const handleTouchEnd = () => {
-    setIsHovered(false)
-  }
+    setIsHovered(false);
+  };
 
   const getHoverText = (name) => {
     switch (name) {
       case "default":
-        return "dato random"
+        return "dato random";
       case "matematicas":
-        return "mates"
+        return "mates";
       default:
-        return name
+        return name;
     }
-  }
+  };
 
   return (
     <div
@@ -117,11 +124,10 @@ export default function TemaContainerSlider({ bool, name }) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 TemaContainerSlider.propTypes = {
   bool: PropTypes.bool,
   name: PropTypes.string
-}
-
+};
