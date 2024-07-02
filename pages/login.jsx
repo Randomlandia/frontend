@@ -46,7 +46,27 @@ export default function Login() {
       localStorage.setItem("userID", json.data.token.userID);
 
       console.log("Login Exitoso");
-      // router.push("/sandias");
+
+      const userID = localStorage.getItem("userID");
+
+      // SEGUNDO FETCH (estoy obteniendo la informacion de username, avatar, favoritas, logros y vistos)
+      const userResponse = await fetch(`http://localhost:3005/users/${userID}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${json.data.token.token}`, // Enviar el token si es necesario para la autenticación
+        },
+      });
+
+      const userJson = await userResponse.json();
+      if (userJson?.data) {
+        console.log("Usuario obtenido con éxito:", userJson.data);
+        // Aquí puedes manejar los datos del usuario como necesites
+      } else {
+        console.log("No se pudieron obtener los datos del usuario");
+      }
+
+      // router.push("/menu");
       return;
     }
     console.log("Usuario o contraseña inválidos");
