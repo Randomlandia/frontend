@@ -1,89 +1,89 @@
-import { useState, useEffect } from "react"
-import RandyTextRight from "./RandyTextRight"
-import BackgroundSlider from "@/components/BackgroundSlider"
-import BackgroundsList from "@/constants/BackgroundsList"
-import BackgroundCard from "./BackgroundCard"
+import { useState, useEffect } from "react";
+import RandyTextRight from "./RandyTextRight";
+import BackgroundSlider from "@/components/BackgroundSlider";
+import BackgroundsList from "@/constants/BackgroundsList";
+import BackgroundCard from "./BackgroundCard";
 
 export default function ModalComponent({ onClose }) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isDisabled, setIsDisabled] = useState(true)
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedBg, setSelectedBg] = useState(null)
-  const [showError, setShowError] = useState(false)
-  const [showSuccess, setShowSuccess] = useState(false)
-  const [stored, setStored] = useState(null)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedBg, setSelectedBg] = useState(null);
+  const [showError, setShowError] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [stored, setStored] = useState(null);
 
-  const openModal = () => setIsOpen(true)
+  const openModal = () => setIsOpen(true);
   const closeModal = () => {
-    setIsOpen(false)
-    localStorage.removeItem("bg2")
+    setIsOpen(false);
+    localStorage.removeItem("bg2");
     if (onClose) {
-      onClose()
+      onClose();
     }
-  }
+  };
 
   const handleBgSelect = (img) => {
-    setSelectedBg(img.bg)
-  }
+    setSelectedBg(img.bg);
+  };
 
   useEffect(() => {
     if (selectedBg) {
-      localStorage.setItem("bg2", selectedBg)
+      localStorage.setItem("bg2", selectedBg);
     }
-  }, [selectedBg])
+  }, [selectedBg]);
 
   const saveHandler = (e) => {
-    e.preventDefault()
-    const bg = localStorage.getItem("bg")
-    const bg2 = localStorage.getItem("bg2")
+    e.preventDefault();
+    const bg = localStorage.getItem("bg");
+    const bg2 = localStorage.getItem("bg2");
 
     if (!bg && !bg2) {
-      setStored(false)
-      setShowError(true)
-      return
+      setStored(false);
+      setShowError(true);
+      return;
     }
 
     if (bg2) {
-      setStored(true)
-      localStorage.setItem("bg", bg2)
-      setShowError(false)
+      setStored(true);
+      localStorage.setItem("bg", bg2);
+      setShowError(false);
       setTimeout(() => {
-        setShowSuccess(true)
+        setShowSuccess(true);
         setTimeout(() => {
-          closeModal()
-          setShowSuccess(false)
-        }, 2000)
-        localStorage.removeItem("bg2")
-      }, 1000)
+          closeModal();
+          setShowSuccess(false);
+        }, 2000);
+        localStorage.removeItem("bg2");
+      }, 1000);
     }
-    return
-  }
+    return;
+  };
 
   const checkLocalStorage = () => {
-    const bg2 = localStorage.getItem("bg2")
+    const bg2 = localStorage.getItem("bg2");
     if (!bg2) {
-      setIsDisabled(true)
-      setShowError(true)
+      setIsDisabled(true);
+      setShowError(true);
     } else {
-      setIsDisabled(false)
-      setShowError(false)
+      setIsDisabled(false);
+      setShowError(false);
     }
-  }
+  };
 
   useEffect(() => {
-    checkLocalStorage()
+    checkLocalStorage();
 
     // Listen for changes in localStorage
     const handleStorageChange = () => {
-      checkLocalStorage()
-    }
+      checkLocalStorage();
+    };
 
-    window.addEventListener("click", handleStorageChange)
+    window.addEventListener("click", handleStorageChange);
 
     return () => {
-      window.removeEventListener("click", handleStorageChange)
-    }
-  }, [])
+      window.removeEventListener("click", handleStorageChange);
+    };
+  }, []);
 
   return (
     <div className="max-h-screen">
@@ -101,7 +101,6 @@ export default function ModalComponent({ onClose }) {
         >
           <div className="border-lgreen border-2 shadow-lg h-full max-h-3/4 max-h-screen bg-oldwhite/70 w-11/12 md:w-full lg:max-w-1/2 mx-auto rounded-lg z-50">
             <div className="py-2 px-4 h-full  flex flex-col">
-
               {/* logica del titulo */}
               <div className="flex flex-col">
                 <div
@@ -125,10 +124,7 @@ export default function ModalComponent({ onClose }) {
                 {/* Aqui esta el mapeo para tablets y desktop */}
                 <div className="hidden py-6 sm:grid sm:grid-cols-2 lg:grid-cols-3 w-auto sm:gap-2 lg:gap-6">
                   {BackgroundsList.map((image, index) => (
-                    <div
-                      key={index}
-                      className="w-full max-w-lg mx-auto"
-                    >
+                    <div key={index} className="w-full max-w-lg mx-auto">
                       <BackgroundCard
                         img={`/backgrounds/${image.bg}`}
                         onSelect={() => handleBgSelect(image)}
@@ -163,7 +159,6 @@ export default function ModalComponent({ onClose }) {
                       elegido uno.
                     </p>
                   )}
-              
                 </div>
               </div>
             </div>
@@ -179,5 +174,5 @@ export default function ModalComponent({ onClose }) {
         </div>
       )}
     </div>
-  )
+  );
 }
