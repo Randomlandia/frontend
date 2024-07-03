@@ -10,10 +10,35 @@ import { useEffect, useState } from "react";
 export default function Sandia() {
   const [seenSandias, setSeenSandias] = useState([]);
   const [counter, setCounter] = useState(0);
+  const [favs, setFavs] = useState([]);
 
   const addSandia = (newSandia) => {
     setSeenSandias((prevSeenSandias) => [...prevSeenSandias, newSandia]);
+    const updatedFavs = [...favs, newSandia];
+    setFavs(updatedFavs);
+    localStorage.setItem("favs", JSON.stringify(updatedFavs));
   };
+
+  async function likeSandia(sandia) {
+    console.log("im clicked");
+    const userID = localStorage.getItem("userID");
+    addSandia(sandia); //add sandia to localStorage
+
+    fetch(`http://localhost:3005/users/${userID}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        sandiasFavoritas: updatedFavs,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  }
 
   const getRandomSandia = () => {
     const sandias = sandiasByTopic.data.sandias;
@@ -24,7 +49,7 @@ export default function Sandia() {
 
   const icons = [
     { src: "/icon_turn.svg", alt: "Turn Icon" },
-    { src: "/icon_redheart.svg", alt: "Red Heart Icon" },
+    { src: "/icon_redheart.svg", alt: "Red Heart Icon", onClick: likeSandia },
     {
       src: "/icon_arrowleft.svg",
       alt: "Arrow Left Icon",
@@ -45,6 +70,9 @@ export default function Sandia() {
   let topic = router.query.topic;
 
   useEffect(() => {
+    const storedFavs = JSON.parse(localStorage.getItem("favs")) || [];
+    setFavs(storedFavs);
+
     if (topic) {
       fetch(`http://localhost:3005/sandias/topic/${topic}`)
         .then((response) => {
@@ -122,7 +150,9 @@ export default function Sandia() {
                 key={index}
                 src={icon.src}
                 alt={icon.alt}
-                onClick={icon.onClick}
+                onClick={() =>
+                  icon.onClick(seenSandias[seenSandias.length - 1])
+                }
               />
             ))}
           </div>
