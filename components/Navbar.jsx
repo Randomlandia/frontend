@@ -30,18 +30,42 @@ export default function Navbar() {
         </Link>
         <div className="flex">
           <div className="hidden lg:flex gap-7 items-center px-3">
+            {/* TODO: temporal en lo que ponemos el de user real */}
+            <Link
+              href="/user/66557607a99a5447a42d51aa"
+              className="bg-dorange h-9 px-5 rounded-[10px] flex"
+            >
+              <button> USER </button>
+            </Link>
+
             <Link href="/about">
               <button>NOSOTROS</button>
             </Link>
-            <Link href="/login">
-              <button>INICIAR SESIÓN</button>
-            </Link>
-            <Link
-              href="/register"
-              className="bg-dorange h-9 px-5 rounded-[10px] flex"
-            >
-              <button>CREAR CUENTA</button>
-            </Link>
+            {isLogged ? (
+              <>
+                <Link href="/login">
+                  <button>INICIAR SESIÓN</button>
+                </Link>
+                <Link
+                  href="/register"
+                  className="bg-dorange h-9 px-5 rounded-[10px] flex"
+                >
+                  <button>CREAR CUENTA</button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/login">
+                  <button>INICIAR SESIÓN</button>
+                </Link>
+                <Link
+                  href="/register"
+                  className="bg-dorange h-9 px-5 rounded-[10px] flex"
+                >
+                  <button>CREAR CUENTA</button>
+                </Link>
+              </>
+            )}
             <Link href="/randomlandia">
               <button className="bg-natL h-9 px-5 rounded-[10px]">
                 ¡JUGAR!

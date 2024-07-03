@@ -8,46 +8,57 @@ export default function TemaContainerCircle({ bool, name }) {
   const badges = {
     default: {
       color: "/default_avatar.png",
-      grey: "/default_avatar.png",
+      grey: "/default_avatar.png"
     },
     idiomas: {
       color: "/B_IDIOMAS.svg",
-      grey: "/B_IDIOMASgrey.svg",
+      grey: "/B_IDIOMASgrey.svg"
     },
     matematicas: {
       color: "/B_MATE.svg",
-      grey: "/B_MATEgrey.svg",
+      grey: "/B_MATEgrey.svg"
     },
     ciencias: {
       color: "/B_CIENCIA.svg",
-      grey: "/B_CIENCIAgrey.svg",
+      grey: "/B_CIENCIAgrey.svg"
     },
     mundo: {
       color: "/B_MUNDO.svg",
-      grey: "/B_MUNDOgrey.svg",
+      grey: "/B_MUNDOgrey.svg"
     },
     deportes: {
       color: "/B_DEPORTE.svg",
-      grey: "/B_DEPORTEgrey.svg",
+      grey: "/B_DEPORTEgrey.svg"
     },
     vida: {
       color: "/B_VIDA.svg",
-      grey: "/B_VIDA.svg",
+      grey: "/B_VIDAgrey.svg"
     },
     nerd: {
       color: "/B_NERD.svg",
-      grey: "/B_NERDgrey.svg",
+      grey: "/B_NERDgrey.svg"
     },
     artes: {
       color: "/B_ARTE.svg",
-      grey: "/B_ARTEgrey.svg",
-    },
+      grey: "/B_ARTEgrey.svg"
+    }
   };
 
   const [isHovered, setIsHovered] = useState(false);
 
+  const isFavRoute = router.pathname.includes("/favs");
+  const isAcknRoute = router.pathname.includes("/ackn");
+
+  const isMenuRoute = router.pathname.includes("/menu");
+
   const handleClick = () => {
-    router.push(`/menu/${name}`);
+    if (isMenuRoute) {
+      router.push(`/menu/${name}`);
+    } else if (isFavRoute) {
+      router.push(`/user/favs/${name}`);
+    } else if (isAcknRoute) {
+      router.push(`/user/ackn/${name}`);
+    }
   };
 
   const handleMouseEnter = () => {
@@ -97,7 +108,9 @@ export default function TemaContainerCircle({ bool, name }) {
         className={`w-full`}
       />
       {isHovered && (
-        <p className={`absolute inset-0 capitalize text-white text-lg lg:text-xl font-bold text-center flex items-center justify-center`}>
+        <p
+          className={`absolute inset-0 capitalize text-white text-lg lg:text-xl font-bold text-center flex items-center justify-center`}
+        >
           {getHoverText(name)}
         </p>
       )}
@@ -107,6 +120,5 @@ export default function TemaContainerCircle({ bool, name }) {
 
 TemaContainerCircle.propTypes = {
   bool: PropTypes.bool.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };
-

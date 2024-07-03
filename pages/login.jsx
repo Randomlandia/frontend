@@ -11,20 +11,23 @@ export default function Login() {
   const router = useRouter();
 
   useEffect(() => {
-    const bgNew = localStorage.getItem("bg")
+    const bgNew = localStorage.getItem("bg");
     if (bgNew) {
-      setBackground(`${bgNew}`)
+
+      setBackground(`/backgrounds/${bgNew}`);
+
     } else {
-      setBackground("/backgrounds/bg-booksflying.webp")
+      setBackground("/backgrounds/bg-booksflying.webp");
     }
-  }, [])
+  }, []);
 
   const {
     handleSubmit,
     register,
     setError,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
+
 
   async function onSubmit(dataLogIn) {
     const response = await fetch("http://localhost:3005/users/login", {
@@ -42,11 +45,52 @@ export default function Login() {
 
     const json = await response?.json();
     if (json?.data?.token) {
-      localStorage.setItem("token", json.data.token.token);
-      localStorage.setItem("userID", json.data.token.userID);
 
+      localStorage.setItem("token", json.data.token);
+      localStorage.setItem("userID", json.data.userID);
+      console.log(json);
       console.log("Login Exitoso");
-      // router.push("/sandias");
+
+      const userID = localStorage.getItem("userID");
+
+      // SEGUNDO FETCH (estoy obteniendo la informacion de username, avatar, favoritas, logros y vistos)
+      const userResponse = await fetch(
+        `http://localhost:3005/users/${userID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        }
+      );
+
+      const userJson = await userResponse.json();
+      if (userJson?.data) {
+        const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
+        const user = {
+          username: userJson.data.users.name,
+          avatar: userJson.data.users.avatar
+        };
+        console.log("Usuario obtenido con éxito", userJson.data);
+        localStorage.setItem("exp", JSON.stringify(exp));
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem(
+          "favs",
+          JSON.stringify(userJson.data.users.sandiasFavoritas)
+        );
+        localStorage.setItem(
+          "view",
+          JSON.stringify(userJson.data.users.sandiasVistas)
+        );
+        localStorage.setItem(
+          "achieve",
+          JSON.stringify(userJson.data.users.achievements)
+        );
+      } else {
+        console.log("No se pudieron obtener los datos del usuario");
+      }
+
+      router.push("/menu");
       return;
     }
     console.log("Usuario o contraseña inválidos");
@@ -59,7 +103,7 @@ export default function Login() {
       style={{ backgroundImage: `url(${background})` }}
     >
       <Navbar />
-      <div className="grid justify-items-center bg-grey/30 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
+      <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
         <div className="grid gap-7  text-white ">
           <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">

@@ -1,7 +1,8 @@
-import { useRouter } from "next/router"
-import { useState } from "react"
-import TemaContainerSlider from "./TemaContainerSlider"
-import TemporaryUser from "@/constants/TemporaryUser"
+import { useRouter } from "next/router";
+import { useState, useEffect } from "react";
+import TemaContainerSlider from "./TemaContainerSlider";
+import TemporaryUser from "@/constants/TemporaryUser";
+
 
 const prevSlides = [
   "nerd",
@@ -12,23 +13,44 @@ const prevSlides = [
   "artes",
   "mundo",
   "matematicas"
-]
+];
 
 export default function MenuFavsSlider() {
-  const checkSandiaByTheme = (themeName) => {
-    const router = useRouter()
-    const isFavRoute = router.pathname.includes("/favs")
-    const isAckRoute = router.pathname.includes("/ackn")
 
-    if (isFavRoute) {
-      const sandias = TemporaryUser.data.user.sandiasFavoritas
-      return sandias.some((sandia) => sandia.topic.name === themeName)
-    } else if (isAckRoute) {
-      const vistos = TemporaryUser.data.user.vistos
-      return vistos.some((visto) => visto.topic.name === themeName)
+  const router = useRouter();
+  const [sandias, setSandias] = useState([]);
+  const [vistos, setVistos] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = () => {
+      const isFavRoute = router.pathname.includes("/favs");
+      const isAckRoute = router.pathname.includes("/ackn");
+
+      if (isFavRoute) {
+        const favs = JSON.parse(localStorage.getItem("favs")) || [];
+        setSandias(favs);
+      } else if (isAckRoute) {
+        const views = JSON.parse(localStorage.getItem("view")) || [];
+        setVistos(views);
+      }
+
+      setLoading(false);
+    };
+
+    if (typeof window !== "undefined") {
+      fetchData();
     }
-    return false
-  }
+  }, [router.pathname]);
+
+  const checkSandiaByTheme = (themeName) => {
+    if (router.pathname.includes("/favs")) {
+      return sandias.some((sandia) => sandia.topic.name === themeName);
+    } else if (router.pathname.includes("/ackn")) {
+      return vistos.some((visto) => visto.topic.name === themeName);
+    }
+    return false;
+  };
 
   const slides = prevSlides.map((name, index) => ({
     id: index,
@@ -39,15 +61,15 @@ export default function MenuFavsSlider() {
         name={name}
       />
     )
-  }))
+  }));
 
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const totalSlides = slides.length
-  const slidesPerPage = 2
-  
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const totalSlides = slides.length;
+  const slidesPerPage = 2;
+
   const goToSlide = (index) => {
-    setCurrentSlide(index)
-  }
+    setCurrentSlide(index);
+  };
 
   return (
     <div className="max-w-sm mx-auto w-auto">
@@ -83,5 +105,5 @@ export default function MenuFavsSlider() {
           ))}
       </div>
     </div>
-  )
+  );
 }
