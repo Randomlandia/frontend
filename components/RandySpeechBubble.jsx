@@ -4,6 +4,7 @@ import classNames from "classnames";
 
 const RandySpeechBubble = ({
   text,
+  text1,
   trianglePosition = "left",
   imageSrc = "/randy.png", // Default image path
   imageAlt = "Randy the cat looking happy and content", // Default alt text
@@ -34,6 +35,7 @@ const RandySpeechBubble = ({
     >
       <div className="overflow-y-auto h-full speech-bubble text-center">
         {text}
+        {text1}
       </div>
       <div className={triangleClasses}></div>
       <img src={imageSrc} alt={imageAlt} className={randyClasses} />

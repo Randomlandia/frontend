@@ -11,49 +11,44 @@ export default function Sandia() {
   const [seenSandias, setSeenSandias] = useState([]);
   const [counter, setCounter] = useState(0);
   const [favs, setFavs] = useState([]);
-
+  const [reverseSandias, setReverseSandias] = useState([]);
+  const [flecha, setFlecha] = useState(false);
+  const [contador, setContador] = useState(1);
+  const [texto, setTexto] = useState("no hay mas por mostrar!!!");
   const addSandia = (newSandia) => {
     setSeenSandias((prevSeenSandias) => [...prevSeenSandias, newSandia]);
-    const updatedFavs = [...favs, newSandia];
-    setFavs(updatedFavs);
-    localStorage.setItem("favs", JSON.stringify(updatedFavs));
   };
 
-  async function likeSandia(sandia) {
-    console.log("im clicked");
-    const userID = localStorage.getItem("userID");
-    addSandia(sandia); //add sandia to localStorage
-
-    fetch(`http://localhost:3005/users/${userID}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        sandiasFavoritas: updatedFavs,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json))
-      .catch((error) => {
-        console.log("Error", error);
-      });
-  }
+  const addReverseSandias = (newSandia) => {
+    setReverseSandias((prevSeenSandias) => [newSandia, ...prevSeenSandias]);
+  };
 
   const getRandomSandia = () => {
     const sandias = sandiasByTopic.data.sandias;
     const randomSandiaIndex = Math.floor(Math.random() * sandias.length);
     const randomSandia = sandias[randomSandiaIndex];
     addSandia(randomSandia);
+    addReverseSandias(randomSandia);
+    setFlecha(true);
   };
+  const reverseSandia = () => {
+    setContador(contador + 1);
+    let textoReverse = reverseSandias[contador];
+    setTexto(textoReverse);
+    setFlecha(false);
+    console.log("esteeeeeee", reverseSandias[contador]);
+  };
+
+  console.log("hola", reverseSandias);
+  console.log({ seenSandias });
 
   const icons = [
     { src: "/icon_turn.svg", alt: "Turn Icon" },
-    { src: "/icon_redheart.svg", alt: "Red Heart Icon", onClick: likeSandia },
+    { src: "/icon_redheart.svg", alt: "Red Heart Icon" },
     {
       src: "/icon_arrowleft.svg",
       alt: "Arrow Left Icon",
-      onClick: getRandomSandia,
+      onClick: reverseSandia,
     },
     {
       src: "/icon_turnright.svg",
@@ -115,8 +110,6 @@ export default function Sandia() {
     );
   }
 
-  console.log({ seenSandias });
-
   return (
     <>
       <Navbar />
@@ -139,11 +132,18 @@ export default function Sandia() {
               height={40}
             />
           </div>
+
           {seenSandias[seenSandias.length - 1]?.content && (
             <RandySpeechBubble
-              text={seenSandias[seenSandias.length - 1].content}
+              text={
+                flecha === true && seenSandias[seenSandias.length - 1].content
+              }
+              text1={
+                (flecha === false && texto.content) || "no hay más que mostrar"
+              }
             />
           )}
+
           <div className="grid grid-cols-2 gap-2 h-32 w-36 ml-[68%]">
             {icons.map((icon, index) => (
               <SandiaIcon
@@ -160,4 +160,27 @@ export default function Sandia() {
       </section>
     </>
   );
+}
+
+{
+  /* async function likeSandia(sandia) {
+    console.log("im clicked");
+    const userID = localStorage.getItem("userID");
+    addSandia(sandia); //add sandia to localStorage
+
+    fetch(`http://localhost:3005/users/${userID}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        sandiasFavoritas: updatedFavs,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log(json))
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  } */
 }
