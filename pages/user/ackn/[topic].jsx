@@ -33,7 +33,7 @@ const SandiaList = () => {
     })();
 
     setSandias(storedSandias);
-  }, [router.pathname, favorites]);
+  }, [router.pathname]);
 
   const filteredSandias = useMemo(() => {
     if (!topic || topic === "default") {
@@ -57,7 +57,7 @@ const SandiaList = () => {
       >
         <div className="bg-zinc-500/30 px-10 py-6 m-4 rounded-xl">
           <div>
-            <h1 className="font-lucky text-dgreen">favoritas</h1>
+            <h1 className="font-lucky text-dgreen">Randomteca</h1>
           </div>
           <div className="  grid grid-cols-1 sm:grid:cols-2 lg:grid-cols-4 gap-3">
             {Array.isArray(filteredSandias) && filteredSandias.length > 0 ? (
