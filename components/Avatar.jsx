@@ -48,6 +48,13 @@ export default function Avatar(props) {
       <div className="grid grid-cols-1 gap-3 place-items-center">
         {/* RANDY ICON FOR USER DEFAULT ONLY*/}
         <div className=" inline-flex gap-2">
+          {props.avatar && (
+            <img
+              src="/randy_icon.svg"
+              alt="randy default icon"
+              className="h-32 w-32 "
+            />
+          )}
           {props.avatar == 1 && (
             <img
               src="/randy_icon.svg"
