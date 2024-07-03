@@ -46,6 +46,17 @@ input::placeholder {
   }
 }
 
+/* Scrollbar for SandiaCardPreview */
+/* .scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+} */
+
+
 /* Custom scrollbar styles */
 .speech-bubble::-webkit-scrollbar {
   width: 6px;
@@ -64,3 +75,5 @@ input::placeholder {
 .speech-bubble::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+@import './ScrollableBox.module.css';

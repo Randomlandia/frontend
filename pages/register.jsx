@@ -9,15 +9,13 @@ import Image from "next/image";
 export default function Register() {
   const [background, setBackground] = useState("bg-booksflying.webp");
   const [showSuccess, setShowSuccess] = useState(false);
-  const [background, setBackground] = useState("bg-booksflying.webp");
-  const [showSuccess, setShowSuccess] = useState(false);
+  
   const router = useRouter();
 
   const {
     handleSubmit,
     register,
     reset,
-    watch,
     watch,
     formState: { errors },
     setError,

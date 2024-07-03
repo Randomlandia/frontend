@@ -4,8 +4,12 @@ export const useFavorites = () => {
   const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favs")) || [];
-    setFavorites(storedFavorites);
+    const storedFavorites = localStorage.getItem("favs");
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    } else {
+      setFavorites([]);
+    }
   }, []);
 
   const toggleFavorite = (sandia) => {
