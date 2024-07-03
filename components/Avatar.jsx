@@ -258,6 +258,11 @@ export default function Avatar(props) {
               className="h-6 w-6"
             />
           </div>
+          <ModalAvatar
+            className="flex align-bottom"
+            isVisible={showModal}
+            onClose={() => setShowModal(false)}
+          ></ModalAvatar>
         </div>
       </div>
     </Fragment>

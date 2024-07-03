@@ -5,14 +5,17 @@ import Link from "next/link";
 export default function Navbar() {
   const [isLogged, setIsLogged] = useState(true);
   const [user, setUser] = useState("Explorador");
+  const [userId, setUserId] = useState("Explorador");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    const idUser = localStorage.getItem("userID");
 
     if (token) {
       setIsLogged(true);
       const loggedUser = localStorage.getItem("user");
       setUser(loggedUser);
+      setUserId(idUser);
     } else {
       setIsLogged(false);
     }
@@ -32,7 +35,7 @@ export default function Navbar() {
           <div className="hidden lg:flex gap-7 items-center px-3">
             {/* TODO: temporal en lo que ponemos el de user real */}
             <Link
-              href="/user/66557607a99a5447a42d51aa"
+              href={`/user/${userId}` || `/login`}
               className="bg-dorange h-9 px-5 rounded-[10px] flex"
             >
               <button> USER </button>
