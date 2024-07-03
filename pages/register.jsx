@@ -9,8 +9,6 @@ import Image from "next/image";
 export default function Register() {
   const [background, setBackground] = useState("bg-booksflying.webp");
   const [showSuccess, setShowSuccess] = useState(false);
-  const [background, setBackground] = useState("bg-booksflying.webp");
-  const [showSuccess, setShowSuccess] = useState(false);
   const router = useRouter();
 
   const {
@@ -18,9 +16,8 @@ export default function Register() {
     register,
     reset,
     watch,
-    watch,
     formState: { errors },
-    setError
+    setError,
   } = useForm();
 
   useEffect(() => {
@@ -40,11 +37,11 @@ export default function Register() {
         body: JSON.stringify({
           name: dataRegistro.userRegistro,
           email: dataRegistro.correoRegistro,
-          password: dataRegistro.contraseñaRegistro
+          password: dataRegistro.contraseñaRegistro,
         }),
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
+          "Content-type": "application/json; charset=UTF-8",
+        },
       });
 
       const registroJson = await registroResponse.json();
@@ -58,11 +55,11 @@ export default function Register() {
           method: "POST",
           body: JSON.stringify({
             email: dataRegistro.correoRegistro,
-            password: dataRegistro.contraseñaRegistro
+            password: dataRegistro.contraseñaRegistro,
           }),
           headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          }
+            "Content-type": "application/json; charset=UTF-8",
+          },
         });
 
         const loginJson = await loginResponse.json();
@@ -80,8 +77,8 @@ export default function Register() {
             {
               method: "GET",
               headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-              }
+                "Content-Type": "application/json; charset=UTF-8",
+              },
             }
           );
 
@@ -91,7 +88,7 @@ export default function Register() {
             const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
             const user = {
               username: userJson.data.users.name,
-              avatar: userJson.data.users.avatar
+              avatar: userJson.data.users.avatar,
             };
 
             localStorage.setItem("exp", JSON.stringify(exp));
@@ -158,16 +155,16 @@ export default function Register() {
                     {...register("userRegistro", {
                       minLength: {
                         value: 3,
-                        message: "Usuario debe contener a mínimo 3 caracteres"
+                        message: "Usuario debe contener a mínimo 3 caracteres",
                       },
                       maxLength: {
                         value: 50,
-                        message: "Usuario debe contener a máximo 50 caracteres"
+                        message: "Usuario debe contener a máximo 50 caracteres",
                       },
                       pattern: {
                         value: /^[A-Za-z]+$/i,
-                        message: "Solo se permiten letras"
-                      }
+                        message: "Solo se permiten letras",
+                      },
                     })}
                   />
                 </div>
@@ -188,17 +185,17 @@ export default function Register() {
                     {...register("correoRegistro", {
                       minLength: {
                         value: 3,
-                        message: "Correo debe contener a mínimo 3 caracteres"
+                        message: "Correo debe contener a mínimo 3 caracteres",
                       },
                       maxLength: {
                         value: 50,
-                        message: "Correo debe contener a máximo 50 caracteres"
+                        message: "Correo debe contener a máximo 50 caracteres",
                       },
                       pattern: {
                         value:
                           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                        message: "Correo no válido"
-                      }
+                        message: "Correo no válido",
+                      },
                     })}
                   />
                 </div>
@@ -219,19 +216,18 @@ export default function Register() {
                     {...register("contraseñaRegistro", {
                       minLength: {
                         value: 3,
-                        message:
-                          "Contraseña debe contener mínimo 3 caracteres"
+                        message: "Contraseña debe contener mínimo 3 caracteres",
                       },
                       maxLength: {
                         value: 50,
                         message:
-                          "Contraseña debe contener máximo 50 caracteres"
+                          "Contraseña debe contener máximo 50 caracteres",
                       },
                       validate: {
                         matches: (value) =>
                           value === watch("contraseñaRegistro") ||
-                          "Las contraseñas no coinciden"
-                      }
+                          "Las contraseñas no coinciden",
+                      },
                     })}
                   />
                 </div>
@@ -253,8 +249,8 @@ export default function Register() {
                       validate: {
                         matches: (value) =>
                           value === watch("contraseñaRegistro") ||
-                          "Las contraseñas no coinciden"
-                      }
+                          "Las contraseñas no coinciden",
+                      },
                     })}
                   />
                 </div>
