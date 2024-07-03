@@ -13,9 +13,7 @@ export default function Login() {
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
     if (bgNew) {
-
       setBackground(`/backgrounds/${bgNew}`);
-
     } else {
       setBackground("/backgrounds/bg-booksflying.webp");
     }
@@ -25,9 +23,8 @@ export default function Login() {
     handleSubmit,
     register,
     setError,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
-
 
   async function onSubmit(dataLogIn) {
     const response = await fetch("http://localhost:3005/users/login", {
@@ -45,10 +42,8 @@ export default function Login() {
 
     const json = await response?.json();
     if (json?.data?.token) {
-
       localStorage.setItem("token", json.data.token);
       localStorage.setItem("userID", json.data.userID);
-      console.log(json);
       console.log("Login Exitoso");
 
       const userID = localStorage.getItem("userID");
@@ -69,7 +64,7 @@ export default function Login() {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
         const user = {
           username: userJson.data.users.name,
-          avatar: userJson.data.users.avatar
+          avatar: userJson.data.users.avatar,
         };
         console.log("Usuario obtenido con éxito", userJson.data);
         localStorage.setItem("exp", JSON.stringify(exp));
