@@ -30,17 +30,15 @@ export default function Sandia() {
     addSandia(randomSandia);
     addReverseSandias(randomSandia);
     setFlecha(true);
+    setContador(1);
   };
   const reverseSandia = () => {
+    setContador(1);
     setContador(contador + 1);
     let textoReverse = reverseSandias[contador];
     setTexto(textoReverse);
     setFlecha(false);
-    console.log("esteeeeeee", reverseSandias[contador]);
   };
-
-  console.log("hola", reverseSandias);
-  console.log({ seenSandias });
 
   const icons = [
     { src: "/icon_turn.svg", alt: "Turn Icon" },
