@@ -25,7 +25,7 @@ export default function Login() {
     handleSubmit,
     register,
     setError,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   async function onSubmit(dataLogIn) {
@@ -46,7 +46,6 @@ export default function Login() {
     if (json?.data?.token) {
       localStorage.setItem("token", json.data.token);
       localStorage.setItem("userID", json.data.userID);
-      console.log(json);
       console.log("Login Exitoso");
 
       const userID = localStorage.getItem("userID");
@@ -67,7 +66,7 @@ export default function Login() {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
         const user = {
           username: userJson.data.users.name,
-          avatar: userJson.data.users.avatar
+          avatar: userJson.data.users.avatar,
         };
         console.log("Usuario obtenido con éxito", userJson.data);
         localStorage.setItem("exp", JSON.stringify(exp));

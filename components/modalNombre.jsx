@@ -1,5 +1,5 @@
-const ModalAvatar = ({ isVisible, children }) => {
-  if (!isVisible) return null;
+const ModalAvatarNombre = ({ isVisibleName, children }) => {
+  if (!isVisibleName) return null;
 
   return (
     <div className="flex flex-col fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm justify-center items-center">
@@ -11,4 +11,4 @@ const ModalAvatar = ({ isVisible, children }) => {
   );
 };
 
-export default ModalAvatar;
+export default ModalAvatarNombre;
