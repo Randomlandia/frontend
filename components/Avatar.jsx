@@ -9,7 +9,8 @@ export default function Avatar(props) {
   const [showModal, setShowModal] = useState(false);
   const [showModalName, setShowModalName] = useState(false);
   const [avatarValue, setAvatarValue] = useState();
-  const [name, setName] = useState(props.name);
+  const [nombreNuevo, setNombreNuevo] = useState();
+  const [showSuccess, setShowSuccess] = useState(false);
   const router = useRouter();
 
   async function onSubmit(avatarValue) {
@@ -33,7 +34,7 @@ export default function Avatar(props) {
       .catch((error) => {
         console.log("Error", error);
       });
-
+    localStorage.setItem("avatarValue", JSON.stringify(avatarValue));
     return;
   }
 
@@ -58,10 +59,13 @@ export default function Avatar(props) {
       .catch((error) => {
         console.log("Error", error);
       });
-    router.push(`/menu`);
-    setName(nameUser.name);
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+      router.push("/menu");
+    }, 2000);
     setShowModalName(false);
-
+    setNombreNuevo(nameUser.name);
     return;
   }
 
@@ -362,6 +366,15 @@ export default function Avatar(props) {
               </div>
             </form>
           </ModalAvatarNombre>
+          {showSuccess && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
+              <p className="text-ram text-center text-3xl font-bold text-dgreen">
+                Me encanta tu nuevo nombre:
+                <br />
+                <p className="text-[50px] font-extrabold">{nombreNuevo}</p>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </Fragment>
