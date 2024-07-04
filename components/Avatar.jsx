@@ -9,7 +9,7 @@ export default function Avatar(props) {
   const [showModal, setShowModal] = useState(false);
   const [showModalName, setShowModalName] = useState(false);
   const [avatarValue, setAvatarValue] = useState();
-  const [name, setName] = useState(props.name);
+
   const router = useRouter();
 
   async function onSubmit(avatarValue) {
@@ -59,7 +59,7 @@ export default function Avatar(props) {
         console.log("Error", error);
       });
     router.push(`/menu`);
-    setName(nameUser.name);
+
     setShowModalName(false);
 
     return;
