@@ -4,7 +4,6 @@ import ContactoFooter from "@/components/ContactoFooter";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import Link from "next/link";
 
 export default function User() {

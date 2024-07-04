@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import RandyTextLeft from "@/components/RandyTextLeft";
 import TemaContainer from "@/components/TemaContainer";
 import ScrollableBox from "@/utils/scrollableBox";
+// import { ButtonGroup } from "rsuite";
 
 const SandiaList = () => {
   const router = useRouter();
@@ -105,14 +106,14 @@ const SandiaList = () => {
               className="flex gap-2  bg-lorange/60 mx-auto py-3 px-10 rounded-full items-center"
             >
               <div className="w-8 sm:w-10 bg-langD rounded-full p-[6px] sm:p-2 flex items-center">
-                <img src="/icon_whiteheart.svg" alt="❤️" className="w-auto" />
+                <img src="/icon_view.svg" alt="👀" className="w-auto" />
               </div>
               <h1 className="font-lucky text-dgreen text-3xl sm:text-5xl tracking-wider">
-                favoritas
+                randomteca
               </h1>
             </button>
           </div>
-          <div className="flex flex-wrap gap-5 justify-around ">
+          <div className="flex flex-wrap gap-5 justify-around">
             {Array.isArray(filteredSandias) && filteredSandias.length > 0 ? (
               filteredSandias.map((sandia) => (
                 <SandiaCardPreview
