@@ -26,18 +26,25 @@ export default function MenuFavsSlider() {
     const fetchData = () => {
       const isFavRoute = router.pathname.includes("/favs");
       const isAckRoute = router.pathname.includes("/ackn");
-
-      if (isFavRoute) {
-        const favs = JSON.parse(localStorage.getItem("favs")) || [];
-        setSandias(favs);
-      } else if (isAckRoute) {
-        const views = JSON.parse(localStorage.getItem("view")) || [];
-        setVistos(views);
+  
+      try {
+        if (isFavRoute) {
+          const favsString = localStorage.getItem("favs");
+          const favs = favsString ? JSON.parse(favsString) : [];
+          setSandias(favs);
+        } else if (isAckRoute) {
+          const viewsString = localStorage.getItem("view");
+          const views = viewsString ? JSON.parse(viewsString) : [];
+          setVistos(views);
+        }
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+        // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje al usuario o estableciendo un valor predeterminado.
       }
-
+  
       setLoading(false);
     };
-
+  
     if (typeof window !== "undefined") {
       fetchData();
     }
