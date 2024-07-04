@@ -6,16 +6,19 @@ export default function Navbar() {
   const [isLogged, setIsLogged] = useState(true);
   const [user, setUser] = useState("Explorador");
   const [userId, setUserId] = useState("Explorador");
+  const [userAvatar, setAvatar] = useState(0);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const idUser = localStorage.getItem("userID");
+    const avatarValue = localStorage.getItem("avatarValue");
 
     if (token) {
       setIsLogged(true);
       const loggedUser = localStorage.getItem("user");
       setUser(loggedUser);
       setUserId(idUser);
+      setAvatar(avatarValue);
     } else {
       setIsLogged(false);
     }
@@ -33,12 +36,59 @@ export default function Navbar() {
         </Link>
         <div className="flex">
           <div className="hidden lg:flex gap-7 items-center px-3">
-            {/* TODO: temporal en lo que ponemos el de user real */}
-            <Link
-              href={`/user/${userId}` || `/login`}
-              className="bg-dorange h-9 px-5 rounded-[10px] flex"
-            >
-              <button> USER </button>
+            {/*botonAvatarImagen */}
+            <Link href={`/user/${userId}` || `/login`}>
+              <button>
+                {userAvatar == 0 && (
+                  <img
+                    src="/randy_icon.svg"
+                    alt="randy default icon"
+                    className="h-10 w-10 "
+                  />
+                )}
+                {userAvatar == 1 && (
+                  <img
+                    src="/B_NERD.svg"
+                    alt="randy default icon"
+                    className="h-10 w-10 "
+                  />
+                )}
+                {userAvatar == 2 && (
+                  <img
+                    src="/B_DEPORTE.svg"
+                    alt="randy default icon"
+                    className="h-10 w-10 "
+                  />
+                )}
+                {userAvatar == 3 && (
+                  <img
+                    src="/B_ARTE.svg"
+                    alt="randy default icon"
+                    className="h-10 w-10 "
+                  />
+                )}
+                {userAvatar == 4 && (
+                  <img
+                    src="/B_CIENCIA.svg"
+                    alt="randy default icon"
+                    className="h-10 w-10 "
+                  />
+                )}
+                {userAvatar == 5 && (
+                  <img
+                    src="/B_IDIOMAS.svg"
+                    alt="randy default icon"
+                    className="h-10 w-10 "
+                  />
+                )}
+                {userAvatar == 6 && (
+                  <img
+                    src="/B_MATE.svg"
+                    alt="randy default icon"
+                    className="h-10 w-10 "
+                  />
+                )}
+              </button>
             </Link>
 
             <Link href="/about">

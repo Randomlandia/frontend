@@ -34,7 +34,7 @@ export default function Avatar(props) {
       .catch((error) => {
         console.log("Error", error);
       });
-
+    localStorage.setItem("avatarValue", JSON.stringify(avatarValue));
     return;
   }
 
