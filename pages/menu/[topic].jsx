@@ -32,6 +32,7 @@ export default function Sandia() {
     setFlecha(true);
     setContador(1);
   };
+<<<<<<< HEAD
 
   const reverseSandia = () => {
     if (contador < reverseSandias.length) {
@@ -44,6 +45,14 @@ export default function Sandia() {
     } else {
       setContador(0);
     }
+=======
+  const reverseSandia = () => {
+    setContador(1);
+    setContador(contador + 1);
+    let textoReverse = reverseSandias[contador];
+    setTexto(textoReverse);
+    setFlecha(false);
+>>>>>>> develop
   };
 
   const icons = [
