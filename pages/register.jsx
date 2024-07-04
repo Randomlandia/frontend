@@ -9,7 +9,8 @@ import Image from "next/image";
 export default function Register() {
   const [background, setBackground] = useState("bg-booksflying.webp");
   const [showSuccess, setShowSuccess] = useState(false);
-  
+  const [showError, setShowError] = useState(false);
+
   const router = useRouter();
 
   const {
@@ -32,6 +33,9 @@ export default function Register() {
 
   async function onSubmit(dataRegistro) {
     try {
+      if (!dataRegistro.email || !dataRegistro.password) {
+        setShowError(true);
+      }
       // Registro del usuario
       const registroResponse = await fetch("http://localhost:3005/users", {
         method: "POST",
@@ -269,6 +273,14 @@ export default function Register() {
               >
                 enviar
               </button>
+              {showError && (
+                <p
+                  className=" my-5 bg-lorange/50 text-white p-2 rounded-lg flex justify-center items-center"
+                  id="letra"
+                >
+                  {"⚠ Llena los campos por favor"}
+                </p>
+              )}
               <Link href="./login" className="text-natD underline text-center">
                 INICIAR SESIÓN
               </Link>
