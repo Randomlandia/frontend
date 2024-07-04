@@ -33,7 +33,7 @@ export default function Register() {
 
   async function onSubmit(dataRegistro) {
     try {
-      if (!dataRegistro.email || !dataRegistro.password) {
+      if (!dataRegistro.email || !dataRegistro.password || !dataRegistro.name) {
         setShowError(true);
       }
       // Registro del usuario
@@ -274,10 +274,7 @@ export default function Register() {
                 enviar
               </button>
               {showError && (
-                <p
-                  className=" my-5 bg-lorange/50 text-white p-2 rounded-lg flex justify-center items-center"
-                  id="letra"
-                >
+                <p className=" text-red-500 text-center" id="letra">
                   {"⚠ Llena los campos por favor"}
                 </p>
               )}
