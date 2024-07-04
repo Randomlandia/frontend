@@ -8,6 +8,8 @@ import Image from "next/image";
 
 export default function Login() {
   const [background, setBackground] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -31,11 +33,11 @@ export default function Login() {
       method: "Post",
       body: JSON.stringify({
         email: dataLogIn.email,
-        password: dataLogIn.password,
+        password: dataLogIn.password
       }),
       headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
+        "Content-type": "application/json; charset=UTF-8"
+      }
     }).catch((error) => {
       console.log("Error", error);
     });
@@ -54,8 +56,8 @@ export default function Login() {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-          },
+            "Content-Type": "application/json; charset=UTF-8"
+          }
         }
       );
 
@@ -81,15 +83,21 @@ export default function Login() {
           "achieve",
           JSON.stringify(userJson.data.users.achievements)
         );
+
+        setTimeout(() => {
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+            router.push("/menu");
+          }, 2000);
+        }, 2000);
       } else {
         console.log("No se pudieron obtener los datos del usuario");
+        setError("root", { message: "Usuario o contraseña inválidos" });
       }
-
-      router.push("/menu");
-      return;
+    } else {
+      console.log("Usuario o contraseña inválidos");
     }
-    console.log("Usuario o contraseña inválidos");
-    setError("root", { message: "Usuario o contraseña inválidos" });
   }
 
   return (
@@ -140,12 +148,12 @@ export default function Login() {
                 {...register("email", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Email o password inválido"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
-                  },
+                    message: "Usuario debe contener a máximo 50 caracteres"
+                  }
                 })}
               />
             </div>
@@ -163,12 +171,12 @@ export default function Login() {
                 {...register("password", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Email o password inválido"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
-                  },
+                    message: "Usuario debe contener a máximo 50 caracteres"
+                  }
                 })}
               />
             </div>
@@ -208,6 +216,14 @@ export default function Login() {
           </div>
         </form>
       </div>
+      {showSuccess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
+          <p className="text-ram text-center text-3xl font-bold text-dgreen">
+            ¡Bienvenido!
+            <br /> Ya estas listo para la aventura.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
