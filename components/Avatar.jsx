@@ -1,5 +1,6 @@
 import ModalAvatar from "./modalAvatar";
 import ModalAvatarNombre from "./modalNombre";
+import SeleccionaAvatar from "./SeleccionaAvatar";
 import { Fragment } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -11,10 +12,11 @@ export default function Avatar(props) {
   const [avatarValue, setAvatarValue] = useState();
   const [nombreNuevo, setNombreNuevo] = useState();
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showAvatar, setShowAvatar] = useState(false);
   const router = useRouter();
 
-  async function onSubmit(avatarValue) {
-    if (!avatarValue) {
+  async function onSubmit(e) {
+    if (!e) {
       return (
         <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full"></main>
       );
@@ -35,6 +37,11 @@ export default function Avatar(props) {
         console.log("Error", error);
       });
     localStorage.setItem("avatarValue", JSON.stringify(avatarValue));
+    setShowAvatar(true);
+    setTimeout(() => {
+      setShowAvatar(false);
+      router.push("/menu");
+    }, 2000);
     return;
   }
 
@@ -85,57 +92,9 @@ export default function Avatar(props) {
     <Fragment>
       <div className="grid grid-cols-1 gap-3 place-items-center">
         {/* RANDY ICON FOR USER DEFAULT ONLY*/}
-        <div className=" inline-flex gap-2">
-          {props.avatar == 0 && (
-            <img
-              src="/randy_icon.svg"
-              alt="randy default icon"
-              className="h-32 w-32 "
-            />
-          )}
-          {props.avatar == 1 && (
-            <img
-              src="/B_NERD.svg"
-              alt="randy default icon"
-              className="h-32 w-32 "
-            />
-          )}
-          {props.avatar == 2 && (
-            <img
-              src="/B_DEPORTE.svg"
-              alt="randy default icon"
-              className="h-32 w-32 "
-            />
-          )}
-          {props.avatar == 3 && (
-            <img
-              src="/B_ARTE.svg"
-              alt="randy default icon"
-              className="h-32 w-32 "
-            />
-          )}
-          {props.avatar == 4 && (
-            <img
-              src="/B_CIENCIA.svg"
-              alt="randy default icon"
-              className="h-32 w-32 "
-            />
-          )}
-          {props.avatar == 5 && (
-            <img
-              src="/B_IDIOMAS.svg"
-              alt="randy default icon"
-              className="h-32 w-32 "
-            />
-          )}
-          {props.avatar == 6 && (
-            <img
-              src="/B_MATE.svg"
-              alt="randy default icon"
-              className="h-32 w-32 "
-            />
-          )}
 
+        <div className=" inline-flex gap-2">
+          <SeleccionaAvatar avatar={props.avatar}></SeleccionaAvatar>
           <button onClick={() => setShowModal(true)}>
             <div className="content-center">
               <img
@@ -152,7 +111,7 @@ export default function Avatar(props) {
           <div>
             <form
               name="formRegister"
-              onSubmit={onSubmit(avatarValue)}
+              onSubmit={handleSubmit(onSubmit)}
               className="mx-auto py-12 bg-grey/50 rounded-3xl grid gap-7 text-sm font-bold"
             >
               <div className="inline-flex justify-center relative">
@@ -184,11 +143,10 @@ export default function Avatar(props) {
                   {...register("boton1")}
                 >
                   <div className="rounded-full border-4 border-transparent  hover:border-dorange">
-                    {" "}
                     <img
-                      src="/B_NERD.svg"
-                      alt="randy default icon"
-                      className="h-28 w-28"
+                      src="/avatars/A_RANDY_DED.svg"
+                      alt="RANDY_DED"
+                      className="h-32 w-32 "
                     />
                   </div>
                 </button>
@@ -199,11 +157,10 @@ export default function Avatar(props) {
                   {...register("boton2")}
                 >
                   <div className="rounded-full border-4 border-transparent hover:border-dorange">
-                    {" "}
                     <img
-                      src="/B_DEPORTE.svg"
-                      alt="randy default icon"
-                      className="h-28 w-28"
+                      src="/avatars/A_RANDY_OH.svg"
+                      alt="RANDY_OH"
+                      className="h-32 w-32 "
                     />
                   </div>
                 </button>
@@ -214,11 +171,10 @@ export default function Avatar(props) {
                   {...register("boton3")}
                 >
                   <div className="rounded-full border-4 border-transparent hover:border-dorange">
-                    {" "}
                     <img
-                      src="/B_ARTE.svg"
-                      alt="randy default icon"
-                      className="h-28 w-28"
+                      src="/avatars/A_RANDY_SAD.svg"
+                      alt="RANDY_SAD."
+                      className="h-32 w-32 "
                     />
                   </div>
                 </button>
@@ -229,11 +185,10 @@ export default function Avatar(props) {
                   {...register("boton4")}
                 >
                   <div className="rounded-full border-4 border-transparent hover:border-dorange">
-                    {" "}
                     <img
-                      src="/B_CIENCIA.svg"
-                      alt="randy default icon"
-                      className="h-28 w-28"
+                      src="/avatars/A_RANDY_SMILE.svg"
+                      alt="RANDY_SMILE"
+                      className="h-32 w-32 "
                     />
                   </div>
                 </button>
@@ -244,11 +199,10 @@ export default function Avatar(props) {
                   {...register("boton5")}
                 >
                   <div className="rounded-full border-4 border-transparent hover:border-dorange">
-                    {" "}
                     <img
-                      src="/B_IDIOMAS.svg"
-                      alt="randy default icon"
-                      className="h-28 w-28"
+                      src="/avatars/A_RANDY-WINK.svg"
+                      alt="RANDY-WINK"
+                      className="h-32 w-32 "
                     />
                   </div>
                 </button>
@@ -259,11 +213,10 @@ export default function Avatar(props) {
                   {...register("boton6")}
                 >
                   <div className="rounded-full border-4 border-transparent hover:border-dorange">
-                    {" "}
                     <img
-                      src="/B_MATE.svg"
-                      alt="randy default icon"
-                      className="h-28 w-28"
+                      src="/avatars/A_RANDY_ANGRY.svg"
+                      alt="RANDY_ANGRY"
+                      className="h-32 w-32 "
                     />
                   </div>
                 </button>
@@ -277,6 +230,15 @@ export default function Avatar(props) {
               </div>
 */}
             </form>
+            {showAvatar && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/90 ">
+                <p className="text-ram text-center text-3xl font-bold text-dgreen">
+                  Me encanta tu nuevo estilo:
+                  <br />
+                  <SeleccionaAvatar avatar={avatarValue}></SeleccionaAvatar>
+                </p>
+              </div>
+            )}
           </div>
           <br />
         </ModalAvatar>
