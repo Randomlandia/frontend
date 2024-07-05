@@ -25,7 +25,7 @@ export default function Navbar() {
       case 6:
         return "/avatars/A_RANDY_ANGRY.svg";
       default:
-        return "/randy_icon.svg";
+        return "/avatars/A_RANDY.svg";
     }
   };
 
