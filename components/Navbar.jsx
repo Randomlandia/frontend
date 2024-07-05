@@ -1,12 +1,33 @@
 import { useEffect, useState, Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function Navbar() {
+  const router = useRouter();
   const [isLogged, setIsLogged] = useState(true);
   const [user, setUser] = useState("Explorador");
   const [userId, setUserId] = useState("Explorador");
   const [userAvatar, setAvatar] = useState(0);
+
+  const avatarSrc = () => {
+    switch (userAvatar) {
+      case 1:
+        return "/avatars/A_RANDY_DED.svg";
+      case 2:
+        return "/avatars/A_RANDY_OH.svg";
+      case 3:
+        return "/avatars/A_RANDY_SAD.svg";
+      case 4:
+        return "/avatars/A_RANDY_SMILE.svg";
+      case 5:
+        return "/avatars/A_RANDY-WINK.svg";
+      case 6:
+        return "/avatars/A_RANDY_ANGRY.svg";
+      default:
+        return "/randy_icon.svg";
+    }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -31,64 +52,22 @@ export default function Navbar() {
   return (
     <>
       <nav className="w-full h-14 bg-lorange flex justify-between text-white font-lucky text-xl">
-        <Link href="/">
-          <div>logo</div>
-        </Link>
+        <button
+          href="/"
+          onClick={() => {
+            router.push("/");
+          }}
+        >
+          <div className="py-2 px-3">
+            <img src="/logoLarge.svg" alt="Random" className="h-10" />
+          </div>
+        </button>
         <div className="flex">
           <div className="hidden lg:flex gap-7 items-center px-3">
             {/*botonAvatarImagen */}
             <Link href={`/user/${userId}` || `/login`}>
               <button>
-                {!userAvatar && (
-
-                  <img
-                    src="/randy_icon.svg"
-                    alt="randy default icon"
-                    className="h-10 w-10 "
-                  />
-                )}
-                {userAvatar == 1 && (
-                  <img
-                    src="/avatars/A_RANDY_DED.svg"
-                    alt="RANDY_DED"
-                    className="h-10 w-10 "
-                  />
-                )}
-                {userAvatar == 2 && (
-                  <img
-                    src="/avatars/A_RANDY_OH.svg"
-                    alt="RANDY_OH"
-                    className="h-10 w-10 "
-                  />
-                )}
-                {userAvatar == 3 && (
-                  <img
-                    src="/avatars/A_RANDY_SAD.svg"
-                    alt="RANDY_SAD."
-                    className="h-10 w-10 "
-                  />
-                )}
-                {userAvatar == 4 && (
-                  <img
-                    src="/avatars/A_RANDY_SMILE.svg"
-                    alt="RANDY_SMILE"
-                    className="h-10 w-10 "
-                  />
-                )}
-                {userAvatar == 5 && (
-                  <img
-                    src="/avatars/A_RANDY-WINK.svg"
-                    alt="RANDY-WINK"
-                    className="h-10 w-10 "
-                  />
-                )}
-                {userAvatar == 6 && (
-                  <img
-                    src="/avatars/A_RANDY_ANGRY.svg"
-                    alt="RANDY_ANGRY"
-                    className="h-10 w-10 "
-                  />
-                )}
+                <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
               </button>
             </Link>
 
