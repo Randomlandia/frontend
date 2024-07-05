@@ -19,8 +19,8 @@ export default function CardSandiaBack() {
           Google
         </a>
       </div>
-      <div className=" grid grid-cols-2  p-4">
-        <div className="">
+      <div className=" grid grid-cols-2 align-middle  ">
+        <div className="flex justify-start">
           <img src="RANDY_08.svg" alt="" className="h-20 w-20" />
         </div>
 
