@@ -89,7 +89,7 @@ const SandiaList = () => {
             background
               ? `/backgrounds/${background}`
               : "/backgrounds/bg-booksflying.webp"
-          }')`
+          }')`,
         }}
       >
         <div className="flex flex-col w-auto mx-10 bg-oldwhite/70 px-10 py-6 rounded-xl gap-4 sm:gap-6">
@@ -187,9 +187,9 @@ const SandiaList = () => {
             <div className="mt-4">
               <p> </p>
               <RandyTextLeft
-                img={filteredSandias.length < 3
-                  ? "/RANDY_07.svg"
-                  : "/RANDY_08.svg"}
+                img={
+                  filteredSandias.length < 3 ? "/RANDY_07.svg" : "/RANDY_08.svg"
+                }
                 text={
                   filteredSandias.length < 3
                     ? "¡Esto se ve un poco solo!"
