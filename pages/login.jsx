@@ -33,11 +33,11 @@ export default function Login() {
       method: "Post",
       body: JSON.stringify({
         email: dataLogIn.email,
-        password: dataLogIn.password
+        password: dataLogIn.password,
       }),
       headers: {
-        "Content-type": "application/json; charset=UTF-8"
-      }
+        "Content-type": "application/json; charset=UTF-8",
+      },
     }).catch((error) => {
       console.log("Error", error);
     });
@@ -56,8 +56,8 @@ export default function Login() {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json; charset=UTF-8"
-          }
+            "Content-Type": "application/json; charset=UTF-8",
+          },
         }
       );
 
@@ -143,17 +143,18 @@ export default function Login() {
                 autocomplete="off"
                 type="email"
                 name="email"
+                required
                 placeholder="ejemplo@mail.com"
                 className="bg-lorange/50  outline-lorange/50 outline-offset-1  text-white p-2 rounded-lg shadow-md "
                 {...register("email", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido"
+                    message: "Email o password inválido",
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres"
-                  }
+                    message: "Usuario debe contener a máximo 50 caracteres",
+                  },
                 })}
               />
             </div>
@@ -166,17 +167,18 @@ export default function Login() {
                 type="password"
                 name="password"
                 autocomplete="off"
+                required
                 placeholder="********"
                 className="bg-lorange/50 outline-lorange/50 outline-offset-1 text-white p-2 rounded-lg shadow-md"
                 {...register("password", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido"
+                    message: "Email o password inválido",
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres"
-                  }
+                    message: "Usuario debe contener a máximo 50 caracteres",
+                  },
                 })}
               />
             </div>
