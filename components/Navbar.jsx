@@ -40,6 +40,7 @@ export default function Navbar() {
             <Link href={`/user/${userId}` || `/login`}>
               <button>
                 {!userAvatar && (
+
                   <img
                     src="/randy_icon.svg"
                     alt="randy default icon"

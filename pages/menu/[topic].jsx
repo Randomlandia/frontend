@@ -3,6 +3,7 @@ import RandySpeechBubble from "@/components/RandySpeechBubble";
 import SandiaIcon from "@/components/SandiaIcon";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 // 1) guardar cada numero que salga en random en un arreglo
 // 2 un contador que llegue a 10
@@ -127,12 +128,14 @@ export default function Sandia() {
               width={77}
               height={77}
             />
-            <SandiaIcon
-              src="/close.svg"
-              alt="Close Icon"
-              width={40}
-              height={40}
-            />
+            <Link href={`/menu`}>
+              <SandiaIcon
+                src="/close.svg"
+                alt="Close Icon"
+                width={40}
+                height={40}
+              />
+            </Link>
           </div>
 
           {seenSandias[seenSandias.length - 1]?.content && (
