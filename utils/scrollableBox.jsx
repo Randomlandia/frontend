@@ -30,7 +30,7 @@ export default function ScrollableBox({ content }) {
   const { containerRef, contentRef, needsScroll } = useScrollCheck(content);
 
   return (
-    <div className="relative h-64 w-64 overflow-hidden ">
+    <div className="relative h-64 w-64 overflow-hidden">
       <div
         ref={containerRef}
         className="relative h-full w-full overflow-hidden"

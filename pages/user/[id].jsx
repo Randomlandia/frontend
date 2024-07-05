@@ -33,6 +33,18 @@ export default function User() {
     );
   }
 
+  const favs = () => {
+    router.push(`/user/favs/${id}`);
+  };
+  const logros = () => {
+    router.push(`/user/achv`);
+  };
+  const vistos = () => {
+    router.push(`/user/ackn/${id}`);
+  };
+  const nosotros = () => {
+    router.push(`/about`);
+  };
   return (
     <main className="w-full min-h-screen bg-white overflow-hidden">
       {/* NAVBAR COMPONENT */}
@@ -66,43 +78,47 @@ export default function User() {
         </div>
 
         {/* BOTONES HACIA SUBMENUS */}
+
         <div className="grid gap-4 w-full py-4 px-10 md:px-32 lg:grid-cols-2 lg:gap-2 lg:px-2 xl:grid-cols-4 ">
-          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
+          <button
+            onClick={favs}
+            className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly"
+          >
             <img src="/icon_userheart.svg" alt="" className="h-8 w-8 " />
-            <Link href="/user/favs">
-              <span className="font-lucky text-black text-xl xl:text-lg">
-                FAVS
-              </span>
-            </Link>
-          </div>
+            <span className="font-lucky text-black text-xl xl:text-lg">
+              FAVS
+            </span>
+          </button>
 
-          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
+          <button
+            onClick={logros}
+            className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly"
+          >
             <img src="/icon_userachieve.svg" alt="" className="h-8 w-8 " />
-            <Link href="/user/achv">
-              <span className="font-lucky text-black text-xl xl:text-lg">
-                LOGROS
-              </span>
-            </Link>
-          </div>
+            <span className="font-lucky text-black text-xl xl:text-lg">
+              LOGROS
+            </span>
+          </button>
 
-          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
+          <button
+            onClick={vistos}
+            className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly"
+          >
             <img src="/icon_userview.svg" alt="" className="h-8 w-8 " />
-            <Link href="/user/ackn">
-              <span className="font-lucky text-black text-xl xl:text-lg ">
-                VISTOS
-              </span>
-            </Link>
-          </div>
+            <span className="font-lucky text-black text-xl xl:text-lg ">
+              VISTOS
+            </span>
+          </button>
 
-          <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
+          <button
+            onClick={nosotros}
+            className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly"
+          >
             <img src="/icon_userabt.svg" alt="" className="h-8 w-8" />
-
-            <Link href="/about">
-              <span className="font-lucky text-black text-xl xl:text-lg">
-                NOSOTROS
-              </span>
-            </Link>
-          </div>
+            <span className="font-lucky text-black text-xl xl:text-lg">
+              NOSOTROS
+            </span>
+          </button>
         </div>
       </div>
 
