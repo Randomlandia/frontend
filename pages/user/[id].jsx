@@ -32,13 +32,13 @@ export default function User() {
   }
 
   const favs = () => {
-    router.push(`/user/favs/${id}`);
+    router.push(`/user/favs`);
   };
   const logros = () => {
     router.push(`/user/achv`);
   };
   const vistos = () => {
-    router.push(`/user/ackn/${id}`);
+    router.push(`/user/ackn`);
   };
   const nosotros = () => {
     router.push(`/about`);
