@@ -37,9 +37,6 @@ input::placeholder {
   font-style: normal;
 }
 
-
-
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -55,7 +52,6 @@ input::placeholder {
   -ms-overflow-style: none; 
   scrollbar-width: none; 
 } */
-
 
 /* Custom scrollbar styles */
 .speech-bubble::-webkit-scrollbar {
@@ -76,4 +72,93 @@ input::placeholder {
   background: #555;
 }
 
-@import './ScrollableBox.module.css';
+@import "./ScrollableBox.module.css";
+
+.burbuja,
+.burbujaDos,
+.burbujaTres,
+.burbujaCuatro,
+.burbujaCinco,
+.burbujaSeis,
+.burbujaSiete,
+.burbujaOcho,
+.burbujaNueve,
+.burbujaDiez,
+.burbujaOnce,
+.burbujaDoce {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: rgba(245, 239, 207, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px rgba(255, 217, 0, 0.218), 0 0 20px rgb(239, 239, 238),
+    0 0 50px rgb(248, 246, 246);
+  animation: animate 5s linear infinite;
+  box-shadow: black;
+}
+
+.burbuja {
+  animation: animate2 5s linear infinite;
+  margin: 0 100px;
+}
+.burbujaDos {
+  animation: animate 6s linear infinite;
+  margin: 0 300px;
+}
+.burbujaTres {
+  animation: animate2 7s linear infinite;
+  margin: 0 500px;
+}
+.burbujaCuatro {
+  animation: animate 6s linear infinite;
+  margin: 0 700px;
+}
+.burbujaCinco {
+  animation: animate2 9s linear infinite;
+  margin: 0 800px;
+}
+.burbujaSeis {
+  animation: animate 3s linear infinite;
+  margin: 0 1300px;
+}
+.burbujaSiete {
+  animation: animate 4s linear infinite;
+  margin: 0 1700px;
+}
+.burbujaOcho {
+  animation: animate2 8s linear infinite;
+  margin: 0 1900px;
+}
+.burbujaNueve {
+  animation: animate 7s linear infinite;
+  margin: 0 2100px;
+}
+.burbujaDiez {
+  animation: animate2 6s linear infinite;
+  margin: 0 2300px;
+}
+.burbujaOnce {
+  animation: animate 8s linear infinite;
+  margin: 0 800px;
+}
+.burbujaDoce {
+  animation: animate2 9s linear infinite;
+  margin: 0 1300px;
+}
+
+@keyframes animate {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translate(-30vh) scale(1.5);
+  }
+}
+@keyframes animate2 {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translate(20vh) scale(1);
+  }
+}
