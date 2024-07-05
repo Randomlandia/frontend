@@ -39,7 +39,7 @@ export default function Navbar() {
             {/*botonAvatarImagen */}
             <Link href={`/user/${userId}` || `/login`}>
               <button>
-                {userAvatar == 0 && (
+                {!userAvatar && (
                   <img
                     src="/randy_icon.svg"
                     alt="randy default icon"
@@ -48,43 +48,43 @@ export default function Navbar() {
                 )}
                 {userAvatar == 1 && (
                   <img
-                    src="/B_NERD.svg"
-                    alt="randy default icon"
+                    src="/avatars/A_RANDY_DED.svg"
+                    alt="RANDY_DED"
                     className="h-10 w-10 "
                   />
                 )}
                 {userAvatar == 2 && (
                   <img
-                    src="/B_DEPORTE.svg"
-                    alt="randy default icon"
+                    src="/avatars/A_RANDY_OH.svg"
+                    alt="RANDY_OH"
                     className="h-10 w-10 "
                   />
                 )}
                 {userAvatar == 3 && (
                   <img
-                    src="/B_ARTE.svg"
-                    alt="randy default icon"
+                    src="/avatars/A_RANDY_SAD.svg"
+                    alt="RANDY_SAD."
                     className="h-10 w-10 "
                   />
                 )}
                 {userAvatar == 4 && (
                   <img
-                    src="/B_CIENCIA.svg"
-                    alt="randy default icon"
+                    src="/avatars/A_RANDY_SMILE.svg"
+                    alt="RANDY_SMILE"
                     className="h-10 w-10 "
                   />
                 )}
                 {userAvatar == 5 && (
                   <img
-                    src="/B_IDIOMAS.svg"
-                    alt="randy default icon"
+                    src="/avatars/A_RANDY-WINK.svg"
+                    alt="RANDY-WINK"
                     className="h-10 w-10 "
                   />
                 )}
                 {userAvatar == 6 && (
                   <img
-                    src="/B_MATE.svg"
-                    alt="randy default icon"
+                    src="/avatars/A_RANDY_ANGRY.svg"
+                    alt="RANDY_ANGRY"
                     className="h-10 w-10 "
                   />
                 )}
