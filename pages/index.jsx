@@ -1,5 +1,4 @@
 import Navbar from "../components/Navbar";
-import CardSandiaBack from "@/backups/cards sandia/CardSandiaBack";
 
 export default function Home() {
   return (
@@ -8,9 +7,7 @@ export default function Home() {
       <div className=" flex text-orange-600 font-semibold justify-center mt-8 text-5xl">
         Home
       </div>
-      <div className="flex justify-center p-10">
-        <CardSandiaBack />
-      </div>
+      <div></div>
     </main>
   );
 }
