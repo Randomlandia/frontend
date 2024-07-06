@@ -30,3 +30,6 @@ export default function Home(props) {
               Jugar
             </button> */
 }
+{
+  /*bg-[url('/backgrounds/bg-5.webp')]  */
+}
