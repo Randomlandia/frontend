@@ -15,12 +15,8 @@ const Randomlandia = () => {
       <Luz
         className="min-h-full relative "
         children={
-          <div className="z-[1000] absolute pt-[100px] pr-[100px] md:pr-[300px] md:pt-[100px] xl:pt-[200px] xl:pr-[0px] flex max-h-screen  align-bottom justify-self-end">
-            <img
-              className="h-[300px] w-[344px]  md:h-[400px] md:w-[444px] xl:h-[500px] xl:w-[544px]"
-              src="/RANDY_08.svg"
-              alt="RANDY_08"
-            />
+          <div className="z-[1000] text-9xl absolute pt-[100px] pr-[100px] md:pr-[300px] md:pt-[100px] xl:pt-[200px] xl:pr-[0px] flex max-h-screen  align-bottom justify-self-end">
+            Landing
           </div>
         }
       ></Luz>
