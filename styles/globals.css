@@ -85,7 +85,19 @@ input::placeholder {
 .burbujaNueve,
 .burbujaDiez,
 .burbujaOnce,
-.burbujaDoce {
+.burbujaDoce,
+.burbujaBurbuja,
+.burbujaDosDos,
+.burbujaTresTres,
+.burbujaCuatroCuatro,
+.burbujaCincoCinco,
+.burbujaSeisSeis,
+.burbujaSieteSiete,
+.burbujaOchoOcho,
+.burbujaNueveNuev,
+.burbujaDiezDiez,
+.burbujaOnceOnce,
+.burbujaDoceDoce {
   position: relative;
   width: 20px;
   height: 20px;
@@ -93,56 +105,99 @@ input::placeholder {
   border-radius: 50%;
   box-shadow: 0 0 0 5px rgba(255, 217, 0, 0.218), 0 0 20px rgb(239, 239, 238),
     0 0 50px rgb(248, 246, 246);
-  animation: animate 5s linear infinite;
   box-shadow: black;
 }
 
 .burbuja {
-  animation: animate2 5s linear infinite;
+  animation: animate2 15s linear infinite;
+  margin: 0 100px;
+}
+.burbujaBurbuja {
+  animation: animate2 10s linear infinite;
   margin: 0 100px;
 }
 .burbujaDos {
   animation: animate 6s linear infinite;
   margin: 0 300px;
 }
+.burbujaDosDos {
+  animation: animate 14s linear infinite;
+  margin: 0 300px;
+}
 .burbujaTres {
   animation: animate2 7s linear infinite;
+  margin: 0 500px;
+}
+.burbujaTresTres {
+  animation: animate2 15s linear infinite;
   margin: 0 500px;
 }
 .burbujaCuatro {
   animation: animate 6s linear infinite;
   margin: 0 700px;
 }
+.burbujaCuatroCuatro {
+  animation: animate 8s linear infinite;
+  margin: 0 700px;
+}
 .burbujaCinco {
   animation: animate2 9s linear infinite;
   margin: 0 800px;
 }
+.burbujaCincoCinco {
+  animation: animate2 15s linear infinite;
+  margin: 0 800px;
+}
 .burbujaSeis {
-  animation: animate 3s linear infinite;
+  animation: animate 10s linear infinite;
   margin: 0 1300px;
 }
-.burbujaSiete {
-  animation: animate 4s linear infinite;
+.burbujaSeisSeis {
+  animation: animate2 17s linear infinite;
+  margin: 0 1300px;
+}
+.burbujaSieteSiete {
+  animation: animate 6s linear infinite;
   margin: 0 1700px;
 }
 .burbujaOcho {
   animation: animate2 8s linear infinite;
   margin: 0 1900px;
 }
+.burbujaOchoOcho {
+  animation: animate2 15s linear infinite;
+  margin: 0 1900px;
+}
 .burbujaNueve {
-  animation: animate 7s linear infinite;
+  animation: animate2 7s linear infinite;
+  margin: 0 2100px;
+}
+.burbujaNueveNueve {
+  animation: animate 10s linear infinite;
   margin: 0 2100px;
 }
 .burbujaDiez {
-  animation: animate2 6s linear infinite;
+  animation: animate 6s linear infinite;
+  margin: 0 2300px;
+}
+.burbujaDiezDiez {
+  animation: animate2 10s linear infinite;
   margin: 0 2300px;
 }
 .burbujaOnce {
-  animation: animate 8s linear infinite;
+  animation: animate 7s linear infinite;
+  margin: 0 800px;
+}
+.burbujaOnceOnce {
+  animation: animate2 8s linear infinite;
   margin: 0 800px;
 }
 .burbujaDoce {
-  animation: animate2 9s linear infinite;
+  animation: animate2 16s linear infinite;
+  margin: 0 1300px;
+}
+.burbujaDoceDoce {
+  animation: animate 9s linear infinite;
   margin: 0 1300px;
 }
 
@@ -151,7 +206,7 @@ input::placeholder {
     transform: translateY(100vh);
   }
   100% {
-    transform: translate(-30vh) scale(1.5);
+    transform: translate(-40vh) scale(1.5);
   }
 }
 @keyframes animate2 {
@@ -159,6 +214,6 @@ input::placeholder {
     transform: translateY(100vh);
   }
   100% {
-    transform: translate(20vh) scale(1);
+    transform: translate(20vh) scale(2);
   }
 }
