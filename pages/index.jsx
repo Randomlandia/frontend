@@ -1,6 +1,5 @@
 import Navbar from "../components/Navbar";
 import Luz from "@/components/home/luz";
-import RandyTextRight from "@/components/RandyTextRight";
 export default function Home(props) {
   return (
     <div className="  relative max-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col font-mont font-bold overflow-hidden  bg-[url('/backgrounds/bg-5.webp')]">

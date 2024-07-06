@@ -156,6 +156,10 @@ input::placeholder {
   animation: animate2 17s linear infinite;
   margin: 0 1300px;
 }
+.burbujaSiete {
+  animation: animate 6s linear infinite;
+  margin: 0 1700px;
+}
 .burbujaSieteSiete {
   animation: animate 6s linear infinite;
   margin: 0 1700px;
