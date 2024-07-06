@@ -2,13 +2,13 @@ import { propTypesChildren } from "@material-tailwind/react/types/components/acc
 
 export default function Luz(props) {
   return (
-    <div className=" relative z-20min-h-[100vh] m-0 p-0">
+    <div className=" relative z-20 min-h-[100vh] m-0 p-0">
       <div className="flex absolute z-10 bg-transparent align-middle  w-[100%] h-[100%] justify-center items-center">
         {props.children}
       </div>
       <div
         id="contenedorLuz"
-        className="relative w-[100%] z-50 h-[100vh] overflow-hidden "
+        className="relative w-[100%] z-30 h-[100vh] overflow-hidden "
       >
         <div class="burbujas" className=" flex relative">
           <div class="burbuja" className=" "></div>
