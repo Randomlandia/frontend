@@ -61,7 +61,6 @@ export default function Navbar() {
       <nav className="w-full h-14 z-[4000] bg-lorange flex justify-between items-center text-white font-lucky text-xl py-3">
         {/* LOGO DE RANDOMLANDIA */}
         <button
-          href="/"
           onClick={() => {
             router.push("/");
           }}
@@ -115,7 +114,7 @@ export default function Navbar() {
                     router.push("/register");
                   }}
                 >
-                  <p className="bg-dorange h-9 px-5 rounded-[10px] flex items-center">
+                  <p className="bg-dorange h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110">
                     CREAR CUENTA
                   </p>
                 </button>
