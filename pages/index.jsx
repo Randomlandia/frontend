@@ -7,7 +7,7 @@ export default function Home(props) {
     router.push(`/menu`);
   };
   return (
-    <div className="  relative max-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col font-mont font-bold overflow-hidden  bg-[url('/backgrounds/bg-5.webp')]">
+    <div className=" max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-center xl:bg-[url('/backgrounds/bg-6.webp')]">
       <Navbar />
 
       <button
@@ -24,28 +24,33 @@ export default function Home(props) {
       <Luz
         className="min-h-full relative  "
         children={
-          <div className="z-[1000] absolute pt-[100px] pr-[150px] md:pr-[300px] md:pt-[100px] xl:pt-[225px] xl:pr-[0px] flex max-h-screen  align-bottom justify-self-end">
+          <div
+            id="burbuja"
+            className="bg-black z-[1000] absolute  h-[300px] w-[300px] align-middle
+          flex  bg-grey/20 rounded-full justify-center  items-end shadow-amber-100 shadow-lg"
+          >
             <img
-              className="h-[300px]  w-[344px]  md:h-[400px] md:w-[444px] xl:h-[500px] xl:w-[544px] hover:"
+              className="  h-[100px] w-[144px] xl:h-[200px] xl:w-[244px] "
+
               src="/RANDY_08.svg"
               alt="RANDY_08"
             />
           </div>
         }
       ></Luz>
+      <div
+        className="flex  absolute bg-transparent w-screen h-screen z-[100]  
+        font-lucky text-white text-5xl"
+      >
+        <button
+          onClick={menu}
+          type="submit"
+          className=" m-auto w-60 h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2  hover:shadow-orange-300 bg-agreen  font-lucky items-center text-center justify-center  rounded-3xl"
+        >
+          Jugar
+        </button>
+      </div>
     </div>
   );
 }
-{
-  /*<button
-              onClick={true}
-              type="submit"
-              className="bg-agreen p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full"
-            >
-              Jugar
-            </button> */
-}
-{
-  /*bg-[url('/backgrounds/bg-5.webp')] 
-  <div className="h-96 w-72 absolute bg-[url('/speech_bubble.png')"></div> */
-}
+
