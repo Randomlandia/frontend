@@ -96,9 +96,8 @@ export default function Register() {
               avatar: userJson.data.users.avatar,
             };
 
-            localStorage.setItem("exp", JSON.stringify(exp));
-            localStorage.setItem("user", JSON.stringify(user));
-            localStorage.setItem(
+            
+            calStorage.setItem(
               "favs",
               JSON.stringify(userJson.data.users.sandiasFavoritas)
             );
@@ -110,10 +109,16 @@ export default function Register() {
               "achieve",
               JSON.stringify(userJson.data.users.achievements)
             );
+            localStorage.setItem(
+              "score",
+              JSON.stringify(userJson.data.users.score)
+            );
+
+            
             setShowSuccess(true);
             setTimeout(() => {
               setShowSuccess(false);
-              router.push("/menu");
+              router.push("/");
             }, 2000);
           } else {
             console.log("No se pudieron obtener los datos del usuario");

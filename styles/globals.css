@@ -221,3 +221,15 @@ input::placeholder {
     transform: translate(20vh) scale(2);
   }
 }
+@keyframes animate3Randy {
+  0% {
+    transform: translateY(150%);
+  }
+  100% {
+    transform: translate(25vh) scale(3);
+  }
+}
+
+#burbuja {
+  animation: animate3Randy 10s linear infinite;
+}
