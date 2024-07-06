@@ -1,4 +1,4 @@
-export default function CardSandiaBack() {
+export default function CardSandiaFront() {
   return (
     // CARD CON TRANSPARENCIA
     <div className="flex flex-col gap-3 bg-oldwhite/70 rounded-lg p-3 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto ">
