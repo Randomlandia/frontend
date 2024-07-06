@@ -1,6 +1,6 @@
 export default function UserName() {
   return (
-    <div className="flex flex-col gap-2 bg-oldwhite rounded-xl p-6 mt-10 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
+    <div className="flex flex-col gap-2 bg-oldwhite/90 rounded-xl p-6 mt-10 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
       <div className="inline-flex justify-center relative">
         {/* BOTÓN CERRAR */}
         <div className="absolute top-0 right-0 ">
