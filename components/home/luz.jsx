@@ -2,6 +2,7 @@ export default function Luz(props) {
   return (
     <div className=" relative z-20 min-h-screen m-0 p-0">
       <div className="flex absolute z-10 bg-transparent  w-[100%] h-[100%] "></div>
+      {props.children}
       <div
         id="contenedorLuz"
         className="relative  w-[100%] z-30 h-[100vh] overflow-hidden xl:justify-center align-bottom "
@@ -10,6 +11,7 @@ export default function Luz(props) {
           <div class="burbuja" className=" "></div>
           <div class="burbujaDos" className=""></div>
           <div class="burbujaTres" className=""></div>
+
           <div class="burbujaCuatro" className=""></div>
           <div class="burbujaCinco" className=""></div>
           <div class="burbujaSeis" className=""></div>
@@ -21,7 +23,6 @@ export default function Luz(props) {
           <div class="burbujaDoce" className=" "></div>
           <div class="burbujaBurbuja" className=" "></div>
           <div class="burbujaDosDos" className=""></div>
-          {props.children}
           <div class="burbujaTresTres" className=""></div>
           <div class="burbujaCuatroCuatro" className=""></div>
           <div class="burbujaCincoCinco" className=""></div>

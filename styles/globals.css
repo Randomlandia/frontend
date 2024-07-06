@@ -99,7 +99,6 @@ input::placeholder {
 .burbujaOnceOnce,
 .burbujaDoceDoce {
   position: relative;
-  text-align: center;
   width: 20px;
   height: 20px;
   background: rgba(245, 239, 207, 0.9);
@@ -224,10 +223,10 @@ input::placeholder {
 }
 @keyframes animate3Randy {
   0% {
-    transform: translateY(200%);
+    transform: translateY(150%);
   }
   100% {
-    transform: translate(25vh) scale(2.5);
+    transform: translate(25vh) scale(3);
   }
 }
 
