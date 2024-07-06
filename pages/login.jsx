@@ -1,5 +1,4 @@
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -7,10 +6,9 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default function Login() {
+  const router = useRouter();
   const [background, setBackground] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
-
-  const router = useRouter();
 
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
@@ -25,78 +23,72 @@ export default function Login() {
     handleSubmit,
     register,
     setError,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   async function onSubmit(dataLogIn) {
-    const response = await fetch("http://localhost:3005/users/login", {
-      method: "Post",
-      body: JSON.stringify({
-        email: dataLogIn.email,
-        password: dataLogIn.password,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    }).catch((error) => {
-      console.log("Error", error);
-    });
+    try {
+      const response = await fetch("https://localhost:3005/users/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: dataLogIn.email,
+          password: dataLogIn.password
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
 
-    const json = await response?.json();
-    if (json?.data?.token) {
-      localStorage.setItem("token", json.data.token);
-      localStorage.setItem("userID", json.data.userID);
-      console.log("Login Exitoso");
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
-      const userID = localStorage.getItem("userID");
+      const json = await response.json();
+      if (json?.data?.token) {
+        localStorage.setItem("token", json.data.token);
+        localStorage.setItem("userID", json.data.userID);
+        console.log("Login Exitoso");
 
-      // SEGUNDO FETCH (estoy obteniendo la informacion de username, avatar, favoritas, logros y vistos)
-      const userResponse = await fetch(
-        `http://localhost:3005/users/${userID}`,
-        {
+        const userID = localStorage.getItem("userID");
+
+        const userResponse = await fetch(`https://localhost:3005/users/${userID}`, {
           method: "GET",
           headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-          },
-        }
-      );
+            "Content-Type": "application/json; charset=UTF-8"
+          }
+        });
 
-      const userJson = await userResponse.json();
-      if (userJson?.data) {
-        const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-        const user = {
-          username: userJson.data.users.name,
-          avatar: userJson.data.users.avatar,
-        };
-        console.log("Usuario obtenido con éxito", userJson.data);
-        localStorage.setItem("exp", JSON.stringify(exp));
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem(
-          "favs",
-          JSON.stringify(userJson.data.users.sandiasFavoritas)
-        );
-        localStorage.setItem(
-          "view",
-          JSON.stringify(userJson.data.users.sandiasVistas)
-        );
-        localStorage.setItem(
-          "achieve",
-          JSON.stringify(userJson.data.users.achievements)
-        );
+        const userJson = await userResponse.json();
+        if (userJson?.data) {
+          const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
 
-        setTimeout(() => {
-          setShowSuccess(true);
+          console.log("Usuario obtenido con éxito");
+          localStorage.setItem("exp", JSON.stringify(exp));
+          localStorage.setItem("username", JSON.stringify(userJson.data.users.name));
+          localStorage.setItem("avatar", JSON.stringify(userJson.data.users.avatar));
+          localStorage.setItem("favs", JSON.stringify(userJson.data.users.sandiasFavoritas));
+          localStorage.setItem("view", JSON.stringify(userJson.data.users.sandiasVistas));
+          localStorage.setItem("achieve", JSON.stringify(userJson.data.users.achievements));
+          localStorage.setItem("score", JSON.stringify(userJson.data.users.score));
+
           setTimeout(() => {
-            setShowSuccess(false);
-            router.push("/menu");
+            setShowSuccess(true);
+            setTimeout(() => {
+              setShowSuccess(false);
+              router.push("/");
+            }, 2000);
           }, 2000);
-        }, 2000);
+        } else {
+          console.log("No se pudieron obtener los datos del usuario");
+          setError("root", { message: "Usuario o contraseña inválidos" });
+        }
       } else {
-        console.log("No se pudieron obtener los datos del usuario");
+        console.log("Usuario o contraseña inválidos");
         setError("root", { message: "Usuario o contraseña inválidos" });
       }
-    } else {
-      console.log("Usuario o contraseña inválidos");
+    } catch (error) {
+      console.error("Error:", error);
+      setError("root", { message: "El usuario o contraseña es incorrecta. Intenta otra vez." });
     }
   }
 
@@ -149,15 +141,22 @@ export default function Login() {
                 {...register("email", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Email o password inválido"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
+                    message: "Usuario debe contener a máximo 50 caracteres"
                   },
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Correo no válido"
+                  }
                 })}
               />
             </div>
+            {errors.email && (
+              <p className="text-red-500 text-center">{errors.email.message}</p>
+            )}
             <div className="grid gap-0.5">
               <label name="password" className="px-2 py-4 text-natD font-ram">
                 CONTRASEÑA
@@ -173,35 +172,23 @@ export default function Login() {
                 {...register("password", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Email o password inválido"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
-                  },
+                    message: "Usuario debe contener a máximo 50 caracteres"
+                  }
                 })}
               />
             </div>
           </div>
-
-          <div id="errorPasswordEmail" className="p-1">
-            {(errors.password || errors.email) && (
-              <p
-                className="bg-lorange/50 text-white p-2 rounded-lg flex justify-center items-center"
-                id="letra"
-              >
-                {"⚠ "} {errors.password.message}
-              </p>
-            )}
-          </div>
-
           <br />
           {errors.root && (
             <p
-              className=" my-5 bg-lorange/50 text-white p-2 rounded-lg flex justify-center items-center"
+              className="my-3  text-mathL p-2 rounded-lg flex justify-center items-center"
               id="letra"
             >
-              {"⚠ "} {errors.root.message}
+              {errors.root.message}
             </p>
           )}
 
@@ -212,9 +199,9 @@ export default function Login() {
             >
               INICIAR SESIÓN
             </button>
-            <Link href="./register" className="text-natD underline text-center">
+            <button onClick={()=>router.push("/register")} className="text-natD underline text-center">
               CREAR CUENTA
-            </Link>
+            </button>
           </div>
         </form>
       </div>

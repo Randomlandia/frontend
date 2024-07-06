@@ -15,6 +15,8 @@ export default function Sandia() {
   const [flecha, setFlecha] = useState(false);
   const [contador, setContador] = useState(1);
   const [texto, setTexto] = useState("no hay mas por mostrar!!!");
+
+  
   const addSandia = (newSandia) => {
     setSeenSandias((prevSeenSandias) => [...prevSeenSandias, newSandia]);
   };
