@@ -13,10 +13,11 @@ export default function Home(props) {
       <button
         onClick={menu}
         type="submit"
-        className=" absolute w-56 h-20  z-[100] pl-[170px] pt-[250px] md:pl-[500px] md:pt-[300px] 
-         xl:pt-[400px] xl:pl-[1200px]  font-lucky text-white text-5xl tracking-wider  "
+        className=" absolute w-56 h-20  z-[100] pl-[170px] pt-[295px] md:pl-[350px] md:pt-[500px] 
+         xl:pt-[400px] xl:pl-[1200px]   font-lucky text-white text-5xl tracking-wider 
+          "
       >
-        <div className=" flex w-56 h-20 md:w-60 md:h-28 bg-agreen m-auto font-lucky items-center text-center justify-center tracking-wider rounded-full">
+        <div className=" flex w-56 h-20 md:w-60 md:h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2  hover:shadow-orange-300 bg-agreen m-auto font-lucky items-center text-center justify-center tracking-wider rounded-full">
           {" "}
           Jugar
         </div>
@@ -24,9 +25,12 @@ export default function Home(props) {
       <Luz
         className="min-h-full relative  "
         children={
-          <div className="z-[1000] absolute pt-[100px] pr-[150px] md:pr-[300px] md:pt-[100px] xl:pt-[225px] xl:pr-[0px] flex max-h-screen  align-bottom justify-self-end">
+          <div
+            className="bg-black z-[1000] absolute pt-[100px] pr-[150px] md:pr-[300px] md:pt-[180px] xl:pt-[225px] xl:pr-[0px] 
+          flex max-h-screen w-[400px] md:w-[500px] xl:w-[800px] bg-grey/20 rounded-3xl justify-center align-bottom justify-self-end"
+          >
             <img
-              className="h-[300px]  w-[344px]  md:h-[400px] md:w-[444px] xl:h-[500px] xl:w-[544px] hover:"
+              className="h-[300px]  w-[344px]  md:h-[400px] md:w-[444px] xl:h-[500px] xl:w-[544px] "
               src="/RANDY_08.svg"
               alt="RANDY_08"
             />

@@ -10,7 +10,7 @@ export default function Luz(props) {
         id="contenedorLuz"
         className="relative w-[100%] z-30 h-[100vh] overflow-hidden "
       >
-        <div class="burbujas" className=" flex relative">
+        <div class="burbujas" className="">
           <div class="burbuja" className=" "></div>
           <div class="burbujaDos" className=""></div>
           <div class="burbujaTres" className=""></div>
