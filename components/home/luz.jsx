@@ -5,13 +5,11 @@ export default function Luz(props) {
       {props.children}
       <div
         id="contenedorLuz"
-        className="relative  w-[100%] z-30 h-[100vh] overflow-hidden xl:justify-center align-bottom "
-      >
+        className="relative  w-[100%] z-30 h-[100vh] overflow-hidden xl:justify-center align-bottom">
         <div class="burbujas" className="">
           <div class="burbuja" className=" "></div>
           <div class="burbujaDos" className=""></div>
           <div class="burbujaTres" className=""></div>
-
           <div class="burbujaCuatro" className=""></div>
           <div class="burbujaCinco" className=""></div>
           <div class="burbujaSeis" className=""></div>

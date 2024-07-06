@@ -10,6 +10,17 @@ export default function Home(props) {
     <div className=" max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-center xl:bg-[url('/backgrounds/bg-6.webp')]">
       <Navbar />
 
+      <button
+        onClick={menu}
+        type="submit"
+        className=" absolute w-56 h-20  z-[100] pl-[170px] pt-[250px] md:pl-[500px] md:pt-[300px] 
+         xl:pt-[400px] xl:pl-[1200px]  font-lucky text-white text-5xl tracking-wider  "
+      >
+        <div className=" flex w-56 h-20 md:w-60 md:h-28 bg-agreen m-auto font-lucky items-center text-center justify-center tracking-wider rounded-full">
+          {" "}
+          Jugar
+        </div>
+      </button>
       <Luz
         className="min-h-full relative  "
         children={
@@ -20,6 +31,7 @@ export default function Home(props) {
           >
             <img
               className="  h-[100px] w-[144px] xl:h-[200px] xl:w-[244px] "
+
               src="/RANDY_08.svg"
               alt="RANDY_08"
             />
@@ -41,3 +53,4 @@ export default function Home(props) {
     </div>
   );
 }
+
