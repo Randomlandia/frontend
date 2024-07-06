@@ -11,7 +11,7 @@ export default function Pruebas() {
         PRUEBAS
       </div>
       <div className="flex justify-center p-2">
-        <CardSandiaFront />
+        <CardSandiaBack />
       </div>
     </main>
   );
