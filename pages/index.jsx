@@ -22,11 +22,11 @@ export default function Home(props) {
         </div>
       </button>
       <Luz
-        className="min-h-full relative  "
+        className="min-h-full relative "
         children={
           <div
             id="burbuja"
-            className="bg-black z-[1000] absolute  h-[300px] w-[300px] align-middle
+            className="bg-black z-[1000] absolute top h-[300px] w-[300px] align-middle
           flex  bg-grey/20 rounded-full justify-center  items-end shadow-amber-100 shadow-lg"
           >
             <img
@@ -39,7 +39,7 @@ export default function Home(props) {
         }
       ></Luz>
       <div
-        className="flex  absolute bg-transparent w-screen h-screen z-[100]  
+        className="flex absolute bg-transparent w-screen h-screen z-[100]  
         font-lucky text-white text-5xl"
       >
         <button
