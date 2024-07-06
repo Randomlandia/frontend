@@ -5,7 +5,7 @@ export default function CardSandiaBack() {
       <div className="grid grid-cols-2 p-2">
         {/* BADGE TOPIC */}
         <div className="flex justify-start ">
-          <img src="/B_ARTE.svg" alt="" className="h-12 w-12" />
+          <img src="/B_ARTE.svg" alt="" className="h-10 w-10" />
         </div>{" "}
         {/* BOTÓN CERRAR */}
         <div className="flex justify-end ">
@@ -16,7 +16,7 @@ export default function CardSandiaBack() {
       </div>
 
       {/* CARD  */}
-      <div className="flex flex-col gap-6 bg-white border-4 border-dorange p-4  rounded-lg shadow-md">
+      <div className="flex flex-col gap-6 bg-white border-4 border-dorange p-4  rounded-lg ">
         {/* CITA FORMATO APA DE LAS SANDIAS  */}
         <div className=" flex-wrap justify-center p-3 rounded-lg bg-peach shadow-md">
           {/* APELLIDO, INCIALES */}

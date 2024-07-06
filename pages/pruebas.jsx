@@ -10,7 +10,7 @@ export default function Pruebas() {
       <div className=" flex text-orange-600 font-semibold justify-center mt-8 text-5xl">
         PRUEBAS
       </div>
-      <div className="flex justify-center p-5">
+      <div className="flex justify-center p-2">
         <CardSandiaFront />
       </div>
     </main>
