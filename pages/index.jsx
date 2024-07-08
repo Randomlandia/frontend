@@ -1,56 +1,92 @@
 import Navbar from "../components/Navbar";
 import Luz from "@/components/home/luz";
 import { useRouter } from "next/router";
+import { useState, useEffect, useRef } from "react";
 export default function Home(props) {
   const router = useRouter();
+  const [musica, setMusica] = useState(true);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    audioRef.current = new Audio("music/18. The Flower Garden.mp3");
+
+    return () => {
+      // Cleanup audio on component unmount
+      audioRef.current.pause();
+      audioRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (musica) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  }, [musica]);
+
   const menu = () => {
     router.push(`/menu`);
   };
   return (
-    <div className=" max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-center xl:bg-[url('/backgrounds/bg-6.webp')]">
+    <div className="max-h-screen  bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-center xl:bg-[url('/backgrounds/bg-6.webp')]">
       <Navbar />
+      <button
+        className=" mt-9 h-24 w-28 bg-red-600 text-slate-200"
+        onClick={() => setMusica(false)}
+      >
+        Apagar ♪
+      </button>
 
       <button
-        onClick={menu}
-        type="submit"
-        className=" absolute w-56 h-20  z-[100] pl-[170px] pt-[250px] md:pl-[500px] md:pt-[300px] 
-         xl:pt-[400px] xl:pl-[1200px]  font-lucky text-white text-5xl tracking-wider  "
+        className=" mt-9 h-24 w-28 bg-emerald-700 text-slate-100"
+        onClick={() => setMusica(true)}
       >
-        <div className=" flex w-56 h-20 md:w-60 md:h-28 bg-agreen m-auto font-lucky items-center text-center justify-center tracking-wider rounded-full">
-          {" "}
-          Jugar
-        </div>
+        Encender ♪
       </button>
+
       <Luz
         className="min-h-full relative "
         children={
-          <div
-            id="burbuja"
-            className="bg-black z-[1000] absolute top h-[300px] w-[300px] align-middle
+          <div>
+            <div
+              id="burbuja"
+              className="bg-black z-[1000] absolute  h-[200px] w-[200px] xl:h-[300px] xl:w-[300px]  pt-16
           flex  bg-grey/20 rounded-full justify-center  items-end shadow-amber-100 shadow-lg"
-          >
-            <img
-              className="  h-[100px] w-[144px] xl:h-[200px] xl:w-[244px] "
+            >
+              <img
+                className="  h-[100px] w-[144px] xl:h-[200px] xl:w-[244px] "
+                src="/RANDY_08.svg"
+                alt="RANDY_08"
+              />
+            </div>
 
-              src="/RANDY_08.svg"
-              alt="RANDY_08"
+            <img
+              className="xl:hidden z-[9000] absolute m-auto pr-52 md:pb-[270px] h-[850px] pb-11 md:h-[1300px] bg-transparent  "
+              src="/parallax_home/ARBOL 1 PLANO - IZQ.png"
+              alt="ARBOL1PLANO"
             />
           </div>
         }
       ></Luz>
       <div
-        className="flex absolute bg-transparent w-screen h-screen z-[100]  
+        className="flex absolute bg-transparent  mt-7 align-middle justify-center items-end w-screen  z-[100]  
         font-lucky text-white text-5xl"
       >
-        <button
-          onClick={menu}
-          type="submit"
-          className=" m-auto w-60 h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2  hover:shadow-orange-300 bg-agreen  font-lucky items-center text-center justify-center  rounded-3xl"
+        <div
+          id="burbuja2"
+          className="bg-black  mt-[400px] z-[1000] absolute h-[300px] w-[300px] align-middle
+          flex  bg-grey/20 rounded-full  shadow-amber-100 shadow-lg"
         >
-          Jugar
-        </button>
+          <button
+            onClick={menu}
+            type="submit"
+            className=" m-auto w-60 h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2  hover:shadow-orange-300 bg-agreen  font-lucky items-center text-center justify-center  rounded-3xl"
+          >
+            Jugar
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-
