@@ -25,7 +25,6 @@ body {
     )
     rgb(var(--background-start-rgb));
   cursor: url("/cursor/cursoryellow.svg"), auto;
-
 }
 
 input::placeholder {
@@ -221,10 +220,10 @@ button {
     transform: translateY(150%);
   }
   100% {
-    transform: translate(25vh) scale(3);
+    transform: translate(25vh) scale(2);
   }
 }
 
 #burbuja {
-  animation: animate3Randy 10s linear infinite;
+  animation: animate3Randy 10s linear infinite alternate-reverse;
 }
