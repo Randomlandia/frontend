@@ -226,4 +226,27 @@ button {
 
 #burbuja {
   animation: animate3Randy 10s linear infinite alternate-reverse;
+  margin: -50px 0px;
+}
+
+#burbuja2 {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    top: 20px;
+  }
+  25% {
+    top: 22px;
+  }
+  50% {
+    top: 30px;
+  }
+  75% {
+    top: 27px;
+  }
+  100% {
+    top: 25px;
+  }
 }
