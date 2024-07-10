@@ -2,11 +2,11 @@ export default function Unicos(props) {
   return (
     <div className="flex flex-col rounded-3xl m-[5px]  md:w-[228px] md:h-[284px]  gap-[10px] p-[10px]  items-center align-middle justify-center text-center">
       <div className="">
-        <div className="p-2 animate-bounce  hover:w-[80px] hover:h-[80px] hover:shadow-xl hover:shadow-amber-500  hover:rounded-full">
+        <div className=" flex h-[60px] w-[60px]  animate-bounce  items-center align-middle">
           <img
             src={props.icono}
             alt={props.alt}
-            className=" w-[60px] h-[60px] m-auto "
+            className=" w-[60px] h-[60px] m-auto hover:shadow-xl hover:shadow-amber-500 hover:rounded-full "
           />
         </div>
         <div className="flex font-lucky  text-dgreen text-[24px]  ">

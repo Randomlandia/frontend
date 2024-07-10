@@ -6,7 +6,7 @@ export default function Perspectiva(props) {
           <img
             src={props.icono}
             alt={props.alt}
-            className=" w-[60px] h-[60px] hover:w-[70px] hover:h-[70px] hover:shadow-xl hover:shadow-amber-500  hover:rounded-full"
+            className=" w-[60px] h-[60px] hover:shadow-xl hover:shadow-amber-500  hover:rounded-full"
           />
         </div>
         <div className="p-2">

@@ -111,11 +111,11 @@ const Randomlandia = () => {
             </div>
             <div className="flex pt-[28px] md:pt-[40px] md:pr-8 xl:pr-0 font-mont font-semibold text-dgreen/75 text-sm  md:text-start">
               <div className="text-5xl pl-24 text-center text-orange-500 ">
-                <div className="pb-9 hover:animate-spin">1</div>
-                <div className="pb-9 hover:animate-spin">2</div>
-                <div className="pb-9 hover:animate-spin">3</div>
-                <div className="pb-9 hover:animate-spin">4</div>
-                <div className="pl-1 hover:animate-spin ">5</div>
+                <div className="pb-9">1</div>
+                <div className="pb-9">2</div>
+                <div className="pb-9">3</div>
+                <div className="pb-9">4</div>
+                <div className="pl-1 m-auto hover:animate-spin ">5</div>
               </div>
 
               <div className="w-[375px] p-5">
@@ -136,7 +136,7 @@ const Randomlandia = () => {
                 <br />
                 <p className="h">----------------------------- </p>
                 <br />
-                <p className="text-lg  text-orange-500  ">
+                <p className="text-lg hover:text-xl  text-orange-500 hover:translate-x-1 ">
                   ¡Para toda la familia!
                 </p>
               </div>
