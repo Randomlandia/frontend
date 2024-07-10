@@ -10,6 +10,7 @@ import CarruselTemas from "@/components/landing/carruselTemas";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+
 const Randomlandia = () => {
   const [mostarIndex, setMostarIndex] = useState(1);
   const { handleSubmit } = useForm();
@@ -140,7 +141,6 @@ const Randomlandia = () => {
             </form>
           </div>
         </div>
-
         {/* como funciona */}
         <div className="flex flex-row  rounded-3xl bg-[#f6ead7]/75  mt-[20px] pb-[112px] w-auto h-auto gap-[10px] p-[112px] align-middle items-center justify-center">
           <div className="hidden md:flex flex-col md:pl-[150px]  xl:pl-0  xl:pr-[112px] align-middle items-center justify-center">
@@ -256,8 +256,6 @@ const Randomlandia = () => {
               })}
             </form>
           </div>
-        </div>
-
         {/*contactanos */}
         <div className="flex flex-row mt-[20px] mb-[20px]   rounded-3xl bg-[#f6ead7]/75  w-auto h-auto pt-[50px] pb-[50px] align-middle items-center justify-center">
           <ContactoFooter />
