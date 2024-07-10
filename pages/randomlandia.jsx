@@ -1,13 +1,9 @@
 import Navbar from "../components/Navbar";
 import { unicos } from "@/components/constants/unicos";
-import { useRouter } from "next/router";
 import Unicos from "@/components/landing/unicos2Div";
+import ProbarAhora from "@/components/landing/botonProbarAhora";
 
 const Randomlandia = () => {
-  const router = useRouter();
-  const index = () => {
-    router.push(`/`);
-  };
   return (
     <div className=" flex  min-h-screen font-mont flex-col font-bold overflow-hidden items-center bg-white">
       <Navbar className="fixed" />
@@ -20,18 +16,18 @@ const Randomlandia = () => {
       >
         <div className="flex rounded-3xl bg-[#f6ead7]/75  pt-[112px] pb-[112px] max-w-[1168px] max-h-[660px] gap-[10px] p-[112px] items-center align-middle justify-center ">
           <div className="flex flex-col text-center">
-            <div className="xl:hidden flex">
+            <div className="xl:hidden flex pb-3">
               <img
                 src="/landing/randyLanding.png"
                 alt="randyLanding"
                 className="
-                w-[308px] 
+                min-w-[308px] 
               md:w-[420px] "
               />
             </div>
             <div
               className=" 
-            flex font-lucky  text-dgreen text-xl xl:text-3xl md:text-3xl pt-[28px] md:pt-[40px]"
+            flex font-lucky  text-dgreen text-xl xl:text-3xl md:text-3xl"
             >
               Inspira jugando, aprende investigando
             </div>
@@ -41,15 +37,8 @@ const Randomlandia = () => {
             >
               Descubre la forma más divertida e interactiva de aprender.
             </div>
-            <div className="flex pt-[28px] md:pt-[40px]  ">
-              <button
-                onClick={index}
-                type="submit"
-                className=" text-basemd:text-lg m-auto h-[60px] w-[226px] md:h-[78px] md:w-[226px]  hover:shadow-xl hover:translate-y-3 hover:translate-x-2  hover:shadow-orange-300 bg-natL  font-lucky items-center text-center justify-center  rounded-[100px]"
-              >
-                ¡Probar ahora!
-              </button>
-            </div>
+
+            <ProbarAhora></ProbarAhora>
           </div>
           <div className="hidden xl:flex">
             <img
@@ -65,7 +54,7 @@ const Randomlandia = () => {
         <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] pb-[112px] w-auto h-auto gap-[10px] p-[112px] align-middle justify-center">
           <div
             className=" 
-            flex font-lucky justify-center align-middle items-center  text-dgreen text-xl xl:text-6xl md:text-5xl pt-[28px] md:pt-[40px]"
+            flex font-lucky justify-center align-middle items-center  text-dgreen text-xl xl:text-6xl md:text-5xl "
           >
             ¿qué nos hace únicos?
           </div>
@@ -85,7 +74,64 @@ const Randomlandia = () => {
           </div>
         </div>
         {/* como funciona */}
-        <div> como funciona</div>
+        <div className="flex flex-row  rounded-3xl bg-[#f6ead7]/75  mt-[20px] pb-[112px] w-auto h-auto gap-[10px] p-[112px] align-middle items-center justify-center">
+          <div className="hidden md:flex flex-col md:pl-[150px]  xl:pl-0  xl:pr-[112px] align-middle items-center justify-center">
+            <img
+              src="RANDY_02.svg"
+              alt="randy_guino"
+              className="w-[325px] h-[330px] "
+            />
+            <ProbarAhora></ProbarAhora>
+          </div>
+          <div>
+            <div
+              className=" 
+            flex font-lucky justify-center md:pr-[20%] text-center md:text-start align-middle items-center  text-dgreen text-2xl xl:text-3xl md:text-2xl "
+            >
+              ¿CÓMO FUNCIONA?
+            </div>
+            <div className="flex pt-[28px] md:pt-[40px] md:pr-8 xl:pr-0 font-mont font-semibold text-dgreen/75 text-sm  md:text-start">
+              <div className="text-5xl pl-24 text-center text-orange-500">
+                <div className="pb-9">1</div>
+                <div className="pb-9">2</div>
+                <div className="pb-9">3</div>
+                <div className="pb-9">4</div>
+                <div className="pl-1">5</div>
+              </div>
+
+              <div className="w-[375px] p-5">
+                <p>Elige un tema de interés</p>
+                <br />
+                <p className="">----------------------------- </p>
+
+                <br />
+                <p>Guarda tu datos random favoritos </p>
+                <br />
+                <p className="">----------------------------- </p>
+                <br />
+                <p>Pon a prueba tus conocimientos</p>
+                <br />
+                <p className="">----------------------------- </p>
+                <br />
+                <p>Información real y divertida</p>
+                <br />
+                <p className="h">----------------------------- </p>
+                <br />
+                <p className="text-lg  text-orange-500  ">
+                  ¡Para toda la familia!
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col pt-7  md:hidden align-middle items-center justify-center">
+              <img
+                src="RANDY_02.svg"
+                alt="randy_guino"
+                className="w-[188px] h-[198px] "
+              />
+              <ProbarAhora className="pt-7"></ProbarAhora>
+            </div>
+          </div>
+        </div>
         {/*perspectiva */}
         <div>perspectiva</div>
         {/*contactanos */}
