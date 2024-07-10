@@ -6,8 +6,22 @@ import ContactoFooter from "@/components/ContactoFooter";
 import RandyBurbuja from "@/components/landing/randyBurbuja";
 import Perspectiva from "@/components/landing/perspectivaDiv";
 import { perspectiva } from "@/components/constants/perspectiva";
+import CarruselTemas from "@/components/landing/carruselTemas";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Randomlandia = () => {
+  const [mostarIndex, setMostarIndex] = useState(1);
+  const { handleSubmit } = useForm();
+
+  async function onSubmit(e) {
+    if (!e) {
+      return (
+        <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full"></main>
+      );
+    }
+  }
+
   return (
     <div className=" flex  min-h-screen font-mont flex-col font-bold overflow-hidden items-center bg-white">
       {/*nav */}
@@ -70,15 +84,15 @@ const Randomlandia = () => {
           </div>
         </div>
         {/*que nos hace unicos */}
-        <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] pb-[112px] w-auto h-auto gap-[10px] p-[112px] align-middle justify-center">
+        <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] md:pb-[112px] w-auto h-auto gap-[10px] p-7 md:p-[112px] align-middle justify-center">
           <div
             className=" 
-            flex font-lucky justify-center align-middle items-center  text-dgreen text-xl xl:text-6xl md:text-5xl "
+            flex font-lucky justify-center align-middle items-center  text-dgreen text-2xl xl:text-6xl md:text-5xl "
           >
             ¿qué nos hace únicos?
           </div>
-
-          <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-3 ">
+          {/* 1 */}
+          <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-3  ">
             {unicos.map((unico, index) => {
               return (
                 <Unicos
@@ -91,7 +105,42 @@ const Randomlandia = () => {
               );
             })}
           </div>
+          {/* 2 */}
+          <div className="md:hidden flex flex-col g-0  items-center justify-center align-middle">
+            {unicos.map((unico, index) => {
+              return (
+                index == mostarIndex && (
+                  <CarruselTemas
+                    key={`unico-${index}`}
+                    icono={unico.icono}
+                    alt={unico.alt}
+                    tema={unico.tema}
+                    contenido={unico.contenido}
+                  ></CarruselTemas>
+                )
+              );
+            })}
+
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-row h-auto w-72 align-middle justify-center items-center"
+            >
+              {unicos.map((unico, index) => {
+                return (
+                  <button
+                    className={
+                      index == mostarIndex
+                        ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
+                        : "h-6 w-6 m-1 rounded-full bg-slate-500"
+                    }
+                    onClick={() => setMostarIndex(index)}
+                  ></button>
+                );
+              })}
+            </form>
+          </div>
         </div>
+
         {/* como funciona */}
         <div className="flex flex-row  rounded-3xl bg-[#f6ead7]/75  mt-[20px] pb-[112px] w-auto h-auto gap-[10px] p-[112px] align-middle items-center justify-center">
           <div className="hidden md:flex flex-col md:pl-[150px]  xl:pl-0  xl:pr-[112px] align-middle items-center justify-center">
@@ -155,11 +204,11 @@ const Randomlandia = () => {
         <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] pb-[112px] w-auto h-auto gap-[10px] p-[112px] align-middle justify-center">
           <div
             className=" 
-            flex font-lucky pb-[50px] justify-center align-middle items-center  text-dgreen text-xl xl:text-6xl md:text-5xl "
+            flex font-lucky md:pb-[50px] justify-center align-middle items-center  text-dgreen  text-2xl xl:text-3xl md:text-2xl "
           >
             Perspectiva del aprendizaje
           </div>
-
+          {/*1 */}
           <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-4 ">
             {perspectiva.map((unico, index) => {
               return (
@@ -172,6 +221,40 @@ const Randomlandia = () => {
                 ></Perspectiva>
               );
             })}
+          </div>
+          {/*2 */}
+          <div className="md:hidden flex flex-col g-0  items-center justify-center align-middle">
+            {perspectiva.map((unico, index) => {
+              return (
+                index == mostarIndex && (
+                  <CarruselTemas
+                    key={`unico-${index}`}
+                    icono={unico.icono}
+                    alt={unico.alt}
+                    tema={unico.tema}
+                    contenido={unico.contenido}
+                  ></CarruselTemas>
+                )
+              );
+            })}
+
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-row h-auto w-72 align-middle justify-center items-center"
+            >
+              {perspectiva.map((unico, index) => {
+                return (
+                  <button
+                    className={
+                      index == mostarIndex
+                        ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
+                        : "h-6 w-6 m-1 rounded-full bg-slate-500"
+                    }
+                    onClick={() => setMostarIndex(index)}
+                  ></button>
+                );
+              })}
+            </form>
           </div>
         </div>
 
