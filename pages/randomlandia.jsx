@@ -3,18 +3,35 @@ import { unicos } from "@/components/constants/unicos";
 import Unicos from "@/components/landing/unicos2Div";
 import ProbarAhora from "@/components/landing/botonProbarAhora";
 import ContactoFooter from "@/components/ContactoFooter";
+import RandyBurbuja from "@/components/landing/randyBurbuja";
+import Perspectiva from "@/components/landing/perspectivaDiv";
+import { perspectiva } from "@/components/constants/perspectiva";
 
 const Randomlandia = () => {
   return (
     <div className=" flex  min-h-screen font-mont flex-col font-bold overflow-hidden items-center bg-white">
-      <Navbar className="fixed" />
-
+      {/*nav */}
+      <div className=" fixed w-full h-14 z-[4000] bg-lorange flex justify-between items-center text-white font-lucky text-xl py-3">
+        <Navbar />
+      </div>
       <div
         className="
       xl:bg-transparent  xl:w-[1168px] xl:gap-[10px]
        md:w-[669px] md:gap-[10px]
-       pt-[20px] w-[340px] min-h-screen gap-[10px]"
+       w-[340px] min-h-screen gap-[10px]"
       >
+        {/*logo*/}
+        <div className="flex flex-row mb-5 mt-20 rounded-3xl bg-[#f6ead7]/75  w-auto h-auto pt-[50px] pb-[50px] align-middle items-center justify-center">
+          <div className="h-full pb-32">
+            <RandyBurbuja></RandyBurbuja>
+          </div>
+          <img
+            src="/logoLarge.svg"
+            alt="Random"
+            className="h-32 hover:translate-x-1 hover:translate-y-1"
+          />
+        </div>
+        {/*inspira */}
         <div className="flex rounded-3xl bg-[#f6ead7]/75  pt-[112px] pb-[112px] max-w-[1168px] max-h-[660px] gap-[10px] p-[112px] items-center align-middle justify-center ">
           <div className="flex flex-col text-center">
             <div className="xl:hidden flex pb-3">
@@ -26,6 +43,7 @@ const Randomlandia = () => {
               md:w-[420px] "
               />
             </div>
+
             <div
               className=" 
             flex font-lucky  text-dgreen text-xl xl:text-3xl md:text-3xl"
@@ -92,12 +110,12 @@ const Randomlandia = () => {
               ¿CÓMO FUNCIONA?
             </div>
             <div className="flex pt-[28px] md:pt-[40px] md:pr-8 xl:pr-0 font-mont font-semibold text-dgreen/75 text-sm  md:text-start">
-              <div className="text-5xl pl-24 text-center text-orange-500">
-                <div className="pb-9">1</div>
-                <div className="pb-9">2</div>
-                <div className="pb-9">3</div>
-                <div className="pb-9">4</div>
-                <div className="pl-1">5</div>
+              <div className="text-5xl pl-24 text-center text-orange-500 ">
+                <div className="pb-9 hover:animate-spin">1</div>
+                <div className="pb-9 hover:animate-spin">2</div>
+                <div className="pb-9 hover:animate-spin">3</div>
+                <div className="pb-9 hover:animate-spin">4</div>
+                <div className="pl-1 hover:animate-spin ">5</div>
               </div>
 
               <div className="w-[375px] p-5">
@@ -134,9 +152,31 @@ const Randomlandia = () => {
           </div>
         </div>
         {/*perspectiva */}
-        <div>perspectiva</div>
+        <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] pb-[112px] w-auto h-auto gap-[10px] p-[112px] align-middle justify-center">
+          <div
+            className=" 
+            flex font-lucky pb-[50px] justify-center align-middle items-center  text-dgreen text-xl xl:text-6xl md:text-5xl "
+          >
+            Perspectiva del aprendizaje
+          </div>
+
+          <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-4 ">
+            {perspectiva.map((unico, index) => {
+              return (
+                <Perspectiva
+                  key={`unico-${index}`}
+                  icono={unico.icono}
+                  alt={unico.alt}
+                  tema={unico.tema}
+                  contenido={unico.contenido}
+                ></Perspectiva>
+              );
+            })}
+          </div>
+        </div>
+
         {/*contactanos */}
-        <div className="flex flex-row  rounded-3xl bg-[#f6ead7]/75  w-auto h-auto pt-[50px] pb-[50px] align-middle items-center justify-center">
+        <div className="flex flex-row mt-[20px] mb-[20px]   rounded-3xl bg-[#f6ead7]/75  w-auto h-auto pt-[50px] pb-[50px] align-middle items-center justify-center">
           <ContactoFooter />
         </div>
       </div>
