@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import { unicos } from "@/components/constants/unicos";
 import Unicos from "@/components/landing/unicos2Div";
 import ProbarAhora from "@/components/landing/botonProbarAhora";
+import ContactoFooter from "@/components/ContactoFooter";
 
 const Randomlandia = () => {
   return (
@@ -135,7 +136,9 @@ const Randomlandia = () => {
         {/*perspectiva */}
         <div>perspectiva</div>
         {/*contactanos */}
-        <div>contactanos</div>
+        <div className="flex flex-row  rounded-3xl bg-[#f6ead7]/75  w-auto h-auto pt-[50px] pb-[50px] align-middle items-center justify-center">
+          <ContactoFooter />
+        </div>
       </div>
     </div>
   );
