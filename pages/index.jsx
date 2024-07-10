@@ -81,7 +81,7 @@ export default function Home(props) {
           <button
             onClick={menu}
             type="submit"
-            className=" m-auto w-60 h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2  hover:shadow-orange-300 bg-agreen  font-lucky items-center text-center justify-center  rounded-3xl"
+            className=" m-auto w-60 h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2  hover:shadow-orange-300 bg-natL font-lucky items-center text-center justify-center  rounded-3xl"
           >
             Jugar
           </button>
