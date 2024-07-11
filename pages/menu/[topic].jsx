@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import LoadingState from "@/components/LoadingState";
 import TemaContainer from "@/components/TemaContainer";
+import SpeechBubble from "@/components/SpeechBubble";
 
 // 1) guardar cada numero que salga en random en un arreglo
 // 2 un contador que llegue a 10
@@ -262,33 +263,61 @@ export default function Sandia() {
       >
         <div className="max-w-sm mx-auto flex flex-col justify-center items-center gap-8">
           <div className="flex justify-between w-[88%]">
-           <div className="w-14">
-           <TemaContainer />
-           </div>
-            <button onClick={() => router.push("/menu")} className="hover:transform hover:scale-125">
+            <div className="w-14">
+              <TemaContainer />
+            </div>
+            <button
+              onClick={() => router.push("/menu")}
+              className="hover:transform hover:scale-125"
+            >
               <img src="/close.svg" alt="Close Icon" className="w-10 h-10" />
             </button>
           </div>
 
-          <RandySpeechBubble
+          <SpeechBubble
             text={showReference ? current?.reference : current?.content}
           />
+          <img src={"/RANDY_08.svg"} alt="randy" />
 
           <div className="grid grid-cols-2 gap-2 h-32 w-36 ml-[68%]">
-            <button key="turnIcon" onClick={handleToggleReference} className="hover:transform hover:scale-125">
-              <img src="/icon_turn.svg" alt="Turn Icon" className="w-14 h-14"/>
+            <button
+              key="turnIcon"
+              onClick={handleToggleReference}
+              className="hover:transform hover:scale-125"
+            >
+              <img src="/icon_turn.svg" alt="Turn Icon" className="w-14 h-14" />
             </button>
 
-            <button key="redHeartIcon" onClick={handleLike} className="hover:transform hover:scale-125">
-              <img src={favIcon} alt="Red Heart Icon" className="w-14 h-14"/>
+            <button
+              key="redHeartIcon"
+              onClick={handleLike}
+              className="hover:transform hover:scale-125"
+            >
+              <img src={favIcon} alt="Red Heart Icon" className="w-14 h-14" />
             </button>
 
-            <button key="arrowLeftIcon" onClick={reverseSandia} className="hover:transform hover:scale-125">
-              <img src="/icon_arrowleft.svg" alt="Arrow Left Icon" className="w-14 h-14"/>
+            <button
+              key="arrowLeftIcon"
+              onClick={reverseSandia}
+              className="hover:transform hover:scale-125"
+            >
+              <img
+                src="/icon_arrowleft.svg"
+                alt="Arrow Left Icon"
+                className="w-14 h-14"
+              />
             </button>
 
-            <button key="turnRightIcon" onClick={handleNextButton} className="hover:transform hover:scale-125">
-              <img src="/icon_turnright.svg" alt="Turn Right Icon" className="w-14 h-14"/>
+            <button
+              key="turnRightIcon"
+              onClick={handleNextButton}
+              className="hover:transform hover:scale-125"
+            >
+              <img
+                src="/icon_turnright.svg"
+                alt="Turn Right Icon"
+                className="w-14 h-14"
+              />
             </button>
           </div>
         </div>
