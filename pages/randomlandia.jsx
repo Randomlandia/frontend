@@ -84,7 +84,7 @@ const Randomlandia = () => {
           </div>
         </div>
         {/*que nos hace unicos */}
-        <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] md:pb-[112px] w-auto h-auto gap-[10px] p-7 md:p-[112px] align-middle justify-center">
+        <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] p-[112px] w-auto h-auto gap-[10px]  md:p-[112px] align-middle justify-center">
           <div
             className=" 
             flex font-lucky justify-center align-middle items-center  text-dgreen text-2xl xl:text-6xl md:text-5xl "
