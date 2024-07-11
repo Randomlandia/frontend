@@ -16,12 +16,6 @@ export default function CardSandiaBack() {
       </div>
 
       <div className="inline-flex gap-2 justify-center  ">
-        {/* BTN L <-- */}
-        <div className="flex justify-start ">
-          <button>
-            <img src="/icon_arrowleft.svg" alt="" className="h-10 w-10" />
-          </button>
-        </div>
         {/* CARD  */}
         <div className="flex flex-col gap-4 bg-white border-4 border-dorange px-2 py-4 rounded-xl ">
           {/* CITA FORMATO APA DE LAS SANDIAS  */}
@@ -42,26 +36,14 @@ export default function CardSandiaBack() {
             </a>
           </div>
 
-          <div className="grid grid-cols-2 p-2">
+          <div className=" p-2">
             {/* BTN TURN */}
-            <div className="flex justify-start ">
+            <div className="flex justify-end ">
               <button>
                 <img src="icon_turn.svg" alt="" className="h-10 w-10" />
               </button>
             </div>
-            {/* BTN HEART */}
-            <div className="flex justify-end">
-              <button>
-                <img src="icon_redheart.svg" alt="" className="h-10 w-10" />
-              </button>
-            </div>
           </div>
-        </div>
-        {/* BTN R -->  */}
-        <div className="flex justify-end ">
-          <button>
-            <img src="/icon_arrowright.svg" alt="" className="h-10 w-10" />
-          </button>
         </div>
       </div>
     </div>

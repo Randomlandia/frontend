@@ -1,7 +1,7 @@
-import CardSandiaBack from "@/backups/cards sandia/CardSandiaBack";
 import Navbar from "../components/Navbar";
-import RandyNotFound from "@/components/RandyNotFound";
+
 import CardSandiaFront from "@/backups/cards sandia/CardSandiaFront";
+import CardSandiaBack from "@/backups/cards sandia/CardSandiaBack";
 
 export default function Pruebas() {
   return (
@@ -11,7 +11,7 @@ export default function Pruebas() {
         PRUEBAS
       </div>
       <div className="flex justify-center p-2">
-        <CardSandiaBack />
+        <CardSandiaFront />
       </div>
     </main>
   );
