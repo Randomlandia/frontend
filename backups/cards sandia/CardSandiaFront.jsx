@@ -1,7 +1,7 @@
 export default function CardSandiaFront() {
   return (
     // CARD CON TRANSPARENCIA
-    <div className="flex flex-col gap-3 bg-oldwhite/70 rounded-lg p-3 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto ">
+    <div className="flex flex-col gap-3 bg-oldwhite rounded-lg p-3 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto ">
       <div className="grid grid-cols-2 px-2 py-4">
         {/* BADGE TOPIC */}
         <div className="flex justify-start ">
@@ -15,49 +15,58 @@ export default function CardSandiaFront() {
         </div>
       </div>
 
-      <div className="gap-2 justify-center ">
+      <div className="grid gap-2 justify-center ">
         {/* CARD  */}
         <div className=" flex flex-col px-2 py-4 rounded-xl gap-4 ">
-          <div className="p-4 border-4 border-transparent bg-transparent md:bg-white md:border-dorange">
+          <div className="flex-col p-4 rounded-md bg-white border-4 border-dorange">
             <div className="flex-wrap justify-center p-3 rounded-lg bg-peach">
               <p className="font-mont text-black font-bold">Sabias que . . .</p>
               <p className="font-mont text-black">
                 Las piñas tardan de 3 a 5 años en crecer.
               </p>
             </div>
-          </div>
-        </div>
 
-        <div className="grid grid-col">
-          {/* BTNS ACCIONES CARD SANDÍA */}
-          <div className="grid grid-cols-2 px-2 py-4">
-            {/* BTN TURN */}
-            <div className="flex justify-start ">
-              <button>
-                <img src="icon_turn.svg" alt="" className="h-10 w-10" />
-              </button>
-            </div>
-            {/* BTN HEART */}
-            <div className="flex justify-end">
-              <button>
-                <img src="icon_redheart.svg" alt="" className="h-10 w-10" />
-              </button>
-            </div>
-          </div>
+            {/* BOTONES */}
+            <div className="grid grid-col">
+              {/* BTNS ACCIONES CARD SANDÍA */}
+              <div className="grid grid-cols-2 px-2 py-4 ">
+                {/* BTN TURN */}
+                <div className="flex justify-start ">
+                  <button>
+                    <img src="icon_turn.svg" alt="" className="h-10 w-10" />
+                  </button>
+                </div>
+                {/* BTN HEART */}
+                <div className="flex justify-end ">
+                  <button>
+                    <img src="icon_redheart.svg" alt="" className="h-10 w-10" />
+                  </button>
+                </div>
+              </div>
 
-          {/* BTNS ACCIONES PARA VER SANDÍA */}
-          <div className="grid grid-cols-2 px-2 py-4">
-            {/* BTN L <-- */}
-            <div className="flex justify-start">
-              <button>
-                <img src="/icon_arrowleft.svg" alt="" className="h-10 w-10" />
-              </button>
-            </div>
-            {/* BTN R -->  */}
-            <div className="flex justify-end ">
-              <button>
-                <img src="/icon_arrowright.svg" alt="" className="h-10 w-10" />
-              </button>
+              {/* BTNS ACCIONES PARA VER SANDÍA */}
+              <div className="grid grid-cols-2  px-2 py-4">
+                {/* BTN L <-- */}
+                <div className="flex justify-start">
+                  <button>
+                    <img
+                      src="/icon_arrowleft.svg"
+                      alt=""
+                      className="h-10 w-10"
+                    />
+                  </button>
+                </div>
+                {/* BTN R -->  */}
+                <div className="flex justify-end ">
+                  <button>
+                    <img
+                      src="/icon_arrowright.svg"
+                      alt=""
+                      className="h-10 w-10"
+                    />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

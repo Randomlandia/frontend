@@ -5,7 +5,7 @@ import CardSandiaBack from "@/backups/cards sandia/CardSandiaBack";
 
 export default function Pruebas() {
   return (
-    <main className="w-full min-h-screen bg-black">
+    <main className="w-full min-h-screen bg-white">
       <Navbar />
       <div className=" flex text-orange-600 font-semibold justify-center mt-8 text-5xl">
         PRUEBAS
