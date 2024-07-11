@@ -1,19 +1,19 @@
 import RandyTextRight from "./RandyTextRight";
 
-export default function LoadingState() {
+export default function LoadingPage() {
   return (
     <div
       class="text-center"
       className="w-screen h-screen flex justify-center items-center bg-oldwhite/70"
     >
-      <div role="status" className=" flex-col justify-center gap-8">
-        <div className="p-6">
-          <RandyTextRight
-            text="Traaanqui, ¡ya casi estamos listos!"
-            img={"/RANDY_02.svg"}
-          />
-        </div>
-        <div className="flex justify-center">
+      <div role="status" className="flex flex-col justify-center gap-8">
+        <div className="flex flex-col justify-center items-center">
+          <div className="p-6">
+            <RandyTextRight
+              text="Traaanqui, ¡ya casi estamos listos!"
+              img={"/RANDY_02.svg"}
+            />
+          </div>
           <svg
             aria-hidden="true"
             class="inline w-32 h-32 text-white animate-spin dark:text-gray-600 fill-lgreen"
