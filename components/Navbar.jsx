@@ -1,14 +1,21 @@
 import { useEffect, useState, Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import {
+  Menu,
+  Transition,
+  MenuButton,
+  MenuItems,
+  MenuItem
+} from "@headlessui/react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 export default function Navbar() {
   const router = useRouter();
   const [isLogged, setIsLogged] = useState(true);
-  const [user, setUser] = useState("Explorador");
+  const [userName, setUserName] = useState("Explorador");
   const [userId, setUserId] = useState("Explorador");
   const [userAvatar, setAvatar] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [selectedMenu, setSelectedMenu] = useState(null);
 
   const avatarSrc = () => {
     switch (userAvatar) {
@@ -32,12 +39,12 @@ export default function Navbar() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const idUser = localStorage.getItem("userID");
-    const avatarValue = localStorage.getItem("avatarValue");
+    const avatarValue = localStorage.getItem("avatar");
+    const user = localStorage.getItem("username");
 
     if (token) {
       setIsLogged(true);
-      const loggedUser = localStorage.getItem("user");
-      setUser(loggedUser);
+      setUserName(user);
       setUserId(idUser);
       setAvatar(avatarValue);
     } else {
@@ -51,76 +58,124 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="w-full h-14 bg-lorange flex justify-between text-white font-lucky text-xl">
+      <nav className="w-full h-14 z-[4000] bg-lorange flex justify-between items-center text-white font-lucky text-xl py-3">
+        {/* LOGO DE RANDOMLANDIA */}
         <button
-          href="/"
           onClick={() => {
             router.push("/");
           }}
+          className="py-3 px-3"
         >
-          <div className="py-2 px-3">
-            <img src="/logoLarge.svg" alt="Random" className="h-10" />
-          </div>
+          <img src="/logoLarge.svg" alt="Random" className="h-6 sm:h-10" />
         </button>
         <div className="flex">
-          <div className="hidden lg:flex gap-7 items-center px-3">
-            {/*botonAvatarImagen */}
-            <Link href={`/user/${userId}` || `/login`}>
-              <button>
-                <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
+          {/* SECCION DESKTOP */}
+          <div className="hidden lg:flex gap-3 items-center px-3">
+            <div className="flex">
+              <button onClick={() => router.push("/randomlandia")}>
+                <p className="px-5 py-1 rounded-[10px] flex items-center hover:bg-dorange transform hover:scale-110">
+                  RANDOMLANDIA
+                </p>
               </button>
-            </Link>
-
-            <Link href="/about">
-              <button>NOSOTROS</button>
-            </Link>
+              <button onClick={() => router.push("/about")}>
+                <p className="px-5 py-1 rounded-[10px] flex items-center hover:bg-dorange transform hover:scale-110">
+                  NOSOTROS
+                </p>
+              </button>
+            </div>
             {isLogged ? (
-              <>
-                <Link href="/login">
-                  <button>INICIAR SESIÓN</button>
-                </Link>
-                <Link
-                  href="/register"
-                  className="bg-dorange h-9 px-5 rounded-[10px] flex"
-                >
-                  <button>CREAR CUENTA</button>
-                </Link>
-              </>
+              <button
+                className="flex items-center transform hover:scale-110"
+                onClick={() => {
+                  router.push(`/user/${userId}`);
+                }}
+              >
+                {/*botonAvatarImagen */}
+                <div className="py-1 px-1">
+                  <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
+                </div>
+                <div className="bg-dorange h-9 px-5 rounded-[10px] flex items-center">
+                  <p>{userName}</p>
+                </div>
+              </button>
             ) : (
               <>
-                <Link href="/login">
-                  <button>INICIAR SESIÓN</button>
-                </Link>
-                <Link
-                  href="/register"
-                  className="bg-dorange h-9 px-5 rounded-[10px] flex"
+                <button
+                  onClick={() => {
+                    router.push("/login");
+                  }}
                 >
-                  <button>CREAR CUENTA</button>
-                </Link>
+                  <p className="px-5 py-1 rounded-[10px] flex items-center hover:bg-dorange transform hover:scale-110">
+                    INICIAR SESIÓN
+                  </p>
+                </button>
+                <button
+                  onClick={() => {
+                    router.push("/register");
+                  }}
+                >
+                  <p className="bg-dorange h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110">
+                    CREAR CUENTA
+                  </p>
+                </button>
               </>
             )}
-            <Link href="/randomlandia">
-              <button className="bg-natL h-9 px-5 rounded-[10px]">
+            <button
+              onClick={() => {
+                router.push("/menu");
+              }}
+            >
+              <p className="bg-natL h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110">
                 ¡JUGAR!
-              </button>
-            </Link>
+              </p>
+            </button>
           </div>
+
+          {/* SECCION MOBILE Y TABLET */}
           <div className="flex lg:hidden items-center gap-2">
-            <Link href="/login" className="flex">
-              <button className="text-sm leading-4 bg-dorange px-6 py-1.5 rounded-[10px]">
-                INICIAR
-                <br />
-                SESIÓN
+            {isLogged ? (
+              <button
+                className="flex items-center"
+                onClick={() => {
+                  router.push(`/user/${userId}`);
+                }}
+                onTouchStart={() => setHovered(true)}
+                onTouchEnd={() => setHovered(false)}
+              >
+                {/*botonAvatarImagen */}
+                <div className="py-1 px-1" >
+                  <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
+                </div>
+                {hovered && (
+                  <div className="bg-dorange h-9 px-5 rounded-[10px] flex items-center">
+                    <p>{userName}</p>
+                  </div>
+                )}
               </button>
-            </Link>
+            ) : (
+              <button
+                onClick={() => {
+                  router.push("/login");
+                }}
+                className="flex"
+              >
+                <p className="text-sm leading-4 bg-dorange px-6 py-1.5 rounded-[10px]">
+                  INICIAR
+                  <br />
+                  SESIÓN
+                </p>
+              </button>
+            )}
+
+            {/* SECCION MENU SANDIA */}
             <Menu
               as="div"
               className="relative inline-block text-left z-10 mr-2 mt-2"
             >
               <div>
-                <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 shadow-sm">
+                <MenuButton className="inline-flex w-full justify-center gap-x-1.5 shadow-sm">
                   <img src="/menu.svg" alt="menu" className="w-14 h-16" />
-                </Menu.Button>
+                </MenuButton>
               </div>
               <Transition
                 as={Fragment}
@@ -131,132 +186,118 @@ export default function Navbar() {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-10 w-44 origin-top-right rounded-md bg-agreen/50 shadow-lg ring-1 ring-natD ring-opacity-50 focus:outline-none">
-                  <div className="py-1">
-                    <Menu.Item>
+                <MenuItems className="absolute right-0 z-10 w-44 origin-top-right rounded-md bg-agreen/80 shadow-lg ring-1 ring-natD ring-opacity-50 focus:outline-none">
+                  <div className="py-1 flex flex-col">
+                    <MenuItem>
                       {({ active }) => (
-                        <Link
-                          href="/user"
-                          className={classNames(
-                            active ? "bg-gray-100 text-white" : "text-white",
-                            "flex pl-4 py-1 text-sm font-ram font-normal gap-1 items-center"
-                          )}
+                        <button
+                          onClick={()=>router.push("/user")}
+                          onTouchStart={() => setSelectedMenu("user")}
+                          onTouchEnd={() => setSelectedMenu(null)}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "user" ? "bg-natD" : ""
+                            }`}
                         >
-                          <div className="bg-lorange p-1 rounded-full border-dorange">
+                          <div className="">
                             <img
-                              src={isLogged ? user?.avatar : "/RANDY_02.svg"}
+                              src={avatarSrc()}
                               alt="😄"
-                              className="h-4 w-4"
+                              className="h-6 w-6"
                             />
                           </div>
-                          <p className="">{isLogged ? user : "Explorador"}</p>
-                        </Link>
+                          <p>{userName}</p>
+                        </button>
                       )}
-                    </Menu.Item>
-                    <hr className="w-full border border-zinc-200" />
-                    <Menu.Item>
+                    </MenuItem>
+                    <hr className="w-full border border-zinc-200 my-1" />
+                    <MenuItem>
                       {({ active }) => (
-                        <Link
-                          href="/register"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-1 text-sm font-mont font-semibold text-white/85"
-                          )}
+                        <button
+                          onClick={() => router.push("/register")}
+                          onTouchStart={() => setSelectedMenu("register")}
+                          onTouchEnd={() => setSelectedMenu(null)}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "register" ? "bg-natD" : ""
+                            }`}
                         >
                           Crear cuenta
-                        </Link>
+                        </button>
                       )}
-                    </Menu.Item>
-                    <Menu.Item>
+                    </MenuItem>
+                    <MenuItem>
                       {({ active }) => (
-                        <Link
-                          href="/about"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-1 text-sm font-mont font-semibold text-white/85"
-                          )}
+                        <button
+                          onClick={() => router.push("/about")}
+                          onTouchStart={() => setSelectedMenu("about")}
+                          onTouchEnd={() => setSelectedMenu(null)}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "about" ? "bg-natD" : ""
+                            }`}
                         >
                           ¿Quiénes somos?
-                        </Link>
+                        </button>
                       )}
-                    </Menu.Item>
-                    <Menu.Item>
+                    </MenuItem>
+                    <MenuItem>
                       {({ active }) => (
-                        <Link
-                          href="/randomlandia"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-1 text-sm font-mont font-semibold text-white/85"
-                          )}
+                        <button
+                          onClick={() => router.push("/randomlandia")}
+                          onTouchStart={() => setSelectedMenu("randomlandia")}
+                          onTouchEnd={() => setSelectedMenu(null)}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "randomlandia" ? "bg-natD" : ""
+                            }`}
                         >
                           Randomlandia
-                        </Link>
+                        </button>
                       )}
-                    </Menu.Item>
-                    <Menu.Item>
+                    </MenuItem>
+                    <MenuItem>
                       {({ active }) => (
-                        <Link
-                          href="/"
-                          className={classNames(
-                            active
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-700",
-                            "block px-4 py-2 text-sm font-mont font-semibold text-white/85"
-                          )}
+                        <button
+                          onClick={() => router.push("/")}
+                          onTouchStart={() => setSelectedMenu("home")}
+                          onTouchEnd={() => setSelectedMenu(null)}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "home" ? "bg-natD" : ""
+                            }`}
                         >
                           ¡JUGAR!
-                        </Link>
+                        </button>
                       )}
-                    </Menu.Item>
-                    <hr className="w-full border border-zinc-200" />
+                    </MenuItem>
+                    <hr className="w-full border border-zinc-200 my-1" />
                     {isLogged ? (
-                      <form method="POST" action="#">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              type="submit"
-                              onClick={() => {
-                                setIsLogged(false);
-                                localStorage.removeItem("token");
-                                localStorage.removeItem("user");
-                              }}
-                              className={classNames(
-                                active
-                                  ? "bg-gray-100 text-gray-900"
-                                  : "text-gray-700",
-                                "block w-full px-4 py-2 text-left text-sm font-ram text-white/85"
-                              )}
-                            >
-                              Cerrar Sesión
-                            </button>
-                          )}
-                        </Menu.Item>
-                      </form>
-                    ) : (
-                      <Menu.Item>
+                      <MenuItem>
                         {({ active }) => (
-                          <Link
-                            href="/login"
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900"
-                                : "text-gray-700",
-                              "block px-4 py-2 text-sm font-ram  text-white/85"
-                            )}
+                          <button
+                            type="submit"
+                            onClick={() => {
+                              setIsLogged(false);
+                              localStorage.removeItem("token");
+                              localStorage.removeItem("user");
+                            }}
+                            onTouchStart={() => setSelectedMenu("logout")}
+                            onTouchEnd={() => setSelectedMenu(null)}
+                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "logout" ? "bg-natD" : ""
+                              }`}
+                          >
+                            Cerrar Sesión
+                          </button>
+                        )}
+                      </MenuItem>
+                    ) : (
+                      <MenuItem>
+                        {({ active }) => (
+                          <button
+                            onClick={() => router.push("/login")}
+                            onTouchStart={() => setSelectedMenu("login")}
+                            onTouchEnd={() => setSelectedMenu(null)}
+                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "login" ? "bg-natD" : ""
+                              }`}
                           >
                             Iniciar Sesión
-                          </Link>
+                          </button>
                         )}
-                      </Menu.Item>
+                      </MenuItem>
                     )}
                   </div>
-                </Menu.Items>
+                </MenuItems>
               </Transition>
             </Menu>
           </div>
@@ -265,3 +306,4 @@ export default function Navbar() {
     </>
   );
 }
+
