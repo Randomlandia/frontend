@@ -48,24 +48,8 @@ button {
   }
 }
 
-.speech-bubble::-webkit-scrollbar {
-  width: 6px;
-}
 
-.speech-bubble::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 6px;
-}
-
-.speech-bubble::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 6px;
-}
-
-.speech-bubble::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
+@import "./SpeechBubbleStyles.css";
 @import "./ScrollableBox.module.css";
 
 .burbuja,

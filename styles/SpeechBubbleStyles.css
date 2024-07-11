@@ -1,0 +1,44 @@
+.speech-bubble {
+  width: auto;
+  height: 329.34px;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 600px) {
+  .speech-bubble {
+    width: auto;
+    height: 250px; 
+  }
+}
+
+/* Estilos para pantallas medianas */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .speech-bubble {
+    height: 280px; /* Ajusta el tamaño según sea necesario */
+  }
+}
+
+/* Estilos para pantallas grandes */
+@media (min-width: 1025px) {
+  .speech-bubble {
+    height: 350px; /* Ajusta el tamaño según sea necesario */
+  }
+}
+
+.speech-bubble::-webkit-scrollbar {
+  width: 6px;
+}
+
+.speech-bubble::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+.speech-bubble::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+.speech-bubble::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
