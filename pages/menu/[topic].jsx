@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import RandySpeechBubble from "@/components/RandySpeechBubble";
 import SandiaIcon from "@/components/SandiaIcon";
+import { useFavorites } from "@/utils/useFavorites";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -10,15 +11,19 @@ import Link from "next/link";
 
 export default function Sandia() {
   const router = useRouter();
+  const { favorites, toggleFavorite } = useFavorites();
   const [sandiasByTopic, setSandiasByTopic] = useState([]);
   const [seenSandias, setSeenSandias] = useState([]);
   const [favs, setFavs] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favIcon, setFavIcon] = useState("/icon_redheart.svg");
   const [reverseSandias, setReverseSandias] = useState([]);
   const [flecha, setFlecha] = useState(false);
   const [contador, setContador] = useState(1);
   const [texto, setTexto] = useState("no hay mas por mostrar!!!");
   const [loading, setLoading] = useState(true);
-  const [testCt, setTestCt] = useState(0);
+  const [testCt, setTestCt] = useState(1);
+  const [showReference, setShowReference] = useState(false);
   const [showTest, setShowTest] = useState(false);
   const [current, setCurrent] = useState(null);
   let { topic } = router.query;
@@ -36,10 +41,9 @@ export default function Sandia() {
   };
 
   const getRandomSandia = () => {
-    if (sandiasByTopic.length === 0) return
+    if (sandiasByTopic.length === 0) return;
     const randomSandiaIndex = Math.floor(Math.random() * sandiasByTopic.length);
     const randomSandia = sandiasByTopic[randomSandiaIndex];
-
     if (testCt === 10 && topic !== "default") {
       setShowTest(true);
     }
@@ -53,14 +57,29 @@ export default function Sandia() {
   };
 
   const reverseSandia = () => {
-    if (contador < reverseSandias.length) {
-      setContador(1);
-      setContador(contador + 1);
-      let textoReverse = reverseSandias[contador];
-      setTexto(textoReverse);
-      setFlecha(false);
+    let filteredSeenSandias;
+    setIsFavorite(false);
+
+    if (topic === "default") {
+      filteredSeenSandias = seenSandias;
     } else {
-      setContador(0);
+      filteredSeenSandias = seenSandias.filter(
+        (sandia) => sandia.topic.name === topic
+      );
+    }
+
+    const currentIndex = filteredSeenSandias.findIndex(
+      (sandia) => sandia._id === current._id
+    );
+
+    if (currentIndex <= 0) {
+      setCurrent({ id: "null", content: "No hay más sandías antes que esta." });
+      console.log(seenSandias);
+      return;
+    } else {
+      setCurrent(filteredSeenSandias[currentIndex - 1]);
+      const isAlreadyFavorite = favs.some((fav) => fav._id === current._id);
+      setIsFavorite(isAlreadyFavorite);
     }
   };
 
@@ -72,23 +91,95 @@ export default function Sandia() {
     localStorage.setItem("Sandias", JSON.stringify(newList));
   };
 
+  const handleLike = () => {
+    let newFav = current;
+    if (current.id === "null") return;
+    const isFav = favs?.some((fav) => fav._id === current._id);
+
+    if (favs.length > 0 && isFav) {
+      const updatedFavs = favs.filter((fav) => fav._id !== current._id);
+      setFavs(updatedFavs);
+      setIsFavorite(false);
+      toggleFavorite(newFav);
+      setFavIcon("/icon_redheart.svg");
+    } else {
+      const updatedFavs = [...favs, newFav];
+      setFavs(updatedFavs);
+      localStorage.setItem("favs", JSON.stringify(updatedFavs));
+      setIsFavorite(true);
+      toggleFavorite(newFav);
+      setFavIcon("/icon_redheartfill.svg");
+    }
+
+    console.log(favs);
+  };
+
   const handleNextButton = () => {
-    const randomSandia = getRandomSandia();
-    if (!randomSandia) {
-      console.log("No hay más sandías disponibles.");
-      setCurrent({ content: "No hay más sandías disponibles. Explora otros temas o revisa lo que ya has visto." });
-      return null;
+    const loadRandomSandia = () => {
+      const randomSandia = getRandomSandia();
+      if (!randomSandia) {
+        setCurrent({
+          content:
+            "No hay más sandías disponibles. Explora otros temas o revisa lo que ya has visto."
+        });
+        return;
+      }
+      addSandia(randomSandia);
+      addReverseSandias(randomSandia);
+      setFlecha(true);
+      setContador(1);
+      setTestCt((prevTestCt) => (prevTestCt === 10 ? 1 : prevTestCt + 1));
+      setCurrent(randomSandia);
+      updatedSandiasByTopic(randomSandia);
+      console.log(testCt);
     };
 
-    addSandia(randomSandia);
-    addReverseSandias(randomSandia);
-    setFlecha(true);
-    setContador(1);
-    setTestCt(testCt + 1);
-    console.log(randomSandia);
-    setCurrent(randomSandia);
-    updatedSandiasByTopic(randomSandia);
+    if ((!current || current.id === "null") && seenSandias.length === 0) {
+      loadRandomSandia();
+    } else if (seenSandias.length >= 1) {
+      let filteredSeenSandias;
+      if (topic === "default") {
+        filteredSeenSandias = seenSandias;
+      } else {
+        filteredSeenSandias = seenSandias.filter(
+          (sandia) => sandia.topic.name === topic
+        );
+
+        if (filteredSeenSandias.length === 0) {
+          loadRandomSandia();
+          return;
+        }
+      }
+
+      const currentIndex = filteredSeenSandias.findIndex(
+        (sandia) => sandia._id === current._id
+      );
+
+      if (current.id === "null" && filteredSeenSandias.length > 0) {
+        setCurrent(filteredSeenSandias[0]);
+      } else if (
+        currentIndex >= 0 &&
+        currentIndex < filteredSeenSandias.length - 1
+      ) {
+        setCurrent(filteredSeenSandias[currentIndex + 1]);
+      } else {
+        loadRandomSandia();
+      }
+    }
   };
+
+  const handleToggleReference = () => {
+    setShowReference((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (current && current.id !== "null") {
+      const isFav = favs.some((fav) => fav._id === current._id);
+      setFavIcon(isFav ? "/icon_redheartfill.svg" : "/icon_redheart.svg");
+    } else {
+      setFavIcon("/icon_redheart.svg");
+    }
+  }, [current, favs]);
 
   useEffect(() => {
     const storedFavs = JSON.parse(localStorage.getItem("favs")) || [];
@@ -119,8 +210,8 @@ export default function Sandia() {
   }, [topic]);
 
   useEffect(() => {
-    if (sandiasByTopic.length > 0) {
-      getRandomSandia();
+    if (sandiasByTopic.length > 0 && !current) {
+      handleNextButton();
     }
   }, [sandiasByTopic]);
 
@@ -165,21 +256,20 @@ export default function Sandia() {
             </Link>
           </div>
 
-          <RandySpeechBubble text={current?.content} />
+          <RandySpeechBubble
+            text={showReference ? current?.reference : current?.content}
+          />
 
           <div className="grid grid-cols-2 gap-2 h-32 w-36 ml-[68%]">
-            <button key="turnIcon">
+            <button key="turnIcon" onClick={handleToggleReference}>
               <img src="/icon_turn.svg" alt="Turn Icon" />
             </button>
 
-            <button key="redHeartIcon">
-              <img src="/icon_redheart.svg" alt="Red Heart Icon" />
+            <button key="redHeartIcon" onClick={handleLike}>
+              <img src={favIcon} alt="Red Heart Icon" />
             </button>
 
-            <button
-              key="arrowLeftIcon"
-              onClick={() => reverseSandia(seenSandias[seenSandias.length - 1])}
-            >
+            <button key="arrowLeftIcon" onClick={reverseSandia}>
               <img src="/icon_arrowleft.svg" alt="Arrow Left Icon" />
             </button>
 
