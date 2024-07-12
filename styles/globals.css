@@ -207,6 +207,14 @@ button {
     transform: translate(25vh) scale(2);
   }
 }
+@keyframes animateLanding {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translate(800%) scale(1);
+  }
+}
 
 #burbuja {
   animation: animate3Randy 10s linear infinite alternate-reverse;
@@ -214,23 +222,17 @@ button {
 }
 
 #burbuja2 {
-  animation: spin 2s linear infinite;
+  animation: animateboton 2s linear infinite alternate-reverse;
+}
+#burbujaLanding {
+  animation: animateLanding 7s linear infinite alternate-reverse;
 }
 
-@keyframes spin {
+@keyframes animateboton {
   0% {
-    top: 20px;
-  }
-  25% {
-    top: 22px;
-  }
-  50% {
-    top: 30px;
-  }
-  75% {
-    top: 27px;
+    transform: translateY(10%);
   }
   100% {
-    top: 25px;
+    transform: translate(1%) scale(1);
   }
 }
