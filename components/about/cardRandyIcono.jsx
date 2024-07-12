@@ -1,8 +1,8 @@
 export default function CardRandyIcono(props) {
   return (
-    <div className="flex h-[300px] flex-col rounded-3xl  gap-[10px]   items-center align-middle justify-center text-center">
-      <div className="">
-        <div className="flex font-lucky  text-dorange text-[24px]  ">
+    <div className="flex h-[400px] flex-col rounded-3xl  gap-[10px]   items-center align-middle justify-center text-center">
+      <div className="h-[50px]">
+        <div className="flex font-lucky h-[50px] text-dorange text-[24px]  ">
           {props.tema}
         </div>
       </div>

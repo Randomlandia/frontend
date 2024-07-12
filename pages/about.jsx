@@ -28,7 +28,7 @@ const Nosotros = () => {
   }
 
   return (
-    <div className=" flex  min-h-screen font-mont flex-col font-bold overflow-hidden items-center bg-white">
+    <div className=" flex min-h-screen font-mont flex-col font-bold overflow-hidden items-center bg-white">
       {/*nav */}
       <div className=" fixed w-full h-14 z-[4000] bg-lorange flex justify-between items-center text-white font-lucky text-xl py-3">
         <Navbar />
@@ -59,7 +59,7 @@ const Nosotros = () => {
             Nosotros
           </div>
           {/* 1 */}
-          <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-4 ">
+          <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-4 justify-center align-middle ">
             {nosotros.map((unico, index) => {
               return (
                 <Unicos
@@ -180,7 +180,7 @@ const Nosotros = () => {
         </div>
 
         {/*descrip */}
-        <div className="flex flex-col mt-3  bg-[#f6ead7]/75  md:bg-transparent text-center rounded-3xl pl-[120px] pt-[20px]  gap-[10px]  align-middle justify-center">
+        <div className="flex flex-col mt-3   bg-[#f6ead7]/75  md:bg-transparent text-center rounded-3xl pl-[120px] md:pl-[50px] pt-[20px]  gap-[10px]  align-middle justify-center">
           {/*1 */}
           <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-3 ">
             {descrip.map((unico, index) => {
