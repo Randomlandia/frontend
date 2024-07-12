@@ -1,8 +1,8 @@
 export default function Unicos(props) {
   return (
-    <div className="flex flex-col rounded-3xl m-[5px]  md:w-[228px] md:h-[284px]  gap-[10px] p-[25px]  items-center align-middle justify-center text-center">
-      <div className="">
-        <div className=" flex m-auto  justify-center h-[60px] w-[60px animate-bounce items-center align-middle">
+    <div className="flex flex-col rounded-3xl   md:h-[300px]  gap-[10px] p-[25px]  items-center align-middle justify-center text-center">
+      <div className="flex flex-col">
+        <div className=" flex m-auto  justify-center h-[100px] animate-bounce items-center align-middle">
           <img
             src={props.icono}
             alt={props.alt}

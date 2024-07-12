@@ -59,7 +59,7 @@ const Nosotros = () => {
             Nosotros
           </div>
           {/* 1 */}
-          <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-4 ">
+          <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-4 justify-center align-middle ">
             {nosotros.map((unico, index) => {
               return (
                 <Unicos
