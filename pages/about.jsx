@@ -10,6 +10,7 @@ import CarruselTemas from "@/components/landing/carruselTemas";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CardNosotrosDescri from "@/components/landing/cardNosotrosDescri";
+import Perspectiva from "@/components/landing/perspectivaDiv";
 
 const Nosotros = () => {
   const [mostarNosotros, setMostarNosotros] = useState(1);
@@ -61,13 +62,13 @@ const Nosotros = () => {
           <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-4 justify-center align-middle ">
             {nosotros.map((unico, index) => {
               return (
-                <Unicos
+                <Perspectiva
                   key={`unico-${index}`}
                   icono={unico.icono}
                   alt={unico.alt}
                   tema={unico.tema}
                   contenido={unico.contenido}
-                ></Unicos>
+                ></Perspectiva>
               );
             })}
           </div>
