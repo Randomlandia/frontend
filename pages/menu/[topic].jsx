@@ -25,10 +25,10 @@ export default function Sandia() {
   const [contador, setContador] = useState(1);
   const [texto, setTexto] = useState("no hay mas por mostrar!!!");
   const [loggedUser, setLoggedUser] = useState(false);
-  const [loading, setLoading] = useState(false); // regresar a false al finalizar logica
-  const [testCt, setTestCt] = useState(10); //regresar a uno al terminar de maquetar
+  const [loading, setLoading] = useState(true); // regresar a true al finalizar logica
+  const [testCt, setTestCt] = useState(1); //regresar a uno al terminar de maquetar
   const [showReference, setShowReference] = useState(false);
-  const [showTest, setShowTest] = useState(true); //CAMBIAR A FALSE TERMINANDO MAQUETADO
+  const [showTest, setShowTest] = useState(false); //CAMBIAR A FALSE TERMINANDO MAQUETADO
   const [current, setCurrent] = useState(null);
   let { topic } = router.query;
 
@@ -48,14 +48,14 @@ export default function Sandia() {
     if (sandiasByTopic.length === 0) return;
     const randomSandiaIndex = Math.floor(Math.random() * sandiasByTopic.length);
     const randomSandia = sandiasByTopic[randomSandiaIndex];
-    if (testCt === 10 && topic !== "default") {
+    if (testCt === 10 && topic == "default") { //cambiar a !default cuando haya mas sandias
       setShowTest(true);
     }
 
     if (showTest) {
       //funcion que ejecuta el test
-      setTestCt(0);
-      // setShowTest(false); VOLVER A ACTIVAR
+      setTestCt(1);
+      setShowTest(false);// VOLVER A ACTIVAR
     }
     return randomSandia;
   };
@@ -240,12 +240,12 @@ export default function Sandia() {
   //     </main>
   //   );
 
-   //return //loading ? (
-  //   <div className="bg-oldwhite h-screen flex justify-center items-center">
-  //     <LoadingState />
-  //   </div>
-  // ) : (
-    return (
+   return loading ? (
+    <div className="bg-oldwhite h-screen flex justify-center items-center">
+      <LoadingState />
+    </div>
+  ) : (
+    // return (
       <div
       className="max-w-screen overflow-hidden flex flex-col sm:gap-5 relative h-screen max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat font-mont font-semibold text-xl sm:text-2xl"
       style={{
@@ -257,7 +257,7 @@ export default function Sandia() {
       }}
     >
       <Navbar />
-      {showTest? (<ModalTest />) : (<div className="sm:p-4 min-h-screen bg-oldwhite/50 sm:bg-transparent">
+      {showTest? (<ModalTest setShowTest={setShowTest} />) : (<div className="sm:p-4 min-h-screen bg-oldwhite/50 sm:bg-transparent">
         <div
           id="card-sandia"
           className="w-full h-full lg:w-[85%]  sm:bg-cream/50 px-3 py-5 lg:mx-auto sm:rounded-xl"
