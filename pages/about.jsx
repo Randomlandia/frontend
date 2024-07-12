@@ -2,17 +2,21 @@ import Navbar from "../components/Navbar";
 import CardRandyIcono from "@/components/about/cardRandyIcono";
 import { nosotros } from "@/components/constants/nosotros";
 import Unicos from "@/components/landing/unicos2Div";
-import ProbarAhora from "@/components/landing/botonProbarAhora";
 import ContactoFooter from "@/components/ContactoFooter";
 import RandyBurbuja from "@/components/landing/randyBurbuja";
 import { iconoRandyCard } from "@/components/constants/iconoRandyCard";
-import { perspectiva } from "@/components/constants/perspectiva";
+import { descrip } from "@/components/constants/descrip";
 import CarruselTemas from "@/components/landing/carruselTemas";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import CardNosotrosDescri from "@/components/landing/cardNosotrosDescri";
 
 const Nosotros = () => {
   const [mostarIndex, setMostarIndex] = useState(1);
+  const [mostarNosotros, setMostarNosotros] = useState(1);
+  const [mostarIconoRandy, setMostarIconoRandy] = useState(1);
+  const [mostarDescrip, setMostarDescrip] = useState(1);
+
   const { handleSubmit } = useForm();
 
   async function onSubmit(e) {
@@ -72,7 +76,7 @@ const Nosotros = () => {
           <div className="md:hidden flex flex-col g-0  items-center justify-center align-middle">
             {nosotros.map((unico, index) => {
               return (
-                index == mostarIndex && (
+                index == mostarNosotros && (
                   <CarruselTemas
                     key={`unico-${index}`}
                     icono={unico.icono}
@@ -92,11 +96,11 @@ const Nosotros = () => {
                 return (
                   <button
                     className={
-                      index == mostarIndex
+                      index == mostarNosotros
                         ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
                         : "h-6 w-6 m-1 rounded-full bg-slate-500"
                     }
-                    onClick={() => setMostarIndex(index)}
+                    onClick={() => setMostarNosotros(index)}
                   ></button>
                 );
               })}
@@ -105,7 +109,7 @@ const Nosotros = () => {
         </div>
 
         {/*iconoRandyCard  */}
-        <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] md:p-[112px] pt-[112px] pb-[112px]  gap-[10px]  align-middle justify-center">
+        <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] xl:p-[112px] pt-[112px]   gap-[10px]  align-middle justify-center">
           {/*1 */}
           <div className="xl:grid hidden xl:grid-cols-3 ">
             {iconoRandyCard.map((unico, index) => {
@@ -124,7 +128,7 @@ const Nosotros = () => {
           <div className="xl:hidden flex flex-col g-0  items-center justify-center align-middle">
             {iconoRandyCard.map((unico, index) => {
               return (
-                index == mostarIndex && (
+                index == mostarIconoRandy && (
                   <CardRandyIcono
                     key={`unico-${index}`}
                     icono={unico.icono}
@@ -138,17 +142,17 @@ const Nosotros = () => {
 
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-row h-auto w-72 align-middle justify-center items-center"
+              className="flex flex-row h-auto w-72 pb-[120px] align-middle justify-center items-center"
             >
               {iconoRandyCard.map((unico, index) => {
                 return (
                   <button
                     className={
-                      index == mostarIndex
+                      index == mostarIconoRandy
                         ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
                         : "h-6 w-6 m-1 rounded-full bg-slate-500"
                     }
-                    onClick={() => setMostarIndex(index)}
+                    onClick={() => setMostarIconoRandy(index)}
                   ></button>
                 );
               })}
@@ -157,7 +161,7 @@ const Nosotros = () => {
         </div>
 
         {/* quienes somos*/}
-        <div className="flex flex-row  rounded-3xl   xl:mt-[20px] pt-[112px] w-auto h-auto gap-[10px] pb-[112px] align-middle items-center justify-center">
+        <div className="flex flex-row  rounded-3xl   xl:mt-[20px] pt-[50px] pb-[50px] md:pb-[112px] md:pt-[112px] w-auto h-auto gap-[10px] align-middle items-center justify-center">
           <div className="flex flex-col md:pl-[150px]  xl:pl-0  xl:pr-[112px] align-middle items-center justify-center">
             <img
               src="RANDY_02.svg"
@@ -174,6 +178,61 @@ const Nosotros = () => {
             </div>
           </div>
         </div>
+
+        {/*descrip */}
+        <div className="flex flex-col mt-3  bg-[#f6ead7]/75  md:bg-transparent text-center rounded-3xl pl-[120px] pt-[20px]  gap-[10px]  align-middle justify-center">
+          {/*1 */}
+          <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-3 ">
+            {descrip.map((unico, index) => {
+              return (
+                <CardNosotrosDescri
+                  key={`unico-${index}`}
+                  icono={unico.icono}
+                  alt={unico.alt}
+                  nombre={unico.nombre}
+                  titulo={unico.titulo}
+                  contenido={unico.contenido}
+                ></CardNosotrosDescri>
+              );
+            })}
+          </div>
+          {/*2 */}
+          <div className="md:hidden flex flex-col g-0  h-full pb-[50px] items-center justify-center align-middle ">
+            {descrip.map((unico, index) => {
+              return (
+                index == mostarDescrip && (
+                  <CardNosotrosDescri
+                    key={`unico-${index}`}
+                    icono={unico.icono}
+                    alt={unico.alt}
+                    nombre={unico.nombre}
+                    titulo={unico.titulo}
+                    contenido={unico.contenido}
+                  ></CardNosotrosDescri>
+                )
+              );
+            })}
+
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-row pt-2 pr-28"
+            >
+              {descrip.map((unico, index) => {
+                return (
+                  <button
+                    className={
+                      index == mostarDescrip
+                        ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
+                        : "h-6 w-6 m-1 rounded-full bg-slate-500"
+                    }
+                    onClick={() => setMostarDescrip(index)}
+                  ></button>
+                );
+              })}
+            </form>
+          </div>
+        </div>
+
         {/*contactanos */}
         <div className="flex flex-row mt-[20px] mb-[20px]   rounded-3xl bg-[#f6ead7]/75  w-auto h-auto pt-[50px] pb-[50px] align-middle items-center justify-center">
           <ContactoFooter />

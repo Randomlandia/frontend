@@ -1,6 +1,6 @@
 export default function CardRandyIcono(props) {
   return (
-    <div className="flex flex-col rounded-3xl  gap-[10px]   items-center align-middle justify-center text-center">
+    <div className="flex h-[300px] flex-col rounded-3xl  gap-[10px]   items-center align-middle justify-center text-center">
       <div className="">
         <div className="flex font-lucky  text-dorange text-[24px]  ">
           {props.tema}
