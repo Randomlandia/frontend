@@ -31,19 +31,34 @@ export default function Home(props) {
   return (
     <div className="max-h-screen  bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-center xl:bg-[url('/backgrounds/bg-6.webp')]">
       <Navbar />
-      <button
-        className=" mt-9 h-24 w-28 bg-red-600 text-slate-200"
-        onClick={() => setMusica(false)}
-      >
-        Apagar ♪
-      </button>
 
-      <button
-        className=" mt-9 h-24 w-28 bg-emerald-700 text-slate-100"
-        onClick={() => setMusica(true)}
+      <div
+        className="flex h-10 absolute z-[5000] bg-transparent justify-center align-middle items-center
+        font-lucky text-white text-2xl md:text-5xl"
       >
-        Encender ♪
-      </button>
+        <div
+          id="burbuja2"
+          className="bg-black h-20 w-20 mt-52 ml-10  mr-auto   align-middle
+          flex  bg-grey/20 rounded-full  shadow-amber-100 shadow-lg"
+        >
+          <button
+            className="absolute  z-[5000] "
+            onClick={
+              musica == false ? () => setMusica(true) : () => setMusica(false)
+            }
+          >
+            <img
+              className="h-20 w-20"
+              src={
+                musica == false
+                  ? "/home/apagadoVolumen.svg"
+                  : "/home/encendidoVolumen.svg"
+              }
+              alt=""
+            />
+          </button>
+        </div>
+      </div>
 
       <Luz
         className="min-h-full relative "
