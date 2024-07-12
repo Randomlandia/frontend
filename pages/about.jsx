@@ -12,7 +12,6 @@ import { useForm } from "react-hook-form";
 import CardNosotrosDescri from "@/components/landing/cardNosotrosDescri";
 
 const Nosotros = () => {
-  const [mostarIndex, setMostarIndex] = useState(1);
   const [mostarNosotros, setMostarNosotros] = useState(1);
   const [mostarIconoRandy, setMostarIconoRandy] = useState(1);
   const [mostarDescrip, setMostarDescrip] = useState(1);
@@ -51,10 +50,10 @@ const Nosotros = () => {
           />
         </div>
         {/*nosotros */}
-        <div className="flex flex-col text-center  rounded-3xl bg-[#f6ead7]/75  p-[112px] w-auto h-auto gap-[10px] align-middle justify-center">
+        <div className="flex flex-col text-center  rounded-3xl bg-[#f6ead7]/75   p-[112px] w-auto h-auto gap-[10px] align-middle justify-center">
           <div
             className=" 
-            flex font-lucky justify-center align-middle items-center  text-dgreen text-2xl xl:text-6xl md:text-5xl "
+            flex font-lucky justify-center align-middle items-center   text-dgreen text-2xl xl:text-6xl md:text-5xl "
           >
             Nosotros
           </div>

@@ -1,6 +1,6 @@
 export default function Unicos(props) {
   return (
-    <div className="flex flex-col rounded-3xl   md:h-[300px]  gap-[10px] p-[25px]  items-center align-middle justify-center text-center">
+    <div className="flex flex-col rounded-3xl   md:h-[400px]  gap-[10px] pt-[25px]  items-center align-middle justify-center text-center">
       <div className="flex flex-col">
         <div className=" flex m-auto  justify-center h-[100px] animate-bounce items-center align-middle">
           <img
