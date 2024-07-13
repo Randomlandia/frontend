@@ -48,17 +48,15 @@ export default function TemaContainer({ bool, name }) {
 
   const isFavRoute = router.pathname.includes("/favs");
   const isAcknRoute = router.pathname.includes("/ackn");
-  const isMenuRoute = router.pathname.includes("/menu")
+  const isMenuRoute = router.pathname.includes("/menu");
 
   const handleClick = () => {
-
     if (isMenuRoute) {
-      router.push(`/menu/${name}`);
+      return
     } else if (isFavRoute) {
       router.push(`/user/favs/${name}`);
     } else if (isAcknRoute) {
       router.push(`/user/ackn/${name}`);
-
     }
   };
 
@@ -101,7 +99,9 @@ export default function TemaContainer({ bool, name }) {
       <img
         src={bool ? badges[name].color : badges[name].grey}
         alt={name}
-        className={`max-h-full max-w-full ${isHovered && 'transform scale-125'}`}
+        className={`max-h-full max-w-full ${
+          isHovered && "transform scale-125"
+        }`}
       />
       {isHovered && (
         <div
@@ -113,7 +113,7 @@ export default function TemaContainer({ bool, name }) {
             className={`max-h-full max-w-full capitalize ml-20 text-dgreen font-bold text-center text-xl`}
           >
             {" "}
-            {getHoverText(name)}
+            {!isMenuRoute && getHoverText(name)}
           </p>
         </div>
       )}
@@ -123,10 +123,10 @@ export default function TemaContainer({ bool, name }) {
 
 TemaContainer.propTypes = {
   bool: PropTypes.bool,
-  name: PropTypes.string,
+  name: PropTypes.string
 };
 
 TemaContainer.defaultProps = {
   bool: false,
-  name: "default",
+  name: "default"
 };
