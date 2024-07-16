@@ -17,8 +17,8 @@ export default function CardSandiaFront() {
 
       <div className="grid gap-2 justify-center ">
         {/* CARD  */}
-        <div className=" flex flex-col px-2 py-4 rounded-xl gap-4 ">
-          <div className="flex-col p-4 rounded-md bg-white border-4 border-dorange">
+        <div className=" flex flex-col px-2 py-4 rounded-xl gap-4  ">
+          <div className="p-4 flex flex-col rounded-md bg-white border-4 border-dorange">
             <div className="flex-wrap justify-center p-3 rounded-lg bg-peach">
               <p className="font-mont text-black font-bold">Sabias que . . .</p>
               <p className="font-mont text-black">
