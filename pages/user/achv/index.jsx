@@ -1,10 +1,18 @@
 import Navbar from "@/components/Navbar";
 import { useState } from "react";
-
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 export default function achv() {
   const defaultBackground = "bg-booksflying.webp";
   const [background, setBackground] = useState("bg-booksflying.webp");
+  const [usertopic, setTopic] = useState("");
 
+  useEffect(() => {
+    router.push(`/user/achv/${usertopic}`);
+  }, [usertopic]);
+
+  const router = useRouter();
+  let topic = router.query.topic;
   return (
     <div
       className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col  overflow-hidden"
@@ -34,13 +42,16 @@ export default function achv() {
             </div>
 
             {/* CARD MEDALLAS */}
-            <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl shadow-md">
-              <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
-            </div>
+            <button onClick={() => setTopic("idiomas")}>
+              <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl shadow-md">
+                <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
+              </div>
+            </button>
           </div>
+
           {/* CONTAINER MATE */}
           <div className="flex-col justify-center">
             {/* TITLE DEL TOPIC */}
@@ -49,12 +60,14 @@ export default function achv() {
             </div>
 
             {/* CARD MEDALLAS */}
-            <div className=" grid grid-cols-2 gap-2 border-4 border-mathL bg-white/35 p-2  rounded-xl shadow-md">
-              <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
-            </div>
+            <button onClick={() => setTopic("mate")}>
+              <div className=" grid grid-cols-2 gap-2 border-4 border-mathL bg-white/35 p-2  rounded-xl shadow-md">
+                <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
+              </div>
+            </button>
           </div>
           {/* CONTAINER CIENCIAS*/}
           <div className="flex-col justify-center ">
@@ -66,12 +79,14 @@ export default function achv() {
             </div>
 
             {/* CARD MEDALLAS */}
-            <div className=" grid grid-cols-2 gap-2 border-4 border-natL bg-white/35 p-2  rounded-xl shadow-md">
-              <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
-            </div>
+            <button onClick={() => setTopic("ciencias")}>
+              <div className=" grid grid-cols-2 gap-2 border-4 border-natL bg-white/35 p-2  rounded-xl shadow-md">
+                <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
+              </div>
+            </button>
           </div>
           {/* CONTAINER MUNDO */}
           <div className="flex-col justify-center w-fit">
@@ -83,12 +98,14 @@ export default function achv() {
             </div>
 
             {/* CARD MEDALLAS */}
-            <div className=" grid grid-cols-2 gap-2 border-4 border-worldL bg-white/35 p-2  rounded-xl shadow-md">
-              <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
-            </div>
+            <button onClick={() => setTopic("mundo")}>
+              <div className=" grid grid-cols-2 gap-2 border-4 border-worldL bg-white/35 p-2  rounded-xl shadow-md">
+                <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
+              </div>
+            </button>
           </div>
           {/* CONTAINER NERD */}
           <div className="flex-col justify-center ">
@@ -98,12 +115,14 @@ export default function achv() {
             </div>
 
             {/* CARD MEDALLAS */}
-            <div className=" grid grid-cols-2 gap-2 border-4 border-nerdL bg-white/35 p-2  rounded-xl shadow-md">
-              <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
-            </div>
+            <button onClick={() => setTopic("nerd")}>
+              <div className=" grid grid-cols-2 gap-2 border-4 border-nerdL bg-white/35 p-2  rounded-xl shadow-md">
+                <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
+              </div>
+            </button>
           </div>
           {/* CONTAINER DEPORTES*/}
           <div className="flex-col justify-center ">
@@ -115,12 +134,14 @@ export default function achv() {
             </div>
 
             {/* CARD MEDALLAS */}
-            <div className=" grid grid-cols-2 gap-2 border-4 border-sportL bg-white/35 p-2  rounded-xl">
-              <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
-            </div>
+            <button onClick={() => setTopic("deportes")}>
+              <div className=" grid grid-cols-2 gap-2 border-4 border-sportL bg-white/35 p-2  rounded-xl">
+                <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
+              </div>
+            </button>
           </div>
           {/* CONTAINER VIDA */}
           <div className="flex-col justify-center ">
@@ -130,12 +151,14 @@ export default function achv() {
             </div>
 
             {/* CARD MEDALLAS */}
-            <div className=" grid grid-cols-2 gap-2 border-4 border-lifeL bg-white/35 p-2  rounded-xl shadow-md">
-              <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
-            </div>
+            <button onClick={() => setTopic("vida")}>
+              <div className=" grid grid-cols-2 gap-2 border-4 border-lifeL bg-white/35 p-2  rounded-xl shadow-md">
+                <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
+              </div>
+            </button>
           </div>
           {/* CONTAINER ARTE*/}
           <div className="flex-col justify-center">
@@ -145,12 +168,14 @@ export default function achv() {
             </div>
 
             {/* CARD MEDALLAS */}
-            <div className=" grid grid-cols-2 gap-2 border-4 border-artL bg-white/35 p-2  rounded-xl shadow-md">
-              <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
-              <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
-            </div>
+            <button onClick={() => setTopic("arte")}>
+              <div className=" grid grid-cols-2 gap-2 border-4 border-artL bg-white/35 p-2  rounded-xl shadow-md">
+                <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
+                <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
+              </div>
+            </button>
           </div>
         </div>
 
