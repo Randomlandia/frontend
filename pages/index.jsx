@@ -31,19 +31,34 @@ export default function Home(props) {
   return (
     <div className="max-h-screen  bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-center xl:bg-[url('/backgrounds/bg-6.webp')]">
       <Navbar />
-      <button
-        className=" mt-9 h-24 w-28 bg-red-600 text-slate-200"
-        onClick={() => setMusica(false)}
-      >
-        Apagar ♪
-      </button>
 
-      <button
-        className=" mt-9 h-24 w-28 bg-emerald-700 text-slate-100"
-        onClick={() => setMusica(true)}
+      <div
+        className="flex h-10 absolute z-[5000] bg-transparent justify-center align-middle items-center
+        font-lucky text-white text-2xl md:text-5xl"
       >
-        Encender ♪
-      </button>
+        <div
+          id="burbuja2"
+          className="bg-black h-20 w-20 mt-52 ml-10  mr-auto   align-middle
+          flex  bg-grey/20 rounded-full  shadow-amber-100 shadow-lg"
+        >
+          <button
+            className="absolute  z-[5000] "
+            onClick={
+              musica == false ? () => setMusica(true) : () => setMusica(false)
+            }
+          >
+            <img
+              className="h-20 w-20"
+              src={
+                musica == false
+                  ? "/home/apagadoVolumen.svg"
+                  : "/home/encendidoVolumen.svg"
+              }
+              alt=""
+            />
+          </button>
+        </div>
+      </div>
 
       <Luz
         className="min-h-full relative "
@@ -69,19 +84,20 @@ export default function Home(props) {
           </div>
         }
       ></Luz>
+
       <div
-        className="flex absolute bg-transparent  mt-7 align-middle justify-center items-end w-screen  z-[100]  
-        font-lucky text-white text-5xl"
+        className="flex  absolute bg-transparent w-screen h-screen z-[100]  
+        font-lucky text-white text-2xl md:text-5xl"
       >
         <div
           id="burbuja2"
-          className="bg-black  mt-[400px] z-[1000] absolute h-[300px] w-[300px] align-middle
+          className="bg-black  mt-[400px] m-auto  z-[1000] h-[200px] w-[200px] md:h-[300px] md:w-[300px] align-middle
           flex  bg-grey/20 rounded-full  shadow-amber-100 shadow-lg"
         >
           <button
             onClick={menu}
             type="submit"
-            className=" m-auto w-60 h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2  hover:shadow-orange-300 bg-natL font-lucky items-center text-center justify-center  rounded-3xl"
+            className=" m-auto w-40 h-16 md:w-60 md:h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2  hover:shadow-orange-300 bg-agreen  font-lucky items-center text-center justify-center  rounded-3xl"
           >
             Jugar
           </button>

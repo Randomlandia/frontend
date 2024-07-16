@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 
 const Randomlandia = () => {
   const [mostarIndex, setMostarIndex] = useState(1);
+  const [mostarIndexPers, setMostarIndexPers] = useState(1);
   const { handleSubmit } = useForm();
 
   async function onSubmit(e) {
@@ -84,7 +85,7 @@ const Randomlandia = () => {
           </div>
         </div>
         {/*que nos hace unicos */}
-        <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] md:pb-[112px] w-auto h-auto gap-[10px] p-7 md:p-[112px] align-middle justify-center">
+        <div className="flex flex-col text-center rounded-3xl bg-[#f6ead7]/75  mt-[20px] p-[112px] w-auto h-auto gap-[10px]  md:p-[112px] align-middle justify-center">
           <div
             className=" 
             flex font-lucky justify-center align-middle items-center  text-dgreen text-2xl xl:text-6xl md:text-5xl "
@@ -95,13 +96,13 @@ const Randomlandia = () => {
           <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-3  ">
             {unicos.map((unico, index) => {
               return (
-                <Unicos
+                <Perspectiva
                   key={`unico-${index}`}
                   icono={unico.icono}
                   alt={unico.alt}
                   tema={unico.tema}
                   contenido={unico.contenido}
-                ></Unicos>
+                ></Perspectiva>
               );
             })}
           </div>
@@ -226,7 +227,7 @@ const Randomlandia = () => {
           <div className="md:hidden flex flex-col g-0  items-center justify-center align-middle">
             {perspectiva.map((unico, index) => {
               return (
-                index == mostarIndex && (
+                index == mostarIndexPers && (
                   <CarruselTemas
                     key={`unico-${index}`}
                     icono={unico.icono}
@@ -246,11 +247,11 @@ const Randomlandia = () => {
                 return (
                   <button
                     className={
-                      index == mostarIndex
+                      index == mostarIndexPers
                         ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
                         : "h-6 w-6 m-1 rounded-full bg-slate-500"
                     }
-                    onClick={() => setMostarIndex(index)}
+                    onClick={() => setMostarIndexPers(index)}
                   ></button>
                 );
               })}

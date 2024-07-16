@@ -1,5 +1,6 @@
 import "@/styles/globals.css"
-
+import { sandiasData } from "@/utils/sandiaData"
+import { checkTokenExpiry } from "@/utils/checkTokenExpiry"
 import { useEffect } from "react"
 
 import {
@@ -10,10 +11,10 @@ import {
   UserButton
 } from "@clerk/nextjs"
 
-import { checkTokenExpiry } from "@/utils/checkTokenExpiry"
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
+    sandiasData()
     checkTokenExpiry()
     const interval = setInterval(() => {
       checkTokenExpiry()
