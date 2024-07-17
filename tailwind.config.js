@@ -46,6 +46,20 @@ module.exports = {
         peach: { DEFAULT: "#FBCF8E" },
         cream: "#F7E9D8",
       },
+      animation: {
+        heartbeat: 'heartbeat 1s ease-in-out infinite',
+      },
+      keyframes: {
+        heartbeat: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.25)' },
+        },
+      },
+    },
+  },
+  variants: {
+    extend: {
+      animation: ['hover'],
     },
   },
   plugins: [

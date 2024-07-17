@@ -13,7 +13,7 @@ export default function Navbar() {
   const [isLogged, setIsLogged] = useState(true);
   const [userName, setUserName] = useState("Explorador");
   const [userId, setUserId] = useState("Explorador");
-  const [userAvatar, setAvatar] = useState(0);
+  const [userAvatar, setUserAvatar] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
 
@@ -46,7 +46,7 @@ export default function Navbar() {
       setIsLogged(true);
       setUserName(user);
       setUserId(idUser);
-      setAvatar(avatarValue);
+      setUserAvatar(JSON.parse(avatarValue));
     } else {
       setIsLogged(false);
     }
@@ -54,6 +54,20 @@ export default function Navbar() {
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
+  }
+
+  const handleLogout=()=>{
+      setIsLogged(false);
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("tested");
+      localStorage.removeItem("avatar");
+      localStorage.removeItem("score");
+      localStorage.removeItem("view");
+      localStorage.removeItem("favs");
+      localStorage.removeItem("achieve");
+      localStorage.removeItem("exp");
+      localStorage.removeItem("userID");
   }
 
   return (
@@ -267,11 +281,7 @@ export default function Navbar() {
                         {({ active }) => (
                           <button
                             type="submit"
-                            onClick={() => {
-                              setIsLogged(false);
-                              localStorage.removeItem("token");
-                              localStorage.removeItem("user");
-                            }}
+                            onClick={handleLogout}
                             onTouchStart={() => setSelectedMenu("logout")}
                             onTouchEnd={() => setSelectedMenu(null)}
                             className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "logout" ? "bg-natD" : ""
