@@ -52,16 +52,10 @@ export default function ContactoFooter() {
         {/* LINKS A AVISOS  */}
         <div className="flex grid-flow-col gap-6 justify-center p-3">
           <a
-            href=""
+            href="/avisoprivacidad"
             className="font-mont text-black text-center text-xs hover:font-semibold hover:text-dorange hover:underline"
           >
-            Privacidad
-          </a>
-          <a
-            href=""
-            className="font-mont text-black text-center text-xs hover:font-semibold hover:text-dorange hover:underline"
-          >
-            Términos y Condiciones
+            Aviso de Privacidad
           </a>
         </div>
       </div>
