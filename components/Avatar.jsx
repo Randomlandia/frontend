@@ -36,7 +36,7 @@ export default function Avatar(props) {
       .catch((error) => {
         console.log("Error", error);
       });
-    localStorage.setItem("avatarValue", JSON.stringify(avatarValue));
+    localStorage.setItem("avatar", JSON.stringify(avatarValue));
     setShowAvatar(true);
     setTimeout(() => {
       setShowAvatar(false);
@@ -66,6 +66,7 @@ export default function Avatar(props) {
       .catch((error) => {
         console.log("Error", error);
       });
+
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
@@ -73,6 +74,9 @@ export default function Avatar(props) {
     }, 2000);
     setShowModalName(false);
     setNombreNuevo(nameUser.name);
+
+    localStorage.setItem("username", JSON.stringify(nameUser.name));
+
     return;
   }
 

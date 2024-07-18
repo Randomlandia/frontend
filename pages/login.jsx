@@ -70,8 +70,14 @@ export default function Login() {
         };
         console.log("Usuario obtenido con éxito", userJson.data);
         localStorage.setItem("exp", JSON.stringify(exp));
-        localStorage.setItem("username", JSON.stringify(userJson.data.users.name));
-        localStorage.setItem("avatar", JSON.stringify(userJson.data.users.avatar));
+        localStorage.setItem(
+          "username",
+          JSON.stringify(userJson.data.users.name)
+        );
+        localStorage.setItem(
+          "avatar",
+          JSON.stringify(userJson.data.users.avatar)
+        );
 
         localStorage.setItem(
           "favs",
@@ -85,8 +91,10 @@ export default function Login() {
           "achieve",
           JSON.stringify(userJson.data.users.achievements)
         );
-        localStorage.setItem("score", JSON.stringify(userJson.data.users.score));
-
+        localStorage.setItem(
+          "score",
+          JSON.stringify(userJson.data.users.score)
+        );
 
         setTimeout(() => {
           setShowSuccess(true);

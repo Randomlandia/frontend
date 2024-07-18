@@ -1,10 +1,8 @@
-
 import { useMemo } from "react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import TemaContainerCircle from "./TemaContainerCircle";
 import TemporaryUser from "@/constants/TemporaryUser";
-
 
 export default function MenuFavsCircle() {
   const router = useRouter();
@@ -16,7 +14,7 @@ export default function MenuFavsCircle() {
     const fetchData = () => {
       const isFavRoute = router.pathname.includes("/favs");
       const isAckRoute = router.pathname.includes("/ackn");
-  
+
       try {
         if (isFavRoute) {
           const favsString = localStorage.getItem("favs");
@@ -31,10 +29,10 @@ export default function MenuFavsCircle() {
         console.error("Error al obtener datos:", error);
         // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje al usuario o estableciendo un valor predeterminado.
       }
-  
+
       setLoading(false);
     };
-  
+
     if (typeof window !== "undefined") {
       fetchData();
     }
@@ -42,9 +40,9 @@ export default function MenuFavsCircle() {
 
   const checkSandiaByTheme = (themeName) => {
     if (router.pathname.includes("/favs")) {
-      return sandias.some((sandia) => sandia.topic.name === themeName);
+      return sandias.some((sandia) => sandia?.topic?.name === themeName);
     } else if (router.pathname.includes("/ackn")) {
-      return vistos.some((visto) => visto.topic.name === themeName);
+      return vistos.some((visto) => visto?.topic?.name === themeName);
     }
     return false;
   };
@@ -57,7 +55,7 @@ export default function MenuFavsCircle() {
     "vida",
     "idiomas",
     "matematicas",
-    "deportes"
+    "deportes",
   ];
 
   const checks = useMemo(() => {

@@ -36,6 +36,9 @@ export default function Register() {
       if (!dataRegistro.email || !dataRegistro.password || !dataRegistro.name) {
         setShowError(true);
       }
+
+      setShowError(false);
+
       // Registro del usuario
       const registroResponse = await fetch("http://localhost:3005/users", {
         method: "POST",
@@ -48,6 +51,10 @@ export default function Register() {
           "Content-type": "application/json; charset=UTF-8",
         },
       });
+
+      if (!registroResponse.ok) {
+        throw new Error("Error en el registro");
+      }
 
       const registroJson = await registroResponse.json();
 
@@ -66,6 +73,10 @@ export default function Register() {
             "Content-type": "application/json; charset=UTF-8",
           },
         });
+
+        if (!loginResponse.ok) {
+          throw new Error("Usuario o contraseña inválidos");
+        }
 
         const loginJson = await loginResponse.json();
 
@@ -87,17 +98,14 @@ export default function Register() {
             }
           );
 
+          if (!userResponse.ok) {
+            throw new Error("No se pudieron obtener los datos del usuario");
+          }
+
           const userJson = await userResponse.json();
 
           if (userJson?.data) {
-            const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-            const user = {
-              username: userJson.data.users.name,
-              avatar: userJson.data.users.avatar,
-            };
-
-            
-            calStorage.setItem(
+            localStorage.setItem(
               "favs",
               JSON.stringify(userJson.data.users.sandiasFavoritas)
             );
@@ -114,7 +122,6 @@ export default function Register() {
               JSON.stringify(userJson.data.users.score)
             );
 
-            
             setShowSuccess(true);
             setTimeout(() => {
               setShowSuccess(false);
@@ -133,7 +140,8 @@ export default function Register() {
         console.log("Error en el registro");
       }
     } catch (error) {
-      console.log("Error", error);
+      console.log("Error:", error.message);
+      setShowError(true);
     }
   }
   return (
