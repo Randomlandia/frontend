@@ -224,9 +224,17 @@ export default function Login() {
             >
               INICIAR SESIÓN
             </button>
-            <Link href="./register" className="text-natD underline text-center">
-              CREAR CUENTA
-            </Link>
+            <div className="flex flex-row gap-5 justify-center">
+              <Link
+                href="./register"
+                className="text-natD underline text-center"
+              >
+                CREAR CUENTA
+              </Link>
+              <Link href="/" className="text-natD underline text-center">
+                ¿OLVIDASTE TU CONTRASEÑA?
+              </Link>
+            </div>
           </div>
         </form>
       </div>
