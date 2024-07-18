@@ -76,7 +76,7 @@ const SandiaList = () => {
     if (!topic || topic === "default" || topic === "[topic]") {
       return sandias;
     }
-    return sandias.filter((sandia) => sandia.topic.name === topic);
+    return sandias.filter((sandia) => sandia?.topic?.name === topic);
   }, [topic, sandias]);
 
   return (
