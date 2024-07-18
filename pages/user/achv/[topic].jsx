@@ -16,7 +16,6 @@ export default function MedallaDetail() {
   const [iconoTopicGrandeOff, setIconoTopicGrandeOff] = useState();
 
   const [id, setId] = useState();
-  const [user, setData] = useState([]);
   const [logros, setLogros] = useState();
   const [colorStar, setColorStar] = useState();
   let topic = router.query.topic;
@@ -40,7 +39,6 @@ export default function MedallaDetail() {
     })
       .then((response) => response?.json())
       .then((json) => {
-        setData(json);
         setLogros(json.data.users.achievements[topicP].level);
       })
       .catch((error) => {
