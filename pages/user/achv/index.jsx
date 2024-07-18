@@ -6,13 +6,91 @@ export default function achv() {
   const defaultBackground = "bg-booksflying.webp";
   const [background, setBackground] = useState("bg-booksflying.webp");
   const [usertopic, setTopic] = useState("");
+  const [id, setId] = useState();
+  const [artes, setArtes] = useState();
+  const [ciencias, setCiencias] = useState();
+  const [deportes, setDeportes] = useState();
+  const [idiomas, setIdiomas] = useState();
+  const [matematicas, setMatematicas] = useState();
+  const [mundo, setMundo] = useState();
+  const [nerd, setNerd] = useState();
+  const [vida, setVida] = useState();
+  const [logros, setLogros] = useState();
 
   useEffect(() => {
     router.push(`/user/achv/${usertopic}`);
   }, [usertopic]);
 
   const router = useRouter();
-  let topic = router.query.topic;
+
+  useEffect(() => {
+    const idLocal = localStorage.getItem("userID");
+    setId(idLocal);
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:3005/users/${id}`, {
+      method: "Get",
+    })
+      .then((response) => response?.json())
+      .then((json) => {
+        setArtes(json.data.users.achievements.artes.level);
+        setCiencias(json.data.users.achievements.ciencias.level);
+        setDeportes(json.data.users.achievements.deportes.level);
+        setIdiomas(json.data.users.achievements.idiomas.level);
+        setMatematicas(json.data.users.achievements.matematicas.level);
+        setMundo(json.data.users.achievements.mundo.level);
+        setNerd(json.data.users.achievements.nerd.level);
+        setVida(json.data.users.achievements.vida.level);
+        setLogros(json.data.users.achievements);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  }, [id]);
+
+  console.log(logros);
+
+  const idiomasGrey = (
+    <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
+  );
+  const idiomasColor = (
+    <img src="/B_IDIOMAS.svg" alt="" className="h-10 w-10 hover:animate-spin" />
+  );
+
+  const mateGrey = <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />;
+  const mateColor = (
+    <img src="/B_MATE.svg" alt="" className="h-10 w-10 hover:animate-spin" />
+  );
+  const cienciasGrey = (
+    <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
+  );
+  const cienciasColor = (
+    <img src="/B_CIENCIA.svg" alt="" className="h-10 w-10 hover:animate-spin" />
+  );
+  const mundoGrey = <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />;
+  const mundoColor = (
+    <img src="/B_MUNDO.svg" alt="" className="h-10 w-10 hover:animate-spin" />
+  );
+  const nerdGrey = <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />;
+  const nerdColor = (
+    <img src="/B_NERD.svg" alt="" className="h-10 w-10 hover:animate-spin" />
+  );
+  const deportesGrey = (
+    <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
+  );
+  const deportesColor = (
+    <img src="/B_DEPORTE.svg" alt="" className="h-10 w-10 hover:animate-spin" />
+  );
+
+  const vidaGrey = <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />;
+  const vidaColor = (
+    <img src="/B_VIDA.svg" alt="" className="h-10 w-10 hover:animate-spin" />
+  );
+  const artesGrey = <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />;
+  const artesColor = (
+    <img src="/B_ARTE.svg" alt="" className="h-10 w-10 hover:animate-spin" />
+  );
   return (
     <div
       className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col  overflow-hidden"
@@ -44,10 +122,10 @@ export default function achv() {
             {/* CARD MEDALLAS */}
             <button onClick={() => setTopic("idiomas")}>
               <div className=" grid grid-cols-2 gap-2 border-4 border-langL bg-white/35 p-2  rounded-xl shadow-md">
-                <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
+                {idiomas >= 5 ? idiomasColor : idiomasGrey}
+                {idiomas >= 10 ? idiomasColor : idiomasGrey}
+                {idiomas >= 15 ? idiomasColor : idiomasGrey}
+                {idiomas >= 20 ? idiomasColor : idiomasGrey}
               </div>
             </button>
           </div>
@@ -62,10 +140,10 @@ export default function achv() {
             {/* CARD MEDALLAS */}
             <button onClick={() => setTopic("matematicas")}>
               <div className=" grid grid-cols-2 gap-2 border-4 border-mathL bg-white/35 p-2  rounded-xl shadow-md">
-                <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
+                {matematicas >= 5 ? mateColor : mateGrey}
+                {matematicas >= 10 ? mateColor : mateGrey}
+                {matematicas >= 15 ? mateColor : mateGrey}
+                {matematicas >= 20 ? mateColor : mateGrey}
               </div>
             </button>
           </div>
@@ -81,10 +159,10 @@ export default function achv() {
             {/* CARD MEDALLAS */}
             <button onClick={() => setTopic("ciencias")}>
               <div className=" grid grid-cols-2 gap-2 border-4 border-natL bg-white/35 p-2  rounded-xl shadow-md">
-                <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_CIENCIAgrey.svg" alt="" className="h-10 w-10" />
+                {ciencias >= 5 ? cienciasColor : cienciasGrey}
+                {ciencias >= 10 ? cienciasColor : cienciasGrey}
+                {ciencias >= 15 ? cienciasColor : cienciasGrey}
+                {ciencias >= 20 ? cienciasColor : cienciasGrey}
               </div>
             </button>
           </div>
@@ -100,10 +178,10 @@ export default function achv() {
             {/* CARD MEDALLAS */}
             <button onClick={() => setTopic("mundo")}>
               <div className=" grid grid-cols-2 gap-2 border-4 border-worldL bg-white/35 p-2  rounded-xl shadow-md">
-                <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_MUNDOgrey.svg" alt="" className="h-10 w-10" />
+                {mundo >= 5 ? mundoColor : mundoGrey}
+                {mundo >= 10 ? mundoColor : mundoGrey}
+                {mundo >= 15 ? mundoColor : mundoGrey}
+                {mundo >= 20 ? mundoColor : mundoGrey}
               </div>
             </button>
           </div>
@@ -117,10 +195,10 @@ export default function achv() {
             {/* CARD MEDALLAS */}
             <button onClick={() => setTopic("nerd")}>
               <div className=" grid grid-cols-2 gap-2 border-4 border-nerdL bg-white/35 p-2  rounded-xl shadow-md">
-                <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_NERDgrey.svg" alt="" className="h-10 w-10" />
+                {nerd >= 5 ? nerdColor : nerdGrey}
+                {nerd >= 10 ? nerdColor : nerdGrey}
+                {nerd >= 15 ? nerdColor : nerdGrey}
+                {nerd >= 20 ? nerdColor : nerdGrey}
               </div>
             </button>
           </div>
@@ -136,10 +214,10 @@ export default function achv() {
             {/* CARD MEDALLAS */}
             <button onClick={() => setTopic("deportes")}>
               <div className=" grid grid-cols-2 gap-2 border-4 border-sportL bg-white/35 p-2  rounded-xl">
-                <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_DEPORTEgrey.svg" alt="" className="h-10 w-10" />
+                {deportes >= 5 ? deportesColor : deportesGrey}
+                {deportes >= 10 ? deportesColor : deportesGrey}
+                {deportes >= 15 ? deportesColor : deportesGrey}
+                {deportes >= 20 ? deportesColor : deportesGrey}
               </div>
             </button>
           </div>
@@ -153,10 +231,10 @@ export default function achv() {
             {/* CARD MEDALLAS */}
             <button onClick={() => setTopic("vida")}>
               <div className=" grid grid-cols-2 gap-2 border-4 border-lifeL bg-white/35 p-2  rounded-xl shadow-md">
-                <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_VIDAgrey.svg" alt="" className="h-10 w-10" />
+                {vida >= 5 ? vidaColor : vidaGrey}
+                {vida >= 10 ? vidaColor : vidaGrey}
+                {vida >= 15 ? vidaColor : vidaGrey}
+                {vida >= 20 ? vidaColor : vidaGrey}
               </div>
             </button>
           </div>
@@ -170,10 +248,10 @@ export default function achv() {
             {/* CARD MEDALLAS */}
             <button onClick={() => setTopic("arte")}>
               <div className=" grid grid-cols-2 gap-2 border-4 border-artL bg-white/35 p-2  rounded-xl shadow-md">
-                <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
-                <img src="/B_ARTEgrey.svg" alt="" className="h-10 w-10" />
+                {artes >= 5 ? artesColor : artesGrey}
+                {artes >= 10 ? artesColor : artesGrey}
+                {artes >= 15 ? artesColor : artesGrey}
+                {artes >= 20 ? artesColor : artesGrey}
               </div>
             </button>
           </div>
