@@ -33,8 +33,13 @@ export default function Register() {
 
   async function onSubmit(dataRegistro) {
     try {
-      if (!dataRegistro.email || !dataRegistro.password || !dataRegistro.name) {
+      if (
+        !dataRegistro.correoRegistro ||
+        !dataRegistro.contraseñaRegistro ||
+        !dataRegistro.userRegistro
+      ) {
         setShowError(true);
+        return;
       }
       // Registro del usuario
       const registroResponse = await fetch("http://localhost:3005/users", {
