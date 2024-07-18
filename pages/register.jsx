@@ -33,13 +33,8 @@ export default function Register() {
 
   async function onSubmit(dataRegistro) {
     try {
-      if (
-        !dataRegistro.correoRegistro ||
-        !dataRegistro.contraseñaRegistro ||
-        !dataRegistro.userRegistro
-      ) {
+      if (!dataRegistro.email || !dataRegistro.password || !dataRegistro.name) {
         setShowError(true);
-        return;
       }
 
       setShowError(false);
@@ -64,6 +59,9 @@ export default function Register() {
       const registroJson = await registroResponse.json();
 
       if (registroJson) {
+        // Almacenar los datos de registro en localStorage (aparecia en la funcion original, pero ya no es necesario)
+        // localStorage.setItem("dataRegistro", JSON.stringify(dataRegistro));
+
         // Autenticación del usuario después del registro
         const loginResponse = await fetch("http://localhost:3005/users/login", {
           method: "POST",
