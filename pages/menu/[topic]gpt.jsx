@@ -24,21 +24,28 @@ export default function Sandia() {
   const [testCt, setTestCt] = useState(1); //regresar a uno al terminar de maquetar
   const [showReference, setShowReference] = useState(false);
   const [showTest, setShowTest] = useState(false); //CAMBIAR A FALSE TERMINANDO MAQUETADO
-  const [testAvail, setTestAvail]= useState(false)
   const [current, setCurrent] = useState(null);
   let { topic } = router.query;
 
   useEffect(() => {
-    const storedFavs = JSON.parse(localStorage.getItem("favs")) || [];
-    setFavs(storedFavs);
-    const storedSeenSandias = JSON.parse(localStorage.getItem("view")) || [];
-    setSeenSandias(storedSeenSandias);
-    const token = localStorage.getItem("token");
-    if (token) setLoggedUser(true);
+    const updateBackground = () => {
+      const bgNew = localStorage.getItem("bg");
+      if (bgNew) setBackground(bgNew);
+    };
 
-    if (topic) {
+    const loadStoredData = () => {
+      const storedFavs = JSON.parse(localStorage.getItem("favs")) || [];
+      setFavs(storedFavs);
+      const storedSeenSandias = JSON.parse(localStorage.getItem("view")) || [];
+      setSeenSandias(storedSeenSandias);
+      const token = localStorage.getItem("token");
+      if (token) setLoggedUser(true);
+    };
+
+    const filterSandiasByTopic = () => {
       const sandias = JSON.parse(localStorage.getItem("Sandias")) || [];
       let filteredSandias;
+
       if (topic === "default") {
         filteredSandias = sandias;
       } else {
@@ -49,18 +56,20 @@ export default function Sandia() {
 
       const filterSandiasExcSeen = filteredSandias?.filter(
         (sandia) =>
-          !storedSeenSandias.some((seenSandia) => seenSandia?._id == sandia._id)
+          !seenSandias.some((seenSandia) => seenSandia?._id === sandia._id)
       );
 
       setSandiasByTopic(filterSandiasExcSeen);
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
-    }
+    };
+
+    updateBackground();
+    loadStoredData();
+    if (topic) filterSandiasByTopic();
+
+    setTimeout(() => setLoading(false), 3000);
   }, [topic]);
 
   useEffect(() => {
-    updateBackground();
     if (current && current?.id !== "null") {
       const isFav = favs.some((fav) => fav._id === current?._id);
       setFavIcon(isFav ? "/icon_redheartfill.svg" : "/icon_redheart.svg");
@@ -70,16 +79,20 @@ export default function Sandia() {
   }, [current, favs]);
 
   useEffect(() => {
+    if (seenSandias.length > 0 && sandiasByTopic.length === 0) {
+      setCurrent({
+        id: "null",
+        content:
+          "Parece que ya has visto todo, ¿Te parece si echamos un vistazo a lo que aprendimos?"
+      });
+    }
     if (sandiasByTopic.length > 0 && !current) {
       handleNextButton();
     }
   }, [sandiasByTopic]);
 
   const addSandia = (newSandia) => {
-    if (!newSandia || newSandia._id === "null") return;
     setSeenSandias((prevSeenSandias) => {
-      const sandiaExists = prevSeenSandias.some((sandia) => sandia._id === newSandia._id);
-      if (sandiaExists) return prevSeenSandias;
       const updatedSeenSandias = [...prevSeenSandias, newSandia];
       localStorage.setItem("view", JSON.stringify(updatedSeenSandias));
       return updatedSeenSandias;
@@ -96,57 +109,80 @@ export default function Sandia() {
     return randomSandia;
   };
 
-  const getRandomSeenSandia = () => {
-    let filteredSeenSandias;  
+  const reverseSandia = () => {
+    let filteredSeenSandias;
     if (topic === "default") {
       filteredSeenSandias = seenSandias;
-    } else {
-      filteredSeenSandias = seenSandias.filter((sandia) => sandia?.topic.name === topic);
+    } else if (topic !== "default") {
+      filteredSeenSandias = seenSandias.filter(
+        (sandia) => sandia.topic.name === topic
+      );
     }
-  
-    if (filteredSeenSandias.length === 0) return null;
-  
-    const randomIndex = Math.floor(Math.random() * filteredSeenSandias.length);
-    return filteredSeenSandias[randomIndex];
+
+    const currentIndex = filteredSeenSandias.findIndex(
+      (sandia) => sandia?._id === current?._id
+    );
+
+    if (currentIndex <= 0) {
+      setCurrent({ id: "null", content: "No hay más sandías antes que esta." });
+    } else {
+      setCurrent(filteredSeenSandias[currentIndex - 1]);
+    }
+  };
+
+  const updatedSandiasByTopic = (viewedSandia) => {
+    const newList = sandiasByTopic.filter(
+      (sandia) => sandia._id !== viewedSandia._id
+    );
+    setSandiasByTopic(newList);
   };
 
   const handleLike = () => {
-    let newFav = current;
     if (current.id === "null") return;
-    const isFav = favs?.some((fav) => fav._id === current?._id);
-
-    if (favs.length > 0 && isFav) {
+    const isFav = favs.some((fav) => fav._id === current?._id);
+    if (isFav) {
       const updatedFavs = favs.filter((fav) => fav._id !== current?._id);
       setFavs(updatedFavs);
-      toggleFavorite(newFav);
+      toggleFavorite(current);
       setFavIcon("/icon_redheart.svg");
     } else {
-      const updatedFavs = [...favs, newFav];
+      const updatedFavs = [...favs, current];
       setFavs(updatedFavs);
       localStorage.setItem("favs", JSON.stringify(updatedFavs));
-      toggleFavorite(newFav);
+      toggleFavorite(current);
       setFavIcon("/icon_redheartfill.svg");
     }
   };
 
+  const loadRandomSandia = () => {
+    const randomSandia = getRandomSandia();
+    addSandia(randomSandia);
+    setCurrent(randomSandia);
+    updatedSandiasByTopic(randomSandia);
+  };
+
+  const handleTestCounter = ()=>{
+    setTestCt((prevTestCt) =>
+      prevTestCt === 10 ? (setShowTest(true), 1) : prevTestCt + 1
+    );
+  }
+
   const handleNextButton = () => {
-    const seenSandiasByTopic = seenSandias?.filter((sandia)=> sandia?.topic?.name == topic)
-      if (seenSandiasByTopic.length >= 10){
-        setTestAvail(true) 
-      }
     if ((!current || current.id === "null") && seenSandias.length === 0) {
       loadRandomSandia();
+      handleTestCounter()
+      setLastSandia(true)
     } else if (seenSandias.length >= 1) {
       let filteredSeenSandias;
       if (topic === "default") {
         filteredSeenSandias = seenSandias;
       } else {
-        filteredSeenSandias = seenSandias?.filter(
+        filteredSeenSandias = seenSandias.filter(
           (sandia) => sandia?.topic?.name === topic
         );
         if (filteredSeenSandias.length === 0) {
           loadRandomSandia();
-          return;
+          handleTestCounter()
         }
       }
 
@@ -161,14 +197,29 @@ export default function Sandia() {
         currentIndex < filteredSeenSandias.length - 1
       ) {
         setCurrent(filteredSeenSandias[currentIndex + 1]);
-      } else {
-        loadRandomSandia();
+        handleTestCounter()
+      } else if (sandiasByTopic.length === 0 && seenSandias.length > 1) {
+        setCurrent({
+          id: "null",
+          content:
+            "Parece que acabaste con todo, ¿Te parece si vemos lo anterior?."
+        });
+        setTimeout(()=>{
+          setSandiasByTopic(seenSandias)
+          handleNextButton()
+          setTestCt()
+          handleTestCounter()
+          return;
+        }, 1000)
+      } else if (sandiasByTopic === 0 && lastSandia) {
+        setCurrent({
+          id: "null",
+          content:
+            "Parece que ya terminaste, ¿Te parece si echamos un vistazo a lo que aprendimos?"
+        });
+        handleNextButton()
+        setTestCt()
       }
-    }
-    if (topic !== "default" ) {
-      setTestCt((prevTestCt) =>
-        prevTestCt === 10 ? 1 && setShowTest(true) : prevTestCt + 1
-      );
     }
   };
 
@@ -176,61 +227,33 @@ export default function Sandia() {
     setShowReference((prev) => !prev);
   };
 
-  const loadRandomSandia = () => {
-    let randomSandia = getRandomSandia();
-    if (!randomSandia) {
-      setTimeout(() => {
-        setLastSandia(true);
-        setTimeout(() => {
-          setLastSandia(false);
-        }, 3000);
-      }, 2000);
-      randomSandia = getRandomSeenSandia();
+  const handleUpdateUser = () => {
+    setLoading(true);
+    if (loggedUser) {
+      const seenSandiaIds = seenSandias.map((sandia) => sandia._id);
+      const favsIds = favs.map((sandia) => sandia._id);
+      // Add any additional user update logic here
     }
-    addSandia(randomSandia);
-    setCurrent(randomSandia);
-    updatedSandiasByTopic(randomSandia);
+    // sandiasData()
   };
+  // if (!sandiasByTopic.data || sandiasByTopic.data.sandias.length === 0) {
+  //   return (
+  //     <main className="w-full h-full bg-white min-h-screen min-w-full">
+  //       <Navbar />
+  //       <div className="flex items-center justify-center min-h-screen">
+  //         <p>No sandias found for this topic.</p>
+  //       </div>
+  //     </main>
+  //   );
 
-  const reverseSandia = () => {
-    let filteredSeenSandias;
-    if (topic === "default") {
-      filteredSeenSandias = seenSandias;
-    } else {
-      filteredSeenSandias = seenSandias.filter(
-        (sandia) => sandia.topic.name === topic
-      );
-    }
-
-    const currentIndex = filteredSeenSandias.findIndex(
-      (sandia) => sandia._id === current?._id
-    );
-
-    if (currentIndex <= 0) {
-      setCurrent({ id: "null", content: "No hay más sandías antes que esta." });
-      return;
-    } else {
-      setCurrent(filteredSeenSandias[currentIndex - 1]);
-    }
-  };
-
-  const updatedSandiasByTopic = (viewedSandia) => {
-    const newList = sandiasByTopic.filter(
-      (sandia) => sandia._id !== viewedSandia._id
-    );
-    setSandiasByTopic(newList);
-  };
-
-  const updateBackground = () => {
-    const bgNew = localStorage.getItem("bg");
-    if (bgNew) {
-      setBackground(bgNew);
-    }
-  };
-
-  return (
+  return loading ? (
+    <div className="bg-oldwhite h-screen flex justify-center items-center">
+      <LoadingState />
+    </div>
+  ) : (
+    // return (
     <div
-      className="max-w-screen overflow-hidden flex flex-col sm:gap-5 relative h-screen max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat font-mont font-semibold sm:text-2xl"
+      className="max-w-screen overflow-hidden flex flex-col sm:gap-5 relative h-screen max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat font-mont font-semibold text-xl sm:text-2xl"
       style={{
         backgroundImage: `url('${
           background
@@ -240,7 +263,7 @@ export default function Sandia() {
       }}
     >
       <Navbar />
-      {showTest && testAvail ? (
+      {showTest ? (
         <ModalTest setShowTest={setShowTest} setTestCt={setTestCt} />
       ) : (
         <div className="sm:p-4 min-h-screen bg-oldwhite/50 sm:bg-transparent">
@@ -320,7 +343,7 @@ export default function Sandia() {
                           <button
                             key="redHeartIcon"
                             onClick={handleLike}
-                            className="hover:transform hover:scale-125 hover:animate-heartbeat hover:"
+                            className="hover:transform hover:scale-125"
                           >
                             <img
                               src={favIcon}
@@ -406,29 +429,6 @@ export default function Sandia() {
                     className="w-12 h-12"
                   />
                 </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      {loading && (
-        <div className="bg-oldwhite h-screen flex justify-center items-center">
-          <LoadingState />
-        </div>
-      )}
-      {lastSandia && (
-        <div className="fixed inset-0 bg-oldwhite flex items-center justify-center">
-          <div className="bg-white w-2/3 h-80 p-6 rounded-xl shadow-xl flex justify-center items-center border-4 shadow-lorange/70">
-            <div className="flex gap-16">
-              <div>
-                <img src="/RANDY_02.svg" alt="randy" className="w-36" />
-              </div>
-              <div className="grid text-center text-dgreen">
-                <h2 className="text-4xl font-bold mb-4 font-ram text-dorange">
-                  ¡Oye!
-                </h2>
-                <p>Parece que te acabaste mis sandias...</p>
-                <p>¡Pero no te preocupes, aun podemos repasar!</p>
               </div>
             </div>
           </div>
