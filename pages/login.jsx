@@ -66,8 +66,14 @@ export default function Login() {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
         console.log("Usuario obtenido con éxito", userJson.data);
         localStorage.setItem("exp", JSON.stringify(exp));
-        localStorage.setItem("username", JSON.stringify(userJson.data.users.name));
-        localStorage.setItem("avatar", JSON.stringify(userJson.data.users.avatar));
+        localStorage.setItem(
+          "username",
+          JSON.stringify(userJson.data.users.name)
+        );
+        localStorage.setItem(
+          "avatarValue",
+          JSON.stringify(userJson.data.users.avatar)
+        );
 
         localStorage.setItem(
           "favs",
@@ -81,8 +87,10 @@ export default function Login() {
           "achieve",
           JSON.stringify(userJson.data.users.achievements)
         );
-        localStorage.setItem("score", JSON.stringify(userJson.data.users.score));
-
+        localStorage.setItem(
+          "score",
+          JSON.stringify(userJson.data.users.score)
+        );
 
         setTimeout(() => {
           setShowSuccess(true);

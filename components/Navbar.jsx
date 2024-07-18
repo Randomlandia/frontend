@@ -4,7 +4,7 @@ import {
   Transition,
   MenuButton,
   MenuItems,
-  MenuItem
+  MenuItem,
 } from "@headlessui/react";
 import { useRouter } from "next/router";
 
@@ -16,6 +16,22 @@ export default function Navbar() {
   const [userAvatar, setUserAvatar] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const idUser = localStorage.getItem("userID");
+    const avatarValue = parseInt(localStorage.getItem("avatarValue"), 10);
+    const user = localStorage.getItem("username");
+
+    if (token) {
+      setIsLogged(true);
+      setUserName(user || "Explorador");
+      setUserId(idUser || "Explorador");
+      setAvatar(isNaN(avatarValue) ? 0 : avatarValue);
+    } else {
+      setIsLogged(false);
+    }
+  }, []);
 
   const avatarSrc = () => {
     switch (userAvatar) {
@@ -36,10 +52,11 @@ export default function Navbar() {
     }
   };
 
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const idUser = localStorage.getItem("userID");
-    const avatarValue = localStorage.getItem("avatar");
+    const avatarValue = localStorage.getItem("avatarValue");
     const user = localStorage.getItem("username");
 
     if (token) {
@@ -52,6 +69,7 @@ export default function Navbar() {
     }
   }, []);
 
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -61,7 +79,7 @@ export default function Navbar() {
       localStorage.removeItem("token");
       localStorage.removeItem("username");
       localStorage.removeItem("tested");
-      localStorage.removeItem("avatar");
+      localStorage.removeItem("avatarValue");
       localStorage.removeItem("score");
       localStorage.removeItem("view");
       localStorage.removeItem("favs");
@@ -157,7 +175,7 @@ export default function Navbar() {
                 onTouchEnd={() => setHovered(false)}
               >
                 {/*botonAvatarImagen */}
-                <div className="py-1 px-1" >
+                <div className="py-1 px-1">
                   <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
                 </div>
                 {hovered && (
@@ -205,11 +223,12 @@ export default function Navbar() {
                     <MenuItem>
                       {({ active }) => (
                         <button
-                          onClick={()=>router.push("/user")}
+                          onClick={() => router.push("/user")}
                           onTouchStart={() => setSelectedMenu("user")}
                           onTouchEnd={() => setSelectedMenu(null)}
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "user" ? "bg-natD" : ""
-                            }`}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                            selectedMenu === "user" ? "bg-natD" : ""
+                          }`}
                         >
                           <div className="">
                             <img
@@ -229,8 +248,9 @@ export default function Navbar() {
                           onClick={() => router.push("/register")}
                           onTouchStart={() => setSelectedMenu("register")}
                           onTouchEnd={() => setSelectedMenu(null)}
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "register" ? "bg-natD" : ""
-                            }`}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                            selectedMenu === "register" ? "bg-natD" : ""
+                          }`}
                         >
                           Crear cuenta
                         </button>
@@ -242,8 +262,9 @@ export default function Navbar() {
                           onClick={() => router.push("/about")}
                           onTouchStart={() => setSelectedMenu("about")}
                           onTouchEnd={() => setSelectedMenu(null)}
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "about" ? "bg-natD" : ""
-                            }`}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                            selectedMenu === "about" ? "bg-natD" : ""
+                          }`}
                         >
                           ¿Quiénes somos?
                         </button>
@@ -255,8 +276,9 @@ export default function Navbar() {
                           onClick={() => router.push("/randomlandia")}
                           onTouchStart={() => setSelectedMenu("randomlandia")}
                           onTouchEnd={() => setSelectedMenu(null)}
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "randomlandia" ? "bg-natD" : ""
-                            }`}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                            selectedMenu === "randomlandia" ? "bg-natD" : ""
+                          }`}
                         >
                           Randomlandia
                         </button>
@@ -268,8 +290,9 @@ export default function Navbar() {
                           onClick={() => router.push("/")}
                           onTouchStart={() => setSelectedMenu("home")}
                           onTouchEnd={() => setSelectedMenu(null)}
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "home" ? "bg-natD" : ""
-                            }`}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                            selectedMenu === "home" ? "bg-natD" : ""
+                          }`}
                         >
                           ¡JUGAR!
                         </button>
@@ -284,8 +307,9 @@ export default function Navbar() {
                             onClick={handleLogout}
                             onTouchStart={() => setSelectedMenu("logout")}
                             onTouchEnd={() => setSelectedMenu(null)}
-                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "logout" ? "bg-natD" : ""
-                              }`}
+                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                              selectedMenu === "logout" ? "bg-natD" : ""
+                            }`}
                           >
                             Cerrar Sesión
                           </button>
@@ -298,8 +322,9 @@ export default function Navbar() {
                             onClick={() => router.push("/login")}
                             onTouchStart={() => setSelectedMenu("login")}
                             onTouchEnd={() => setSelectedMenu(null)}
-                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${selectedMenu === "login" ? "bg-natD" : ""
-                              }`}
+                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                              selectedMenu === "login" ? "bg-natD" : ""
+                            }`}
                           >
                             Iniciar Sesión
                           </button>
@@ -316,4 +341,3 @@ export default function Navbar() {
     </>
   );
 }
-

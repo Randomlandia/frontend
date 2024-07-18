@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+
 export default function MedallaDetail() {
   const defaultBackground = "bg-booksflying.webp";
   const [background, setBackground] = useState("bg-booksflying.webp");
@@ -10,64 +11,123 @@ export default function MedallaDetail() {
   const [colorFondo, setColorFondo] = useState();
   const [colorTexto, setColorTexto] = useState();
   const [iconoTopic, setIconoTopic] = useState();
+  const [iconoTopicOn, setIconoTopicOn] = useState();
   const [iconoTopicGrande, setIconoTopicGrande] = useState();
+  const [iconoTopicGrandeOff, setIconoTopicGrandeOff] = useState();
+
+  const [id, setId] = useState();
+  const [logros, setLogros] = useState();
+  const [colorStar, setColorStar] = useState();
   let topic = router.query.topic;
 
   useEffect(() => {
+    const idLocal = localStorage.getItem("userID");
+    setId(idLocal);
     setTopic(topic);
+    setColorFondo("border-artL");
+    setColorTexto("text-artD");
+    setIconoTopic("/B_ARTEgrey.svg");
+    setIconoTopicOn("/B_ARTE.svg");
+    setColorStar("/starart.svg");
+    setIconoTopicGrande("/M_ARTE.svg");
+    setIconoTopicGrandeOff("/M_ARTE_GREY.svg");
   }, [topic]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3005/users/${id}`, {
+      method: "Get",
+    })
+      .then((response) => response?.json())
+      .then((json) => {
+        setLogros(json.data.users.achievements[topicP].level);
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  }, [id]);
 
   useEffect(() => {
     if (topicP == "idiomas") {
       setColorFondo("border-langL");
       setColorTexto("text-langD ");
       setIconoTopic("/B_IDIOMASgrey.svg");
-      setIconoTopicGrande("/M_IDIOMA_GREY.svg");
+      setIconoTopicOn("/B_IDIOMAS.svg");
+      setColorStar("/starlang.svg");
+      setIconoTopicGrande("/M_IDIOMA.svg");
+      setIconoTopicGrandeOff("/M_IDIOMA_GREY.svg");
     }
-    if (topicP == "mate") {
+    if (topicP == "matematicas") {
       setColorFondo("border-mathL");
       setColorTexto("text-mathD");
       setIconoTopic("/B_MATEgrey.svg");
-      setIconoTopicGrande("/M_MATE_GREY.svg");
+      setIconoTopicOn("/B_MATE.svg");
+      setColorStar("/starmath.svg");
+      setIconoTopicGrande("/M_MATE.svg");
+      setIconoTopicGrandeOff("/M_MATE_GREY.svg");
     }
     if (topicP == "ciencias") {
       setColorFondo("border-natL");
       setColorTexto("text-natD ");
       setIconoTopic("/B_CIENCIAgrey.svg");
-      setIconoTopicGrande("/M_CIENCIA_GREY.svg");
+      setIconoTopicOn("/B_CIENCIA.svg");
+      setColorStar("/starnat.svg");
+      setIconoTopicGrande("/M_CIENCIA.svg");
+      setIconoTopicGrandeOff("/M_CIENCIA_GREY.svg");
     }
     if (topicP == "mundo") {
       setColorFondo("border-worldL");
       setColorTexto("text-worldD ");
       setIconoTopic("/B_MUNDOgrey.svg");
-      setIconoTopicGrande("/M_MUNDO_GREY.svg");
+      setIconoTopicOn("/B_MUNDO.svg");
+      setColorStar("/starworld.svg");
+      setIconoTopicGrande("/M_MUNDO.svg");
+      setIconoTopicGrandeOff("/M_MUNDO_GREY.svg");
     }
     if (topicP == "nerd") {
       setColorFondo("border-nerdL");
       setColorTexto("text-nerdD");
       setIconoTopic("/B_NERDgrey.svg");
-      setIconoTopicGrande("/M_NERD_GREY.svg");
+      setIconoTopicOn("/B_NERD.svg");
+      setColorStar("/starnerd.svg");
+      setIconoTopicGrande("/M_NERD.svg");
+      setIconoTopicGrandeOff("/M_NERD_GREY.svg");
     }
     if (topicP == "deportes") {
       setColorFondo("border-sportL");
       setColorTexto("text-sportD ");
       setIconoTopic("/B_DEPORTEgrey.svg");
-      setIconoTopicGrande("/M_DEPORTE_GREY.svg");
+      setIconoTopicOn("/B_DEPORTE.svg");
+      setColorStar("/starsport.svg");
+      setIconoTopicGrande("/M_DEPORTE.svg");
+      setIconoTopicGrandeOff("/M_DEPORTE_GREY.svg");
     }
+
     if (topicP == "vida") {
       setColorFondo("border-lifeL");
       setColorTexto("text-lifeD");
       setIconoTopic("/B_VIDAgrey.svg");
-      setIconoTopicGrande("/M_VIDA_GREY.svg");
-    }
-    if (topicP == "arte") {
-      setColorFondo("border-artL");
-      setColorTexto("text-artD");
-      setIconoTopic("/B_ARTEgrey.svg");
-      setIconoTopicGrande("/M_ARTE_GREY.svg");
+      setIconoTopicOn("/B_VIDA.svg");
+      setColorStar("/starlife.svg");
+      setIconoTopicGrande("/M_VIDA.svg");
+      setIconoTopicGrandeOff("/M_VIDA_GREY.svg");
+
+      if (topicP == "arte") {
+        setColorFondo("border-artL");
+        setColorTexto("text-artD");
+        setIconoTopic("/B_ARTEgrey.svg");
+        setIconoTopicOn("/B_ARTE.svg");
+        setColorStar("/starart.svg");
+        setIconoTopicGrande("/M_ARTE.svg");
+        setIconoTopicGrandeOff("/M_ARTE_GREY.svg");
+      }
     }
   }, [topicP]);
 
+  const startOn = <img src={colorStar} alt="estrella" />;
+  const starOff = <img src="/stargrey.svg" alt="estrella" />;
+  const iconoOn = <img src={`${iconoTopicOn}`} alt={`icono-${topicP}`} />;
+  const iconoOff = <img src={`${iconoTopic}`} alt={`icono-${topicP}`} />;
+  console.log(logros);
   return (
     <div
       className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col  overflow-hidden"
@@ -80,14 +140,21 @@ export default function MedallaDetail() {
       >
         <div className="inline-flex justify-center gap-6 ">
           {/* MEDALLA GRANDE TOPIC */}
-          <div className="flex justify-start">
+          {logros < 20 && (
+            <img
+              src={iconoTopicGrandeOff}
+              alt={`iconoGrande${topicP}`}
+              className="h-16"
+            />
+          )}
+          {logros == 20 && (
             <img
               src={iconoTopicGrande}
               alt={`iconoGrande${topicP}`}
               className="h-16"
             />
-          </div>{" "}
-          {/* NOMBRE DEL TOPIC */}
+          )}
+          <div className="flex justify-start"></div> {/* NOMBRE DEL TOPIC */}
           <div className="flex place-items-center">
             <p className={`font-lucky ${colorTexto} text-center text-4xl`}>
               {topicP}
@@ -100,11 +167,11 @@ export default function MedallaDetail() {
           {/* PRINCIPIANTE */}
           <div className="">
             <div className="grid grid-cols-5 justify-items-center gap-4">
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src={`${iconoTopic}`} alt={`icono-${topicP}`} />
+              {logros >= 1 ? startOn : starOff}
+              {logros >= 2 ? startOn : starOff}
+              {logros >= 3 ? startOn : starOff}
+              {logros >= 4 ? startOn : starOff}
+              {logros >= 5 ? iconoOn : iconoOff}
             </div>
             <div className="flex justify-center">
               <p className={`font-lucky ${colorTexto} text-center p-2`}>
@@ -116,11 +183,11 @@ export default function MedallaDetail() {
           {/* INTERMEDIO */}
           <div className="">
             <div className="grid grid-cols-5 justify-items-center gap-4">
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src={`${iconoTopic}`} alt={`icono-${topicP}`} />
+              {logros >= 6 ? startOn : starOff}
+              {logros >= 7 ? startOn : starOff}
+              {logros >= 8 ? startOn : starOff}
+              {logros >= 9 ? startOn : starOff}
+              {logros >= 10 ? iconoOn : iconoOff}
             </div>
             <div className="flex justify-center">
               <p className={`font-lucky ${colorTexto} text-center p-2`}>
@@ -132,11 +199,11 @@ export default function MedallaDetail() {
           {/* AVANZADO */}
           <div className="">
             <div className="grid grid-cols-5 justify-items-center gap-4">
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src={`${iconoTopic}`} alt={`icono-${topicP}`} />
+              {logros >= 11 ? startOn : starOff}
+              {logros >= 12 ? startOn : starOff}
+              {logros >= 13 ? startOn : starOff}
+              {logros >= 14 ? startOn : starOff}
+              {logros >= 15 ? iconoOn : iconoOff}
             </div>
             <div className="flex justify-center">
               <p className={`font-lucky ${colorTexto} text-center p-2`}>
@@ -148,11 +215,11 @@ export default function MedallaDetail() {
           {/* EXPERTO */}
           <div className="">
             <div className="grid grid-cols-5 justify-items-center gap-4">
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src="/stargrey.svg" alt="estrella" />
-              <img src={`${iconoTopic}`} alt={`icono-${topicP}`} />
+              {logros >= 16 ? startOn : starOff}
+              {logros >= 17 ? startOn : starOff}
+              {logros >= 18 ? startOn : starOff}
+              {logros >= 19 ? startOn : starOff}
+              {logros >= 20 ? iconoOn : iconoOff}
             </div>
             <div className="flex justify-center">
               <p className={`font-lucky ${colorTexto} text-center p-2`}>
