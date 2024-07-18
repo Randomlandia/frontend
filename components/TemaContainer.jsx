@@ -8,40 +8,40 @@ export default function TemaContainer({ bool, name }) {
   const badges = {
     default: {
       color: "/default_avatar.png",
-      grey: "/default_avatar.png"
+      grey: "/default_avatar.png",
     },
     idiomas: {
       color: "/B_IDIOMAS.svg",
-      grey: "/B_IDIOMASgrey.svg"
+      grey: "/B_IDIOMASgrey.svg",
     },
     matematicas: {
       color: "/B_MATE.svg",
-      grey: "/B_MATEgrey.svg"
+      grey: "/B_MATEgrey.svg",
     },
     ciencias: {
       color: "/B_CIENCIA.svg",
-      grey: "/B_CIENCIAgrey.svg"
+      grey: "/B_CIENCIAgrey.svg",
     },
     mundo: {
       color: "/B_MUNDO.svg",
-      grey: "/B_MUNDOgrey.svg"
+      grey: "/B_MUNDOgrey.svg",
     },
     deportes: {
       color: "/B_DEPORTE.svg",
-      grey: "/B_DEPORTEgrey.svg"
+      grey: "/B_DEPORTEgrey.svg",
     },
     vida: {
       color: "/B_VIDA.svg",
-      grey: "/B_VIDAgrey.svg"
+      grey: "/B_VIDAgrey.svg",
     },
     nerd: {
       color: "/B_NERD.svg",
-      grey: "/B_NERDgrey.svg"
+      grey: "/B_NERDgrey.svg",
     },
     artes: {
       color: "/B_ARTE.svg",
-      grey: "/B_ARTEgrey.svg"
-    }
+      grey: "/B_ARTEgrey.svg",
+    },
   };
 
   const [isHovered, setIsHovered] = useState(false);
@@ -52,7 +52,7 @@ export default function TemaContainer({ bool, name }) {
 
   const handleClick = () => {
     if (isMenuRoute) {
-      router.push(`/menu`)
+      router.push(`/menu`);
     } else if (isFavRoute) {
       router.push(`/user/favs/${name}`);
     } else if (isAcknRoute) {
@@ -97,7 +97,7 @@ export default function TemaContainer({ bool, name }) {
       className="relative cursor-pointer flex justify-items-center w-full h-full mx-auto "
     >
       <img
-        src={bool ? badges[name].color : badges[name].grey}
+        src={bool ? badges[name]?.color : badges[name]?.grey}
         alt={name}
         className={`max-h-full max-w-full rounded-full ${
           isHovered && "transform scale-125 shadow-lg shadow-yellow-100/80"
@@ -123,10 +123,10 @@ export default function TemaContainer({ bool, name }) {
 
 TemaContainer.propTypes = {
   bool: PropTypes.bool,
-  name: PropTypes.string
+  name: PropTypes.string,
 };
 
 TemaContainer.defaultProps = {
   bool: false,
-  name: "default"
+  name: "default",
 };

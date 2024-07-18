@@ -20,14 +20,13 @@ export default function Navbar() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const idUser = localStorage.getItem("userID");
-    const avatarValue = parseInt(localStorage.getItem("avatarValue"), 10);
+
     const user = localStorage.getItem("username");
 
     if (token) {
       setIsLogged(true);
       setUserName(user || "Explorador");
       setUserId(idUser || "Explorador");
-      setAvatar(isNaN(avatarValue) ? 0 : avatarValue);
     } else {
       setIsLogged(false);
     }
@@ -52,11 +51,10 @@ export default function Navbar() {
     }
   };
 
-
   useEffect(() => {
     const token = localStorage.getItem("token");
     const idUser = localStorage.getItem("userID");
-    const avatarValue = localStorage.getItem("avatarValue");
+    const avatarValue = localStorage.getItem("avatar");
     const user = localStorage.getItem("username");
 
     if (token) {
@@ -69,24 +67,23 @@ export default function Navbar() {
     }
   }, []);
 
-
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
 
-  const handleLogout=()=>{
-      setIsLogged(false);
-      localStorage.removeItem("token");
-      localStorage.removeItem("username");
-      localStorage.removeItem("tested");
-      localStorage.removeItem("avatarValue");
-      localStorage.removeItem("score");
-      localStorage.removeItem("view");
-      localStorage.removeItem("favs");
-      localStorage.removeItem("achieve");
-      localStorage.removeItem("exp");
-      localStorage.removeItem("userID");
-  }
+  const handleLogout = () => {
+    setIsLogged(false);
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("tested");
+    localStorage.removeItem("avatar");
+    localStorage.removeItem("score");
+    localStorage.removeItem("view");
+    localStorage.removeItem("favs");
+    localStorage.removeItem("achieve");
+    localStorage.removeItem("exp");
+    localStorage.removeItem("userID");
+  };
 
   return (
     <>

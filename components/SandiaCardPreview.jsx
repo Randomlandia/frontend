@@ -6,7 +6,7 @@ import TemaContainer from "./TemaContainer";
 export default function SandiaCardPreview({
   sandia,
   isFavorite,
-  onToggleFavorite
+  onToggleFavorite,
 }) {
   const router = useRouter();
   const [showReference, setShowReference] = useState(false);
@@ -39,12 +39,10 @@ export default function SandiaCardPreview({
     }
   };
 
-  
-
   return (
     <div className="card flex flex-col h-64 w-72 gap-y-1 bg-oldwhite/80 ring ring-lorange/40 font-mont font-semibold text-center rounded-lg">
       <div className="flex rounded-full w-8 mx-auto my-3 shadow-lg shadow-black">
-        <TemaContainer bool={true} name={`${sandia.topic.name}`} />
+        <TemaContainer bool={true} name={`${sandia?.topic?.name}`} />
       </div>
       <div className="card-content h-full w-64 overflow-y-auto scrollbar-hide mx-auto">
         {showReference ? (
@@ -91,7 +89,9 @@ export default function SandiaCardPreview({
           <button
             onClick={onToggleFavorite}
             className="relative"
-            onMouseEnter={() => handleMouseEnter(isFavorite ? "RANDY_favs" : "RANDY_toggle")}
+            onMouseEnter={() =>
+              handleMouseEnter(isFavorite ? "RANDY_favs" : "RANDY_toggle")
+            }
             onMouseLeave={handleMouseLeave}
           >
             {isFavorite ? (
