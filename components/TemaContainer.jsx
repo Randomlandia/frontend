@@ -52,7 +52,7 @@ export default function TemaContainer({ bool, name }) {
 
   const handleClick = () => {
     if (isMenuRoute) {
-      return
+      router.push(`/menu`)
     } else if (isFavRoute) {
       router.push(`/user/favs/${name}`);
     } else if (isAcknRoute) {
@@ -88,7 +88,7 @@ export default function TemaContainer({ bool, name }) {
   };
 
   return (
-    <div
+    <button
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
@@ -99,8 +99,8 @@ export default function TemaContainer({ bool, name }) {
       <img
         src={bool ? badges[name].color : badges[name].grey}
         alt={name}
-        className={`max-h-full max-w-full ${
-          isHovered && "transform scale-125"
+        className={`max-h-full max-w-full rounded-full ${
+          isHovered && "transform scale-125 shadow-lg shadow-yellow-100/80"
         }`}
       />
       {isHovered && (
@@ -117,7 +117,7 @@ export default function TemaContainer({ bool, name }) {
           </p>
         </div>
       )}
-    </div>
+    </button>
   );
 }
 

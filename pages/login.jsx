@@ -64,10 +64,6 @@ export default function Login() {
       const userJson = await userResponse.json();
       if (userJson?.data) {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-        const user = {
-          username: userJson.data.users.name,
-          avatar: userJson.data.users.avatar,
-        };
         console.log("Usuario obtenido con éxito", userJson.data);
         localStorage.setItem("exp", JSON.stringify(exp));
         localStorage.setItem(

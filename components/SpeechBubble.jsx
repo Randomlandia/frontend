@@ -22,7 +22,7 @@ const SpeechBubble = ({
 
   return (
     <div
-      className="relative speech-bubble bg-cream text-black p-4 rounded-3xl "
+      className="relative speech-bubble bg-cream text-black p-4 rounded-3xl shadow-xl shadow-slate-300"
       style={bubbleStyles}
     >
       <div className="overflow-y-auto h-full text-center flex flex-col justify-center py-4 gap-3">
