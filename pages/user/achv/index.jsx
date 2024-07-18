@@ -60,7 +60,7 @@ export default function achv() {
             </div>
 
             {/* CARD MEDALLAS */}
-            <button onClick={() => setTopic("mate")}>
+            <button onClick={() => setTopic("matematicas")}>
               <div className=" grid grid-cols-2 gap-2 border-4 border-mathL bg-white/35 p-2  rounded-xl shadow-md">
                 <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
                 <img src="/B_MATEgrey.svg" alt="" className="h-10 w-10" />
