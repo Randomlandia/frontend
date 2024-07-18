@@ -96,7 +96,7 @@ export default function Register() {
               avatar: userJson.data.users.avatar,
             };
 
-            calStorage.setItem(
+            localStorage.setItem(
               "favs",
               JSON.stringify(userJson.data.users.sandiasFavoritas)
             );
