@@ -6,10 +6,12 @@ import { useState, useEffect } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
 
 export default function Login() {
   const [background, setBackground] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [clerkUser, setclerkUser] = useState({});
   const { isLoaded, user } = useUser();
   console.log({ isLoaded, user });
 
@@ -23,6 +25,45 @@ export default function Login() {
       setBackground("/backgrounds/bg-booksflying.webp");
     }
   }, []);
+
+  useEffect(() => {
+    const isClerkUserLoaded = isLoaded;
+    async function saveClerkUserDataOnLocalHost() {
+      if (!isClerkUserLoaded) return;
+      //hacer el fetch de user by email
+      const response = await fetch("http://localhost:3005/users/email", {
+        method: "Post",
+        body: JSON.stringify({
+          email: user.emailAddresses[0].emailAddress,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }).catch((error) => {
+        console.log("Error: ", error);
+      });
+
+      const data = await response.json();
+      if (!data) {
+        console.log("no clerk user found");
+      }
+      console.log("inside clerk useEffect trying to fetch data");
+      setclerkUser(data);
+
+      //save user data on localStorage
+      console.log("clerk data: " + JSON.stringify(data));
+      const cookieName = "__clerk_db_jwt";
+      const cookieValue = getCookieValueByName(cookieName);
+
+      if (cookieValue) {
+        localStorage.setItem("token", cookieValue);
+      }
+      localStorage.setItem("userID", data);
+
+      const userID = localStorage.getItem("userID");
+    }
+    saveClerkUserDataOnLocalHost();
+  }, [isLoaded]);
 
   const {
     handleSubmit,
@@ -131,7 +172,7 @@ export default function Login() {
       <Navbar />
       <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
         <div className="grid gap-7  text-white ">
-          <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
+          <SignInButton mode="modal" forceRedirectUrl="/menu">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
               <p className="text-natD font-lucky text-3xl">
                 inicia sesión con:
