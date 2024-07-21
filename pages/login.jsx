@@ -4,11 +4,14 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 
 export default function Login() {
   const [background, setBackground] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const { isLoaded, user } = useUser();
+  console.log({ isLoaded, user });
 
   const router = useRouter();
 
@@ -109,6 +112,14 @@ export default function Login() {
       }
     } else {
       console.log("Usuario o contraseña inválidos");
+    }
+
+    const data = await res.json();
+
+    if (res.status === 200) {
+      console.log("Autenticación exitosa:", data.message);
+    } else {
+      console.error("Error en la autenticación:", data.message);
     }
   }
 
