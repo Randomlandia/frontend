@@ -160,13 +160,14 @@ export default function Login() {
       console.log("Usuario o contraseña inválidos");
     }
 
-    const data = await res.json();
+    /*const data = await res.json();
 
     if (res.status === 200) {
       console.log("Autenticación exitosa:", data.message);
     } else {
       console.error("Error en la autenticación:", data.message);
     }
+  }*/
   }
 
   return (

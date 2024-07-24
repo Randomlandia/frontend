@@ -83,7 +83,7 @@ export default function Navbar() {
       setUserName(user || "Explorador");
       setUserId(idUser || "Explorador");
       setUserIdHamburguesa(idUser);
-      setUserAvatar(avatarValue ? JSON.parse(avatarValue) : 0);
+      setUserAvatar(avatarValue || 0);
     }
   }, [cookie]);
 
