@@ -1,6 +1,7 @@
 import { useLayoutEffect, useState, Fragment, useEffect } from "react";
 import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
 import { useUser } from "@clerk/nextjs";
+import { handleUpdateUser } from "@/utils/updateUser";
 import {
   Menu,
   Transition,
@@ -74,9 +75,16 @@ export default function Navbar() {
       "exp",
       "userID",
     ];
-    keysToRemove.forEach((key) => localStorage.removeItem(key));
-    await signOut();
-    router.push("/");
+    try {
+      await handleUpdateUser();
+  
+      keysToRemove.forEach((key) => localStorage.removeItem(key));
+  
+      await signOut();
+      router.push("/");
+    } catch (error) {
+      console.log("Error during logout:", error);
+    }
   };
 
   const classNames = (...classes) => classes.filter(Boolean).join(" ");

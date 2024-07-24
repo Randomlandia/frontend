@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
 const handleUpdateUser = async () => {
   setLoading(true);
   const views = JSON.parse(localStorage.getItem("view")) || [];
@@ -43,3 +46,5 @@ const handleUpdateUser = async () => {
     router.push("/user/achv")
   },3000)
 };
+
+export { handleUpdateUser }
