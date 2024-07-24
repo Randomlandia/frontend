@@ -12,8 +12,6 @@ export default function Login() {
   const [background, setBackground] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const { isLoaded, user } = useUser([]);
-  console.log({ isLoaded, user });
-
   const router = useRouter();
 
   useEffect(() => {
@@ -25,62 +23,6 @@ export default function Login() {
     }
   }, []);
 
-  //clerk
-  useEffect(() => {
-    const isClerkUserLoaded = isLoaded;
-    async function saveClerkUserDataOnLocalHost() {
-      if (!isClerkUserLoaded || !user) return;
-
-      //hacer el fetch de user by email
-      const response = await fetch("http://localhost:3005/users/email", {
-        method: "Post",
-        body: JSON.stringify({
-          email: user.emailAddresses[0].emailAddress,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      }).catch((error) => {
-        console.log("Error: ", error);
-      });
-
-      const data = await response?.json();
-      if (!data) {
-        console.log("no clerk user found");
-      }
-      console.log("inside clerk useEffect trying to fetch data");
-
-      //save user data on localStorage
-
-      const cookieName = "__clerk_db_jwt";
-      const cookieValue = getCookieValueByName(cookieName);
-      const idUser = JSON.stringify(data.data._id);
-      if (cookieValue && data) {
-        localStorage.setItem("token", cookieValue);
-        localStorage.setItem("userName", JSON.stringify(data.data));
-        localStorage.setItem("userID", idUser.replaceAll('"', ""));
-        localStorage.setItem("username", JSON.stringify(data.data.name));
-        localStorage.setItem("avatar", JSON.stringify(data.data.avatar));
-        localStorage.setItem(
-          "favs",
-          JSON.stringify(data.data.sandiasFavoritas)
-        );
-        localStorage.setItem("view", JSON.stringify(data.data.sandiasVistas));
-        localStorage.setItem("achieve", JSON.stringify(data.data.achievements));
-        localStorage.setItem("score", JSON.stringify(data.data.score));
-        setTimeout(() => {
-          setShowSuccess(true);
-          setTimeout(() => {
-            setShowSuccess(false);
-            router.push("/menu");
-          }, 2000);
-        }, 2000);
-      }
-    }
-
-    saveClerkUserDataOnLocalHost();
-  }, [isLoaded]);
-
   const {
     handleSubmit,
     register,
@@ -90,7 +32,7 @@ export default function Login() {
 
   async function onSubmit(dataLogIn) {
     const response = await fetch("http://localhost:3005/users/login", {
-      method: "Post",
+      method: "POST",
       body: JSON.stringify({
         email: dataLogIn.email,
         password: dataLogIn.password,
@@ -111,7 +53,6 @@ export default function Login() {
 
       const userID = localStorage.getItem("userID");
 
-      // SEGUNDO FETCH (estoy obteniendo la informacion de username, avatar, favoritas, logros y vistos)
       const userResponse = await fetch(
         `http://localhost:3005/users/${userID}`,
         {
@@ -131,7 +72,6 @@ export default function Login() {
         };
         console.log("Usuario obtenido con éxito", userJson?.data);
         localStorage.setItem("exp", JSON.stringify(exp));
-
         localStorage.setItem(
           "username",
           JSON.stringify(userJson.data.users.name)
@@ -140,7 +80,6 @@ export default function Login() {
           "avatar",
           JSON.stringify(userJson.data.users.avatar)
         );
-
         localStorage.setItem(
           "favs",
           JSON.stringify(userJson.data.users.sandiasFavoritas)

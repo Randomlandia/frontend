@@ -6,85 +6,68 @@ import {
   MenuItems,
   MenuItem,
 } from "@headlessui/react";
+import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/router";
-import { SignedOut } from "@clerk/nextjs";
 
 export default function Navbar() {
   const router = useRouter();
-  const [isLogged, setIsLogged] = useState(true);
+  const { signOut } = useClerk();
+  const [isLogged, setIsLogged] = useState(false);
   const [userName, setUserName] = useState("Explorador");
   const [userId, setUserId] = useState("Explorador");
   const [userAvatar, setUserAvatar] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
+  const [userIdHamburguesa, setUserIdHamburguesa] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     const idUser = localStorage.getItem("userID");
-
     const user = localStorage.getItem("username");
+    const avatarValue = localStorage.getItem("avatar");
 
     if (token) {
       setIsLogged(true);
       setUserName(user || "Explorador");
       setUserId(idUser || "Explorador");
-    } else {
-      setIsLogged(false);
+      setUserIdHamburguesa(idUser);
+      setUserAvatar(avatarValue ? JSON.parse(avatarValue) : 0);
     }
   }, []);
 
   const avatarSrc = () => {
-    switch (userAvatar) {
-      case 1:
-        return "/avatars/A_RANDY_DED.svg";
-      case 2:
-        return "/avatars/A_RANDY_OH.svg";
-      case 3:
-        return "/avatars/A_RANDY_SAD.svg";
-      case 4:
-        return "/avatars/A_RANDY_SMILE.svg";
-      case 5:
-        return "/avatars/A_RANDY-WINK.svg";
-      case 6:
-        return "/avatars/A_RANDY_ANGRY.svg";
-      default:
-        return "/avatars/A_RANDY.svg";
-    }
+    const avatars = [
+      "/avatars/A_RANDY.svg",
+      "/avatars/A_RANDY_DED.svg",
+      "/avatars/A_RANDY_OH.svg",
+      "/avatars/A_RANDY_SAD.svg",
+      "/avatars/A_RANDY_SMILE.svg",
+      "/avatars/A_RANDY-WINK.svg",
+      "/avatars/A_RANDY_ANGRY.svg",
+    ];
+    return avatars[userAvatar] || avatars[0];
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const idUser = localStorage.getItem("userID");
-    const avatarValue = localStorage.getItem("avatar");
-    const user = localStorage.getItem("username");
-
-    if (token) {
-      setIsLogged(true);
-      setUserName(user);
-      setUserId(idUser);
-      setUserAvatar(JSON.parse(avatarValue));
-    } else {
-      setIsLogged(false);
-    }
-  }, []);
-
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
-
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsLogged(false);
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("tested");
-    localStorage.removeItem("avatar");
-    localStorage.removeItem("score");
-    localStorage.removeItem("view");
-    localStorage.removeItem("favs");
-    localStorage.removeItem("achieve");
-    localStorage.removeItem("exp");
-    localStorage.removeItem("userID");
+    const keysToRemove = [
+      "token",
+      "username",
+      "tested",
+      "avatar",
+      "score",
+      "view",
+      "favs",
+      "achieve",
+      "exp",
+      "userID",
+    ];
+    keysToRemove.forEach((key) => localStorage.removeItem(key));
+    await signOut();
+    router.push("/");
   };
+
+  const classNames = (...classes) => classes.filter(Boolean).join(" ");
 
   return (
     <>
@@ -221,7 +204,9 @@ export default function Navbar() {
                     <MenuItem>
                       {({ active }) => (
                         <button
-                          onClick={() => router.push("/user")}
+                          onClick={() =>
+                            router.push(`/user/${userIdHamburguesa}` || "/user")
+                          }
                           onTouchStart={() => setSelectedMenu("user")}
                           onTouchEnd={() => setSelectedMenu(null)}
                           className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
