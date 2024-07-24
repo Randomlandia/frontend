@@ -7,6 +7,7 @@ import {
   MenuItem,
 } from "@headlessui/react";
 import { useRouter } from "next/router";
+import { SignedOut } from "@clerk/nextjs";
 
 export default function Navbar() {
   const router = useRouter();

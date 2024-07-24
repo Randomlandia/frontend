@@ -128,6 +128,10 @@ export default function Register() {
               "score",
               JSON.stringify(userJson.data.users.score)
             );
+            localStorage.setItem(
+              "username",
+              JSON.stringify(user.data.users.name)
+            );
 
             setShowSuccess(true);
             setTimeout(() => {

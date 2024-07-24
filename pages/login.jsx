@@ -11,8 +11,7 @@ import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
 export default function Login() {
   const [background, setBackground] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [clerkUser, setclerkUser] = useState({});
-  const { isLoaded, user } = useUser();
+  const { isLoaded, user } = useUser([]);
   console.log({ isLoaded, user });
 
   const router = useRouter();
@@ -26,10 +25,12 @@ export default function Login() {
     }
   }, []);
 
+  //clerk
   useEffect(() => {
     const isClerkUserLoaded = isLoaded;
     async function saveClerkUserDataOnLocalHost() {
-      if (!isClerkUserLoaded) return;
+      if (!isClerkUserLoaded || !user) return;
+
       //hacer el fetch de user by email
       const response = await fetch("http://localhost:3005/users/email", {
         method: "Post",
@@ -43,25 +44,40 @@ export default function Login() {
         console.log("Error: ", error);
       });
 
-      const data = await response.json();
+      const data = await response?.json();
       if (!data) {
         console.log("no clerk user found");
       }
       console.log("inside clerk useEffect trying to fetch data");
-      setclerkUser(data);
 
       //save user data on localStorage
-      console.log("clerk data: " + JSON.stringify(data));
+
       const cookieName = "__clerk_db_jwt";
       const cookieValue = getCookieValueByName(cookieName);
-
-      if (cookieValue) {
+      const idUser = JSON.stringify(data.data._id);
+      if (cookieValue && data) {
         localStorage.setItem("token", cookieValue);
+        localStorage.setItem("userName", JSON.stringify(data.data));
+        localStorage.setItem("userID", idUser.replaceAll('"', ""));
+        localStorage.setItem("username", JSON.stringify(data.data.name));
+        localStorage.setItem("avatar", JSON.stringify(data.data.avatar));
+        localStorage.setItem(
+          "favs",
+          JSON.stringify(data.data.sandiasFavoritas)
+        );
+        localStorage.setItem("view", JSON.stringify(data.data.sandiasVistas));
+        localStorage.setItem("achieve", JSON.stringify(data.data.achievements));
+        localStorage.setItem("score", JSON.stringify(data.data.score));
+        setTimeout(() => {
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+            router.push("/menu");
+          }, 2000);
+        }, 2000);
       }
-      localStorage.setItem("userID", data);
-
-      const userID = localStorage.getItem("userID");
     }
+
     saveClerkUserDataOnLocalHost();
   }, [isLoaded]);
 
@@ -87,6 +103,7 @@ export default function Login() {
     });
 
     const json = await response?.json();
+
     if (json?.data?.token) {
       localStorage.setItem("token", json.data.token);
       localStorage.setItem("userID", json.data.userID);
@@ -112,8 +129,9 @@ export default function Login() {
           username: userJson.data.users.name,
           avatar: userJson.data.users.avatar,
         };
-        console.log("Usuario obtenido con éxito", userJson.data);
+        console.log("Usuario obtenido con éxito", userJson?.data);
         localStorage.setItem("exp", JSON.stringify(exp));
+
         localStorage.setItem(
           "username",
           JSON.stringify(userJson.data.users.name)
