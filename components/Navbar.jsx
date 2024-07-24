@@ -27,50 +27,9 @@ export default function Navbar() {
   //clerck
   useEffect(() => {
     if (isLoaded && user) {
-      const saveClerkUserDataOnLocalHost = async () => {
-        const response = await fetch("http://localhost:3005/users/email", {
-          method: "POST",
-          body: JSON.stringify({
-            email: user.emailAddresses[0].emailAddress,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }).catch((error) => {
-          console.log("Error: ", error);
-        });
-
-        const data = await response?.json();
-        if (data) {
-          const cookieName = "__clerk_db_jwt";
-          const cookieValue = getCookieValueByName(cookieName);
-          const idUser = JSON.stringify(data?.data?._id);
-
-          if (cookieValue && data) {
-            localStorage.setItem("token", cookieValue);
-            localStorage.setItem("userID", idUser.replaceAll('"', ""));
-            localStorage.setItem("username", JSON.stringify(data.data.name));
-            localStorage.setItem("avatar", JSON.stringify(data.data.avatar));
-            localStorage.setItem(
-              "favs",
-              JSON.stringify(data.data.sandiasFavoritas)
-            );
-            localStorage.setItem(
-              "view",
-              JSON.stringify(data.data.sandiasVistas)
-            );
-            localStorage.setItem(
-              "achieve",
-              JSON.stringify(data.data.achievements)
-            );
-            localStorage.setItem("score", JSON.stringify(data.data.score));
-            setCookie(true);
-          }
-        }
-      };
-      saveClerkUserDataOnLocalHost();
+      setCookie(true);
     }
-  }, [isLoaded, user, router]);
+  }, []);
   //post
   useLayoutEffect(() => {
     const token = localStorage.getItem("token");
@@ -84,6 +43,7 @@ export default function Navbar() {
       setUserId(idUser || "Explorador");
       setUserIdHamburguesa(idUser);
       setUserAvatar(avatarValue || 0);
+      setCookie(false);
     }
   }, [cookie]);
 

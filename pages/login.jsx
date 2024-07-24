@@ -69,7 +69,7 @@ export default function Login() {
 
       saveClerkUserDataOnLocalHost();
     }
-  }, [isLoaded, user, router]);
+  }, []);
 
   const {
     handleSubmit,
