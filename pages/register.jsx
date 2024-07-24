@@ -32,8 +32,14 @@ export default function Register() {
   }, []);
 
   async function onSubmit(dataRegistro) {
+    const noEmail = !dataRegistro.correoRegistro;
+    const noPassword = !dataRegistro.correoRegistro;
+    const noName = !dataRegistro.userRegistro;
+    const noBirthday = !dataRegistro.fechaNacimiento;
+
+    const isMissingFields = noEmail || noPassword || noName || noBirthday;
     try {
-      if (!dataRegistro.email || !dataRegistro.password || !dataRegistro.name) {
+      if (isMissingFields) {
         setShowError(true);
       }
 
@@ -46,6 +52,7 @@ export default function Register() {
           name: dataRegistro.userRegistro,
           email: dataRegistro.correoRegistro,
           password: dataRegistro.contraseñaRegistro,
+          fechaNacimiento: dataRegistro.fechaNacimiento,
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
@@ -120,6 +127,10 @@ export default function Register() {
             localStorage.setItem(
               "score",
               JSON.stringify(userJson.data.users.score)
+            );
+            localStorage.setItem(
+              "username",
+              JSON.stringify(user.data.users.name)
             );
 
             setShowSuccess(true);

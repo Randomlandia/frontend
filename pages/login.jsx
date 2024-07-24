@@ -4,12 +4,14 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
 
 export default function Login() {
   const [background, setBackground] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
-
+  const { isLoaded, user } = useUser([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,6 +20,54 @@ export default function Login() {
       setBackground(`/backgrounds/${bgNew}`);
     } else {
       setBackground("/backgrounds/bg-booksflying.webp");
+    }
+  }, []);
+
+  // Clerk: guardar datos del usuario en localStorage
+  useEffect(() => {
+    if (isLoaded && user) {
+      const saveClerkUserDataOnLocalHost = async () => {
+        const response = await fetch("http://localhost:3005/users/email", {
+          method: "POST",
+          body: JSON.stringify({
+            email: user.emailAddresses[0].emailAddress,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }).catch((error) => {
+          console.log("Error: ", error);
+        });
+
+        const data = await response?.json();
+        if (data) {
+          const cookieName = "__clerk_db_jwt";
+          const cookieValue = getCookieValueByName(cookieName);
+          const idUser = JSON.stringify(data?.data?._id);
+
+          if (cookieValue && data) {
+            localStorage.setItem("token", cookieValue);
+            localStorage.setItem("userID", idUser.replaceAll('"', ""));
+            localStorage.setItem("username", JSON.stringify(data.data.name));
+            localStorage.setItem("avatar", JSON.stringify(data.data.avatar));
+            localStorage.setItem(
+              "favs",
+              JSON.stringify(data.data.sandiasFavoritas)
+            );
+            localStorage.setItem(
+              "view",
+              JSON.stringify(data.data.sandiasVistas)
+            );
+            localStorage.setItem(
+              "achieve",
+              JSON.stringify(data.data.achievements)
+            );
+            localStorage.setItem("score", JSON.stringify(data.data.score));
+          }
+        }
+      };
+
+      saveClerkUserDataOnLocalHost();
     }
   }, []);
 
@@ -30,7 +80,7 @@ export default function Login() {
 
   async function onSubmit(dataLogIn) {
     const response = await fetch("http://localhost:3005/users/login", {
-      method: "Post",
+      method: "POST",
       body: JSON.stringify({
         email: dataLogIn.email,
         password: dataLogIn.password,
@@ -43,6 +93,7 @@ export default function Login() {
     });
 
     const json = await response?.json();
+
     if (json?.data?.token) {
       localStorage.setItem("token", json.data.token);
       localStorage.setItem("userID", json.data.userID);
@@ -50,7 +101,6 @@ export default function Login() {
 
       const userID = localStorage.getItem("userID");
 
-      // SEGUNDO FETCH (estoy obteniendo la informacion de username, avatar, favoritas, logros y vistos)
       const userResponse = await fetch(
         `http://localhost:3005/users/${userID}`,
         {
@@ -68,7 +118,7 @@ export default function Login() {
           username: userJson.data.users.name,
           avatar: userJson.data.users.avatar,
         };
-        console.log("Usuario obtenido con éxito", userJson.data);
+        console.log("Usuario obtenido con éxito", userJson?.data);
         localStorage.setItem("exp", JSON.stringify(exp));
         localStorage.setItem(
           "username",
@@ -78,7 +128,6 @@ export default function Login() {
           "avatar",
           JSON.stringify(userJson.data.users.avatar)
         );
-
         localStorage.setItem(
           "favs",
           JSON.stringify(userJson.data.users.sandiasFavoritas)
@@ -110,6 +159,15 @@ export default function Login() {
     } else {
       console.log("Usuario o contraseña inválidos");
     }
+
+    /*const data = await res.json();
+
+    if (res.status === 200) {
+      console.log("Autenticación exitosa:", data.message);
+    } else {
+      console.error("Error en la autenticación:", data.message);
+    }
+  }*/
   }
 
   return (
@@ -120,7 +178,7 @@ export default function Login() {
       <Navbar />
       <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
         <div className="grid gap-7  text-white ">
-          <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
+          <SignInButton mode="modal" forceRedirectUrl="/menu">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
               <p className="text-natD font-lucky text-3xl">
                 inicia sesión con:
