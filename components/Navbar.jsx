@@ -1,4 +1,6 @@
-import { useEffect, useState, Fragment } from "react";
+import { useLayoutEffect, useState, Fragment, useEffect } from "react";
+import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
+import { useUser } from "@clerk/nextjs";
 import {
   Menu,
   Transition,
@@ -19,21 +21,71 @@ export default function Navbar() {
   const [hovered, setHovered] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [userIdHamburguesa, setUserIdHamburguesa] = useState("");
+  const { isLoaded, user } = useUser([]);
+  const [cookie, setCookie] = useState(false);
 
+  //clerck
   useEffect(() => {
+    if (isLoaded && user) {
+      const saveClerkUserDataOnLocalHost = async () => {
+        const response = await fetch("http://localhost:3005/users/email", {
+          method: "POST",
+          body: JSON.stringify({
+            email: user.emailAddresses[0].emailAddress,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }).catch((error) => {
+          console.log("Error: ", error);
+        });
+
+        const data = await response?.json();
+        if (data) {
+          const cookieName = "__clerk_db_jwt";
+          const cookieValue = getCookieValueByName(cookieName);
+          const idUser = JSON.stringify(data?.data?._id);
+
+          if (cookieValue && data) {
+            localStorage.setItem("token", cookieValue);
+            localStorage.setItem("userID", idUser.replaceAll('"', ""));
+            localStorage.setItem("username", JSON.stringify(data.data.name));
+            localStorage.setItem("avatar", JSON.stringify(data.data.avatar));
+            localStorage.setItem(
+              "favs",
+              JSON.stringify(data.data.sandiasFavoritas)
+            );
+            localStorage.setItem(
+              "view",
+              JSON.stringify(data.data.sandiasVistas)
+            );
+            localStorage.setItem(
+              "achieve",
+              JSON.stringify(data.data.achievements)
+            );
+            localStorage.setItem("score", JSON.stringify(data.data.score));
+            setCookie(true);
+          }
+        }
+      };
+      saveClerkUserDataOnLocalHost();
+    }
+  }, [isLoaded, user, router]);
+  //post
+  useLayoutEffect(() => {
     const token = localStorage.getItem("token");
     const idUser = localStorage.getItem("userID");
     const user = localStorage.getItem("username");
     const avatarValue = localStorage.getItem("avatar");
 
-    if (token) {
+    if (token || user) {
       setIsLogged(true);
       setUserName(user || "Explorador");
       setUserId(idUser || "Explorador");
       setUserIdHamburguesa(idUser);
       setUserAvatar(avatarValue ? JSON.parse(avatarValue) : 0);
     }
-  }, []);
+  }, [cookie]);
 
   const avatarSrc = () => {
     const avatars = [
