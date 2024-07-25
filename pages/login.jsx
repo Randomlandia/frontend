@@ -44,9 +44,16 @@ export default function Login() {
           const cookieName = "__clerk_db_jwt";
           const cookieValue = getCookieValueByName(cookieName);
           const idUser = data?.data?._id;
+          const idUser = data?.data?._id;
 
           if (cookieValue && data) {
             localStorage.setItem("token", cookieValue);
+            localStorage.setItem("userID", idUser);
+            localStorage.setItem("username", data.data.name);
+            localStorage.setItem("avatar", data.data.avatar);
+            localStorage.setItem("favs", JSON.stringify(data.data.sandiasFavoritas));
+            localStorage.setItem("view", JSON.stringify(data.data.sandiasVistas));
+            localStorage.setItem("achieve", JSON.stringify(data.data.achievements));
             localStorage.setItem("userID", idUser);
             localStorage.setItem("username", data.data.name);
             localStorage.setItem("avatar", data.data.avatar);
@@ -60,6 +67,7 @@ export default function Login() {
 
       saveClerkUserDataOnLocalHost();
     }
+  }, [isLoaded, user]);
   }, [isLoaded, user]);
 
   const {
@@ -102,6 +110,13 @@ export default function Login() {
       const userJson = await userResponse.json();
       if (userJson?.data) {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
+        localStorage.setItem("exp", exp.toString());
+        localStorage.setItem("username", userJson.data.users.name);
+        localStorage.setItem("avatar", userJson.data.users.avatar);
+        localStorage.setItem("favs", JSON.stringify(userJson.data.users.sandiasFavoritas));
+        localStorage.setItem("view", JSON.stringify(userJson.data.users.sandiasVistas));
+        localStorage.setItem("achieve", JSON.stringify(userJson.data.users.achievements));
+        localStorage.setItem("score", JSON.stringify(userJson.data.users.score));
         localStorage.setItem("exp", exp.toString());
         localStorage.setItem("username", userJson.data.users.name);
         localStorage.setItem("avatar", userJson.data.users.avatar);
