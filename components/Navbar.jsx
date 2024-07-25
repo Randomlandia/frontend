@@ -1,6 +1,7 @@
 import { useLayoutEffect, useState, Fragment, useEffect } from "react";
 import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
 import { useUser } from "@clerk/nextjs";
+import { handleUpdateUser } from "@/utils/updateUser";
 import {
   Menu,
   Transition,
@@ -61,7 +62,6 @@ export default function Navbar() {
   };
 
   const handleLogout = async () => {
-    setIsLogged(false);
     const keysToRemove = [
       "token",
       "username",
@@ -74,9 +74,19 @@ export default function Navbar() {
       "exp",
       "userID",
     ];
-    keysToRemove.forEach((key) => localStorage.removeItem(key));
-    await signOut();
-    router.push("/");
+    try {
+      const updateSuccess = await handleUpdateUser(isLogged);
+      if (updateSuccess) {
+        keysToRemove.forEach((key) => localStorage.removeItem(key));
+        await signOut();
+        setIsLogged(false);
+        router.push("/");
+      } else {
+        console.log("Failed to update user, logout aborted.");
+      }
+    } catch (error) {
+      console.log("Error during logout:", error);
+    }
   };
 
   const classNames = (...classes) => classes.filter(Boolean).join(" ");
@@ -155,9 +165,23 @@ export default function Navbar() {
               </p>
             </button>
           </div>
-
+          <div className="relative group hidden lg:inline-block">
+            {isLogged && (
+              <>
+                <button
+                  onClick={() => handleLogout()}
+                  className="flex items-center pr-2 pt-1"
+                >
+                  <img src="/icon_close.svg" alt="🚪" className="w-12" />
+                </button>
+                <div className="absolute right-1 hidden group-hover:block bg-oldwhite border border-gray-200 p-2 rounded-lg shadow-lg mt-3 w-32">
+                  <p className="text-sm text-center text-natD">¿Ya te vas?</p>
+                </div>
+              </>
+            )}
+          </div>
           {/* SECCION MOBILE Y TABLET */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2 transform hover:scale-110">
             {isLogged ? (
               <button
                 className="flex items-center"
@@ -237,20 +261,22 @@ export default function Navbar() {
                       )}
                     </MenuItem>
                     <hr className="w-full border border-zinc-200 my-1" />
-                    <MenuItem>
-                      {({ active }) => (
-                        <button
-                          onClick={() => router.push("/register")}
-                          onTouchStart={() => setSelectedMenu("register")}
-                          onTouchEnd={() => setSelectedMenu(null)}
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                            selectedMenu === "register" ? "bg-natD" : ""
-                          }`}
-                        >
-                          Crear cuenta
-                        </button>
-                      )}
-                    </MenuItem>
+                    {!isLogged && (
+                      <MenuItem>
+                        {({ active }) => (
+                          <button
+                            onClick={() => router.push("/register")}
+                            onTouchStart={() => setSelectedMenu("register")}
+                            onTouchEnd={() => setSelectedMenu(null)}
+                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                              selectedMenu === "register" ? "bg-natD" : ""
+                            }`}
+                          >
+                            Crear cuenta
+                          </button>
+                        )}
+                      </MenuItem>
+                    )}
                     <MenuItem>
                       {({ active }) => (
                         <button
