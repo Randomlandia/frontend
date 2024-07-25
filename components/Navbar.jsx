@@ -7,7 +7,7 @@ import {
   Transition,
   MenuButton,
   MenuItems,
-  MenuItem
+  MenuItem,
 } from "@headlessui/react";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/router";
@@ -56,7 +56,7 @@ export default function Navbar() {
       "/avatars/A_RANDY_SAD.svg",
       "/avatars/A_RANDY_SMILE.svg",
       "/avatars/A_RANDY-WINK.svg",
-      "/avatars/A_RANDY_ANGRY.svg"
+      "/avatars/A_RANDY_ANGRY.svg",
     ];
     return avatars[userAvatar] || avatars[0];
   };
@@ -72,7 +72,7 @@ export default function Navbar() {
       "favs",
       "achieve",
       "exp",
-      "userID"
+      "userID",
     ];
     try {
       const updateSuccess = await handleUpdateUser(isLogged);
@@ -88,7 +88,6 @@ export default function Navbar() {
       console.log("Error during logout:", error);
     }
   };
-  
 
   const classNames = (...classes) => classes.filter(Boolean).join(" ");
 

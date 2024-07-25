@@ -1,37 +1,39 @@
-export default function Luz(props) {
+export default function Luz({ children, active }) {
   return (
-    <div className=" relative z-20 min-h-screen m-0 p-0">
-      <div className="flex absolute z-10 bg-transparent  w-[100%] h-[100%] "></div>
-      {props.children}
+    <div className="relative z-20 min-h-screen m-0 p-0">
+      <div className="flex absolute z-10 bg-transparent w-[100%] h-[100%]"></div>
+      {children}
       <div
         id="contenedorLuz"
-        className="relative  w-[100%] z-30 h-[100vh] overflow-hidden xl:justify-center align-bottom"
+        className={`relative w-[100%] z-30 h-[100vh] overflow-hidden xl:justify-center align-bottom ${
+          active ? "active" : ""
+        }`}
       >
-        <div class="burbujas" className="">
-          <div class="burbuja" className=" "></div>
-          <div class="burbujaDos" className=""></div>
-          <div class="burbujaTres" className=""></div>
-          <div class="burbujaCuatro" className=""></div>
-          <div class="burbujaCinco" className=""></div>
-          <div class="burbujaSeis" className=""></div>
-          <div class="burbujaSiete" className=" "></div>
-          <div class="burbujaOcho" className=" "></div>
-          <div class="burbujaNueve" className=" "></div>
-          <div class="burbujaDiez" className=" "></div>
-          <div class="burbujaOnce" className=" "></div>
-          <div class="burbujaDoce" className=" "></div>
-          <div class="burbujaBurbuja" className=" "></div>
-          <div class="burbujaDosDos" className=""></div>
-          <div class="burbujaTresTres" className=""></div>
-          <div class="burbujaCuatroCuatro" className=""></div>
-          <div class="burbujaCincoCinco" className=""></div>
-          <div class="burbujaSeisSeis" className=""></div>
-          <div class="burbujaSieteSiete" className=" "></div>
-          <div class="burbujaOchoOcho" className=" "></div>
-          <div class="burbujaNueveNueve" className=" "></div>
-          <div class="burbujaDiezDiez" className=" "></div>
-          <div class="burbujaOnceOnce" className=" "></div>
-          <div class="burbujaDoceDoce" className=" "></div>
+        <div className="burbujas">
+          <div className="burbuja"></div>
+          <div className="burbujaDos"></div>
+          <div className="burbujaTres"></div>
+          <div className="burbujaCuatro"></div>
+          <div className="burbujaCinco"></div>
+          <div className="burbujaSeis"></div>
+          <div className="burbujaSiete"></div>
+          <div className="burbujaOcho"></div>
+          <div className="burbujaNueve"></div>
+          <div className="burbujaDiez"></div>
+          <div className="burbujaOnce"></div>
+          <div className="burbujaDoce"></div>
+          <div className="burbujaBurbuja"></div>
+          <div className="burbujaDosDos"></div>
+          <div className="burbujaTresTres"></div>
+          <div className="burbujaCuatroCuatro"></div>
+          <div className="burbujaCincoCinco"></div>
+          <div className="burbujaSeisSeis"></div>
+          <div className="burbujaSieteSiete"></div>
+          <div className="burbujaOchoOcho"></div>
+          <div className="burbujaNueveNueve"></div>
+          <div className="burbujaDiezDiez"></div>
+          <div className="burbujaOnceOnce"></div>
+          <div className="burbujaDoceDoce"></div>
         </div>
       </div>
     </div>
