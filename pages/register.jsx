@@ -33,20 +33,21 @@ export default function Register() {
 
   async function onSubmit(dataRegistro) {
     const noEmail = !dataRegistro.correoRegistro;
-    const noPassword = !dataRegistro.correoRegistro;
+    const noPassword = !dataRegistro.contraseñaRegistro; // Corregido de correoRegistro a contraseñaRegistro
     const noName = !dataRegistro.userRegistro;
     const noBirthday = !dataRegistro.fechaNacimiento;
-
+  
     const isMissingFields = noEmail || noPassword || noName || noBirthday;
     try {
       if (isMissingFields) {
         setShowError(true);
+        return; // Termina la función si hay campos faltantes
       }
-
+  
       setShowError(false);
-
+  
       // Registro del usuario
-      const registroResponse = await fetch("http://localhost:3005/users", {
+      const registroResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users`, {
         method: "POST",
         body: JSON.stringify({
           name: dataRegistro.userRegistro,
@@ -58,19 +59,16 @@ export default function Register() {
           "Content-type": "application/json; charset=UTF-8",
         },
       });
-
+  
       if (!registroResponse.ok) {
         throw new Error("Error en el registro");
       }
-
+  
       const registroJson = await registroResponse.json();
-
+  
       if (registroJson) {
-        // Almacenar los datos de registro en localStorage (aparecia en la funcion original, pero ya no es necesario)
-        // localStorage.setItem("dataRegistro", JSON.stringify(dataRegistro));
-
         // Autenticación del usuario después del registro
-        const loginResponse = await fetch("http://localhost:3005/users/login", {
+        const loginResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/login`, {
           method: "POST",
           body: JSON.stringify({
             email: dataRegistro.correoRegistro,
@@ -80,23 +78,23 @@ export default function Register() {
             "Content-type": "application/json; charset=UTF-8",
           },
         });
-
+  
         if (!loginResponse.ok) {
           throw new Error("Usuario o contraseña inválidos");
         }
-
+  
         const loginJson = await loginResponse.json();
-
+  
         if (loginJson?.data?.token) {
           localStorage.setItem("token", loginJson.data.token);
           localStorage.setItem("userID", loginJson.data.userID);
           console.log("Login Exitoso");
-
+  
           const userID = loginJson.data.userID;
-
+  
           // Obtener la información del usuario
           const userResponse = await fetch(
-            `http://localhost:3005/users/${userID}`,
+            `${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`,
             {
               method: "GET",
               headers: {
@@ -104,13 +102,13 @@ export default function Register() {
               },
             }
           );
-
+  
           if (!userResponse.ok) {
             throw new Error("No se pudieron obtener los datos del usuario");
           }
-
+  
           const userJson = await userResponse.json();
-
+  
           if (userJson?.data) {
             localStorage.setItem(
               "favs",
@@ -130,9 +128,9 @@ export default function Register() {
             );
             localStorage.setItem(
               "username",
-              JSON.stringify(user.data.users.name)
+              userJson.data.users.name
             );
-
+  
             setShowSuccess(true);
             setTimeout(() => {
               setShowSuccess(false);
@@ -141,7 +139,7 @@ export default function Register() {
           } else {
             console.log("No se pudieron obtener los datos del usuario");
           }
-
+  
           return;
         } else {
           console.log("Usuario o contraseña inválidos");

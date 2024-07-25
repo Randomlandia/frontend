@@ -29,7 +29,7 @@ export default function achv() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:3005/users/${id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${id}`, {
       method: "Get",
     })
       .then((response) => response?.json())

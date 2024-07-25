@@ -27,7 +27,7 @@ export default function Login() {
   useEffect(() => {
     if (isLoaded && user) {
       const saveClerkUserDataOnLocalHost = async () => {
-        const response = await fetch("http://localhost:3005/users/email", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/email`, {
           method: "POST",
           body: JSON.stringify({
             email: user.emailAddresses[0].emailAddress,
@@ -70,7 +70,7 @@ export default function Login() {
   } = useForm();
 
   async function onSubmit(dataLogIn) {
-    const response = await fetch("http://localhost:3005/users/login", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/login`, {
       method: "POST",
       body: JSON.stringify({
         email: dataLogIn.email,
@@ -92,7 +92,7 @@ export default function Login() {
 
       const userID = localStorage.getItem("userID");
 
-      const userResponse = await fetch(`http://localhost:3005/users/${userID}`, {
+      const userResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",

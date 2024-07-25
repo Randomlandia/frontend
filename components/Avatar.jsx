@@ -22,7 +22,7 @@ export default function Avatar(props) {
       );
     }
 
-    fetch(`http://localhost:3005/users/${props.id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${props.id}`, {
       method: "Put",
       body: JSON.stringify({
         avatar: avatarValue,
@@ -32,7 +32,7 @@ export default function Avatar(props) {
       },
     })
       .then((response) => response?.json())
-      .then((json) => console.log(json))
+      .then((json) => console.log("Avatar actualizado"))
       .catch((error) => {
         console.log("Error", error);
       });
@@ -52,7 +52,7 @@ export default function Avatar(props) {
       );
     }
 
-    fetch(`http://localhost:3005/users/${props.id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${props.id}`, {
       method: "Put",
       body: JSON.stringify({
         name: nameUser.name,
