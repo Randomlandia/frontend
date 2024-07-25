@@ -44,16 +44,8 @@ export default function Login() {
           const cookieName = "__clerk_db_jwt";
           const cookieValue = getCookieValueByName(cookieName);
           const idUser = data?.data?._id;
-          const idUser = data?.data?._id;
-
           if (cookieValue && data) {
             localStorage.setItem("token", cookieValue);
-            localStorage.setItem("userID", idUser);
-            localStorage.setItem("username", data.data.name);
-            localStorage.setItem("avatar", data.data.avatar);
-            localStorage.setItem("favs", JSON.stringify(data.data.sandiasFavoritas));
-            localStorage.setItem("view", JSON.stringify(data.data.sandiasVistas));
-            localStorage.setItem("achieve", JSON.stringify(data.data.achievements));
             localStorage.setItem("userID", idUser);
             localStorage.setItem("username", data.data.name);
             localStorage.setItem("avatar", data.data.avatar);
@@ -67,7 +59,6 @@ export default function Login() {
 
       saveClerkUserDataOnLocalHost();
     }
-  }, [isLoaded, user]);
   }, [isLoaded, user]);
 
   const {

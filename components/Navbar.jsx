@@ -2,7 +2,6 @@ import { useLayoutEffect, useState, Fragment, useEffect } from "react";
 import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
 import { useUser } from "@clerk/nextjs";
 import { handleUpdateUser } from "@/utils/updateUser";
-import { handleUpdateUser } from "@/utils/updateUser";
 import {
   Menu,
   Transition,
