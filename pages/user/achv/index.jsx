@@ -2,7 +2,9 @@ import Navbar from "@/components/Navbar";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+
 export default function achv() {
+  const router = useRouter();
   const defaultBackground = "bg-booksflying.webp";
   const [background, setBackground] = useState("bg-booksflying.webp");
   const [usertopic, setTopic] = useState("");
@@ -18,38 +20,38 @@ export default function achv() {
   const [logros, setLogros] = useState();
 
   useEffect(() => {
-    router.push(`/user/achv/${usertopic}`);
-  }, [usertopic]);
-
-  const router = useRouter();
-
-  useEffect(() => {
     const idLocal = localStorage.getItem("userID");
     setId(idLocal);
-  }, []);
 
-  useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${id}`, {
-      method: "Get",
-    })
-      .then((response) => response?.json())
-      .then((json) => {
-        setArtes(json.data.users.achievements.artes.level);
-        setCiencias(json.data.users.achievements.ciencias.level);
-        setDeportes(json.data.users.achievements.deportes.level);
-        setIdiomas(json.data.users.achievements.idiomas.level);
-        setMatematicas(json.data.users.achievements.matematicas.level);
-        setMundo(json.data.users.achievements.mundo.level);
-        setNerd(json.data.users.achievements.nerd.level);
-        setVida(json.data.users.achievements.vida.level);
-        setLogros(json.data.users.achievements);
+    if (idLocal) {
+      fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${idLocal}`, {
+        method: "GET",
       })
-      .catch((error) => {
-        console.log("Error", error);
-      });
+        .then((response) => response.json())
+        .then((json) => {
+          setArtes(json.data.users.achievements.artes.level);
+          setCiencias(json.data.users.achievements.ciencias.level);
+          setDeportes(json.data.users.achievements.deportes.level);
+          setIdiomas(json.data.users.achievements.idiomas.level);
+          setMatematicas(json.data.users.achievements.matematicas.level);
+          setMundo(json.data.users.achievements.mundo.level);
+          setNerd(json.data.users.achievements.nerd.level);
+          setVida(json.data.users.achievements.vida.level);
+          setLogros(json.data.users.achievements);
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
+    }
   }, [id]);
 
-  console.log(logros);
+  useEffect(() => {
+    if (usertopic) {
+      router.push(`/user/achv/${usertopic}`);
+    }
+  }, [usertopic, router]);
+
+  // console.log(logros);
 
   const idiomasGrey = (
     <img src="/B_IDIOMASgrey.svg" alt="" className="h-10 w-10" />
