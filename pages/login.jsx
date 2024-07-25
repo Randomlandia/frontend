@@ -27,15 +27,18 @@ export default function Login() {
   useEffect(() => {
     if (isLoaded && user) {
       const saveClerkUserDataOnLocalHost = async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/email`, {
-          method: "POST",
-          body: JSON.stringify({
-            email: user.emailAddresses[0].emailAddress,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        }).catch((error) => {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_RANDOM_API}users/email`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: user.emailAddresses[0].emailAddress,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        ).catch((error) => {
           console.log("Error: ", error);
         });
 
@@ -49,9 +52,18 @@ export default function Login() {
             localStorage.setItem("userID", idUser);
             localStorage.setItem("username", data.data.name);
             localStorage.setItem("avatar", data.data.avatar);
-            localStorage.setItem("favs", JSON.stringify(data.data.sandiasFavoritas));
-            localStorage.setItem("view", JSON.stringify(data.data.sandiasVistas));
-            localStorage.setItem("achieve", JSON.stringify(data.data.achievements));
+            localStorage.setItem(
+              "favs",
+              JSON.stringify(data.data.sandiasFavoritas)
+            );
+            localStorage.setItem(
+              "view",
+              JSON.stringify(data.data.sandiasVistas)
+            );
+            localStorage.setItem(
+              "achieve",
+              JSON.stringify(data.data.achievements)
+            );
             localStorage.setItem("score", JSON.stringify(data.data.score));
           }
         }
@@ -69,16 +81,19 @@ export default function Login() {
   } = useForm();
 
   async function onSubmit(dataLogIn) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: dataLogIn.email,
-        password: dataLogIn.password,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    }).catch((error) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_RANDOM_API}users/login`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: dataLogIn.email,
+          password: dataLogIn.password,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    ).catch((error) => {
       console.log("Error", error);
     });
 
@@ -91,12 +106,15 @@ export default function Login() {
 
       const userID = localStorage.getItem("userID");
 
-      const userResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8",
-        },
-      });
+      const userResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+        }
+      );
 
       const userJson = await userResponse.json();
       if (userJson?.data) {
@@ -104,17 +122,41 @@ export default function Login() {
         localStorage.setItem("exp", exp.toString());
         localStorage.setItem("username", userJson.data.users.name);
         localStorage.setItem("avatar", userJson.data.users.avatar);
-        localStorage.setItem("favs", JSON.stringify(userJson.data.users.sandiasFavoritas));
-        localStorage.setItem("view", JSON.stringify(userJson.data.users.sandiasVistas));
-        localStorage.setItem("achieve", JSON.stringify(userJson.data.users.achievements));
-        localStorage.setItem("score", JSON.stringify(userJson.data.users.score));
+        localStorage.setItem(
+          "favs",
+          JSON.stringify(userJson.data.users.sandiasFavoritas)
+        );
+        localStorage.setItem(
+          "view",
+          JSON.stringify(userJson.data.users.sandiasVistas)
+        );
+        localStorage.setItem(
+          "achieve",
+          JSON.stringify(userJson.data.users.achievements)
+        );
+        localStorage.setItem(
+          "score",
+          JSON.stringify(userJson.data.users.score)
+        );
         localStorage.setItem("exp", exp.toString());
         localStorage.setItem("username", userJson.data.users.name);
         localStorage.setItem("avatar", userJson.data.users.avatar);
-        localStorage.setItem("favs", JSON.stringify(userJson.data.users.sandiasFavoritas));
-        localStorage.setItem("view", JSON.stringify(userJson.data.users.sandiasVistas));
-        localStorage.setItem("achieve", JSON.stringify(userJson.data.users.achievements));
-        localStorage.setItem("score", JSON.stringify(userJson.data.users.score));
+        localStorage.setItem(
+          "favs",
+          JSON.stringify(userJson.data.users.sandiasFavoritas)
+        );
+        localStorage.setItem(
+          "view",
+          JSON.stringify(userJson.data.users.sandiasVistas)
+        );
+        localStorage.setItem(
+          "achieve",
+          JSON.stringify(userJson.data.users.achievements)
+        );
+        localStorage.setItem(
+          "score",
+          JSON.stringify(userJson.data.users.score)
+        );
 
         setTimeout(() => {
           setShowSuccess(true);
@@ -140,7 +182,7 @@ export default function Login() {
       <Navbar />
       <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
         <div className="grid gap-7  text-white ">
-          <SignInButton mode="modal" forceRedirectUrl="/menu">
+          <SignInButton mode="modal" forceRedirectUrl="/login">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
               <p className="text-natD font-lucky text-3xl">
                 inicia sesión con:
@@ -270,4 +312,3 @@ export default function Login() {
     </div>
   );
 }
-
