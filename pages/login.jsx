@@ -43,25 +43,16 @@ export default function Login() {
         if (data) {
           const cookieName = "__clerk_db_jwt";
           const cookieValue = getCookieValueByName(cookieName);
-          const idUser = JSON.stringify(data?.data?._id);
+          const idUser = data?.data?._id;
 
           if (cookieValue && data) {
             localStorage.setItem("token", cookieValue);
-            localStorage.setItem("userID", idUser.replaceAll('"', ""));
-            localStorage.setItem("username", JSON.stringify(data.data.name));
-            localStorage.setItem("avatar", JSON.stringify(data.data.avatar));
-            localStorage.setItem(
-              "favs",
-              JSON.stringify(data.data.sandiasFavoritas)
-            );
-            localStorage.setItem(
-              "view",
-              JSON.stringify(data.data.sandiasVistas)
-            );
-            localStorage.setItem(
-              "achieve",
-              JSON.stringify(data.data.achievements)
-            );
+            localStorage.setItem("userID", idUser);
+            localStorage.setItem("username", data.data.name);
+            localStorage.setItem("avatar", data.data.avatar);
+            localStorage.setItem("favs", JSON.stringify(data.data.sandiasFavoritas));
+            localStorage.setItem("view", JSON.stringify(data.data.sandiasVistas));
+            localStorage.setItem("achieve", JSON.stringify(data.data.achievements));
             localStorage.setItem("score", JSON.stringify(data.data.score));
           }
         }
@@ -69,7 +60,7 @@ export default function Login() {
 
       saveClerkUserDataOnLocalHost();
     }
-  }, []);
+  }, [isLoaded, user]);
 
   const {
     handleSubmit,
@@ -101,49 +92,23 @@ export default function Login() {
 
       const userID = localStorage.getItem("userID");
 
-      const userResponse = await fetch(
-        `http://localhost:3005/users/${userID}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-          },
-        }
-      );
+      const userResponse = await fetch(`http://localhost:3005/users/${userID}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+      });
 
       const userJson = await userResponse.json();
       if (userJson?.data) {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-        const user = {
-          username: userJson.data.users.name,
-          avatar: userJson.data.users.avatar,
-        };
-        console.log("Usuario obtenido con éxito", userJson?.data);
-        localStorage.setItem("exp", JSON.stringify(exp));
-        localStorage.setItem(
-          "username",
-          JSON.stringify(userJson.data.users.name)
-        );
-        localStorage.setItem(
-          "avatar",
-          JSON.stringify(userJson.data.users.avatar)
-        );
-        localStorage.setItem(
-          "favs",
-          JSON.stringify(userJson.data.users.sandiasFavoritas)
-        );
-        localStorage.setItem(
-          "view",
-          JSON.stringify(userJson.data.users.sandiasVistas)
-        );
-        localStorage.setItem(
-          "achieve",
-          JSON.stringify(userJson.data.users.achievements)
-        );
-        localStorage.setItem(
-          "score",
-          JSON.stringify(userJson.data.users.score)
-        );
+        localStorage.setItem("exp", exp.toString());
+        localStorage.setItem("username", userJson.data.users.name);
+        localStorage.setItem("avatar", userJson.data.users.avatar);
+        localStorage.setItem("favs", JSON.stringify(userJson.data.users.sandiasFavoritas));
+        localStorage.setItem("view", JSON.stringify(userJson.data.users.sandiasVistas));
+        localStorage.setItem("achieve", JSON.stringify(userJson.data.users.achievements));
+        localStorage.setItem("score", JSON.stringify(userJson.data.users.score));
 
         setTimeout(() => {
           setShowSuccess(true);
@@ -159,15 +124,6 @@ export default function Login() {
     } else {
       console.log("Usuario o contraseña inválidos");
     }
-
-    /*const data = await res.json();
-
-    if (res.status === 200) {
-      console.log("Autenticación exitosa:", data.message);
-    } else {
-      console.error("Error en la autenticación:", data.message);
-    }
-  }*/
   }
 
   return (
@@ -199,7 +155,7 @@ export default function Login() {
           </div>
         </div>
         <form
-          autocomplete="off"
+          autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
           name="formLogIn"
           className="w-full md:w-[424px] pt-3 flex flex-col text-sm "
@@ -210,7 +166,7 @@ export default function Login() {
                 EMAIL
               </label>
               <input
-                autocomplete="off"
+                autoComplete="off"
                 type="email"
                 name="email"
                 required
@@ -236,7 +192,7 @@ export default function Login() {
               <input
                 type="password"
                 name="password"
-                autocomplete="off"
+                autoComplete="off"
                 required
                 placeholder="********"
                 className="bg-lorange/50 outline-lorange/50 outline-offset-1 text-white p-2 rounded-lg shadow-md"
@@ -275,35 +231,37 @@ export default function Login() {
             </p>
           )}
 
-          <div className="grid justify-center gap-3">
-            <button
-              type="submit"
-              className="bg-[#0288D1] p-1.5 w-56 m-auto font-lucky text-white text-xl shadow-md tracking-wider rounded-full mt-5"
+          {showSuccess && (
+            <div
+              className="absolute bottom-0 left-0 right-0 bg-green-500 text-white text-center py-2"
+              style={{ animation: "fadeInOut 4s" }}
             >
-              INICIAR SESIÓN
-            </button>
-            <div className="flex flex-row gap-5 justify-center">
-              <Link
-                href="./register"
-                className="text-natD underline text-center"
-              >
-                CREAR CUENTA
-              </Link>
-              <Link href="/" className="text-natD underline text-center">
-                ¿OLVIDASTE TU CONTRASEÑA?
-              </Link>
+              Login exitoso!
             </div>
-          </div>
+          )}
+
+          <button
+            className="w-full bg-lorange rounded-[50px] px-6 py-3 mb-4 text-white text-xl"
+            type="submit"
+          >
+            <p className=" font-ram tracking-wider">Login</p>
+          </button>
         </form>
+
+        <SignedIn>
+          <UserButton afterSignOutUrl="/" />
+        </SignedIn>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+
+        <Link href="/register">
+          <div className="text-natD hover:text-lorange font-ram font-light cursor-pointer ">
+            Aún no tengo cuenta
+          </div>
+        </Link>
       </div>
-      {showSuccess && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
-          <p className="text-ram text-center text-3xl font-bold text-dgreen">
-            ¡Bienvenido!
-            <br /> Ya estas listo para la aventura.
-          </p>
-        </div>
-      )}
     </div>
   );
 }
+
