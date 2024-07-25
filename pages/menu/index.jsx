@@ -1,25 +1,24 @@
-import Navbar from "@/components/Navbar"
-import TemaContainer from "@/components/TemaContainerSlider"
-import MenuTemasSlider from "@/components/MenuTemasSlider"
-import MenuTemasCircle from "@/components/MenuTemasCircle"
-import RandyTextRight from "@/components/RandyTextRight"
-import RandyTextLeft from "@/components/RandyTextLeft"
-import BackgroundModal from "@/components/BackgroundModal"
-import { useState, useEffect } from "react"
-
+import Navbar from "@/components/Navbar";
+import TemaContainer from "@/components/TemaContainerSlider";
+import MenuTemasSlider from "@/components/MenuTemasSlider";
+import MenuTemasCircle from "@/components/MenuTemasCircle";
+import RandyTextRight from "@/components/RandyTextRight";
+import RandyTextLeft from "@/components/RandyTextLeft";
+import BackgroundModal from "@/components/BackgroundModal";
+import { useState, useEffect } from "react";
 export default function Menu() {
-  const [background, setBackground] = useState(null)
+  const [background, setBackground] = useState(null);
 
   const updateBackground = () => {
-    const bgNew = localStorage.getItem("bg")
+    const bgNew = localStorage.getItem("bg");
     if (bgNew) {
-      setBackground(bgNew)
+      setBackground(bgNew);
     }
-  }
+  };
 
   useEffect(() => {
-    updateBackground()
-  }, [])
+    updateBackground();
+  }, []);
 
   return (
     <div className="w-full max-h-screen max-w-screen flex flex-col bg-white pb-8 overflow-hidden">
@@ -34,7 +33,7 @@ export default function Menu() {
             background
               ? `/backgrounds/${background}`
               : "/backgrounds/bg-booksflying.webp"
-          }')`
+          }')`,
         }}
       >
         <div
@@ -71,6 +70,5 @@ export default function Menu() {
         </div>
       </div>
     </div>
-  )
+  );
 }
-

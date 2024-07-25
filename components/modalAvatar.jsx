@@ -1,4 +1,4 @@
-const ModalAvatar = ({ isVisible, onClose, children }) => {
+const ModalAvatar = ({ isVisible, children }) => {
   if (!isVisible) return null;
 
   return (

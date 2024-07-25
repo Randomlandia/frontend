@@ -5,7 +5,7 @@ export default function ContactoFooter() {
     <div className="grid grid-flow-row justify-items-center md:grid-flow-col md:place-items-center h-4/5 w-[350px] md:w-4/5  lg:w-1/2  mx-auto p-4">
       {/* RANDY! */}
 
-      <img src="/RANDY_08.svg" alt="Randy" className="h-28" />
+      <img src="/RANDY_08.svg" alt="Randy" className="h-[222px]" />
 
       <div>
         {/* TITLE + SUBTITLE */}
@@ -20,19 +20,31 @@ export default function ContactoFooter() {
 
         {/* ICONOS SOCIAL MEDIA */}
         <div className="flex grid-flow-col gap-6 justify-center p-3">
-          <button className="bg-blue-200 p-3 rounded-full">
-            <a href="https://www.facebook.com/">
-              <img src="/facebookblue.svg" alt="G" className="h-8 w-8" />
+          <button className="rounded-full">
+            <a href="https://www.facebook.com/" target="_blank">
+              <img
+                src="/landing/facebook.png"
+                alt="FaceBook"
+                className="h-[60px] w-[60px]"
+              />
             </a>
           </button>
-          <button className="bg-black p-3 rounded-full">
-            <a href="https://www.tiktok.com/">
-              <img src="/tiktok.svg" alt="G" className="h-8 w-8" />
+          <button className="rounded-full">
+            <a href="https://www.tiktok.com/" target="_blank">
+              <img
+                src="/landing/tiktok.png"
+                alt="TikTok"
+                className="h-[60px] w-[60px]"
+              />
             </a>
           </button>
-          <button className="bg-green-500 p-3 rounded-full">
-            <a href="https://www.spotify.com/">
-              <img src="/spotify.svg" alt="G" className="h-8 w-8" />
+          <button className="rounded-full">
+            <a href="https://www.spotify.com/" target="_blank">
+              <img
+                src="/landing/spoty.png"
+                alt="Spotify"
+                className="h-[60px] w-[60px]"
+              />
             </a>
           </button>
         </div>
@@ -40,16 +52,11 @@ export default function ContactoFooter() {
         {/* LINKS A AVISOS  */}
         <div className="flex grid-flow-col gap-6 justify-center p-3">
           <a
-            href=""
+            href="/avisoprivacidad"
+            target="_blank"
             className="font-mont text-black text-center text-xs hover:font-semibold hover:text-dorange hover:underline"
           >
-            Privacidad
-          </a>
-          <a
-            href=""
-            className="font-mont text-black text-center text-xs hover:font-semibold hover:text-dorange hover:underline"
-          >
-            Términos y Condiciones
+            Aviso de Privacidad
           </a>
         </div>
       </div>

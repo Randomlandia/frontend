@@ -4,6 +4,9 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}", // Note the addition of the `app` directory.
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/flowbite-react/lib/**/*.js", //flowbite
+    "./pages/**/*.{ts,tsx}", //flowbite
+    "./public/**/*.html",  //flowbite
 
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
@@ -43,7 +46,23 @@ module.exports = {
         peach: { DEFAULT: "#FBCF8E" },
         cream: "#F7E9D8",
       },
+      animation: {
+        heartbeat: 'heartbeat 1s ease-in-out infinite',
+      },
+      keyframes: {
+        heartbeat: {
+          '0%, 100%': { transform: 'scale(1)' },
+          '50%': { transform: 'scale(1.25)' },
+        },
+      },
     },
   },
-  plugins: [],
+  variants: {
+    extend: {
+      animation: ['hover'],
+    },
+  },
+  plugins: [
+    require('flowbite/plugin')
+  ],
 };

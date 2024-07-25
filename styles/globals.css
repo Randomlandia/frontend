@@ -24,11 +24,16 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  cursor: url("/cursor/cursoryellow.svg"), auto;
 }
 
 input::placeholder {
   color: rgb(255, 255, 255, 0.7);
   font-weight: 600;
+}
+
+button {
+  cursor: url("/cursor/pointercat.svg"), auto;
 }
 
 .font-lucky {
@@ -37,30 +42,197 @@ input::placeholder {
   font-style: normal;
 }
 
-
-
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
 
-/* Custom scrollbar styles */
-.speech-bubble::-webkit-scrollbar {
-  width: 6px;
+
+@import "./SpeechBubbleStyles.css";
+@import "./ScrollableBox.module.css";
+
+.burbuja,
+.burbujaDos,
+.burbujaTres,
+.burbujaCuatro,
+.burbujaCinco,
+.burbujaSeis,
+.burbujaSiete,
+.burbujaOcho,
+.burbujaNueve,
+.burbujaDiez,
+.burbujaOnce,
+.burbujaDoce,
+.burbujaBurbuja,
+.burbujaDosDos,
+.burbujaTresTres,
+.burbujaCuatroCuatro,
+.burbujaCincoCinco,
+.burbujaSeisSeis,
+.burbujaSieteSiete,
+.burbujaOchoOcho,
+.burbujaNueveNuev,
+.burbujaDiezDiez,
+.burbujaOnceOnce,
+.burbujaDoceDoce {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: rgba(245, 239, 207, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px rgba(255, 217, 0, 0.218), 0 0 20px rgb(239, 239, 238),
+    0 0 50px rgb(248, 246, 246);
+  box-shadow: black;
 }
 
-.speech-bubble::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 6px;
+.burbuja {
+  animation: animate2 15s linear infinite;
+  margin: 0 100px;
+}
+.burbujaBurbuja {
+  animation: animate2 10s linear infinite;
+  margin: 0 100px;
+}
+.burbujaDos {
+  animation: animate 6s linear infinite;
+  margin: 0 300px;
+}
+.burbujaDosDos {
+  animation: animate 14s linear infinite;
+  margin: 0 300px;
+}
+.burbujaTres {
+  animation: animate2 7s linear infinite;
+  margin: 0 500px;
+}
+.burbujaTresTres {
+  animation: animate2 15s linear infinite;
+  margin: 0 500px;
+}
+.burbujaCuatro {
+  animation: animate 6s linear infinite;
+  margin: 0 700px;
+}
+.burbujaCuatroCuatro {
+  animation: animate 8s linear infinite;
+  margin: 0 700px;
+}
+.burbujaCinco {
+  animation: animate2 9s linear infinite;
+  margin: 0 800px;
+}
+.burbujaCincoCinco {
+  animation: animate2 15s linear infinite;
+  margin: 0 800px;
+}
+.burbujaSeis {
+  animation: animate 10s linear infinite;
+  margin: 0 1300px;
+}
+.burbujaSeisSeis {
+  animation: animate2 17s linear infinite;
+  margin: 0 1300px;
+}
+.burbujaSiete {
+  animation: animate 6s linear infinite;
+  margin: 0 1700px;
+}
+.burbujaSieteSiete {
+  animation: animate 6s linear infinite;
+  margin: 0 1700px;
+}
+.burbujaOcho {
+  animation: animate2 8s linear infinite;
+  margin: 0 1900px;
+}
+.burbujaOchoOcho {
+  animation: animate2 15s linear infinite;
+  margin: 0 1900px;
+}
+.burbujaNueve {
+  animation: animate2 7s linear infinite;
+  margin: 0 2100px;
+}
+.burbujaNueveNueve {
+  animation: animate 10s linear infinite;
+  margin: 0 2100px;
+}
+.burbujaDiez {
+  animation: animate 6s linear infinite;
+  margin: 0 2300px;
+}
+.burbujaDiezDiez {
+  animation: animate2 10s linear infinite;
+  margin: 0 2300px;
+}
+.burbujaOnce {
+  animation: animate 7s linear infinite;
+  margin: 0 800px;
+}
+.burbujaOnceOnce {
+  animation: animate2 8s linear infinite;
+  margin: 0 800px;
+}
+.burbujaDoce {
+  animation: animate2 16s linear infinite;
+  margin: 0 1300px;
+}
+.burbujaDoceDoce {
+  animation: animate 9s linear infinite;
+  margin: 0 1300px;
 }
 
-.speech-bubble::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 6px;
+@keyframes animate {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translate(-40vh) scale(1.5);
+  }
+}
+@keyframes animate2 {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translate(20vh) scale(2);
+  }
+}
+@keyframes animate3Randy {
+  0% {
+    transform: translateY(150%);
+  }
+  100% {
+    transform: translate(25vh) scale(2);
+  }
+}
+@keyframes animateLanding {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translate(800%) scale(1);
+  }
 }
 
-.speech-bubble::-webkit-scrollbar-thumb:hover {
-  background: #555;
+#burbuja {
+  animation: animate3Randy 10s linear infinite alternate-reverse;
+  margin: -50px 0px;
+}
+
+#burbuja2 {
+  animation: animateboton 2s linear infinite alternate-reverse;
+}
+#burbujaLanding {
+  animation: animateLanding 7s linear infinite alternate-reverse;
+}
+
+@keyframes animateboton {
+  0% {
+    transform: translateY(10%);
+  }
+  100% {
+    transform: translate(1%) scale(1);
+  }
 }

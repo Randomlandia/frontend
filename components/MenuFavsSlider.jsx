@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import TemaContainerSlider from "./TemaContainerSlider";
 import TemporaryUser from "@/constants/TemporaryUser";
 
-
 const prevSlides = [
   "nerd",
   "ciencias",
@@ -12,11 +11,10 @@ const prevSlides = [
   "deportes",
   "artes",
   "mundo",
-  "matematicas"
+  "matematicas",
 ];
 
 export default function MenuFavsSlider() {
-
   const router = useRouter();
   const [sandias, setSandias] = useState([]);
   const [vistos, setVistos] = useState([]);
@@ -27,12 +25,19 @@ export default function MenuFavsSlider() {
       const isFavRoute = router.pathname.includes("/favs");
       const isAckRoute = router.pathname.includes("/ackn");
 
-      if (isFavRoute) {
-        const favs = JSON.parse(localStorage.getItem("favs")) || [];
-        setSandias(favs);
-      } else if (isAckRoute) {
-        const views = JSON.parse(localStorage.getItem("view")) || [];
-        setVistos(views);
+      try {
+        if (isFavRoute) {
+          const favsString = localStorage.getItem("favs");
+          const favs = favsString ? JSON.parse(favsString) : [];
+          setSandias(favs);
+        } else if (isAckRoute) {
+          const viewsString = localStorage.getItem("view");
+          const views = viewsString ? JSON.parse(viewsString) : [];
+          setVistos(views);
+        }
+      } catch (error) {
+        console.error("Error al obtener datos:", error);
+        // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje al usuario o estableciendo un valor predeterminado.
       }
 
       setLoading(false);
@@ -45,9 +50,9 @@ export default function MenuFavsSlider() {
 
   const checkSandiaByTheme = (themeName) => {
     if (router.pathname.includes("/favs")) {
-      return sandias.some((sandia) => sandia.topic.name === themeName);
+      return sandias.some((sandia) => sandia?.topic?.name === themeName);
     } else if (router.pathname.includes("/ackn")) {
-      return vistos.some((visto) => visto.topic.name === themeName);
+      return vistos.some((visto) => visto?.topic?.name === themeName);
     }
     return false;
   };
@@ -60,7 +65,7 @@ export default function MenuFavsSlider() {
         bool={checkSandiaByTheme(name)}
         name={name}
       />
-    )
+    ),
   }));
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -78,7 +83,9 @@ export default function MenuFavsSlider() {
           <div
             className="flex transition-transform duration-500"
             style={{
-              transform: `translateX(-${(currentSlide * 100) / slidesPerPage}%)`
+              transform: `translateX(-${
+                (currentSlide * 100) / slidesPerPage
+              }%)`,
             }}
           >
             {slides.map((slide) => (

@@ -4,10 +4,14 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
 
 export default function Login() {
   const [background, setBackground] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const { isLoaded, user } = useUser([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -21,41 +25,93 @@ export default function Login() {
     }
   }, []);
 
+  // Clerk: guardar datos del usuario en localStorage
+  useEffect(() => {
+    if (isLoaded && user) {
+      const saveClerkUserDataOnLocalHost = async () => {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_RANDOM_API}users/email`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: user.emailAddresses[0].emailAddress,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        ).catch((error) => {
+          console.log("Error: ", error);
+        });
+
+        const data = await response?.json();
+        if (data) {
+          const cookieName = "__clerk_db_jwt";
+          const cookieValue = getCookieValueByName(cookieName);
+          const idUser = data?.data?._id;
+          if (cookieValue && data) {
+            localStorage.setItem("token", cookieValue);
+            localStorage.setItem("userID", idUser);
+            localStorage.setItem("username", data.data.name);
+            localStorage.setItem("avatar", data.data.avatar);
+            localStorage.setItem(
+              "favs",
+              JSON.stringify(data.data.sandiasFavoritas)
+            );
+            localStorage.setItem(
+              "view",
+              JSON.stringify(data.data.sandiasVistas)
+            );
+            localStorage.setItem(
+              "achieve",
+              JSON.stringify(data.data.achievements)
+            );
+            localStorage.setItem("score", JSON.stringify(data.data.score));
+          }
+        }
+      };
+
+      saveClerkUserDataOnLocalHost();
+    }
+  }, [isLoaded, user]);
+
   const {
     handleSubmit,
     register,
     setError,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
 
   async function onSubmit(dataLogIn) {
-    const response = await fetch("http://localhost:3005/users/login", {
-      method: "Post",
-      body: JSON.stringify({
-        email: dataLogIn.email,
-        password: dataLogIn.password,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    }).catch((error) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_RANDOM_API}users/login`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          email: dataLogIn.email,
+          password: dataLogIn.password,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    ).catch((error) => {
       console.log("Error", error);
     });
 
     const json = await response?.json();
+
     if (json?.data?.token) {
 
       localStorage.setItem("token", json.data.token);
       localStorage.setItem("userID", json.data.userID);
-      console.log(json);
       console.log("Login Exitoso");
 
       const userID = localStorage.getItem("userID");
 
-      // SEGUNDO FETCH (estoy obteniendo la informacion de username, avatar, favoritas, logros y vistos)
       const userResponse = await fetch(
-        `http://localhost:3005/users/${userID}`,
+        `${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`,
         {
           method: "GET",
           headers: {
@@ -67,13 +123,9 @@ export default function Login() {
       const userJson = await userResponse.json();
       if (userJson?.data) {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-        const user = {
-          username: userJson.data.users.name,
-          avatar: userJson.data.users.avatar
-        };
-        console.log("Usuario obtenido con éxito", userJson.data);
-        localStorage.setItem("exp", JSON.stringify(exp));
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("exp", exp.toString());
+        localStorage.setItem("username", userJson.data.users.name);
+        localStorage.setItem("avatar", userJson.data.users.avatar);
         localStorage.setItem(
           "favs",
           JSON.stringify(userJson.data.users.sandiasFavoritas)
@@ -86,15 +138,44 @@ export default function Login() {
           "achieve",
           JSON.stringify(userJson.data.users.achievements)
         );
+        localStorage.setItem(
+          "score",
+          JSON.stringify(userJson.data.users.score)
+        );
+        localStorage.setItem("exp", exp.toString());
+        localStorage.setItem("username", userJson.data.users.name);
+        localStorage.setItem("avatar", userJson.data.users.avatar);
+        localStorage.setItem(
+          "favs",
+          JSON.stringify(userJson.data.users.sandiasFavoritas)
+        );
+        localStorage.setItem(
+          "view",
+          JSON.stringify(userJson.data.users.sandiasVistas)
+        );
+        localStorage.setItem(
+          "achieve",
+          JSON.stringify(userJson.data.users.achievements)
+        );
+        localStorage.setItem(
+          "score",
+          JSON.stringify(userJson.data.users.score)
+        );
+
+        setTimeout(() => {
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+            router.push("/menu");
+          }, 2000);
+        }, 2000);
       } else {
         console.log("No se pudieron obtener los datos del usuario");
+        setError("root", { message: "Usuario o contraseña inválidos" });
       }
-
-      router.push("/menu");
-      return;
+    } else {
+      console.log("Usuario o contraseña inválidos");
     }
-    console.log("Usuario o contraseña inválidos");
-    setError("root", { message: "Usuario o contraseña inválidos" });
   }
 
   return (
@@ -105,7 +186,7 @@ export default function Login() {
       <Navbar />
       <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
         <div className="grid gap-7  text-white ">
-          <SignInButton mode="modal" forceRedirectUrl="/randomlandia">
+          <SignInButton mode="modal" forceRedirectUrl="/login">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
               <p className="text-natD font-lucky text-3xl">
                 inicia sesión con:
@@ -126,7 +207,7 @@ export default function Login() {
           </div>
         </div>
         <form
-          autocomplete="off"
+          autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
           name="formLogIn"
           className="w-full md:w-[424px] pt-3 flex flex-col text-sm "
@@ -137,9 +218,10 @@ export default function Login() {
                 EMAIL
               </label>
               <input
-                autocomplete="off"
+                autoComplete="off"
                 type="email"
                 name="email"
+                required
                 placeholder="ejemplo@mail.com"
                 className="bg-lorange/50  outline-lorange/50 outline-offset-1  text-white p-2 rounded-lg shadow-md "
                 {...register("email", {
@@ -162,7 +244,8 @@ export default function Login() {
               <input
                 type="password"
                 name="password"
-                autocomplete="off"
+                autoComplete="off"
+                required
                 placeholder="********"
                 className="bg-lorange/50 outline-lorange/50 outline-offset-1 text-white p-2 rounded-lg shadow-md"
                 {...register("password", {
@@ -200,18 +283,35 @@ export default function Login() {
             </p>
           )}
 
-          <div className="grid justify-center gap-3">
-            <button
-              type="submit"
-              className="bg-[#0288D1] p-1.5 w-56 m-auto font-lucky text-white text-xl shadow-md tracking-wider rounded-full mt-5"
+          {showSuccess && (
+            <div
+              className="absolute bottom-0 left-0 right-0 bg-green-500 text-white text-center py-2"
+              style={{ animation: "fadeInOut 4s" }}
             >
-              INICIAR SESIÓN
-            </button>
-            <Link href="./register" className="text-natD underline text-center">
-              CREAR CUENTA
-            </Link>
-          </div>
+              Login exitoso!
+            </div>
+          )}
+
+          <button
+            className="w-full bg-lorange rounded-[50px] px-6 py-3 mb-4 text-white text-xl"
+            type="submit"
+          >
+            <p className=" font-ram tracking-wider">Login</p>
+          </button>
         </form>
+
+        <SignedIn>
+          <UserButton afterSignOutUrl="/" />
+        </SignedIn>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+
+        <Link href="/register">
+          <div className="text-natD hover:text-lorange font-ram font-light cursor-pointer ">
+            Aún no tengo cuenta
+          </div>
+        </Link>
       </div>
     </div>
   );

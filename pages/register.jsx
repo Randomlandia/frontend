@@ -9,8 +9,13 @@ import Image from "next/image";
 export default function Register() {
   const [background, setBackground] = useState("bg-booksflying.webp");
   const [showSuccess, setShowSuccess] = useState(false);
+<<<<<<< HEAD
   const [background, setBackground] = useState("bg-booksflying.webp");
   const [showSuccess, setShowSuccess] = useState(false);
+=======
+  const [showError, setShowError] = useState(false);
+
+>>>>>>> develop
   const router = useRouter();
 
   const {
@@ -20,7 +25,7 @@ export default function Register() {
     watch,
     watch,
     formState: { errors },
-    setError
+    setError,
   } = useForm();
 
   useEffect(() => {
@@ -33,69 +38,84 @@ export default function Register() {
   }, []);
 
   async function onSubmit(dataRegistro) {
+    const noEmail = !dataRegistro.correoRegistro;
+    const noPassword = !dataRegistro.contraseñaRegistro; // Corregido de correoRegistro a contraseñaRegistro
+    const noName = !dataRegistro.userRegistro;
+    const noBirthday = !dataRegistro.fechaNacimiento;
+  
+    const isMissingFields = noEmail || noPassword || noName || noBirthday;
     try {
+      if (isMissingFields) {
+        setShowError(true);
+        return; // Termina la función si hay campos faltantes
+      }
+  
+      setShowError(false);
+  
       // Registro del usuario
-      const registroResponse = await fetch("http://localhost:3005/users", {
+      const registroResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users`, {
         method: "POST",
         body: JSON.stringify({
           name: dataRegistro.userRegistro,
           email: dataRegistro.correoRegistro,
-          password: dataRegistro.contraseñaRegistro
+          password: dataRegistro.contraseñaRegistro,
+          fechaNacimiento: dataRegistro.fechaNacimiento,
         }),
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
+          "Content-type": "application/json; charset=UTF-8",
+        },
       });
-
+  
+      if (!registroResponse.ok) {
+        throw new Error("Error en el registro");
+      }
+  
       const registroJson = await registroResponse.json();
-
+  
       if (registroJson) {
-        // Almacenar los datos de registro en localStorage (aparecia en la funcion original, pero ya no es necesario)
-        // localStorage.setItem("dataRegistro", JSON.stringify(dataRegistro));
-
         // Autenticación del usuario después del registro
-        const loginResponse = await fetch("http://localhost:3005/users/login", {
+        const loginResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/login`, {
           method: "POST",
           body: JSON.stringify({
             email: dataRegistro.correoRegistro,
-            password: dataRegistro.contraseñaRegistro
+            password: dataRegistro.contraseñaRegistro,
           }),
           headers: {
-            "Content-type": "application/json; charset=UTF-8"
-          }
+            "Content-type": "application/json; charset=UTF-8",
+          },
         });
-
+  
+        if (!loginResponse.ok) {
+          throw new Error("Usuario o contraseña inválidos");
+        }
+  
         const loginJson = await loginResponse.json();
-
+  
         if (loginJson?.data?.token) {
           localStorage.setItem("token", loginJson.data.token);
           localStorage.setItem("userID", loginJson.data.userID);
           console.log("Login Exitoso");
-
+  
           const userID = loginJson.data.userID;
-
+  
           // Obtener la información del usuario
           const userResponse = await fetch(
-            `http://localhost:3005/users/${userID}`,
+            `${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`,
             {
               method: "GET",
               headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-              }
+                "Content-Type": "application/json; charset=UTF-8",
+              },
             }
           );
-
+  
+          if (!userResponse.ok) {
+            throw new Error("No se pudieron obtener los datos del usuario");
+          }
+  
           const userJson = await userResponse.json();
-
+  
           if (userJson?.data) {
-            const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-            const user = {
-              username: userJson.data.users.name,
-              avatar: userJson.data.users.avatar
-            };
-
-            localStorage.setItem("exp", JSON.stringify(exp));
-            localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem(
               "favs",
               JSON.stringify(userJson.data.users.sandiasFavoritas)
@@ -108,15 +128,24 @@ export default function Register() {
               "achieve",
               JSON.stringify(userJson.data.users.achievements)
             );
+            localStorage.setItem(
+              "score",
+              JSON.stringify(userJson.data.users.score)
+            );
+            localStorage.setItem(
+              "username",
+              userJson.data.users.name
+            );
+  
             setShowSuccess(true);
             setTimeout(() => {
               setShowSuccess(false);
-              router.push("/menu");
+              router.push("/");
             }, 2000);
           } else {
             console.log("No se pudieron obtener los datos del usuario");
           }
-
+  
           return;
         } else {
           console.log("Usuario o contraseña inválidos");
@@ -126,7 +155,8 @@ export default function Register() {
         console.log("Error en el registro");
       }
     } catch (error) {
-      console.log("Error", error);
+      console.log("Error:", error.message);
+      setShowError(true);
     }
   }
   return (
@@ -158,16 +188,16 @@ export default function Register() {
                     {...register("userRegistro", {
                       minLength: {
                         value: 3,
-                        message: "Usuario debe contener a mínimo 3 caracteres"
+                        message: "Usuario debe contener a mínimo 3 caracteres",
                       },
                       maxLength: {
                         value: 50,
-                        message: "Usuario debe contener a máximo 50 caracteres"
+                        message: "Usuario debe contener a máximo 50 caracteres",
                       },
                       pattern: {
                         value: /^[A-Za-z]+$/i,
-                        message: "Solo se permiten letras"
-                      }
+                        message: "Solo se permiten letras",
+                      },
                     })}
                   />
                 </div>
@@ -176,6 +206,22 @@ export default function Register() {
                     {errors.userRegistro.message}
                   </p>
                 )}
+              </div>
+              <div className="grid gap-0.5">
+                <div className="flex gap-2 font-bold justify-center">
+                  <img src="/icon_cumple.svg" alt="" className="w-9 h-9" />
+                  <input
+                    type="date"
+                    name="fechaNacimiento"
+                    className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
+                    {...register("fechaNacimiento")}
+                  />
+                  {/* {errors.fechaNacimiento && (
+                    <p className="text-red-500 text-center">
+                      {errors.fechaNacimiento.message}
+                    </p>
+                  )} */}
+                </div>
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
@@ -188,17 +234,17 @@ export default function Register() {
                     {...register("correoRegistro", {
                       minLength: {
                         value: 3,
-                        message: "Correo debe contener a mínimo 3 caracteres"
+                        message: "Correo debe contener a mínimo 3 caracteres",
                       },
                       maxLength: {
                         value: 50,
-                        message: "Correo debe contener a máximo 50 caracteres"
+                        message: "Correo debe contener a máximo 50 caracteres",
                       },
                       pattern: {
                         value:
                           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                        message: "Correo no válido"
-                      }
+                        message: "Correo no válido",
+                      },
                     })}
                   />
                 </div>
@@ -219,19 +265,18 @@ export default function Register() {
                     {...register("contraseñaRegistro", {
                       minLength: {
                         value: 3,
-                        message:
-                          "Contraseña debe contener mínimo 3 caracteres"
+                        message: "Contraseña debe contener mínimo 3 caracteres",
                       },
                       maxLength: {
                         value: 50,
                         message:
-                          "Contraseña debe contener máximo 50 caracteres"
+                          "Contraseña debe contener máximo 50 caracteres",
                       },
                       validate: {
                         matches: (value) =>
                           value === watch("contraseñaRegistro") ||
-                          "Las contraseñas no coinciden"
-                      }
+                          "Las contraseñas no coinciden",
+                      },
                     })}
                   />
                 </div>
@@ -253,8 +298,8 @@ export default function Register() {
                       validate: {
                         matches: (value) =>
                           value === watch("contraseñaRegistro") ||
-                          "Las contraseñas no coinciden"
-                      }
+                          "Las contraseñas no coinciden",
+                      },
                     })}
                   />
                 </div>
@@ -272,6 +317,11 @@ export default function Register() {
               >
                 enviar
               </button>
+              {showError && (
+                <p className=" text-red-500 text-center" id="letra">
+                  {"⚠ Llena los campos por favor"}
+                </p>
+              )}
               <Link href="./login" className="text-natD underline text-center">
                 INICIAR SESIÓN
               </Link>

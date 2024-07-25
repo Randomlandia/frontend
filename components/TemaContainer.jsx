@@ -32,7 +32,7 @@ export default function TemaContainer({ bool, name }) {
     },
     vida: {
       color: "/B_VIDA.svg",
-      grey: "/B_VIDA.svg",
+      grey: "/B_VIDAgrey.svg",
     },
     nerd: {
       color: "/B_NERD.svg",
@@ -45,16 +45,18 @@ export default function TemaContainer({ bool, name }) {
   };
 
   const [isHovered, setIsHovered] = useState(false);
+
   const isFavRoute = router.pathname.includes("/favs");
   const isAcknRoute = router.pathname.includes("/ackn");
-  const isMenuRoute = router.pathname.includes("/menu")
+  const isMenuRoute = router.pathname.includes("/menu");
 
   const handleClick = () => {
-    if (isMenuRoute){router.push(`/menu/${name}`)}
-    else if (isFavRoute){
-       router.push(`/user/favs/${name}`)
-    }else if (isAcknRoute){
-       router.push(`/user/ackn/${name}`)
+    if (isMenuRoute) {
+      router.push(`/menu`);
+    } else if (isFavRoute) {
+      router.push(`/user/favs/${name}`);
+    } else if (isAcknRoute) {
+      router.push(`/user/ackn/${name}`);
     }
   };
 
@@ -74,40 +76,48 @@ export default function TemaContainer({ bool, name }) {
     setIsHovered(false);
   };
 
+  const getHoverText = (name) => {
+    switch (name) {
+      case "default":
+        return "dato random";
+      case "matematicas":
+        return "mates";
+      default:
+        return name;
+    }
+  };
+
   return (
-    <div
+    <button
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       onClick={handleClick}
-      className="relative cursor-pointer flex justify-items-center mx-auto my-auto"
+      className="relative cursor-pointer flex justify-items-center w-full h-full mx-auto "
     >
       <img
-        src={bool ? badges[name].color : badges[name].grey}
+        src={bool ? badges[name]?.color : badges[name]?.grey}
         alt={name}
-        className={` ${
-          name === "default"
-            ? "h-36 w-36 md:h-44 md:w-44 lg:h-32 lg:w-32"
-            : "h-32 w-32 lg:h-24 lg:w-24"
+        className={`max-h-full max-w-full rounded-full ${
+          isHovered && "transform scale-125 shadow-lg shadow-yellow-100/80"
         }`}
       />
       {isHovered && (
-        <div className={`absolute`}>
-          <div className="bg-black/50 rounded-full flex justify-items-center text-center transition-opacity duration-300 mx-auto ">
-            <p
-              className={`capitalize text-white font-bold ${
-                name === "default"
-                  ? "h-36 w-36 md:h-44 md:w-44 lg:h-32 lg:w-32 translate-y-14 md:translate-y-12"
-                  : "h-28 w-28 md:h-32 md:w-32 lg:h-24 lg:w-24 translate-y-12 md:translate-y-10"
-              }`}
-            >
-              {name === "default" ? "dato random" : name}
-            </p>
-          </div>
+        <div
+          className={`absolute inset-0 flex justify-center items-centerrounded-full  ${
+            name === "default" ? "w-1/2 mx-auto" : ""
+          }`}
+        >
+          <p
+            className={`max-h-full max-w-full capitalize ml-20 text-dgreen font-bold text-center text-xl`}
+          >
+            {" "}
+            {!isMenuRoute && getHoverText(name)}
+          </p>
         </div>
       )}
-    </div>
+    </button>
   );
 }
 
