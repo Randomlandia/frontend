@@ -168,14 +168,18 @@ export default function Navbar() {
           </div>
           <div className="relative group hidden lg:inline-block">
             {isLogged && (
-              <button onClick={()=>handleLogout()} className="flex items-center pr-2 pt-1">
-                <img src="/icon_close.svg" alt="🚪" className="w-12" />
-              </button>
+              <>
+                <button
+                  onClick={() => handleLogout()}
+                  className="flex items-center pr-2 pt-1"
+                >
+                  <img src="/icon_close.svg" alt="🚪" className="w-12" />
+                </button>
+                <div className="absolute right-1 hidden group-hover:block bg-oldwhite border border-gray-200 p-2 rounded-lg shadow-lg mt-3 w-32">
+                  <p className="text-sm text-center text-natD">¿Ya te vas?</p>
+                </div>
+              </>
             )}
-
-            <div className="absolute right-1 hidden group-hover:block bg-oldwhite border border-gray-200 p-2 rounded-lg shadow-lg mt-3 w-32">
-              <p className=" text-sm text-center text-natD">¿Ya te vas?</p>
-            </div>
           </div>
           {/* SECCION MOBILE Y TABLET */}
           <div className="flex lg:hidden items-center gap-2 transform hover:scale-110">

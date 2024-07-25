@@ -33,7 +33,7 @@ const handleUpdateUser = async (isLogged) => {
 
   if (isLogged) {
     try {
-      const response = await fetch(`http://localhost:3005/users/${userID}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`, {
         method: "PUT",
         body: JSON.stringify(requestBody),
         headers: {

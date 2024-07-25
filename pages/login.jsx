@@ -27,7 +27,7 @@ export default function Login() {
   useEffect(() => {
     if (isLoaded && user) {
       const saveClerkUserDataOnLocalHost = async () => {
-        const response = await fetch("http://localhost:3005/users/email", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/email`, {
           method: "POST",
           body: JSON.stringify({
             email: user.emailAddresses[0].emailAddress,
@@ -44,7 +44,6 @@ export default function Login() {
           const cookieName = "__clerk_db_jwt";
           const cookieValue = getCookieValueByName(cookieName);
           const idUser = data?.data?._id;
-
           if (cookieValue && data) {
             localStorage.setItem("token", cookieValue);
             localStorage.setItem("userID", idUser);
@@ -70,7 +69,7 @@ export default function Login() {
   } = useForm();
 
   async function onSubmit(dataLogIn) {
-    const response = await fetch("http://localhost:3005/users/login", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/login`, {
       method: "POST",
       body: JSON.stringify({
         email: dataLogIn.email,
@@ -92,7 +91,7 @@ export default function Login() {
 
       const userID = localStorage.getItem("userID");
 
-      const userResponse = await fetch(`http://localhost:3005/users/${userID}`, {
+      const userResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
@@ -102,6 +101,13 @@ export default function Login() {
       const userJson = await userResponse.json();
       if (userJson?.data) {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
+        localStorage.setItem("exp", exp.toString());
+        localStorage.setItem("username", userJson.data.users.name);
+        localStorage.setItem("avatar", userJson.data.users.avatar);
+        localStorage.setItem("favs", JSON.stringify(userJson.data.users.sandiasFavoritas));
+        localStorage.setItem("view", JSON.stringify(userJson.data.users.sandiasVistas));
+        localStorage.setItem("achieve", JSON.stringify(userJson.data.users.achievements));
+        localStorage.setItem("score", JSON.stringify(userJson.data.users.score));
         localStorage.setItem("exp", exp.toString());
         localStorage.setItem("username", userJson.data.users.name);
         localStorage.setItem("avatar", userJson.data.users.avatar);

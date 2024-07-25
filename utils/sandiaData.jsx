@@ -1,12 +1,10 @@
-const url = "http://localhost:3005/sandias";
-
 export const sandiasData = async () => {
   const localStorageData = localStorage.getItem("Sandias");
   if (localStorageData) {
     return JSON.parse(localStorageData);
   }
 
-  const response = await fetch(url);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}sandias`);
   if (!response.ok) {
     throw new Error("Something went wrong");
   }
