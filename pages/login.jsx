@@ -15,6 +15,7 @@ export default function Login() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
 
+
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
     if (bgNew) {
@@ -28,6 +29,7 @@ export default function Login() {
   useEffect(() => {
     if (isLoaded && user) {
       const saveClerkUserDataOnLocalHost = async () => {
+
         try {
           const response = await fetch(
             `${process.env.NEXT_PUBLIC_RANDOM_API}users/email`,
@@ -52,6 +54,7 @@ export default function Login() {
           }
 
           const data = await response.json();
+
           const cookieName = "__clerk_db_jwt";
           const cookieValue = getCookieValueByName(cookieName);
           const idUser = data?.data?._id;
@@ -74,8 +77,10 @@ export default function Login() {
             );
             localStorage.setItem("score", JSON.stringify(data.data.score));
           }
+
         } catch (error) {
           console.log("Error: ", error);
+
         }
       };
 
@@ -87,7 +92,7 @@ export default function Login() {
     handleSubmit,
     register,
     setError,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   async function onSubmit(dataLogIn) {
@@ -97,11 +102,13 @@ export default function Login() {
         method: "POST",
         body: JSON.stringify({
           email: dataLogIn.email,
+
           password: dataLogIn.password
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         }
+
       }
     ).catch((error) => {
       console.log("Error", error);
@@ -121,8 +128,9 @@ export default function Login() {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json; charset=UTF-8"
-          }
+            "Content-Type": "application/json; charset=UTF-8",
+          },
+
         }
       );
 
@@ -192,6 +200,7 @@ export default function Login() {
             </div>
           </div>
         )}
+
         <div className="grid gap-7  text-white ">
           <SignInButton mode="modal" forceRedirectUrl="/login">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
@@ -240,6 +249,7 @@ export default function Login() {
                     value: 50,
                     message: "Usuario debe contener a máximo 50 caracteres"
                   }
+
                 })}
               />
             </div>
@@ -264,6 +274,7 @@ export default function Login() {
                     value: 50,
                     message: "Usuario debe contener a máximo 50 caracteres"
                   }
+
                 })}
               />
             </div>
