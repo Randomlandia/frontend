@@ -9,10 +9,12 @@ import Image from "next/image";
 import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
 
 export default function Login() {
+  const router = useRouter();
+  const { isLoaded, user } = useUser([]);
   const [background, setBackground] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
-  const { isLoaded, user } = useUser([]);
-  const router = useRouter();
+  const [showError, setShowError] = useState(false);
+
 
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
@@ -27,23 +29,32 @@ export default function Login() {
   useEffect(() => {
     if (isLoaded && user) {
       const saveClerkUserDataOnLocalHost = async () => {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_RANDOM_API}users/email`,
-          {
-            method: "POST",
-            body: JSON.stringify({
-              email: user.emailAddresses[0].emailAddress,
-            }),
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-            },
-          }
-        ).catch((error) => {
-          console.log("Error: ", error);
-        });
 
-        const data = await response?.json();
-        if (data) {
+        try {
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_RANDOM_API}users/email`,
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: user.emailAddresses[0].emailAddress,
+              }),
+              headers: {
+                "Content-type": "application/json; charset=UTF-8",
+              },
+            }
+          );
+
+          if (!response.ok) {
+            setShowError(true);
+            setTimeout(() => {
+              setShowError(false);
+              router.push("/register");
+            }, 5000);
+            return;
+          }
+
+          const data = await response.json();
+
           const cookieName = "__clerk_db_jwt";
           const cookieValue = getCookieValueByName(cookieName);
           const idUser = data?.data?._id;
@@ -66,6 +77,10 @@ export default function Login() {
             );
             localStorage.setItem("score", JSON.stringify(data.data.score));
           }
+
+        } catch (error) {
+          console.log("Error: ", error);
+
         }
       };
 
@@ -87,11 +102,13 @@ export default function Login() {
         method: "POST",
         body: JSON.stringify({
           email: dataLogIn.email,
-          password: dataLogIn.password,
+
+          password: dataLogIn.password
         }),
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
+          "Content-type": "application/json; charset=UTF-8"
+        }
+
       }
     ).catch((error) => {
       console.log("Error", error);
@@ -113,31 +130,13 @@ export default function Login() {
           headers: {
             "Content-Type": "application/json; charset=UTF-8",
           },
+
         }
       );
 
       const userJson = await userResponse.json();
       if (userJson?.data) {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-        localStorage.setItem("exp", exp.toString());
-        localStorage.setItem("username", userJson.data.users.name);
-        localStorage.setItem("avatar", userJson.data.users.avatar);
-        localStorage.setItem(
-          "favs",
-          JSON.stringify(userJson.data.users.sandiasFavoritas)
-        );
-        localStorage.setItem(
-          "view",
-          JSON.stringify(userJson.data.users.sandiasVistas)
-        );
-        localStorage.setItem(
-          "achieve",
-          JSON.stringify(userJson.data.users.achievements)
-        );
-        localStorage.setItem(
-          "score",
-          JSON.stringify(userJson.data.users.score)
-        );
         localStorage.setItem("exp", exp.toString());
         localStorage.setItem("username", userJson.data.users.name);
         localStorage.setItem("avatar", userJson.data.users.avatar);
@@ -181,6 +180,27 @@ export default function Login() {
     >
       <Navbar />
       <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
+        {showError && (
+          <div className="fixed z-20 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+            <div className="w-4/5 bg-oldwhite grid gap-6 p-6 rounded-xl shadow-2xl shadow-lorange/70">
+              <h2 className="text-4xl text-center font-bold font-ram text-dorange mb-4">
+                ¡Ay no!
+              </h2>
+              <p className="text-center text-dgreen grid gap-2">
+                Parece ser que aún no te has registrado, pero no te preocupes,
+                ¡yo te llevo!
+              </p>
+              <div className="grid sm:flex gap-10 justify-center items-center py-3">
+                <img
+                  src={"/RANDY_06.svg"}
+                  alt="randy"
+                  className="w-40 sm:w-56"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="grid gap-7  text-white ">
           <SignInButton mode="modal" forceRedirectUrl="/login">
             <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
@@ -223,12 +243,13 @@ export default function Login() {
                 {...register("email", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Email o password inválido"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
-                  },
+                    message: "Usuario debe contener a máximo 50 caracteres"
+                  }
+
                 })}
               />
             </div>
@@ -247,12 +268,13 @@ export default function Login() {
                 {...register("password", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Email o password inválido"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
-                  },
+                    message: "Usuario debe contener a máximo 50 caracteres"
+                  }
+
                 })}
               />
             </div>
