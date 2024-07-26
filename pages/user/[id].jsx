@@ -69,7 +69,7 @@ export default function User() {
                 SCORE
               </p>
               <p className="font-mont font-semibold text-black text-5xl text-center min-w-[140px] ">
-                {user.data.users.score}
+                {user.data.users.score || "0"}
               </p>
             </div>
           </div>
