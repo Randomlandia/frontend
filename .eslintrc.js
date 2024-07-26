@@ -1,22 +1,23 @@
+// .eslintrc.js
 module.exports = {
   parser: "@babel/eslint-parser",
   parserOptions: {
-    requireConfigFile: false
+    requireConfigFile: false,
   },
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@next/next/recommended",
-    "next",
-    "next/core-web-vitals"
   ],
-  plugins: ["react"],
+  plugins: [
+    "react",
+  ],
   rules: {
     // Tus reglas personalizadas
-  }
+  },
 };
