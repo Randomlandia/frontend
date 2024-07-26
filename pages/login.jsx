@@ -115,8 +115,9 @@ export default function Login() {
           password: dataLogIn.password,
         }),
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
+          "Content-type": "application/json; charset=UTF-8"
+        }
+
       }
     ).catch((error) => {
       console.log("Error", error);
@@ -138,6 +139,7 @@ export default function Login() {
           headers: {
             "Content-Type": "application/json; charset=UTF-8",
           },
+
         }
       );
 
