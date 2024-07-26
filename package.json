@@ -28,9 +28,9 @@
     "swiper": "^11.1.4"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.24.8",
     "@types/chai": "^4.3.16",
     "autoprefixer": "^10.4.19",
-    "babel-eslint": "^10.1.0",
     "chai": "^5.1.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.1",
