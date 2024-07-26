@@ -26,9 +26,8 @@ export default function Login() {
     }
   };
 
-  // Llama a handleLogin cuando el componente se renderice
   handleLogin();
 
-  return null; // Devuelve null porque este componente no renderiza nada visualmente
+  return null; 
 }
 
