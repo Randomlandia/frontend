@@ -8,6 +8,9 @@ const nextConfig = {
     }
     return config;
   },
+  env: {
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+  },
 };
 
 module.exports = nextConfig;
