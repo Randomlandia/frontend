@@ -1,3 +1,4 @@
+import React from "react";
 const BackgroundsList = [
   {id:1, bg: "bg-1.webp"},
   {id:2, bg: "bg-2.webp"},

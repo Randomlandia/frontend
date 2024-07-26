@@ -1,3 +1,4 @@
+import React from "react";
 export const descrip = [
   {
     icono: "/about/iconoUser.svg",

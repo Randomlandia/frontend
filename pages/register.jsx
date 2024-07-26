@@ -1,10 +1,9 @@
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Image from "next/image";
 
 export default function Register() {
   const [background, setBackground] = useState("bg-booksflying.webp");

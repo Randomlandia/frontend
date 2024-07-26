@@ -1,3 +1,4 @@
+import React from "react";
 const handleUpdateUser = async (isLogged) => {
   const parseJSON = (item) => {
     try {

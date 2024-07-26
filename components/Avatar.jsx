@@ -1,3 +1,4 @@
+import React from "react";
 import ModalAvatar from "./modalAvatar";
 import ModalAvatarNombre from "./modalNombre";
 import SeleccionaAvatar from "./SeleccionaAvatar";

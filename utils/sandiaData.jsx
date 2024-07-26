@@ -1,3 +1,4 @@
+import React from "react";
 export const sandiasData = async () => {
   const localStorageData = localStorage.getItem("Sandias");
   if (localStorageData) {

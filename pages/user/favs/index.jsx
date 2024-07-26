@@ -5,7 +5,7 @@ import MenuFavsCircle from "@/components/MenuFavsCircle";
 import RandyTextRight from "@/components/RandyTextRight";
 import RandyTextLeft from "@/components/RandyTextLeft";
 import BackgroundModal from "@/components/BackgroundModal";
-import { useState, useEffect } from "react";
+import React,{ useState, useEffect } from "react";
 
 export default function Menu() {
   const [background, setBackground] = useState(null);

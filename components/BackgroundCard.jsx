@@ -1,3 +1,4 @@
+import React from "react";
 export default function BackgroundCard({ img, onSelect }) {
   return (
     <div

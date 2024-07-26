@@ -1,3 +1,4 @@
+import React from "react";
 export default function RandyNotFound() {
   return (
     <div className="flex flex-col p-10 overflow-hidden">
