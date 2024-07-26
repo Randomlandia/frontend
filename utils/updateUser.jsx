@@ -51,9 +51,7 @@ const handleUpdateUser = async (isLogged) => {
       return false; // Devuelve false si hay un error
     }
   }
-  setTimeout(() => {
-    router.push("/user/achv");
-  }, 3000);
+
   return false; // Devuelve false si isLogged es false
 };
 
