@@ -1,13 +1,12 @@
-// .eslintrc.js
 module.exports = {
   parser: "@babel/eslint-parser",
   parserOptions: {
-    requireConfigFile: false
+    requireConfigFile: false,
   },
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
   },
   extends: [
     "eslint:recommended",
@@ -15,7 +14,6 @@ module.exports = {
     "plugin:@next/next/recommended",
     "plugin:react/jsx-runtime"
   ],
-  plugins: ["react"],
   rules: {
     "react/react-in-jsx-scope": "off",
     'react/prop-types': 'off', // Desactiva la regla de prop-types
