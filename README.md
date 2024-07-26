@@ -41,3 +41,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 Please, with love and Thanks!!!!
 
 Randy is love ♥
+
+Thanks!
