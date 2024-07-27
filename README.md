@@ -42,4 +42,4 @@ Please, with love and Thanks!!!!
 
 Randy is love ♥
 
-Please and Thanks!
+Please, with love and Thanks!
