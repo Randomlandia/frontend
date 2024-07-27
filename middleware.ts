@@ -1,14 +1,7 @@
-import { withClerkMiddleware } from '@clerk/nextjs/server';
-import { NextResponse } from 'next/server';
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
-export default withClerkMiddleware((req) => {
-  return NextResponse.next();
-});
+export default clerkMiddleware();
 
 export const config = {
-<<<<<<< HEAD
   matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
-=======
-  matcher: '/((?!_next/image|_next/static|favicon.ico).*)',
->>>>>>> cfeb392 (fix: middleware.ts file)
 };
