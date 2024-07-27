@@ -31,7 +31,7 @@ export default function Login() {
       const saveClerkUserDataOnLocalHost = async () => {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_RANDOM_API}users/email`,
+            `https://backrandomlandia.vercel.app/users/email`,
             {
               method: "POST",
               body: JSON.stringify({
@@ -96,7 +96,7 @@ export default function Login() {
 
   async function onSubmit(dataLogIn) {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_RANDOM_API}users/login`,
+      `https://backrandomlandia.vercel.app/users/login`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -122,7 +122,7 @@ export default function Login() {
       const userID = localStorage.getItem("userID");
 
       const userResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`,
+        `https://backrandomlandia.vercel.app/users/${userID}`,
         {
           method: "GET",
           headers: {

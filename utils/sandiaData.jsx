@@ -5,7 +5,7 @@ export const sandiasData = async () => {
     return JSON.parse(localStorageData);
   }
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}sandias`);
+  const response = await fetch(`https://backrandomlandia.vercel.app/sandias`);
   if (!response.ok) {
     throw new Error("Something went wrong");
   }
