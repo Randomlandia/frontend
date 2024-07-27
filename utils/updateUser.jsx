@@ -14,7 +14,7 @@ const handleUpdateUser = async (isLogged) => {
   const username = localStorage.getItem("username") || "";
   const avatar = localStorage.getItem("avatar") || "";
   const achieve = parseJSON(localStorage.getItem("achieve")) || {};
-  const score = parseJSON(localStorage.getItem("score")) || {};
+  const score = parseJSON(localStorage.getItem("score")) || "";
   const tested = parseJSON(localStorage.getItem("tested")) || [];
   const userID = localStorage.getItem("userID") || "";
 
@@ -29,18 +29,21 @@ const handleUpdateUser = async (isLogged) => {
     achievements: achieve,
     sandiasFavoritas,
     score,
-    sandiasTested
+    sandiasTested,
   };
 
   if (isLogged) {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`, {
-        method: "PUT",
-        body: JSON.stringify(requestBody),
-        headers: {
-          "Content-Type": "application/json; charset=UTF-8"
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(requestBody),
+          headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+          },
         }
-      });
+      );
       const json = await response.json();
       console.log("Usuario actualizado", json);
       return response.ok; // Devuelve true si la respuesta es ok
@@ -49,9 +52,7 @@ const handleUpdateUser = async (isLogged) => {
       return false; // Devuelve false si hay un error
     }
   }
-  setTimeout(() => {
-    router.push("/user/achv")
-  }, 3000)
+
   return false; // Devuelve false si isLogged es false
 };
 
