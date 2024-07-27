@@ -11,6 +11,11 @@ const nextConfig = {
   env: {
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
   },
+  images: {
+    domains: ["www.gravatar.com"],
+    formats: ["image/avif", "image/webp"],
+  },
+  swcMinify: false,
 };
 
 module.exports = nextConfig;
