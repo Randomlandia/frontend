@@ -53,7 +53,7 @@ export default function Avatar(props) {
       );
     }
 
-    fetch(`https://backrandomlandia.vercel.app/users/${props.id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${props.id}`, {
       method: "Put",
       body: JSON.stringify({
         name: nameUser.name,

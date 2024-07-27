@@ -46,7 +46,7 @@ export default function Register() {
       setShowError(false);
   
       // Registro del usuario
-      const registroResponse = await fetch(`https://backrandomlandia.vercel.app/users`, {
+      const registroResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users`, {
         method: "POST",
         body: JSON.stringify({
           name: dataRegistro.userRegistro,
@@ -67,7 +67,7 @@ export default function Register() {
   
       if (registroJson) {
         // Autenticación del usuario después del registro
-        const loginResponse = await fetch(`https://backrandomlandia.vercel.app/users/login`, {
+        const loginResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/login`, {
           method: "POST",
           body: JSON.stringify({
             email: dataRegistro.correoRegistro,
@@ -93,7 +93,7 @@ export default function Register() {
   
           // Obtener la información del usuario
           const userResponse = await fetch(
-            `https://backrandomlandia.vercel.app/users/${userID}`,
+            `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
             {
               method: "GET",
               headers: {

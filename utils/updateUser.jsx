@@ -35,7 +35,7 @@ const handleUpdateUser = async (isLogged) => {
   if (isLogged) {
     try {
       const response = await fetch(
-        `https://backrandomlandia.vercel.app/users/${userID}`,
+        `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
         {
           method: "PUT",
           body: JSON.stringify(requestBody),

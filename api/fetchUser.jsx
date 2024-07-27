@@ -6,7 +6,7 @@ export default function Login() {
       const email = "angie@mymail.com";
       const password = "angie123";
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/login`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
