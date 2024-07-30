@@ -27,7 +27,7 @@ export default function Register() {
     if (bgNew) {
       setBackground(`/backgrounds/${bgNew}`);
     } else {
-      setBackground("/backgrounds/bg-booksflying.webp");
+      setBackground("/backgrounds/3.png");
     }
   }, []);
 

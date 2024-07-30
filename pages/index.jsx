@@ -1,35 +1,15 @@
+import React, { useEffect, useState, useContext } from "react";
+import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 import Luz from "@/components/home/luz";
-import React from "react";
-import { useRouter } from "next/router";
-import { useState, useEffect, useRef } from "react";
+import { MusicContext } from "@/components/home/musicContex";
 
 export default function Home() {
   const router = useRouter();
-  const [musica, setMusica] = useState(false);
+  const { musica, setMusica } = useContext(MusicContext);
   const [animacionActiva, setAnimacionActiva] = useState(false);
-  const audioRef = useRef(null);
 
   useEffect(() => {
-    audioRef.current = new Audio("music/18. The Flower Garden.mp3");
-
-    return () => {
-      // Cleanup audio on component unmount
-      audioRef.current.pause();
-      audioRef.current = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (musica) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  }, [musica]);
-
-  useEffect(() => {
-    // Activar la animación al montar el componente
     setAnimacionActiva(true);
   }, []);
 
@@ -102,7 +82,7 @@ export default function Home() {
         <div
           id="burbuja2"
           className="bg-black mt-[400px] m-auto z-[1000] h-[200px] w-[200px] md:h-[300px] md:w-[300px] align-middle
-          flex bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
+          flex bg-grey/30 rounded-full shadow-amber-100 shadow-lg"
         >
           <button
             onClick={menu}
