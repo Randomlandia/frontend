@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "@/components/Navbar";
 import ModalPassword from "@/components/modalPassword";
 export default function Pruebas() {

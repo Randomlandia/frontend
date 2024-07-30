@@ -1,3 +1,4 @@
+import React from "react";
 export const nosotros = [
   {
     icono: "/landing/mision.svg",

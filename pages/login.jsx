@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -121,7 +122,7 @@ export default function Login() {
       const userID = localStorage.getItem("userID");
 
       const userResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`,
+        `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
         {
           method: "GET",
           headers: {

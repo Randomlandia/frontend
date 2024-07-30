@@ -1,3 +1,4 @@
+import React from "react";
 import BackgroundsList from "@/constants/BackgroundsList";
 import BackgroundCard from "./BackgroundCard";
 import { useEffect, useState } from "react";

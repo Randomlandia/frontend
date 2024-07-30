@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "@/components/Navbar";
 import TemaContainer from "@/components/TemaContainerSlider";
 import MenuTemasSlider from "@/components/MenuTemasSlider";
@@ -17,7 +18,9 @@ export default function Menu() {
   };
 
   useEffect(() => {
-    updateBackground();
+    if (typeof window !== 'undefined') {
+      updateBackground();
+    }
   }, []);
 
   return (

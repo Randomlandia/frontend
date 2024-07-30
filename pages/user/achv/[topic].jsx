@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "@/components/Navbar";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";

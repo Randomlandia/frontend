@@ -1,3 +1,4 @@
+import React from "react";
 const handleUpdateUser = async (isLogged) => {
   const parseJSON = (item) => {
     try {
@@ -34,7 +35,7 @@ const handleUpdateUser = async (isLogged) => {
   if (isLogged) {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`,
+        `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
         {
           method: "PUT",
           body: JSON.stringify(requestBody),

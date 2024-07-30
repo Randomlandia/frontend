@@ -1,10 +1,9 @@
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Image from "next/image";
 
 export default function Register() {
   const [background, setBackground] = useState("bg-booksflying.webp");
@@ -94,7 +93,7 @@ export default function Register() {
   
           // Obtener la información del usuario
           const userResponse = await fetch(
-            `${process.env.NEXT_PUBLIC_RANDOM_API}users/${userID}`,
+            `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
             {
               method: "GET",
               headers: {

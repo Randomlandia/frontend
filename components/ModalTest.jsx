@@ -1,4 +1,5 @@
 // components/ModalTest.js
+import React from "react";
 import TestBubble from "./TestBubble";
 import SpeechBubble from "./SpeechBubble";
 import TemaContainer from "./TemaContainer";
