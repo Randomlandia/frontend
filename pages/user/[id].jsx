@@ -11,7 +11,7 @@ export default function User() {
   let id = router.query.id;
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${id}`, {
       method: "Get",
     })
       .then((response) => response?.json())

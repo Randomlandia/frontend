@@ -35,62 +35,68 @@ export default function Register() {
     const noPassword = !dataRegistro.contraseñaRegistro; // Corregido de correoRegistro a contraseñaRegistro
     const noName = !dataRegistro.userRegistro;
     const noBirthday = !dataRegistro.fechaNacimiento;
-  
+
     const isMissingFields = noEmail || noPassword || noName || noBirthday;
     try {
       if (isMissingFields) {
         setShowError(true);
         return; // Termina la función si hay campos faltantes
       }
-  
+
       setShowError(false);
-  
+
       // Registro del usuario
-      const registroResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users`, {
-        method: "POST",
-        body: JSON.stringify({
-          name: dataRegistro.userRegistro,
-          email: dataRegistro.correoRegistro,
-          password: dataRegistro.contraseñaRegistro,
-          fechaNacimiento: dataRegistro.fechaNacimiento,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
-  
-      if (!registroResponse.ok) {
-        throw new Error("Error en el registro");
-      }
-  
-      const registroJson = await registroResponse.json();
-  
-      if (registroJson) {
-        // Autenticación del usuario después del registro
-        const loginResponse = await fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/login`, {
+      const registroResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}users`,
+        {
           method: "POST",
           body: JSON.stringify({
+            name: dataRegistro.userRegistro,
             email: dataRegistro.correoRegistro,
             password: dataRegistro.contraseñaRegistro,
+            fechaNacimiento: dataRegistro.fechaNacimiento,
           }),
           headers: {
             "Content-type": "application/json; charset=UTF-8",
           },
-        });
-  
+        }
+      );
+
+      if (!registroResponse.ok) {
+        throw new Error("Error en el registro");
+      }
+
+      const registroJson = await registroResponse.json();
+
+      if (registroJson) {
+        // Autenticación del usuario después del registro
+        const loginResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}users/login`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: dataRegistro.correoRegistro,
+              password: dataRegistro.contraseñaRegistro,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        );
+
         if (!loginResponse.ok) {
           throw new Error("Usuario o contraseña inválidos");
         }
-  
+
         const loginJson = await loginResponse.json();
-  
+
         if (loginJson?.data?.token) {
           localStorage.setItem("token", loginJson.data.token);
           localStorage.setItem("userID", loginJson.data.userID);
           console.log("Login Exitoso");
-  
+
           const userID = loginJson.data.userID;
-  
+
           // Obtener la información del usuario
           const userResponse = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
@@ -101,13 +107,13 @@ export default function Register() {
               },
             }
           );
-  
+
           if (!userResponse.ok) {
             throw new Error("No se pudieron obtener los datos del usuario");
           }
-  
+
           const userJson = await userResponse.json();
-  
+
           if (userJson?.data) {
             localStorage.setItem(
               "favs",
@@ -125,11 +131,8 @@ export default function Register() {
               "score",
               JSON.stringify(userJson.data.users.score)
             );
-            localStorage.setItem(
-              "username",
-              userJson.data.users.name
-            );
-  
+            localStorage.setItem("username", userJson.data.users.name);
+
             setShowSuccess(true);
             setTimeout(() => {
               setShowSuccess(false);
@@ -138,7 +141,7 @@ export default function Register() {
           } else {
             console.log("No se pudieron obtener los datos del usuario");
           }
-  
+
           return;
         } else {
           console.log("Usuario o contraseña inválidos");
