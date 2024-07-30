@@ -7,7 +7,12 @@ export default function Pruebas() {
       <Navbar />
       <div className="m-5">
         Randy is love ♥ Randy is love ♥ Randy is love ♥ Randy is love ♥ Randy is
-        love ♥ Randy is love ♥
+        love ♥ Randy is love ♥ .env .env.local .env.development.local
+        .env.test.local .env.production.local .env .env.local
+        .env.development.local .env.test.local .env.production.local .env
+        .env.local .env.development.local .env.test.local
+        .env.production.local.env .env.local .env.development.local
+        .env.test.local .env.production.local
         <ModalPassword />
       </div>
     </div>
