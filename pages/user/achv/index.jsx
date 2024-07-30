@@ -25,7 +25,7 @@ export default function achv() {
     setId(idLocal);
 
     if (idLocal) {
-      fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${idLocal}`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${idLocal}`, {
         method: "GET",
       })
         .then((response) => response.json())

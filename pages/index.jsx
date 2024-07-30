@@ -35,7 +35,7 @@ export default function Home(props) {
 
   const menu = () => {
     router.push(`/menu`);
-  }
+  };
 
   return (
     <div className="max-h-screen bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-center xl:bg-[url('/backgrounds/bg-6.webp')]">
