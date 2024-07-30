@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 export default function MedallaDetail() {
-  const [background, setBackground] = useState("bg-booksflying.webp");
+  const [background, setBackground] = useState("../backgrounds/3.png");
   const router = useRouter();
   const [topicP, setTopic] = useState();
   const [colorFondo, setColorFondo] = useState();
