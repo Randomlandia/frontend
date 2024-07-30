@@ -7,7 +7,7 @@ export const MusicProvider = ({ children }) => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    audioRef.current = new Audio("music/18. The Flower Garden.mp3");
+    audioRef.current = new Audio("music/randomMusic_out.mp3");
 
     return () => {
       audioRef.current.pause();
