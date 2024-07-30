@@ -13,4 +13,3 @@ export const sandiasData = async () => {
   localStorage.setItem("Sandias", JSON.stringify(json.data.sandias));
   return json.data.sandias;
 };
-

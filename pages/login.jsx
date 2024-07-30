@@ -8,7 +8,6 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
-
 export default function Login() {
   const router = useRouter();
   const { isLoaded, user } = useUser([]);
@@ -31,7 +30,7 @@ export default function Login() {
       const saveClerkUserDataOnLocalHost = async () => {
         try {
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_RANDOM_API}users/email`,
+            `${process.env.NEXT_PUBLIC_API_URL}users/email`,
             {
               method: "POST",
               body: JSON.stringify({
@@ -96,7 +95,7 @@ export default function Login() {
 
   async function onSubmit(dataLogIn) {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_RANDOM_API}users/login`,
+      `${process.env.NEXT_PUBLIC_API_URL}users/login`,
       {
         method: "POST",
         body: JSON.stringify({
