@@ -14,6 +14,8 @@ export default function Login() {
   const [background, setBackground] = useState(null);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
+
 
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
@@ -23,6 +25,15 @@ export default function Login() {
       setBackground("/backgrounds/bg-booksflying.webp");
     }
   }, []);
+
+  //funcionalidad para recordar al user
+  useEffect(() => {
+    if (rememberMe) {
+      localStorage.setItem('rememberMe', true);
+    } else {
+      localStorage.removeItem('rememberMe', false);
+    }
+  }, [rememberMe]);
 
   // Clerk: guardar datos del usuario en localStorage
   useEffect(() => {
@@ -83,7 +94,9 @@ export default function Login() {
       saveClerkUserDataOnLocalHost();
     }
   }, [isLoaded, user]);
-
+  const handleToggleChange = () => {
+    setRememberMe(!rememberMe);
+  };
   const {
     handleSubmit,
     register,
@@ -155,7 +168,7 @@ export default function Login() {
           setShowSuccess(true);
           setTimeout(() => {
             setShowSuccess(false);
-            router.push("/menu");
+            router.push("/");
           }, 2000);
         }, 2000);
       } else {
@@ -227,7 +240,7 @@ export default function Login() {
           autoComplete="off"
           onSubmit={handleSubmit(onSubmit)}
           name="formLogIn"
-          className="w-full md:w-[424px] pt-3 flex flex-col text-sm "
+          className="w-full md:w-[424px] pt-3 flex flex-col text-sm gap-2"
         >
           <div className="flex flex-col gap-2">
             <div className="grid gap-0.5">
@@ -327,11 +340,31 @@ export default function Login() {
           <SignInButton />
         </SignedOut>*/}
 
-        <button href="/register">
-          <div className="text-natD hover:text-lorange font-ram font-light cursor-pointer ">
+        <button onClick={()=> router.push("/register")}>
+          <div className="text-natD hover:text-lorange font-mont font-semibold">
             Aún no tengo cuenta
           </div>
         </button>
+        <div className="mt-4">
+        <label className="flex items-center space-x-2 cursor-pointer">
+          <div className="relative">
+            <input 
+              type="checkbox" 
+              checked={rememberMe} 
+              onChange={handleToggleChange}
+              className="sr-only"
+            />
+            <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
+            <div
+              className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
+                rememberMe ? 'transform translate-x-full bg-natL' : ''
+              }`}
+            ></div>
+          </div>
+          <span className="text-natD font-mont font-semibold">Recuérdame</span>
+        </label>
+      </div>
+
       </div>
     </div>
   );

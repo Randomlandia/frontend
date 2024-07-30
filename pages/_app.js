@@ -5,8 +5,10 @@ import { checkTokenExpiry } from "@/utils/checkTokenExpiry";
 import { useEffect } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { handleBeforeUnload } from "@/utils/beforeUnloadHandler";
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }) {
+  const router = useRouter()
   useEffect(() => {
     sandiasData();
     checkTokenExpiry();
@@ -18,11 +20,16 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+    const onBeforeUnload = (event) => {
+      handleBeforeUnload(event);
     };
-  }, []);
+
+    window.addEventListener('beforeunload', onBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload);
+    };
+  }, [router]);
 
   return (
     <ClerkProvider
