@@ -29,9 +29,9 @@ export default function Login() {
   //funcionalidad para recordar al user
   useEffect(() => {
     if (rememberMe) {
-      localStorage.setItem('rememberMe', true);
+      localStorage.setItem('rememberMe', 'true');
     } else {
-      localStorage.removeItem('rememberMe', false);
+      localStorage.removeItem('rememberMe', 'false');
     }
   }, [rememberMe]);
 
@@ -97,6 +97,7 @@ export default function Login() {
   const handleToggleChange = () => {
     setRememberMe(!rememberMe);
   };
+
   const {
     handleSubmit,
     register,

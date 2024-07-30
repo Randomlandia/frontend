@@ -18,6 +18,7 @@ export const handleLogout = async (isLogged, router, signOut) => {
       keysToRemove.forEach((key) => localStorage.removeItem(key));
       await signOut();
       router.push("/");
+      console.log("si cerro sesion en todo")
     } else {
       console.log("Failed to update user, logout aborted.");
     }
