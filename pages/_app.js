@@ -6,15 +6,15 @@ import { useEffect } from "react";
 import { ClerkProvider } from '@clerk/nextjs';
 
 export default function App({ Component, pageProps }) {
-  // useEffect(() => {
-  //   sandiasData();
-  //   checkTokenExpiry();
-  //   const interval = setInterval(() => {
-  //     const exp = checkTokenExpiry();
-  //     if (exp)return
-  //   }, 3600000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    sandiasData();
+    checkTokenExpiry();
+    const interval = setInterval(() => {
+      const exp = checkTokenExpiry();
+      if (exp)return
+    }, 3600000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <ClerkProvider
