@@ -1,10 +1,5 @@
 import { handleUpdateUser } from "./updateUser";
-import { useClerk } from "@clerk/nextjs";
-import { useRouter } from "next/router";
-
-export const handleLogout = async (isLogged) => {
-  const router = useRouter();
-  const { signOut } = useClerk();
+export const handleLogout = async (isLogged, router, signOut) => {
   const keysToRemove = [
     "token",
     "username",
