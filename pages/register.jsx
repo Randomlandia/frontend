@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { handleUpdateUser } from "@/utils/updateUser";
+import { handleUpdateLocal } from "@/utils/updateLocal";
 
 export default function Register() {
   const [background, setBackground] = useState("bg-booksflying.webp");
@@ -32,7 +33,7 @@ export default function Register() {
 
   async function onSubmit(dataRegistro) {
     const noEmail = !dataRegistro.correoRegistro;
-    const noPassword = !dataRegistro.contraseñaRegistro; // Corregido de correoRegistro a contraseñaRegistro
+    const noPassword = !dataRegistro.contraseñaRegistro;
     const noName = !dataRegistro.userRegistro;
     const noBirthday = !dataRegistro.fechaNacimiento;
     const isMissingFields = noEmail || noPassword || noName || noBirthday;
@@ -113,35 +114,26 @@ export default function Register() {
           }
 
           const userJson = await userResponse.json();
+          const viewSandiaDB = userJson?.data.users.sandiasVistas;
+          const viewSandiaLocal = localStorage.getItem("view");
 
-          if (userJson?.data) {
-            localStorage.setItem(
-              "favs",
-              JSON.stringify(userJson.data.users.sandiasFavoritas)
-            );
-            localStorage.setItem(
-              "view",
-              JSON.stringify(userJson.data.users.sandiasVistas)
-            );
-            localStorage.setItem(
-              "achieve",
-              JSON.stringify(userJson.data.users.achievements)
-            );
-            localStorage.setItem(
-              "score",
-              JSON.stringify(userJson.data.users.score)
-            );
-            localStorage.setItem("username", userJson.data.users.name);
-            localStorage.setItem("avatar", userJson.data.users.avatar);
-
-            setShowSuccess(true);
-            setTimeout(() => {
-              setShowSuccess(false);
-              router.push("/");
-            }, 2000);
+          if (viewSandiaLocal) {
+            if (viewSandiaDB.length < JSON.parse(viewSandiaLocal).length) {
+              localStorage.setItem("username", userJson.data.users.name);
+              localStorage.setItem("avatar", userJson.data.users.avatar);
+              handleUpdateUser();
+            } else {
+              handleUpdateLocal(userJson, setShowSuccess);
+            }
           } else {
-            console.log("No se pudieron obtener los datos del usuario");
+            handleUpdateLocal(userJson, setShowSuccess);
           }
+
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+            router.push("/");
+          }, 2000);
 
           return;
         } else {
@@ -156,6 +148,29 @@ export default function Register() {
       setShowError(true);
     }
   }
+
+  const validateAge = (value) => {
+    const today = new Date();
+    const birthDate = new Date(value);
+    const minYear = today.getFullYear() - 90;
+    const maxYear = today.getFullYear() - 5;
+
+    const year = birthDate.getFullYear();
+
+    if (birthDate > today) {
+      return "La fecha no puede ser en el futuro";
+    }
+
+    if (year < minYear) {
+      return `El año no puede ser menor a ${minYear}`;
+    }
+
+    if (year > maxYear) {
+      return `El año no puede ser mayor a ${maxYear}`;
+    }
+
+    return true;
+  };
   return (
     <div
       className="min-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
@@ -213,32 +228,7 @@ export default function Register() {
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
                     {...register("fechaNacimiento", {
                       required: "La fecha de nacimiento es requerida",
-                      pattern: {
-                        value:
-                          /^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-(\d{4})$/,
-                        message: "Fecha inválida, con ella te recordaremos",
-                      },
-                      validate: (value) => {
-                        const today = new Date();
-                        const minYear = today.getFullYear() - 90;
-                        const maxYear = today.getFullYear() - 5;
-                        const [day, month, year] = value.split("/").map(Number);
-                        const birthDate = new Date(year, month - 1, day);
-
-                        if (birthDate > today) {
-                          return `La fecha no puede ser en el futuro`;
-                        }
-
-                        if (year < minYear) {
-                          return `El año no puede ser menor a ${minYear}`;
-                        }
-
-                        if (year > maxYear) {
-                          return `El año no puede ser mayor a ${maxYear}`;
-                        }
-
-                        return true;
-                      },
+                      validate: validateAge,
                     })}
                   />
                 </div>
