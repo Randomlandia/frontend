@@ -12,12 +12,11 @@ const handleUpdateUser = async (isLogged) => {
   const views = parseJSON(localStorage.getItem("view")) || [];
   const favs = parseJSON(localStorage.getItem("favs")) || [];
   const username = localStorage.getItem("username") || "";
-  const avatar = localStorage.getItem("avatar") || "";
+  const avatar = localStorage.getItem("avatar") || "0";
   const achieve = parseJSON(localStorage.getItem("achieve")) || {};
-  const score = parseJSON(localStorage.getItem("score")) || "";
+  const score = parseJSON(localStorage.getItem("score")) || "0";
   const tested = parseJSON(localStorage.getItem("tested")) || [];
   const userID = localStorage.getItem("userID") || "";
-
   const sandiasVistas = views.map((sandia) => sandia._id);
   const sandiasFavoritas = favs.map((sandia) => sandia._id);
   const sandiasTested = tested.map((sandia) => sandia._id);
@@ -45,7 +44,7 @@ const handleUpdateUser = async (isLogged) => {
         }
       );
       const json = await response.json();
-      console.log("Usuario actualizado", json);
+      console.log("Usuario actualizado");
       return response.ok; // Devuelve true si la respuesta es ok
     } catch (error) {
       console.log("Error", error);

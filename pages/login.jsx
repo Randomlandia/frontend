@@ -57,8 +57,6 @@ export default function Login() {
           const cookieValue = getCookieValueByName(cookieName);
           const idUser = data?.data?._id;
           if (cookieValue && data) {
-            console.log(data);
-            localStorage.setItem("score", data.data.score);
             localStorage.setItem("token", cookieValue);
             localStorage.setItem("userID", idUser);
             localStorage.setItem("username", data.data.name);
@@ -162,10 +160,10 @@ export default function Login() {
         }, 2000);
       } else {
         console.log("No se pudieron obtener los datos del usuario");
-        setError("root", { message: "Usuario o contraseña inválidos" });
       }
     } else {
       console.log("Usuario o contraseña inválidos");
+      setError("root", { message: "Usuario o contraseña inválidos" });
     }
   }
 
@@ -246,15 +244,25 @@ export default function Login() {
                 {...register("email", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Correo debe contener a mínimo 3 caracteres",
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
+                    message: "Correo debe contener a máximo 50 caracteres",
+                  },
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Correo no válido",
                   },
                 })}
               />
             </div>
+
+            {errors.email && (
+              <p className="text-red-500 text-center" id="letra">
+                {"⚠ "} {errors.email.message}
+              </p>
+            )}
             <div className="grid gap-0.5">
               <label name="password" className="px-2 py-4 text-natD font-ram">
                 CONTRASEÑA
@@ -270,37 +278,33 @@ export default function Login() {
                 {...register("password", {
                   minLength: {
                     value: 3,
-                    message: "Email o password inválido",
+                    message: "Mínimo tres caracteres",
                   },
                   maxLength: {
                     value: 50,
                     message: "Usuario debe contener a máximo 50 caracteres",
                   },
+                  pattern: {
+                    value: /^[a-zA-Z0-9]+$/,
+                    message: "Solo puedes usar letras y números",
+                  },
                 })}
               />
             </div>
-          </div>
-
-          <div id="errorPasswordEmail" className="p-1">
-            {(errors.password || errors.email) && (
-              <p
-                className="bg-lorange/50 text-white p-2 rounded-lg flex justify-center items-center"
-                id="letra"
-              >
+            {errors.password && (
+              <p className="text-red-500 text-center" id="letra">
                 {"⚠ "} {errors.password.message}
               </p>
             )}
           </div>
 
-          <br />
-          {errors.root && (
-            <p
-              className=" my-5 bg-lorange/50 text-white p-2 rounded-lg flex justify-center items-center"
-              id="letra"
-            >
-              {"⚠ "} {errors.root.message}
-            </p>
-          )}
+          <div id="errorPasswordEmail" className="p-1">
+            {errors.root && (
+              <p className=" text-red-500 text-center" id="letra">
+                {"⚠ "} {errors.root.message}
+              </p>
+            )}
+          </div>
 
           {showSuccess && (
             <div
