@@ -35,8 +35,8 @@ export default function Register() {
     const noPassword = !dataRegistro.contraseñaRegistro; // Corregido de correoRegistro a contraseñaRegistro
     const noName = !dataRegistro.userRegistro;
     const noBirthday = !dataRegistro.fechaNacimiento;
-
     const isMissingFields = noEmail || noPassword || noName || noBirthday;
+
     try {
       if (isMissingFields) {
         setShowError(true);
@@ -132,6 +132,7 @@ export default function Register() {
               JSON.stringify(userJson.data.users.score)
             );
             localStorage.setItem("username", userJson.data.users.name);
+            localStorage.setItem("avatar", userJson.data.users.avatar);
 
             setShowSuccess(true);
             setTimeout(() => {
@@ -191,7 +192,7 @@ export default function Register() {
                         message: "Usuario debe contener a máximo 50 caracteres",
                       },
                       pattern: {
-                        value: /^[A-Za-z]+$/i,
+                        value: /^[a-zA-Z0-9 ]+$/i,
                         message: "Solo se permiten letras",
                       },
                     })}
@@ -203,22 +204,52 @@ export default function Register() {
                   </p>
                 )}
               </div>
-              <div className="grid gap-0.5">
+              <div className="grid ">
                 <div className="flex gap-2 font-bold justify-center">
                   <img src="/icon_cumple.svg" alt="" className="w-9 h-9" />
                   <input
                     type="date"
                     name="fechaNacimiento"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("fechaNacimiento")}
+                    {...register("fechaNacimiento", {
+                      required: "La fecha de nacimiento es requerida",
+                      pattern: {
+                        value:
+                          /^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-(\d{4})$/,
+                        message: "Fecha inválida, con ella te recordaremos",
+                      },
+                      validate: (value) => {
+                        const today = new Date();
+                        const minYear = today.getFullYear() - 90;
+                        const maxYear = today.getFullYear() - 5;
+                        const [day, month, year] = value.split("/").map(Number);
+                        const birthDate = new Date(year, month - 1, day);
+
+                        if (birthDate > today) {
+                          return `La fecha no puede ser en el futuro`;
+                        }
+
+                        if (year < minYear) {
+                          return `El año no puede ser menor a ${minYear}`;
+                        }
+
+                        if (year > maxYear) {
+                          return `El año no puede ser mayor a ${maxYear}`;
+                        }
+
+                        return true;
+                      },
+                    })}
                   />
-                  {/* {errors.fechaNacimiento && (
-                    <p className="text-red-500 text-center">
-                      {errors.fechaNacimiento.message}
-                    </p>
-                  )} */}
                 </div>
+
+                {errors.fechaNacimiento && (
+                  <p className="text-red-500 text-center">
+                    {errors.fechaNacimiento.message}
+                  </p>
+                )}
               </div>
+
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
                   <img src="/mail.svg" alt="" className="w-9 h-9" />
