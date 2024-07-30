@@ -34,11 +34,11 @@ export default function Login() {
             {
               method: "POST",
               body: JSON.stringify({
-                email: user.emailAddresses[0].emailAddress,
+                email: user.emailAddresses[0].emailAddress
               }),
               headers: {
-                "Content-type": "application/json; charset=UTF-8",
-              },
+                "Content-type": "application/json; charset=UTF-8"
+              }
             }
           );
 
@@ -88,7 +88,7 @@ export default function Login() {
     handleSubmit,
     register,
     setError,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   async function onSubmit(dataLogIn) {
@@ -99,11 +99,11 @@ export default function Login() {
         body: JSON.stringify({
           email: dataLogIn.email,
 
-          password: dataLogIn.password,
+          password: dataLogIn.password
         }),
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
+          "Content-type": "application/json; charset=UTF-8"
+        }
       }
     ).catch((error) => {
       console.log("Error", error);
@@ -123,8 +123,8 @@ export default function Login() {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-          },
+            "Content-Type": "application/json; charset=UTF-8"
+          }
         }
       );
 
@@ -244,16 +244,16 @@ export default function Login() {
                 {...register("email", {
                   minLength: {
                     value: 3,
-                    message: "Correo debe contener a mínimo 3 caracteres",
+                    message: "Correo debe contener a mínimo 3 caracteres"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Correo debe contener a máximo 50 caracteres",
+                    message: "Correo debe contener a máximo 50 caracteres"
                   },
                   pattern: {
                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Correo no válido",
-                  },
+                    message: "Correo no válido"
+                  }
                 })}
               />
             </div>
@@ -278,16 +278,16 @@ export default function Login() {
                 {...register("password", {
                   minLength: {
                     value: 3,
-                    message: "Mínimo tres caracteres",
+                    message: "Mínimo tres caracteres"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
+                    message: "Usuario debe contener a máximo 50 caracteres"
                   },
                   pattern: {
                     value: /^[a-zA-Z0-9]+$/,
-                    message: "Solo puedes usar letras y números",
-                  },
+                    message: "Solo puedes usar letras y números"
+                  }
                 })}
               />
             </div>
@@ -307,11 +307,11 @@ export default function Login() {
           </div>
 
           {showSuccess && (
-            <div
-              className="absolute bottom-0 left-0 right-0 bg-green-500 text-white text-center py-2"
-              style={{ animation: "fadeInOut 4s" }}
-            >
-              Login exitoso!
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
+              <p className="text-ram text-center text-3xl font-bold text-dgreen">
+                ¡Bienvenido!
+                <br /> Ya estas listo para la aventura.
+              </p>
             </div>
           )}
 
@@ -327,11 +327,11 @@ export default function Login() {
           <SignInButton />
         </SignedOut>*/}
 
-        <Link href="/register">
+        <button href="/register">
           <div className="text-natD hover:text-lorange font-ram font-light cursor-pointer ">
             Aún no tengo cuenta
           </div>
-        </Link>
+        </button>
       </div>
     </div>
   );
