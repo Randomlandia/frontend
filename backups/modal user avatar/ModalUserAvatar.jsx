@@ -1,3 +1,4 @@
+import React from "react";
 export default function AvatarContainer() {
   return (
     <div className=" flex flex-col bg-oldwhite rounded-xl p-4 mt-10 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">

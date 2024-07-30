@@ -1,3 +1,4 @@
+import React from "react";
 export default function Perspectiva(props) {
   return (
     <div className="flex flex-col rounded-3xl m-[5px]  md:w-[228px] md:h-[284px]  gap-[10px] p-[10px]  items-center align-middle ">

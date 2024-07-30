@@ -1,3 +1,4 @@
+import React from "react";
 import ModalAvatar from "./modalAvatar";
 import ModalAvatarNombre from "./modalNombre";
 import SeleccionaAvatar from "./SeleccionaAvatar";
@@ -22,7 +23,7 @@ export default function Avatar(props) {
       );
     }
 
-    fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${props.id}`, {
+    fetch(`https://backrandomlandia.vercel.app/users/${props.id}`, {
       method: "Put",
       body: JSON.stringify({
         avatar: avatarValue,
@@ -52,7 +53,7 @@ export default function Avatar(props) {
       );
     }
 
-    fetch(`${process.env.NEXT_PUBLIC_RANDOM_API}users/${props.id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${props.id}`, {
       method: "Put",
       body: JSON.stringify({
         name: nameUser.name,

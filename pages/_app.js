@@ -1,22 +1,17 @@
+import React from "react";
 import "@/styles/globals.css";
 import { sandiasData } from "@/utils/sandiaData";
 import { checkTokenExpiry } from "@/utils/checkTokenExpiry";
 import { useEffect } from "react";
-
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from '@clerk/nextjs';
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     sandiasData();
     checkTokenExpiry();
     const interval = setInterval(() => {
-      checkTokenExpiry();
+      const exp = checkTokenExpiry();
+      if (exp)return
     }, 3600000);
     return () => clearInterval(interval);
   }, []);

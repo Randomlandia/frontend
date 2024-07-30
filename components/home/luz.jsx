@@ -1,3 +1,4 @@
+import React from "react";
 export default function Luz({ children, active }) {
   return (
     <div className="relative z-20 min-h-screen m-0 p-0">

@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "@/components/Navbar";
 import { useFavorites } from "@/utils/useFavorites";
 import { useRouter } from "next/router";

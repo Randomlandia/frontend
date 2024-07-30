@@ -1,3 +1,4 @@
+import React from "react";
 export default function CardRandyIcono(props) {
   return (
     <div className="flex h-[400px] flex-col rounded-3xl  gap-[10px]   items-center align-middle justify-center text-center">

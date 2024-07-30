@@ -1,3 +1,4 @@
+import React from "react";
 export const perspectiva = [
   {
     icono: "/landing/atractivo.svg",

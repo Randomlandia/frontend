@@ -1,3 +1,4 @@
+import React from "react";
 export default function CardSandiaFront() {
   return (
     // CARD CON TRANSPARENCIA

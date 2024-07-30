@@ -1,6 +1,6 @@
+import React from "react";
 import Navbar from "../components/Navbar";
 import { unicos } from "@/components/constants/unicos";
-import Unicos from "@/components/landing/unicos2Div";
 import ProbarAhora from "@/components/landing/botonProbarAhora";
 import ContactoFooter from "@/components/ContactoFooter";
 import RandyBurbuja from "@/components/landing/randyBurbuja";
