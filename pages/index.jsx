@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 
-export default function Home(props) {
+export default function Home() {
   const router = useRouter();
   const [musica, setMusica] = useState(false);
   const [animacionActiva, setAnimacionActiva] = useState(false);
@@ -38,7 +38,7 @@ export default function Home(props) {
   };
 
   return (
-    <div className="max-h-screen bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-center xl:bg-[url('/backgrounds/bg-6.webp')]">
+    <div className="max-h-screen bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-[url('/parallax_home/desk.png')] ">
       <Navbar />
 
       <div
@@ -83,6 +83,12 @@ export default function Home(props) {
 
           <img
             className="xl:hidden z-[9000] absolute m-auto pr-52 md:pb-[270px] h-[850px] pb-11 md:h-[1300px] bg-transparent"
+            src="/parallax_home/ARBOL 1 PLANO - IZQ.png"
+            alt="ARBOL1PLANO"
+          />
+
+          <img
+            className="hidden xl:grid absolute z-[9000]  m-auto  md:pb-[950px]  md:h-[2000px] bg-transparent"
             src="/parallax_home/ARBOL 1 PLANO - IZQ.png"
             alt="ARBOL1PLANO"
           />

@@ -83,7 +83,6 @@ export default function Avatar(props) {
   const {
     handleSubmit,
     register,
-    setError,
     formState: { errors },
   } = useForm();
 
