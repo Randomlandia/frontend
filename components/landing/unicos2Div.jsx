@@ -1,3 +1,4 @@
+import React from "react";
 export default function Unicos(props) {
   return (
     <div className="flex flex-col rounded-3xl   md:h-[400px]  gap-[10px] pt-[25px]  items-center align-middle justify-center text-center">

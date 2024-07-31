@@ -1,11 +1,10 @@
+import React from "react";
 import Navbar from "@/components/Navbar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 export default function MedallaDetail() {
-  const defaultBackground = "bg-booksflying.webp";
-  const [background, setBackground] = useState("bg-booksflying.webp");
+  const [background, setBackground] = useState("../backgrounds/3.png");
   const router = useRouter();
   const [topicP, setTopic] = useState();
   const [colorFondo, setColorFondo] = useState();
@@ -14,49 +13,26 @@ export default function MedallaDetail() {
   const [iconoTopicOn, setIconoTopicOn] = useState();
   const [iconoTopicGrande, setIconoTopicGrande] = useState();
   const [iconoTopicGrandeOff, setIconoTopicGrandeOff] = useState();
-
   const [id, setId] = useState();
   const [logros, setLogros] = useState();
   const [colorStar, setColorStar] = useState();
-  let topic = router.query.topic;
 
   useEffect(() => {
     const idLocal = localStorage.getItem("userID");
+    const topic = router.query.topic;
+
     setId(idLocal);
     setTopic(topic);
-    setColorFondo("border-artL");
-    setColorTexto("text-artD");
-    setIconoTopic("/B_ARTEgrey.svg");
-    setIconoTopicOn("/B_ARTE.svg");
-    setColorStar("/starart.svg");
-    setIconoTopicGrande("/M_ARTE.svg");
-    setIconoTopicGrandeOff("/M_ARTE_GREY.svg");
-  }, [topic]);
 
-  useEffect(() => {
-    fetch(`http://localhost:3005/users/${id}`, {
-      method: "Get",
-    })
-      .then((response) => response?.json())
-      .then((json) => {
-        setLogros(json.data.users.achievements[topicP].level);
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
-  }, [id]);
-
-  useEffect(() => {
-    if (topicP == "idiomas") {
+    if (topic === "idiomas") {
       setColorFondo("border-langL");
-      setColorTexto("text-langD ");
+      setColorTexto("text-langD");
       setIconoTopic("/B_IDIOMASgrey.svg");
       setIconoTopicOn("/B_IDIOMAS.svg");
       setColorStar("/starlang.svg");
       setIconoTopicGrande("/M_IDIOMA.svg");
       setIconoTopicGrandeOff("/M_IDIOMA_GREY.svg");
-    }
-    if (topicP == "matematicas") {
+    } else if (topic === "matematicas") {
       setColorFondo("border-mathL");
       setColorTexto("text-mathD");
       setIconoTopic("/B_MATEgrey.svg");
@@ -64,26 +40,23 @@ export default function MedallaDetail() {
       setColorStar("/starmath.svg");
       setIconoTopicGrande("/M_MATE.svg");
       setIconoTopicGrandeOff("/M_MATE_GREY.svg");
-    }
-    if (topicP == "ciencias") {
+    } else if (topic === "ciencias") {
       setColorFondo("border-natL");
-      setColorTexto("text-natD ");
+      setColorTexto("text-natD");
       setIconoTopic("/B_CIENCIAgrey.svg");
       setIconoTopicOn("/B_CIENCIA.svg");
       setColorStar("/starnat.svg");
       setIconoTopicGrande("/M_CIENCIA.svg");
       setIconoTopicGrandeOff("/M_CIENCIA_GREY.svg");
-    }
-    if (topicP == "mundo") {
+    } else if (topic === "mundo") {
       setColorFondo("border-worldL");
-      setColorTexto("text-worldD ");
+      setColorTexto("text-worldD");
       setIconoTopic("/B_MUNDOgrey.svg");
       setIconoTopicOn("/B_MUNDO.svg");
       setColorStar("/starworld.svg");
       setIconoTopicGrande("/M_MUNDO.svg");
       setIconoTopicGrandeOff("/M_MUNDO_GREY.svg");
-    }
-    if (topicP == "nerd") {
+    } else if (topic === "nerd") {
       setColorFondo("border-nerdL");
       setColorTexto("text-nerdD");
       setIconoTopic("/B_NERDgrey.svg");
@@ -91,18 +64,15 @@ export default function MedallaDetail() {
       setColorStar("/starnerd.svg");
       setIconoTopicGrande("/M_NERD.svg");
       setIconoTopicGrandeOff("/M_NERD_GREY.svg");
-    }
-    if (topicP == "deportes") {
+    } else if (topic === "deportes") {
       setColorFondo("border-sportL");
-      setColorTexto("text-sportD ");
+      setColorTexto("text-sportD");
       setIconoTopic("/B_DEPORTEgrey.svg");
       setIconoTopicOn("/B_DEPORTE.svg");
       setColorStar("/starsport.svg");
       setIconoTopicGrande("/M_DEPORTE.svg");
       setIconoTopicGrandeOff("/M_DEPORTE_GREY.svg");
-    }
-
-    if (topicP == "vida") {
+    } else if (topic === "vida") {
       setColorFondo("border-lifeL");
       setColorTexto("text-lifeD");
       setIconoTopic("/B_VIDAgrey.svg");
@@ -110,24 +80,35 @@ export default function MedallaDetail() {
       setColorStar("/starlife.svg");
       setIconoTopicGrande("/M_VIDA.svg");
       setIconoTopicGrandeOff("/M_VIDA_GREY.svg");
-
-      if (topicP == "arte") {
-        setColorFondo("border-artL");
-        setColorTexto("text-artD");
-        setIconoTopic("/B_ARTEgrey.svg");
-        setIconoTopicOn("/B_ARTE.svg");
-        setColorStar("/starart.svg");
-        setIconoTopicGrande("/M_ARTE.svg");
-        setIconoTopicGrandeOff("/M_ARTE_GREY.svg");
-      }
+    } else if (topic === "arte") {
+      setColorFondo("border-artL");
+      setColorTexto("text-artD");
+      setIconoTopic("/B_ARTEgrey.svg");
+      setIconoTopicOn("/B_ARTE.svg");
+      setColorStar("/starart.svg");
+      setIconoTopicGrande("/M_ARTE.svg");
+      setIconoTopicGrandeOff("/M_ARTE_GREY.svg");
     }
-  }, [topicP]);
+
+    if (idLocal && topic) {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${idLocal}`, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((json) => {
+          setLogros(json.data.users.achievements[topic]?.level);
+        })
+        .catch((error) => {
+          console.log("Error", error);
+        });
+    }
+  }, [router.query.topic, id]);
 
   const startOn = <img src={colorStar} alt="estrella" />;
   const starOff = <img src="/stargrey.svg" alt="estrella" />;
-  const iconoOn = <img src={`${iconoTopicOn}`} alt={`icono-${topicP}`} />;
-  const iconoOff = <img src={`${iconoTopic}`} alt={`icono-${topicP}`} />;
-  console.log(logros);
+  const iconoOn = <img src={iconoTopicOn} alt={`icono-${topicP}`} />;
+  const iconoOff = <img src={iconoTopic} alt={`icono-${topicP}`} />;
+  // console.log(logros);
   return (
     <div
       className="min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat flex flex-col  overflow-hidden"

@@ -1,3 +1,4 @@
+import React from "react";
 const ModalAvatar = ({ isVisible, children }) => {
   if (!isVisible) return null;
 

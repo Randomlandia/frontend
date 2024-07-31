@@ -1,3 +1,4 @@
+import React from "react";
 export default function RandyTextLeft({ text, img }) {
   return (
     <div className="relative z-30 flex items-start justify-end lg:mx-auto p-3 lg:pr-20 lg:p-4">

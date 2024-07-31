@@ -1,4 +1,5 @@
 // components/ModalTest.js
+import React from "react";
 import TestBubble from "./TestBubble";
 import SpeechBubble from "./SpeechBubble";
 import TemaContainer from "./TemaContainer";
@@ -14,7 +15,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
   const [attempt, setAttempt] = useState(0);
   const [current, setCurrent] = useState(null);
   const [answer, setAnswer] = useState(null);
-  const [isLogged, setIsLogged]= useState(false)
+  const [isLogged, setIsLogged] = useState(false);
   const [isQuestion, setIsQuestion] = useState(true);
   const [isCorrect, setIsCorrect] = useState(null);
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
@@ -62,10 +63,10 @@ export default function ModalTest({ setShowTest, setTestCt }) {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token")
+    const token = localStorage.getItem("token");
     const testedSandias = localStorage.getItem("tested");
     const storedSandias = localStorage.getItem("view");
-    if (token) setIsLogged(true)
+    if (token) setIsLogged(true);
     if (storedSandias) {
       const stored = JSON.parse(storedSandias).filter(
         (sandia) => sandia?.topic?.name === topic
@@ -125,9 +126,9 @@ export default function ModalTest({ setShowTest, setTestCt }) {
         const score = JSON.parse(localStorage.getItem("score")) || {};
         const tested = JSON.parse(localStorage.getItem("tested")) || [];
 
-        const sandiasVistas = [...new Set(views.map((sandia) => sandia._id))]
-        const sandiasFavoritas = [...new Set(favs.map((sandia) => sandia._id))]
-        const sandiasTested = [...new Set(tested.map((sandia) => sandia._id))]
+        const sandiasVistas = [...new Set(views.map((sandia) => sandia._id))];
+        const sandiasFavoritas = [...new Set(favs.map((sandia) => sandia._id))];
+        const sandiasTested = [...new Set(tested.map((sandia) => sandia._id))];
 
         const requestBody = {
           sandiasVistas,
@@ -136,18 +137,18 @@ export default function ModalTest({ setShowTest, setTestCt }) {
           achievements: achieve,
           sandiasFavoritas,
           score,
-          sandiasTested
+          sandiasTested,
         };
 
         try {
           const response = await fetch(
-            `http://localhost:3005/users/${userID}`,
+            `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
             {
               method: "PUT",
               body: JSON.stringify(requestBody),
               headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-              }
+                "Content-Type": "application/json; charset=UTF-8",
+              },
             }
           );
           const json = await response.json();
@@ -171,7 +172,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
       deportes: { level: 0 },
       vida: { level: 0 },
       nerd: { level: 0 },
-      artes: { level: 0 }
+      artes: { level: 0 },
     };
     let achieve =
       JSON.parse(localStorage.getItem("achieve")) || achieveStructure;

@@ -1,3 +1,4 @@
+import React from "react";
 import RandyTextRight from "./RandyTextRight";
 
 export default function LoadingPage() {

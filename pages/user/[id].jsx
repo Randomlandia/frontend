@@ -1,3 +1,4 @@
+import React from "react";
 import Navbar from "@/components/Navbar";
 import Avatar from "@/components/Avatar";
 import ContactoFooter from "@/components/ContactoFooter";
@@ -10,7 +11,7 @@ export default function User() {
   let id = router.query.id;
 
   useEffect(() => {
-    fetch(`http://localhost:3005/users/${id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${id}`, {
       method: "Get",
     })
       .then((response) => response?.json())
@@ -69,7 +70,7 @@ export default function User() {
                 SCORE
               </p>
               <p className="font-mont font-semibold text-black text-5xl text-center min-w-[140px] ">
-                {user.data.users.score}
+                {user.data.users.score || "0"}
               </p>
             </div>
           </div>

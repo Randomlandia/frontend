@@ -1,3 +1,4 @@
+import React from "react";
 export default function ModalPassword() {
   return (
     <div className="flex flex-col bg-oldwhite/60 p-5 rounded-md">

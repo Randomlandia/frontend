@@ -5,10 +5,10 @@ import MenuFavsCircle from "@/components/MenuFavsCircle";
 import RandyTextRight from "@/components/RandyTextRight";
 import RandyTextLeft from "@/components/RandyTextLeft";
 import BackgroundModal from "@/components/BackgroundModal";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function Menu() {
-  const [background, setBackground] = useState(null);
+  const [background, setBackground] = useState("../backgrounds/3.png");
 
   const updateBackground = () => {
     const bgNew = localStorage.getItem("bg");
@@ -34,7 +34,7 @@ export default function Menu() {
             background
               ? `/backgrounds/${background}`
               : "/backgrounds/bg-booksflying.webp"
-          }')`
+          }')`,
         }}
       >
         <div
@@ -50,11 +50,7 @@ export default function Menu() {
             )} */}
               <button className="flex gap-2  bg-lorange/60 mx-auto py-3 px-10 rounded-full items-center">
                 <div className="w-8 sm:w-10 bg-langD rounded-full p-[6px] sm:p-2 flex items-center">
-                  <img
-                    src="/icon_whiteheart.svg"
-                    alt="❤️"
-                    className="w-auto"
-                  />
+                  <img src="/icon_whiteheart.svg" alt="❤️" className="w-auto" />
                 </div>
                 <h1 className="font-lucky text-dgreen text-3xl sm:text-5xl tracking-wider">
                   favoritas
@@ -83,11 +79,7 @@ export default function Menu() {
             )} */}
               <button className="flex gap-2  bg-lorange/60 mx-auto py-3 px-10 rounded-full items-center">
                 <div className="w-8 sm:w-10 bg-langD rounded-full p-[6px] sm:p-2 flex items-center">
-                  <img
-                    src="/icon_whiteheart.svg"
-                    alt="❤️"
-                    className="w-auto"
-                  />
+                  <img src="/icon_whiteheart.svg" alt="❤️" className="w-auto" />
                 </div>
                 <h1 className="font-lucky text-dgreen text-3xl sm:text-5xl tracking-wider">
                   favoritas

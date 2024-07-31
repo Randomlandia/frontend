@@ -1,3 +1,4 @@
+import React from "react";
 export const unicos = [
   {
     icono: "/landing/icon_aprendizaje.svg",

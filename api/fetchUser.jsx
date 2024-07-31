@@ -6,7 +6,7 @@ export default function Login() {
       const email = "angie@mymail.com";
       const password = "angie123";
 
-      const response = await fetch("http://localhost:3005/users/login", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,9 +26,9 @@ export default function Login() {
     }
   };
 
-  // Llama a handleLogin cuando el componente se renderice
+
   handleLogin();
 
-  return null; // Devuelve null porque este componente no renderiza nada visualmente
+  return null; 
 }
 

@@ -1,3 +1,4 @@
+import React from "react";
 import { unicos } from "../constants/unicos";
 
 export default function CarruselTemas(props) {

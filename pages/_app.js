@@ -1,33 +1,38 @@
-import "@/styles/globals.css"
-import { sandiasData } from "@/utils/sandiaData"
-import { checkTokenExpiry } from "@/utils/checkTokenExpiry"
-import { useEffect } from "react"
-
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
-} from "@clerk/nextjs"
-
+import React from "react";
+import "@/styles/globals.css";
+import { sandiasData } from "@/utils/sandiaData";
+import { checkTokenExpiry } from "@/utils/checkTokenExpiry";
+import { useEffect } from "react";
+import { ClerkProvider } from "@clerk/nextjs";
+import { handleBeforeUnload } from "@/utils/beforeUnloadHandler";
+import { MusicProvider } from "@/components/home/musicContex";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
-    sandiasData()
-    checkTokenExpiry()
+    sandiasData();
+    checkTokenExpiry();
     const interval = setInterval(() => {
-      checkTokenExpiry()
-    }, 3600000)
-    return () => clearInterval(interval)
-  }, [])
+      const exp = checkTokenExpiry();
+      if (exp) return;
+    }, 3600000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
       {...pageProps}
     >
-      <Component {...pageProps} />
+      <MusicProvider>
+        <Component {...pageProps} />
+      </MusicProvider>
     </ClerkProvider>
-  )
+  );
 }

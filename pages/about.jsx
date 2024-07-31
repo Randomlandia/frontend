@@ -1,7 +1,7 @@
+import React from "react";
 import Navbar from "../components/Navbar";
 import CardRandyIcono from "@/components/about/cardRandyIcono";
 import { nosotros } from "@/components/constants/nosotros";
-import Unicos from "@/components/landing/unicos2Div";
 import ContactoFooter from "@/components/ContactoFooter";
 import RandyBurbuja from "@/components/landing/randyBurbuja";
 import { iconoRandyCard } from "@/components/constants/iconoRandyCard";

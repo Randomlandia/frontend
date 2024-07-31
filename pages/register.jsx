@@ -1,10 +1,10 @@
+import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Image from "next/image";
+import { handleUpdateUser } from "@/utils/updateUser";
+import { handleUpdateLocal } from "@/utils/updateLocal";
 
 export default function Register() {
   const [background, setBackground] = useState("bg-booksflying.webp");
@@ -27,30 +27,41 @@ export default function Register() {
     if (bgNew) {
       setBackground(`/backgrounds/${bgNew}`);
     } else {
-      setBackground("/backgrounds/bg-booksflying.webp");
+      setBackground("/backgrounds/3.png");
     }
   }, []);
 
   async function onSubmit(dataRegistro) {
+    const noEmail = !dataRegistro.correoRegistro;
+    const noPassword = !dataRegistro.contraseñaRegistro;
+    const noName = !dataRegistro.userRegistro;
+    const noBirthday = !dataRegistro.fechaNacimiento;
+    const isMissingFields = noEmail || noPassword || noName || noBirthday;
+
     try {
-      if (!dataRegistro.email || !dataRegistro.password || !dataRegistro.name) {
+      if (isMissingFields) {
         setShowError(true);
+        return; // Termina la función si hay campos faltantes
       }
 
       setShowError(false);
 
       // Registro del usuario
-      const registroResponse = await fetch("http://localhost:3005/users", {
-        method: "POST",
-        body: JSON.stringify({
-          name: dataRegistro.userRegistro,
-          email: dataRegistro.correoRegistro,
-          password: dataRegistro.contraseñaRegistro,
-        }),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      });
+      const registroResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}users`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            name: dataRegistro.userRegistro,
+            email: dataRegistro.correoRegistro,
+            password: dataRegistro.contraseñaRegistro,
+            fechaNacimiento: dataRegistro.fechaNacimiento,
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        }
+      );
 
       if (!registroResponse.ok) {
         throw new Error("Error en el registro");
@@ -59,20 +70,20 @@ export default function Register() {
       const registroJson = await registroResponse.json();
 
       if (registroJson) {
-        // Almacenar los datos de registro en localStorage (aparecia en la funcion original, pero ya no es necesario)
-        // localStorage.setItem("dataRegistro", JSON.stringify(dataRegistro));
-
         // Autenticación del usuario después del registro
-        const loginResponse = await fetch("http://localhost:3005/users/login", {
-          method: "POST",
-          body: JSON.stringify({
-            email: dataRegistro.correoRegistro,
-            password: dataRegistro.contraseñaRegistro,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        });
+        const loginResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}users/login`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              email: dataRegistro.correoRegistro,
+              password: dataRegistro.contraseñaRegistro,
+            }),
+            headers: {
+              "Content-type": "application/json; charset=UTF-8",
+            },
+          }
+        );
 
         if (!loginResponse.ok) {
           throw new Error("Usuario o contraseña inválidos");
@@ -89,7 +100,7 @@ export default function Register() {
 
           // Obtener la información del usuario
           const userResponse = await fetch(
-            `http://localhost:3005/users/${userID}`,
+            `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
             {
               method: "GET",
               headers: {
@@ -103,33 +114,26 @@ export default function Register() {
           }
 
           const userJson = await userResponse.json();
+          const viewSandiaDB = userJson?.data.users.sandiasVistas;
+          const viewSandiaLocal = localStorage.getItem("view");
 
-          if (userJson?.data) {
-            localStorage.setItem(
-              "favs",
-              JSON.stringify(userJson.data.users.sandiasFavoritas)
-            );
-            localStorage.setItem(
-              "view",
-              JSON.stringify(userJson.data.users.sandiasVistas)
-            );
-            localStorage.setItem(
-              "achieve",
-              JSON.stringify(userJson.data.users.achievements)
-            );
-            localStorage.setItem(
-              "score",
-              JSON.stringify(userJson.data.users.score)
-            );
-
-            setShowSuccess(true);
-            setTimeout(() => {
-              setShowSuccess(false);
-              router.push("/");
-            }, 2000);
+          if (viewSandiaLocal) {
+            if (viewSandiaDB.length < JSON.parse(viewSandiaLocal).length) {
+              localStorage.setItem("username", userJson.data.users.name);
+              localStorage.setItem("avatar", userJson.data.users.avatar);
+              handleUpdateUser();
+            } else {
+              handleUpdateLocal(userJson, setShowSuccess);
+            }
           } else {
-            console.log("No se pudieron obtener los datos del usuario");
+            handleUpdateLocal(userJson, setShowSuccess);
           }
+
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+            router.push("/");
+          }, 2000);
 
           return;
         } else {
@@ -144,6 +148,29 @@ export default function Register() {
       setShowError(true);
     }
   }
+
+  const validateAge = (value) => {
+    const today = new Date();
+    const birthDate = new Date(value);
+    const minYear = today.getFullYear() - 90;
+    const maxYear = today.getFullYear() - 5;
+
+    const year = birthDate.getFullYear();
+
+    if (birthDate > today) {
+      return "La fecha no puede ser en el futuro";
+    }
+
+    if (year < minYear) {
+      return `El año no puede ser menor a ${minYear}`;
+    }
+
+    if (year > maxYear) {
+      return `El año no puede ser mayor a ${maxYear}`;
+    }
+
+    return true;
+  };
   return (
     <div
       className="min-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
@@ -180,7 +207,7 @@ export default function Register() {
                         message: "Usuario debe contener a máximo 50 caracteres",
                       },
                       pattern: {
-                        value: /^[A-Za-z]+$/i,
+                        value: /^[a-zA-Z0-9 ]+$/i,
                         message: "Solo se permiten letras",
                       },
                     })}
@@ -192,6 +219,27 @@ export default function Register() {
                   </p>
                 )}
               </div>
+              <div className="grid ">
+                <div className="flex gap-2 font-bold justify-center">
+                  <img src="/icon_cumple.svg" alt="" className="w-9 h-9" />
+                  <input
+                    type="date"
+                    name="fechaNacimiento"
+                    className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
+                    {...register("fechaNacimiento", {
+                      required: "La fecha de nacimiento es requerida",
+                      validate: validateAge,
+                    })}
+                  />
+                </div>
+
+                {errors.fechaNacimiento && (
+                  <p className="text-red-500 text-center">
+                    {errors.fechaNacimiento.message}
+                  </p>
+                )}
+              </div>
+
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
                   <img src="/icon_cumple.svg" alt="" className="w-9 h-9" />

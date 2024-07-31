@@ -1,4 +1,8 @@
-import { useEffect, useState, Fragment } from "react";
+import React from "react";
+import { useLayoutEffect, useState, Fragment, useEffect } from "react";
+import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
+import { useUser } from "@clerk/nextjs";
+import { handleUpdateUser } from "@/utils/updateUser";
 import {
   Menu,
   Transition,
@@ -6,84 +10,87 @@ import {
   MenuItems,
   MenuItem,
 } from "@headlessui/react";
+import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/router";
 
 export default function Navbar() {
   const router = useRouter();
-  const [isLogged, setIsLogged] = useState(true);
+  const { signOut } = useClerk();
+  const [isLogged, setIsLogged] = useState(false);
   const [userName, setUserName] = useState("Explorador");
   const [userId, setUserId] = useState("Explorador");
   const [userAvatar, setUserAvatar] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
+  const [userIdHamburguesa, setUserIdHamburguesa] = useState("");
+  const { isLoaded, user } = useUser([]);
+  const [cookie, setCookie] = useState(false);
 
+  //clerck
   useEffect(() => {
+    if (isLoaded && user) {
+      setCookie(true);
+    }
+  }, []);
+  //post
+  useLayoutEffect(() => {
     const token = localStorage.getItem("token");
     const idUser = localStorage.getItem("userID");
-
     const user = localStorage.getItem("username");
+    const avatarValue = localStorage.getItem("avatar");
 
-    if (token) {
+    if (token || user) {
       setIsLogged(true);
       setUserName(user || "Explorador");
       setUserId(idUser || "Explorador");
-    } else {
-      setIsLogged(false);
+      setUserIdHamburguesa(idUser);
+      setUserAvatar(avatarValue || 0);
+      setCookie(false);
     }
-  }, []);
+  }, [cookie]);
 
   const avatarSrc = () => {
-    switch (userAvatar) {
-      case 1:
-        return "/avatars/A_RANDY_DED.svg";
-      case 2:
-        return "/avatars/A_RANDY_OH.svg";
-      case 3:
-        return "/avatars/A_RANDY_SAD.svg";
-      case 4:
-        return "/avatars/A_RANDY_SMILE.svg";
-      case 5:
-        return "/avatars/A_RANDY-WINK.svg";
-      case 6:
-        return "/avatars/A_RANDY_ANGRY.svg";
-      default:
-        return "/avatars/A_RANDY.svg";
+    const avatars = [
+      "/avatars/A_RANDY.svg",
+      "/avatars/A_RANDY_DED.svg",
+      "/avatars/A_RANDY_OH.svg",
+      "/avatars/A_RANDY_SAD.svg",
+      "/avatars/A_RANDY_SMILE.svg",
+      "/avatars/A_RANDY-WINK.svg",
+      "/avatars/A_RANDY_ANGRY.svg",
+    ];
+    return avatars[userAvatar] || avatars[0];
+  };
+
+  const handleLogout = async () => {
+    const keysToRemove = [
+      "token",
+      "username",
+      "tested",
+      "avatar",
+      "score",
+      "view",
+      "favs",
+      "achieve",
+      "exp",
+      "userID",
+    ];
+    try {
+      const updateSuccess = await handleUpdateUser(isLogged);
+      if (updateSuccess) {
+        keysToRemove.forEach((key) => localStorage.removeItem(key));
+        await signOut();
+        setIsLogged(false);
+        router.push("/");
+      } else {
+        console.log("Failed to update user, logout aborted.");
+      }
+    } catch (error) {
+      console.log("Error during logout:", error);
     }
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const idUser = localStorage.getItem("userID");
-    const avatarValue = localStorage.getItem("avatar");
-    const user = localStorage.getItem("username");
-
-    if (token) {
-      setIsLogged(true);
-      setUserName(user);
-      setUserId(idUser);
-      setUserAvatar(JSON.parse(avatarValue));
-    } else {
-      setIsLogged(false);
-    }
-  }, []);
-
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
-
-  const handleLogout = () => {
-    setIsLogged(false);
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("tested");
-    localStorage.removeItem("avatar");
-    localStorage.removeItem("score");
-    localStorage.removeItem("view");
-    localStorage.removeItem("favs");
-    localStorage.removeItem("achieve");
-    localStorage.removeItem("exp");
-    localStorage.removeItem("userID");
-  };
+  const classNames = (...classes) => classes.filter(Boolean).join(" ");
 
   return (
     <>
@@ -159,9 +166,23 @@ export default function Navbar() {
               </p>
             </button>
           </div>
-
+          <div className="relative group hidden lg:inline-block">
+            {isLogged && (
+              <>
+                <button
+                  onClick={() => handleLogout()}
+                  className="flex items-center pr-2 pt-1"
+                >
+                  <img src="/icon_close.svg" alt="🚪" className="w-12" />
+                </button>
+                <div className="absolute right-1 hidden group-hover:block bg-oldwhite border border-gray-200 p-2 rounded-lg shadow-lg mt-3 w-32">
+                  <p className="text-sm text-center text-natD">¿Ya te vas?</p>
+                </div>
+              </>
+            )}
+          </div>
           {/* SECCION MOBILE Y TABLET */}
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-2 transform hover:scale-110">
             {isLogged ? (
               <button
                 className="flex items-center"
@@ -220,7 +241,9 @@ export default function Navbar() {
                     <MenuItem>
                       {({ active }) => (
                         <button
-                          onClick={() => router.push("/user")}
+                          onClick={() =>
+                            router.push(`/user/${userIdHamburguesa}` || "/user")
+                          }
                           onTouchStart={() => setSelectedMenu("user")}
                           onTouchEnd={() => setSelectedMenu(null)}
                           className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
@@ -239,20 +262,22 @@ export default function Navbar() {
                       )}
                     </MenuItem>
                     <hr className="w-full border border-zinc-200 my-1" />
-                    <MenuItem>
-                      {({ active }) => (
-                        <button
-                          onClick={() => router.push("/register")}
-                          onTouchStart={() => setSelectedMenu("register")}
-                          onTouchEnd={() => setSelectedMenu(null)}
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                            selectedMenu === "register" ? "bg-natD" : ""
-                          }`}
-                        >
-                          Crear cuenta
-                        </button>
-                      )}
-                    </MenuItem>
+                    {!isLogged && (
+                      <MenuItem>
+                        {({ active }) => (
+                          <button
+                            onClick={() => router.push("/register")}
+                            onTouchStart={() => setSelectedMenu("register")}
+                            onTouchEnd={() => setSelectedMenu(null)}
+                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                              selectedMenu === "register" ? "bg-natD" : ""
+                            }`}
+                          >
+                            Crear cuenta
+                          </button>
+                        )}
+                      </MenuItem>
+                    )}
                     <MenuItem>
                       {({ active }) => (
                         <button

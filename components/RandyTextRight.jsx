@@ -1,3 +1,4 @@
+import React from "react";
 export default function RandyTextRight({ text, img }) {
   return (
     <div className="relative z-30 flex items-start lg:mx-auto p-3 ">

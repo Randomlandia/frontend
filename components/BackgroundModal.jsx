@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import RandyTextRight from "./RandyTextRight";
 import BackgroundSlider from "@/components/BackgroundSlider";

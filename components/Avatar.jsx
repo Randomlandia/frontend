@@ -1,3 +1,4 @@
+import React from "react";
 import ModalAvatar from "./modalAvatar";
 import ModalAvatarNombre from "./modalNombre";
 import SeleccionaAvatar from "./SeleccionaAvatar";
@@ -22,7 +23,7 @@ export default function Avatar(props) {
       );
     }
 
-    fetch(`http://localhost:3005/users/${props.id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${props.id}`, {
       method: "Put",
       body: JSON.stringify({
         avatar: avatarValue,
@@ -32,11 +33,11 @@ export default function Avatar(props) {
       },
     })
       .then((response) => response?.json())
-      .then((json) => console.log(json))
+      .then((json) => console.log("Avatar actualizado"))
       .catch((error) => {
         console.log("Error", error);
       });
-    localStorage.setItem("avatar", JSON.stringify(avatarValue));
+    localStorage.setItem("avatar", avatarValue);
     setShowAvatar(true);
     setTimeout(() => {
       setShowAvatar(false);
@@ -52,7 +53,7 @@ export default function Avatar(props) {
       );
     }
 
-    fetch(`http://localhost:3005/users/${props.id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${props.id}`, {
       method: "Put",
       body: JSON.stringify({
         name: nameUser.name,
@@ -74,8 +75,7 @@ export default function Avatar(props) {
     }, 2000);
     setShowModalName(false);
     setNombreNuevo(nameUser.name);
-
-    localStorage.setItem("username", JSON.stringify(nameUser.name));
+    localStorage.setItem("username", nameUser.name);
 
     return;
   }
@@ -83,7 +83,6 @@ export default function Avatar(props) {
   const {
     handleSubmit,
     register,
-    setError,
     formState: { errors },
   } = useForm();
 

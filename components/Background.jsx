@@ -1,14 +1,15 @@
+import React from "react";
 import { useState, useEffect } from "react";
 
 export default function Background() {
-  const [background, setBackground] = useState("bg-booksflying.webp");
+  const [background, setBackground] = useState("../backgrounds/3.png");
 
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
     if (bgNew) {
       setBackground(bgNew);
     } else {
-      setBackground("bg-booksflying.webp");
+      setBackground("../backgrounds/3.png");
     }
   }, []);
 
