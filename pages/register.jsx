@@ -242,6 +242,22 @@ export default function Register() {
 
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
+                  <img src="/icon_cumple.svg" alt="" className="w-9 h-9" />
+                  <input
+                    type="date"
+                    name="fechaNacimiento"
+                    className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
+                    {...register("fechaNacimiento")}
+                  />
+                  {/* {errors.fechaNacimiento && (
+                    <p className="text-red-500 text-center">
+                      {errors.fechaNacimiento.message}
+                    </p>
+                  )} */}
+                </div>
+              </div>
+              <div className="grid gap-0.5">
+                <div className="flex gap-2 font-bold justify-center">
                   <img src="/mail.svg" alt="" className="w-9 h-9" />
                   <input
                     type="email"
