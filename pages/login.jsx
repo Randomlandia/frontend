@@ -58,6 +58,8 @@ export default function Login() {
           const cookieValue = getCookieValueByName(cookieName);
           const idUser = data?.data?._id;
           if (cookieValue && data) {
+            const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
+        localStorage.setItem("exp", exp.toString());
             localStorage.setItem("token", cookieValue);
             localStorage.setItem("userID", idUser);
             localStorage.setItem("username", data.data.name);
@@ -97,11 +99,10 @@ export default function Login() {
   } = useForm();
 
   async function onSubmit(dataLogIn) {
-    if (rememberMe) {
-      localStorage.setItem("rememberMe", "true");
-    } else {
-      localStorage.setItem("rememberMe", "false");
-    }
+    rememberMe
+      ? localStorage.setItem("rememberMe", "true")
+      : localStorage.setItem("rememberMe", "false");
+
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}users/login`,
       {
@@ -343,7 +344,7 @@ export default function Login() {
             className=" bg-agreen p-1.5 w-56 m-auto mt-6 mb-5  font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
             type="submit"
           >
-            <p className=" font-ram tracking-wider">Login</p>
+            <p className=" font-ram tracking-wider">enviar</p>
           </button>
         </form>
 
@@ -357,7 +358,7 @@ export default function Login() {
           </div>
         </button>
         <div className="mt-4">
-          <label className="flex items-center space-x-2 cursor-pointer">
+          <label className="flex items-center space-x-2">
             <div className="relative">
               <input
                 type="checkbox"
@@ -372,8 +373,8 @@ export default function Login() {
                 }`}
               ></div>
             </div>
-            <span className="text-natD font-mont font-semibold">
-              Recuérdame
+            <span className="text-natD font-ram font-light">
+            RECUÉRDAME
             </span>
           </label>
         </div>

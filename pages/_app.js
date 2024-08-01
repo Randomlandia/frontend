@@ -27,7 +27,6 @@ export default function App({ Component, pageProps }) {
     const onBeforeUnload = (event) => {
       if (rm == "false") {
         localStorage.removeItem("rememberMe");
-        handleLogout()
       }
       handleBeforeUnload(event);
       event.returnValue = "Ya te vas?";

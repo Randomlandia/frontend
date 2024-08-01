@@ -44,15 +44,15 @@ const handleUpdateUser = async (isLogged) => {
         }
       );
       const json = await response.json();
-      console.log("Usuario actualizado");
-      return response.ok; // Devuelve true si la respuesta es ok
+      // console.log("Usuario actualizado");
+      return response.ok; 
     } catch (error) {
       console.log("Error", error);
-      return false; // Devuelve false si hay un error
+      return false; 
     }
   }
 
-  return false; // Devuelve false si isLogged es false
+  return false; 
 };
 
 export { handleUpdateUser };

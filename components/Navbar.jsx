@@ -8,7 +8,7 @@ import {
   Transition,
   MenuButton,
   MenuItems,
-  MenuItem,
+  MenuItem
 } from "@headlessui/react";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/router";
@@ -57,12 +57,13 @@ export default function Navbar() {
       "/avatars/A_RANDY_SAD.svg",
       "/avatars/A_RANDY_SMILE.svg",
       "/avatars/A_RANDY-WINK.svg",
-      "/avatars/A_RANDY_ANGRY.svg",
+      "/avatars/A_RANDY_ANGRY.svg"
     ];
     return avatars[userAvatar] || avatars[0];
   };
 
   const handleLogout = async () => {
+    const rm = localStorage.getItem("rememberMe");
     const keysToRemove = [
       "token",
       "username",
@@ -74,6 +75,7 @@ export default function Navbar() {
       "achieve",
       "exp",
       "userID",
+      "rememberMe"
     ];
     try {
       const updateSuccess = await handleUpdateUser(isLogged);
