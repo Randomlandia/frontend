@@ -1,6 +1,5 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -17,7 +16,6 @@ export default function Login() {
   const [showError, setShowError] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
 
-
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
     if (bgNew) {
@@ -26,7 +24,6 @@ export default function Login() {
       setBackground("/backgrounds/3.png");
     }
   }, []);
-
 
   // Clerk: guardar datos del usuario en localStorage
   useEffect(() => {
@@ -88,7 +85,6 @@ export default function Login() {
     }
   }, [isLoaded, user]);
 
-
   const handleToggleChange = () => {
     setRememberMe(!rememberMe);
   };
@@ -102,9 +98,9 @@ export default function Login() {
 
   async function onSubmit(dataLogIn) {
     if (rememberMe) {
-      localStorage.setItem('rememberMe', 'true');
+      localStorage.setItem("rememberMe", "true");
     } else {
-      localStorage.setItem('rememberMe', 'false');
+      localStorage.setItem("rememberMe", "false");
     }
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}users/login`,
@@ -128,7 +124,7 @@ export default function Login() {
     if (json?.data?.token) {
       localStorage.setItem("token", json.data.token);
       localStorage.setItem("userID", json.data.userID);
-      console.log("Login Exitoso");
+      // console.log("Login Exitoso");
 
       const userID = localStorage.getItem("userID");
 
@@ -173,17 +169,17 @@ export default function Login() {
           }, 2000);
         }, 2000);
       } else {
-        console.log("No se pudieron obtener los datos del usuario");
+        // console.log("No se pudieron obtener los datos del usuario");
       }
     } else {
-      console.log("Usuario o contraseña inválidos");
+      // console.log("Usuario o contraseña inválidos");
       setError("root", { message: "Usuario o contraseña inválidos" });
     }
   }
   const userButtonAppearance = {
     elements: {
-      userButtonAvatarBox: "w-24 h-24",
-    },
+      userButtonAvatarBox: "w-24 h-24"
+    }
   };
 
   return (
@@ -334,11 +330,12 @@ export default function Login() {
                 ¡Bienvenido!
                 <br /> Ya estas listo para la aventura.
               </p>
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
-              <p className="text-ram text-center text-3xl font-bold text-dgreen">
-                ¡Bienvenido!
-                <br /> Ya estas listo para la aventura.
-              </p>
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
+                <p className="text-ram text-center text-3xl font-bold text-dgreen">
+                  ¡Bienvenido!
+                  <br /> Ya estas listo para la aventura.
+                </p>
+              </div>
             </div>
           )}
 
@@ -354,31 +351,32 @@ export default function Login() {
           <SignInButton />
         </SignedOut>*/}
 
-        <button onClick={()=> router.push("/register")}>
+        <button onClick={() => router.push("/register")}>
           <div className="text-natD underline hover:text-lorange font-mont font-semibold">
             Aún no tengo cuenta
           </div>
         </button>
         <div className="mt-4">
-        <label className="flex items-center space-x-2 cursor-pointer">
-          <div className="relative">
-            <input 
-              type="checkbox" 
-              checked={rememberMe} 
-              onChange={handleToggleChange}
-              className="sr-only"
-            />
-            <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
-            <div
-              className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
-                rememberMe ? 'transform translate-x-full bg-natL' : ''
-              }`}
-            ></div>
-          </div>
-          <span className="text-natD font-mont font-semibold">Recuérdame</span>
-        </label>
-      </div>
-
+          <label className="flex items-center space-x-2 cursor-pointer">
+            <div className="relative">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={handleToggleChange}
+                className="sr-only"
+              />
+              <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
+              <div
+                className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
+                  rememberMe ? "transform translate-x-full bg-natL" : ""
+                }`}
+              ></div>
+            </div>
+            <span className="text-natD font-mont font-semibold">
+              Recuérdame
+            </span>
+          </label>
+        </div>
       </div>
     </div>
   );
