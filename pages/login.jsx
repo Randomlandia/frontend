@@ -166,10 +166,15 @@ export default function Login() {
       setError("root", { message: "Usuario o contraseña inválidos" });
     }
   }
+  const userButtonAppearance = {
+    elements: {
+      userButtonAvatarBox: "w-24 h-24",
+    },
+  };
 
   return (
     <div
-      className="min-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
+      className="min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
       style={{ backgroundImage: `url(${background})` }}
     >
       <Navbar />
@@ -195,16 +200,19 @@ export default function Login() {
           </div>
         )}
 
-        <div className="grid gap-7  text-white ">
+        <div className="grid gap-3  text-white ">
           <SignedIn>
-            <div className="flex h-28 w-28 bg-[url('/avatars/A_RANDY.svg')] rounded-full items-end justify-center">
-              <UserButton afterSignOutUrl="/" id="icono" style="whith: 100px" />
+            <div className="flex mb-3  h-24 w-24 bg-[url('/avatars/A_RANDY.svg')] rounded-full  items-end justify-center">
+              <UserButton
+                appearance={userButtonAppearance}
+                afterSignOutUrl="/"
+              />
             </div>
           </SignedIn>
           <SignedOut>
             <SignInButton mode="modal" forceRedirectUrl="/login">
               <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
-                <p className="text-natD font-lucky text-3xl">
+                <p className="text-natD font-lucky text-3xl text-center">
                   Vincula tu cuenta con:
                 </p>
                 <div className="flex gap-6 mb-4">
@@ -316,19 +324,14 @@ export default function Login() {
           )}
 
           <button
-            className="w-full bg-lorange rounded-[50px] px-6 py-3 mb-4 text-white text-xl"
+            className=" bg-agreen p-1.5 w-56 m-auto mt-6 mb-5  font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
             type="submit"
           >
             <p className=" font-ram tracking-wider">Login</p>
           </button>
         </form>
-
-        {/*<SignedOut>
-          <SignInButton />
-        </SignedOut>*/}
-
         <button href="/register">
-          <div className="text-natD hover:text-lorange font-ram font-light cursor-pointer ">
+          <div className="text-natD underline hover:text-lorange font-ram font-light cursor-pointer ">
             Aún no tengo cuenta
           </div>
         </button>
