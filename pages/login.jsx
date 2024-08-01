@@ -8,6 +8,7 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
+
 export default function Login() {
   const router = useRouter();
   const { isLoaded, user } = useUser([]);
@@ -26,14 +27,6 @@ export default function Login() {
     }
   }, []);
 
-  //funcionalidad para recordar al user
-  useEffect(() => {
-    if (rememberMe) {
-      localStorage.setItem('rememberMe', 'true');
-    } else {
-      localStorage.removeItem('rememberMe', 'false');
-    }
-  }, [rememberMe]);
 
   // Clerk: guardar datos del usuario en localStorage
   useEffect(() => {
@@ -94,6 +87,8 @@ export default function Login() {
       saveClerkUserDataOnLocalHost();
     }
   }, [isLoaded, user]);
+
+
   const handleToggleChange = () => {
     setRememberMe(!rememberMe);
   };
@@ -106,6 +101,11 @@ export default function Login() {
   } = useForm();
 
   async function onSubmit(dataLogIn) {
+    if (rememberMe) {
+      localStorage.setItem('rememberMe', 'true');
+    } else {
+      localStorage.setItem('rememberMe', 'false');
+    }
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}users/login`,
       {

@@ -1,5 +1,7 @@
-import { handleUpdateUser } from "./updateUser";
-export const handleLogout = async (isLogged, router, signOut) => {
+import React from "react";
+
+
+export const handleLogout = async () => {
   const keysToRemove = [
     "token",
     "username",
@@ -10,19 +12,12 @@ export const handleLogout = async (isLogged, router, signOut) => {
     "favs",
     "achieve",
     "exp",
-    "userID",
+    "userID"
   ];
   try {
-    const updateSuccess = await handleUpdateUser(isLogged);
-    if (updateSuccess) {
-      keysToRemove.forEach((key) => localStorage.removeItem(key));
-      await signOut();
-      router.push("/");
-      console.log("si cerro sesion en todo")
-    } else {
-      console.log("Failed to update user, logout aborted.");
-    }
+    keysToRemove.forEach((key) => localStorage.removeItem(key));
+    console.log("Sesión cerrada correctamente.");
   } catch (error) {
-    console.log("Error during logout:", error);
+    console.log("Error durante el logout:", error);
   }
 };
