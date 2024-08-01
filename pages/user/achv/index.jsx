@@ -7,7 +7,7 @@ import { useEffect } from "react";
 export default function achv() {
   const router = useRouter();
   const defaultBackground = "bg-booksflying.webp";
-  const [background, setBackground] = useState("bg-booksflying.webp");
+  const [background, setBackground] = useState("../backgrounds/3.png");
   const [usertopic, setTopic] = useState("");
   const [id, setId] = useState();
   const [artes, setArtes] = useState();

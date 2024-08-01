@@ -8,7 +8,7 @@ import RandyTextLeft from "@/components/RandyTextLeft";
 import BackgroundModal from "@/components/BackgroundModal";
 import { useState, useEffect } from "react";
 export default function Menu() {
-  const [background, setBackground] = useState(null);
+  const [background, setBackground] = useState("../backgrounds/3.png");
 
   const updateBackground = () => {
     const bgNew = localStorage.getItem("bg");
@@ -18,7 +18,7 @@ export default function Menu() {
   };
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       updateBackground();
     }
   }, []);

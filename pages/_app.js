@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { handleBeforeUnload } from "@/utils/beforeUnloadHandler";
 import { useRouter } from "next/router";
 import { handleLogout } from "@/utils/logoutHandler";
+import { MusicProvider } from "@/components/home/musicContex";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -19,7 +20,7 @@ export default function App({ Component, pageProps }) {
       if (exp) return;
     }, 3600000);
     return () => clearInterval(interval);
-  }, [router]);
+}, [router]);
 
   useEffect(() => {
     const rm = localStorage.getItem("rememberMe");
@@ -47,12 +48,21 @@ export default function App({ Component, pageProps }) {
     setIsLoading(false)
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   return (
     <ClerkProvider
       publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
       {...pageProps}
     >
-      <Component {...pageProps} />
+      <MusicProvider>
+        <Component {...pageProps} />
+      </MusicProvider>
     </ClerkProvider>
   );
 }
