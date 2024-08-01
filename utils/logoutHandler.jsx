@@ -1,10 +1,7 @@
-import { handleUpdateUser } from "./updateUser";
-import { useClerk } from "@clerk/nextjs";
-import { useRouter } from "next/router";
+import React from "react";
 
-export const handleLogout = async (isLogged, setIsLogged) => {
-  const router = useRouter();
-  const { signOut } = useClerk();
+
+export const handleLogout = async () => {
   const keysToRemove = [
     "token",
     "username",
@@ -15,19 +12,12 @@ export const handleLogout = async (isLogged, setIsLogged) => {
     "favs",
     "achieve",
     "exp",
-    "userID",
+    "userID"
   ];
   try {
-    const updateSuccess = await handleUpdateUser(isLogged);
-    if (updateSuccess) {
-      keysToRemove.forEach((key) => localStorage.removeItem(key));
-      await signOut();
-      setIsLogged(false);
-      router.push("/");
-    } else {
-      console.log("Failed to update user, logout aborted.");
-    }
+    keysToRemove.forEach((key) => localStorage.removeItem(key));
+    console.log("Sesión cerrada correctamente.");
   } catch (error) {
-    console.log("Error during logout:", error);
+    console.log("Error durante el logout:", error);
   }
 };
