@@ -173,19 +173,19 @@ export default function Register() {
   };
   return (
     <div
-      className="min-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
+      className="min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="w-full min-h-screen flex flex-col gap-5 font-mont font-bold">
         <Navbar />
 
-        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-grey/50    rounded-[50px] mt-[35px]">
+        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2 bg-grey/50 rounded-[50px] mt-[40px]">
           <form
             name="formRegister"
             onSubmit={handleSubmit(onSubmit)}
-            className="mx-auto py-12  grid gap-7 text-sm font-bold"
+            className="mx-auto mt-[28px] mb-[28px] md:mt-[70px]   py-6  grid gap-7 text-sm font-bold"
           >
-            <p className="text-[#2E7D32] font-lucky text-2xl text-center">
+            <p className="text-[#2E7D32]  font-lucky text-3xl text-center">
               se parte de nosotros
             </p>
             <div className="flex gap-8 flex-col">
@@ -238,23 +238,6 @@ export default function Register() {
                     {errors.fechaNacimiento.message}
                   </p>
                 )}
-              </div>
-
-              <div className="grid gap-0.5">
-                <div className="flex gap-2 font-bold justify-center">
-                  <img src="/icon_cumple.svg" alt="" className="w-9 h-9" />
-                  <input
-                    type="date"
-                    name="fechaNacimiento"
-                    className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("fechaNacimiento")}
-                  />
-                  {/* {errors.fechaNacimiento && (
-                    <p className="text-red-500 text-center">
-                      {errors.fechaNacimiento.message}
-                    </p>
-                  )} */}
-                </div>
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
@@ -346,7 +329,7 @@ export default function Register() {
             <div className="grid justify-center gap-3">
               <button
                 type="submit"
-                className="bg-agreen p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full"
+                className="bg-agreen p-1.5 w-56 m-auto mb-1 font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
               >
                 enviar
               </button>
@@ -355,7 +338,10 @@ export default function Register() {
                   {"⚠ Llena los campos por favor"}
                 </p>
               )}
-              <Link href="./login" className="text-natD underline text-center">
+              <Link
+                href="./login"
+                className="text-natD underline text-center  hover:text-lorange font-ram font-light cursor-pointer "
+              >
                 INICIAR SESIÓN
               </Link>
             </div>

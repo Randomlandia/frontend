@@ -129,6 +129,7 @@ const Randomlandia = () => {
               {unicos.map((unico, index) => {
                 return (
                   <button
+                    key={`unico-${index}`}
                     className={
                       index == mostarIndex
                         ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
@@ -246,6 +247,7 @@ const Randomlandia = () => {
               {perspectiva.map((unico, index) => {
                 return (
                   <button
+                    key={`unico-${index}`}
                     className={
                       index == mostarIndexPers
                         ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
