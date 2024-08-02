@@ -24,6 +24,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
   const [showResult, setShowResult] = useState(false);
   const [showWinningModal, setShowWinningModal] = useState(false);
   const [showConfirm, setShowconfirm] = useState(true);
+  const [loginRequired, setLoginRequired] = useState(false);
 
   const getRandomQuestion = (sandias) => {
     if (attempt < 3 && topic !== "default") {
@@ -58,7 +59,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
     } else {
       setIsQuestion(true);
       getRandomQuestion(testSandias);
-      setAttempt(attempt + 1); // Increment attempt after setting current question
+      setAttempt(attempt + 1);
     }
   };
 
@@ -137,7 +138,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
           achievements: achieve,
           sandiasFavoritas,
           score,
-          sandiasTested,
+          sandiasTested
         };
 
         try {
@@ -147,8 +148,8 @@ export default function ModalTest({ setShowTest, setTestCt }) {
               method: "PUT",
               body: JSON.stringify(requestBody),
               headers: {
-                "Content-Type": "application/json; charset=UTF-8",
-              },
+                "Content-Type": "application/json; charset=UTF-8"
+              }
             }
           );
           const json = await response.json();
@@ -159,8 +160,16 @@ export default function ModalTest({ setShowTest, setTestCt }) {
       };
 
       updateUser();
+      router.push("/user/achv");
+    } else {
+      setLoginRequired(true);
+      setShowWinningModal(false);
+      setTimeout(() => {
+        router.push("/login");
+        setLoginRequired(false);
+      }, 4000);
     }
-    router.push("/user/achv");
+    return;
   };
 
   const handleFinalResult = () => {
@@ -172,7 +181,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
       deportes: { level: 0 },
       vida: { level: 0 },
       nerd: { level: 0 },
-      artes: { level: 0 },
+      artes: { level: 0 }
     };
     let achieve =
       JSON.parse(localStorage.getItem("achieve")) || achieveStructure;
@@ -182,13 +191,17 @@ export default function ModalTest({ setShowTest, setTestCt }) {
     localStorage.setItem("score", totalScore);
     if (correctAnswersCount === 3) {
       const updatedTested = [...alreadyTested, ...askedSandias];
-      const updatedAchieveLevel = (achieve[topic]?.level || 0) + 1;
-      setPoints(updatedAchieveLevel);
-      achieve[topic].level = updatedAchieveLevel;
-      localStorage.setItem("tested", JSON.stringify(updatedTested));
-      localStorage.setItem("achieve", JSON.stringify(achieve));
+      const currentAchieveLevel = achieve[topic]?.level || 0;
+
+      if (currentAchieveLevel < 20) {
+        const updatedAchieveLevel = currentAchieveLevel + 1;
+        setPoints(updatedAchieveLevel);
+        achieve[topic].level = updatedAchieveLevel;
+        localStorage.setItem("tested", JSON.stringify(updatedTested));
+        localStorage.setItem("achieve", JSON.stringify(achieve));
+      }
+      setShowWinningModal(true);
     }
-    setShowWinningModal(true);
   };
 
   const closeModal = () => {
@@ -404,6 +417,22 @@ export default function ModalTest({ setShowTest, setTestCt }) {
                   </button>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {loginRequired && (
+        <div className="fixed z-20 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+          <div className="w-4/5 bg-oldwhite grid gap-6 p-6 rounded-xl shadow-2xl shadow-lorange/70">
+            <h2 className="text-4xl text-center font-bold font-ram text-dorange mb-4">
+              ¡Ay no!
+            </h2>
+            <p className="text-center text-dgreen grid gap-2">
+              Parece ser que aún no iniciado sesión, pero no te preocupes, ¡yo
+              te llevo!
+            </p>
+            <div className="grid sm:flex gap-10 justify-center items-center py-3">
+              <img src={"/RANDY_06.svg"} alt="randy" className="w-40 sm:w-56" />
             </div>
           </div>
         </div>

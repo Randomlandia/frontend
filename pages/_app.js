@@ -7,11 +7,12 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { handleBeforeUnload } from "@/utils/beforeUnloadHandler";
 import { useRouter } from "next/router";
 import { handleLogout } from "@/utils/logoutHandler";
+import { useRouter } from "next/router";
+import { handleLogout } from "@/utils/logoutHandler";
 import { MusicProvider } from "@/components/home/musicContex";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const [isLoading, setIsLoading]=useState(null)
   useEffect(() => {
     sandiasData();
     checkTokenExpiry();
@@ -20,7 +21,7 @@ export default function App({ Component, pageProps }) {
       if (exp) return;
     }, 3600000);
     return () => clearInterval(interval);
-}, [router]);
+  }, [router]);
 
   useEffect(() => {
     const rm = localStorage.getItem("rememberMe");
@@ -41,18 +42,11 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const rm = localStorage.getItem("rememberMe");
     if (!rm) {
-      setIsLoading(true)
+      setIsLoading(true);
       handleLogout();
     }
-    setIsLoading(false)
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
 
   return (
     <ClerkProvider

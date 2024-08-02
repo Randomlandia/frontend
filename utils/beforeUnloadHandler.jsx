@@ -1,6 +1,5 @@
 // utils/handleBeforeUnload.js
 import { handleUpdateUser } from "./updateUser";
-import { handleLogout } from "./logoutHandler";
 
 export const handleBeforeUnload = async (event) => {
   const token = localStorage.getItem("token");

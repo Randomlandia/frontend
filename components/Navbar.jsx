@@ -25,6 +25,7 @@ export default function Navbar() {
   const [userIdHamburguesa, setUserIdHamburguesa] = useState("");
   const { isLoaded, user } = useUser([]);
   const [cookie, setCookie] = useState(false);
+  const [loginRequired, setLoginRequired] = useState(false);
 
   //clerck
   useEffect(() => {
@@ -32,6 +33,7 @@ export default function Navbar() {
       setCookie(true);
     }
   }, []);
+
   //post
   useLayoutEffect(() => {
     const token = localStorage.getItem("token");
@@ -243,14 +245,7 @@ export default function Navbar() {
                     <MenuItem>
                       {({ active }) => (
                         <button
-                          onClick={() =>
-                            router.push(`/user/${userIdHamburguesa}` || "/user")
-                          }
-                          onTouchStart={() => setSelectedMenu("user")}
-                          onTouchEnd={() => setSelectedMenu(null)}
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                            selectedMenu === "user" ? "bg-natD" : ""
-                          }`}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center`}
                         >
                           <div className="">
                             <img
@@ -264,7 +259,22 @@ export default function Navbar() {
                       )}
                     </MenuItem>
                     <hr className="w-full border border-zinc-200 my-1" />
-                    {!isLogged && (
+                    {isLogged ? (
+                      <MenuItem>
+                        {({ active }) => (
+                          <button
+                            onClick={()=>{router.push(`/user/${userIdHamburguesa}`)}}
+                            onTouchStart={() => setSelectedMenu("user")}
+                            onTouchEnd={() => setSelectedMenu(null)}
+                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                              selectedMenu === "register" ? "bg-natD" : ""
+                            }`}
+                          >
+                            Mi perfil
+                          </button>
+                        )}
+                      </MenuItem>
+                    ) : (
                       <MenuItem>
                         {({ active }) => (
                           <button
@@ -362,6 +372,22 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+      {loginRequired && (
+        <div className="fixed z-999 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+          <div className="w-4/5 bg-oldwhite grid gap-6 p-6 rounded-xl shadow-2xl shadow-lorange/70">
+            <h2 className="text-4xl text-center font-bold font-ram text-dorange mb-4">
+              ¡Ay no!
+            </h2>
+            <p className="text-center text-dgreen grid gap-2">
+              Parece ser que aún no iniciado sesión, pero no te preocupes, ¡yo
+              te llevo!
+            </p>
+            <div className="grid sm:flex gap-10 justify-center items-center py-3">
+              <img src={"/RANDY_06.svg"} alt="randy" className="w-40 sm:w-56" />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

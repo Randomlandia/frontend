@@ -14,7 +14,11 @@ export default function Home() {
   }, []);
 
   const menu = () => {
-    router.push(`/menu`);
+    const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
+    const rm = localStorage.getItem("rememberMe")
+    !rm && localStorage.setItem("rememberMe", "waiting")
+    localStorage.setItem("exp", exp.toString());
+    router.push("/menu");
   };
 
   return (
