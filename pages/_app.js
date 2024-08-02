@@ -2,7 +2,7 @@ import React from "react";
 import "@/styles/globals.css";
 import { sandiasData } from "@/utils/sandiaData";
 import { checkTokenExpiry } from "@/utils/checkTokenExpiry";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { handleBeforeUnload } from "@/utils/beforeUnloadHandler";
 import { useRouter } from "next/router";
@@ -11,7 +11,6 @@ import { MusicProvider } from "@/components/home/musicContex";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
-  const [isLoading, setIsLoading]=useState(null)
   useEffect(() => {
     sandiasData();
     checkTokenExpiry();
@@ -41,18 +40,11 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     const rm = localStorage.getItem("rememberMe");
     if (!rm) {
-      setIsLoading(true)
+      setIsLoading(true);
       handleLogout();
     }
-    setIsLoading(false)
   }, []);
 
-  useEffect(() => {
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
 
   return (
     <ClerkProvider

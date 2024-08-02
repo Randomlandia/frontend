@@ -59,7 +59,7 @@ export default function Login() {
           const idUser = data?.data?._id;
           if (cookieValue && data) {
             const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-        localStorage.setItem("exp", exp.toString());
+            localStorage.setItem("exp", exp.toString());
             localStorage.setItem("token", cookieValue);
             localStorage.setItem("userID", idUser);
             localStorage.setItem("username", data.data.name);
@@ -373,9 +373,7 @@ export default function Login() {
                 }`}
               ></div>
             </div>
-            <span className="text-natD font-ram font-light">
-            RECUÉRDAME
-            </span>
+            <span className="text-natD font-ram font-light">RECUÉRDAME</span>
           </label>
         </div>
       </div>
