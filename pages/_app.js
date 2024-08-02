@@ -2,9 +2,11 @@ import React from "react";
 import "@/styles/globals.css";
 import { sandiasData } from "@/utils/sandiaData";
 import { checkTokenExpiry } from "@/utils/checkTokenExpiry";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { handleBeforeUnload } from "@/utils/beforeUnloadHandler";
+import { useRouter } from "next/router";
+import { handleLogout } from "@/utils/logoutHandler";
 import { useRouter } from "next/router";
 import { handleLogout } from "@/utils/logoutHandler";
 import { MusicProvider } from "@/components/home/musicContex";
@@ -19,7 +21,7 @@ export default function App({ Component, pageProps }) {
       if (exp) return;
     }, 3600000);
     return () => clearInterval(interval);
-}, [router]);
+  }, [router]);
 
   useEffect(() => {
     const rm = localStorage.getItem("rememberMe");
