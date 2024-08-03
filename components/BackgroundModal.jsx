@@ -88,14 +88,20 @@ export default function ModalComponent({ onClose }) {
   }, []);
 
   return (
-    <div className="max-h-screen">
-      <button
-        className="h-10 px-6 flex justify-end items-center"
-        onClick={openModal}
+    <div className="absolute max-h-screen ">
+      <div
+        id="burbuja2"
+        className=" bg-black z-[1000] mr-2 md:mr-6 xl:mr-10 h-12 w-12 xl:h-16 xl:w-16  justify-center text-center align-middle
+          flex bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
       >
-        <img src="/icon_edit.svg" alt="edit" className="h-8 w-8" />
-      </button>
-
+        <button className=" flex justify-end items-center" onClick={openModal}>
+          <img
+            src="/icon_edit.svg"
+            alt="edit"
+            className="h-6 w-6 md:h-8 md:w-8"
+          />
+        </button>
+      </div>
       {isOpen && (
         <div
           className={` xl:pt-16 flex-col fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/80 bg-opacity-75 py-5 md:px-10`}

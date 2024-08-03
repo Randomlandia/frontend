@@ -35,7 +35,7 @@ export default function Menu() {
       }}
     >
       <Navbar />
-      <div className="flex justify-end">
+      <div className="flex m-auto mt-12 xl:mt-7 justify-end">
         <BackgroundModal onClose={updateBackground} />
       </div>
       <div

@@ -26,13 +26,13 @@ export default function Home() {
       <Navbar />
 
       <div
-        className="flex h-10 absolute z-[5000] bg-transparent justify-center align-middle items-center
+        className="flex h-10 absolute z-[5000] bg-transparent align-middle items-center
         font-lucky text-white text-2xl md:text-5xl"
       >
         <div
           id="burbuja2"
-          className="bg-black h-20 w-20 mt-52 ml-10 mr-auto align-middle
-          flex bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
+          className=" justify-end bg-black h-20 w-20 mt-52 ml-10 mr-auto align-middle
+          bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
         >
           <button
             className="absolute z-[5000]"
