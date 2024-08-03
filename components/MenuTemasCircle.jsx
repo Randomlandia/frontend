@@ -5,7 +5,7 @@ export default function MenuTemasCircle() {
   return (
     <div className=" pt-4 mx-auto w-5/6 lg:w-3/4 xl:w-2/3 grid grid-cols-3">
       <div className="flex flex-col">
-        <div className="flex justify-end items-end pt-7 pl-7">
+        <div className="flex justify-end  items-end pt-7 pl-7">
           <TemaContainerCircle bool={true} name="nerd" />
         </div>
         <div className="flex items-center py-3 pr-7">

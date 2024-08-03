@@ -15,8 +15,8 @@ export default function Home() {
 
   const menu = () => {
     const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-    const rm = localStorage.getItem("rememberMe")
-    !rm && localStorage.setItem("rememberMe", "waiting")
+    const rm = localStorage.getItem("rememberMe");
+    !rm && localStorage.setItem("rememberMe", "waiting");
     localStorage.setItem("exp", exp.toString());
     router.push("/menu");
   };
@@ -26,13 +26,13 @@ export default function Home() {
       <Navbar />
 
       <div
-        className="flex h-10 absolute z-[5000] bg-transparent justify-center align-middle items-center
+        className="flex h-10 absolute z-[5000] bg-transparent align-middle items-center
         font-lucky text-white text-2xl md:text-5xl"
       >
         <div
           id="burbuja2"
-          className="bg-black h-20 w-20 mt-52 ml-10 mr-auto align-middle
-          flex bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
+          className=" justify-end bg-black h-20 w-20 mt-52 ml-10 mr-auto align-middle
+          bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
         >
           <button
             className="absolute z-[5000]"
@@ -66,7 +66,7 @@ export default function Home() {
           </div>
 
           <img
-            className="xl:hidden z-[9000] absolute m-auto pr-52 md:pb-[270px] h-[850px] pb-11 md:h-[1300px] bg-transparent"
+            className="xl:hidden z-[9000] absolute m-auto pr-52 md:pb-[270px] h-[850px]  md:h-[1300px] bg-transparent"
             src="/parallax_home/ARBOL 1 PLANO - IZQ.png"
             alt="ARBOL1PLANO"
           />

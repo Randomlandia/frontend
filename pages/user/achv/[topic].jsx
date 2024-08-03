@@ -106,7 +106,13 @@ export default function MedallaDetail() {
 
   const startOn = <img src={colorStar} alt="estrella" />;
   const starOff = <img src="/stargrey.svg" alt="estrella" />;
-  const iconoOn = <img src={iconoTopicOn} alt={`icono-${topicP}`} />;
+  const iconoOn = (
+    <img
+      src={iconoTopicOn}
+      alt={`icono-${topicP}`}
+      className="hover:animate-spin"
+    />
+  );
   const iconoOff = <img src={iconoTopic} alt={`icono-${topicP}`} />;
   // console.log(logros);
   return (
@@ -119,32 +125,55 @@ export default function MedallaDetail() {
       <div
         className={`flex flex-col gap-2 m-auto bg-oldwhite/75 border-4 ${colorFondo} rounded-xl shadow-lg px-6 py-4 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto`}
       >
-        <div className="inline-flex justify-center gap-6 ">
+        <div className="inline-flex justify-center items-center align-middle gap-6 ">
           {/* MEDALLA GRANDE TOPIC */}
-          {logros < 20 && (
-            <img
-              src={iconoTopicGrandeOff}
-              alt={`iconoGrande${topicP}`}
-              className="h-16"
-            />
-          )}
-          {logros == 20 && (
-            <img
-              src={iconoTopicGrande}
-              alt={`iconoGrande${topicP}`}
-              className="h-16"
-            />
-          )}
-          <div className="flex justify-start"></div> {/* NOMBRE DEL TOPIC */}
-          <div className="flex place-items-center">
-            <p className={`font-lucky ${colorTexto} text-center text-4xl`}>
+
+          <div className="flex md:absolute place-items-center">
+            {logros < 20 && (
+              <img
+                src={iconoTopicGrandeOff}
+                alt={`iconoGrande${topicP}`}
+                className="h-16 "
+              />
+            )}
+            {logros == 20 && (
+              <img
+                src={iconoTopicGrande}
+                alt={`iconoGrande${topicP}`}
+                className="h-16 animate-heartbeat"
+              />
+            )}
+            <p
+              className={`font-lucky ${colorTexto} text-center text-3xl md:text-4xl `}
+            >
               {topicP}
             </p>
+          </div>
+          <div className=" hidden md:flex  relative z-50 items-end top-0 right-0 md:ml-auto ml-auto  ">
+            <button
+              type=""
+              onClick={() => router.push(`/user/achv`)}
+              className="rounded-full w-fit border-2 border-transparent
+              hover:border-red-500 p-2"
+            >
+              <img src="/close.svg" alt="close" className="h-4 w-4" />
+            </button>
+          </div>
+
+          <div className=" flex md:hidden h-8 w-8 ml-auto   ">
+            <button
+              onClick={() => router.push(`/user/achv`)}
+              type=""
+              className="rounded-full h-8 w-8   border-2 border-transparent
+              hover:border-red-500 p-2"
+            >
+              <img src="/close.svg" alt="close" className="h-4 w-4" />
+            </button>
           </div>
         </div>
 
         {/* CAMINO BADGES + ESTRELLAS  */}
-        <div className="grid sm:grid-cols-1 lg:grid-cols-2 object-center  lg:gap-10 py-2">
+        <div className="grid sm:grid-cols-1 lg:grid-cols-2 object-center  mt-5 lg:gap-10 py-2">
           {/* PRINCIPIANTE */}
           <div className="">
             <div className="grid grid-cols-5 justify-items-center gap-4">

@@ -8,7 +8,7 @@ import {
   Transition,
   MenuButton,
   MenuItems,
-  MenuItem
+  MenuItem,
 } from "@headlessui/react";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/router";
@@ -59,7 +59,7 @@ export default function Navbar() {
       "/avatars/A_RANDY_SAD.svg",
       "/avatars/A_RANDY_SMILE.svg",
       "/avatars/A_RANDY-WINK.svg",
-      "/avatars/A_RANDY_ANGRY.svg"
+      "/avatars/A_RANDY_ANGRY.svg",
     ];
     return avatars[userAvatar] || avatars[0];
   };
@@ -77,7 +77,7 @@ export default function Navbar() {
       "achieve",
       "exp",
       "userID",
-      "rememberMe"
+      "rememberMe",
     ];
     try {
       const updateSuccess = await handleUpdateUser(isLogged);
@@ -124,20 +124,31 @@ export default function Navbar() {
               </button>
             </div>
             {isLogged ? (
-              <button
-                className="flex items-center transform hover:scale-110"
-                onClick={() => {
-                  router.push(`/user/${userId}`);
-                }}
-              >
-                {/*botonAvatarImagen */}
-                <div className="py-1 px-1">
-                  <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
-                </div>
-                <div className="bg-dorange h-9 px-5 rounded-[10px] flex items-center">
-                  <p>{userName}</p>
-                </div>
-              </button>
+              <>
+                <button
+                  onClick={() => {
+                    router.push("/menu");
+                  }}
+                >
+                  <p className="bg-natL h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110">
+                    ¡JUGAR!
+                  </p>
+                </button>
+                <button
+                  className="flex items-center transform hover:scale-110"
+                  onClick={() => {
+                    router.push(`/user/${userId}`);
+                  }}
+                >
+                  {/*botonAvatarImagen */}
+                  <div className="py-1 px-1">
+                    <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
+                  </div>
+                  <div className="bg-dorange h-9 px-5 rounded-[10px] flex items-center">
+                    <p>{userName}</p>
+                  </div>
+                </button>
+              </>
             ) : (
               <>
                 <button
@@ -158,17 +169,17 @@ export default function Navbar() {
                     CREAR CUENTA
                   </p>
                 </button>
+                <button
+                  onClick={() => {
+                    router.push("/menu");
+                  }}
+                >
+                  <p className="bg-natL h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110">
+                    ¡JUGAR!
+                  </p>
+                </button>
               </>
             )}
-            <button
-              onClick={() => {
-                router.push("/menu");
-              }}
-            >
-              <p className="bg-natL h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110">
-                ¡JUGAR!
-              </p>
-            </button>
           </div>
           <div className="relative group hidden lg:inline-block">
             {isLogged && (
@@ -263,7 +274,9 @@ export default function Navbar() {
                       <MenuItem>
                         {({ active }) => (
                           <button
-                            onClick={()=>{router.push(`/user/${userIdHamburguesa}`)}}
+                            onClick={() => {
+                              router.push(`/user/${userIdHamburguesa}`);
+                            }}
                             onTouchStart={() => setSelectedMenu("user")}
                             onTouchEnd={() => setSelectedMenu(null)}
                             className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
