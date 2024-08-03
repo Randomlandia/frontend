@@ -106,7 +106,13 @@ export default function MedallaDetail() {
 
   const startOn = <img src={colorStar} alt="estrella" />;
   const starOff = <img src="/stargrey.svg" alt="estrella" />;
-  const iconoOn = <img src={iconoTopicOn} alt={`icono-${topicP}`} />;
+  const iconoOn = (
+    <img
+      src={iconoTopicOn}
+      alt={`icono-${topicP}`}
+      className="hover:animate-spin"
+    />
+  );
   const iconoOff = <img src={iconoTopic} alt={`icono-${topicP}`} />;
   // console.log(logros);
   return (
@@ -125,14 +131,14 @@ export default function MedallaDetail() {
             <img
               src={iconoTopicGrandeOff}
               alt={`iconoGrande${topicP}`}
-              className="h-16"
+              className="h-16 "
             />
           )}
           {logros == 20 && (
             <img
               src={iconoTopicGrande}
               alt={`iconoGrande${topicP}`}
-              className="h-16"
+              className="h-16 animate-heartbeat"
             />
           )}
           <div className="flex justify-start"></div> {/* NOMBRE DEL TOPIC */}
