@@ -43,7 +43,7 @@ export default function Menu() {
           name="menu"
           className="w-full h-full z-10 flex justify-center py-5 lg:py-3 px-2"
         >
-          <div className="sm:hidden relative lg:w-1/2 sm:h-full bg-oldwhite/70 shadow-xl p-5 rounded-xl lg:mx-7">
+          <div className="sm:hidden relative lg:w-1/2 sm:h-full bg-oldwhite/70 shadow-xl m-5 pt-5 rounded-xl lg:mx-7">
             {/* Esta parte muestra el carusel si la pantalla es mobile */}
             <div className="flex flex-col justify-items-center">
               <TemaContainer bool={true} name="default" />
