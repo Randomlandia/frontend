@@ -20,7 +20,7 @@ export default function ContactoFooter() {
 
         {/* ICONOS SOCIAL MEDIA */}
         <div className="flex grid-flow-col gap-6 justify-center p-3">
-          <button className="rounded-full">
+          <button className="rounded-full hover:animate-ping">
             <a
               href="https://www.facebook.com/randomlandia.juego/"
               target="_blank"
@@ -32,7 +32,7 @@ export default function ContactoFooter() {
               />
             </a>
           </button>
-          <button className="rounded-full">
+          <button className="rounded-full hover:animate-ping">
             <a href="https://www.tiktok.com/@randyrandomcat" target="_blank">
               <img
                 src="/landing/tiktok.png"
@@ -41,7 +41,7 @@ export default function ContactoFooter() {
               />
             </a>
           </button>
-          <button className="rounded-full">
+          <button className="rounded-full hover:animate-ping">
             <a
               href="https://open.spotify.com/user/31ux5pywufhwh6gexijksz7r5ztq?si=0e013d965ce148d5"
               target="_blank"
@@ -56,7 +56,7 @@ export default function ContactoFooter() {
         </div>
 
         {/* LINKS A AVISOS  */}
-        <div className="flex grid-flow-col gap-6 justify-center p-3">
+        <div className="flex grid-flow-col gap-6 justify-center p-3 ">
           <a
             href="/avisoprivacidad"
             target="_blank"
