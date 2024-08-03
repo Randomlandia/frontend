@@ -35,11 +35,11 @@ export default function Login() {
             {
               method: "POST",
               body: JSON.stringify({
-                email: user.emailAddresses[0].emailAddress
+                email: user.emailAddresses[0].emailAddress,
               }),
               headers: {
-                "Content-type": "application/json; charset=UTF-8"
-              }
+                "Content-type": "application/json; charset=UTF-8",
+              },
             }
           );
 
@@ -95,7 +95,7 @@ export default function Login() {
     handleSubmit,
     register,
     setError,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   async function onSubmit(dataLogIn) {
@@ -110,11 +110,11 @@ export default function Login() {
         body: JSON.stringify({
           email: dataLogIn.email,
 
-          password: dataLogIn.password
+          password: dataLogIn.password,
         }),
         headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        }
+          "Content-type": "application/json; charset=UTF-8",
+        },
       }
     ).catch((error) => {
       console.log("Error", error);
@@ -134,8 +134,8 @@ export default function Login() {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json; charset=UTF-8"
-          }
+            "Content-Type": "application/json; charset=UTF-8",
+          },
         }
       );
 
@@ -179,8 +179,8 @@ export default function Login() {
   }
   const userButtonAppearance = {
     elements: {
-      userButtonAvatarBox: "w-24 h-24"
-    }
+      userButtonAvatarBox: "w-24 h-24",
+    },
   };
 
   return (
@@ -263,16 +263,16 @@ export default function Login() {
                 {...register("email", {
                   minLength: {
                     value: 3,
-                    message: "Correo debe contener a mínimo 3 caracteres"
+                    message: "Correo debe contener a mínimo 3 caracteres",
                   },
                   maxLength: {
                     value: 50,
-                    message: "Correo debe contener a máximo 50 caracteres"
+                    message: "Correo debe contener a máximo 50 caracteres",
                   },
                   pattern: {
                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Correo no válido"
-                  }
+                    message: "Correo no válido",
+                  },
                 })}
               />
             </div>
@@ -297,16 +297,16 @@ export default function Login() {
                 {...register("password", {
                   minLength: {
                     value: 3,
-                    message: "Mínimo tres caracteres"
+                    message: "Mínimo tres caracteres",
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres"
+                    message: "Usuario debe contener a máximo 50 caracteres",
                   },
                   pattern: {
                     value: /^[a-zA-Z0-9]+$/,
-                    message: "Solo puedes usar letras y números"
-                  }
+                    message: "Solo puedes usar letras y números",
+                  },
                 })}
               />
             </div>
@@ -331,14 +331,26 @@ export default function Login() {
                 ¡Bienvenido!
                 <br /> Ya estas listo para la aventura.
               </p>
-              <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
-                <p className="text-ram text-center text-3xl font-bold text-dgreen">
-                  ¡Bienvenido!
-                  <br /> Ya estas listo para la aventura.
-                </p>
-              </div>
             </div>
           )}
+
+          <label className="flex justify-center items-center space-x-2">
+            <div className="relative">
+              <input
+                type="checkbox"
+                checked={rememberMe}
+                onChange={handleToggleChange}
+                className="sr-only"
+              />
+              <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
+              <div
+                className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
+                  rememberMe ? "transform translate-x-full bg-natL" : ""
+                }`}
+              ></div>
+            </div>
+            <span className="text-natD font-ram font-light">RECUÉRDAME</span>
+          </label>
 
           <button
             className=" bg-agreen p-1.5 w-56 m-auto mt-6 mb-5  font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
@@ -357,25 +369,6 @@ export default function Login() {
             Aún no tengo cuenta
           </div>
         </button>
-        <div className="mt-4">
-          <label className="flex items-center space-x-2">
-            <div className="relative">
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={handleToggleChange}
-                className="sr-only"
-              />
-              <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
-              <div
-                className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
-                  rememberMe ? "transform translate-x-full bg-natL" : ""
-                }`}
-              ></div>
-            </div>
-            <span className="text-natD font-ram font-light">RECUÉRDAME</span>
-          </label>
-        </div>
       </div>
     </div>
   );
