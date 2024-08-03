@@ -15,8 +15,8 @@ export default function Home() {
 
   const menu = () => {
     const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-    const rm = localStorage.getItem("rememberMe")
-    !rm && localStorage.setItem("rememberMe", "waiting")
+    const rm = localStorage.getItem("rememberMe");
+    !rm && localStorage.setItem("rememberMe", "waiting");
     localStorage.setItem("exp", exp.toString());
     router.push("/menu");
   };
@@ -66,7 +66,7 @@ export default function Home() {
           </div>
 
           <img
-            className="xl:hidden z-[9000] absolute m-auto pr-52 md:pb-[270px] h-[850px] pb-11 md:h-[1300px] bg-transparent"
+            className="xl:hidden z-[9000] absolute m-auto pr-52 md:pb-[270px] h-[850px]  md:h-[1300px] bg-transparent"
             src="/parallax_home/ARBOL 1 PLANO - IZQ.png"
             alt="ARBOL1PLANO"
           />
