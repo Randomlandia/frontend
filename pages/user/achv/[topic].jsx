@@ -144,7 +144,7 @@ export default function MedallaDetail() {
               />
             )}
             <p
-              className={`font-lucky ${colorTexto} text-center text-3xl md:text-4xl`}
+              className={`font-lucky ${colorTexto} text-center text-3xl md:text-4xl `}
             >
               {topicP}
             </p>
@@ -160,8 +160,9 @@ export default function MedallaDetail() {
             </button>
           </div>
 
-          <div className=" flex md:hidden h-8 w-8    ">
+          <div className=" flex md:hidden h-8 w-8 ml-auto   ">
             <button
+              onClick={() => router.push(`/user/achv`)}
               type=""
               className="rounded-full h-8 w-8   border-2 border-transparent
               hover:border-red-500 p-2"
