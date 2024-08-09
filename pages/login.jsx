@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
+import ModalPassword from "@/components/modalPassword";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -15,6 +16,8 @@ export default function Login() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [recovery, setRecovery] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
 
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
@@ -35,11 +38,11 @@ export default function Login() {
             {
               method: "POST",
               body: JSON.stringify({
-                email: user.emailAddresses[0].emailAddress,
+                email: user.emailAddresses[0].emailAddress
               }),
               headers: {
-                "Content-type": "application/json; charset=UTF-8",
-              },
+                "Content-type": "application/json; charset=UTF-8"
+              }
             }
           );
 
@@ -95,7 +98,7 @@ export default function Login() {
     handleSubmit,
     register,
     setError,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   async function onSubmit(dataLogIn) {
@@ -110,11 +113,11 @@ export default function Login() {
         body: JSON.stringify({
           email: dataLogIn.email,
 
-          password: dataLogIn.password,
+          password: dataLogIn.password
         }),
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
+          "Content-type": "application/json; charset=UTF-8"
+        }
       }
     ).catch((error) => {
       console.log("Error", error);
@@ -134,8 +137,8 @@ export default function Login() {
         {
           method: "GET",
           headers: {
-            "Content-Type": "application/json; charset=UTF-8",
-          },
+            "Content-Type": "application/json; charset=UTF-8"
+          }
         }
       );
 
@@ -179,8 +182,16 @@ export default function Login() {
   }
   const userButtonAppearance = {
     elements: {
-      userButtonAvatarBox: "w-24 h-24",
-    },
+      userButtonAvatarBox: "w-24 h-24"
+    }
+  };
+
+  const recoveryStage = () => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setTransitioning(false);
+      setRecovery(true);
+    }, 3000);
   };
 
   return (
@@ -188,7 +199,23 @@ export default function Login() {
       className="min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
       style={{ backgroundImage: `url(${background})` }}
     >
+      {transitioning && (
+        <div className="fixed z-20 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+          <div className="w-4/5 bg-oldwhite grid gap-6 p-6 rounded-xl shadow-2xl shadow-lorange/70">
+            <h2 className="text-4xl text-center font-bold font-ram text-dorange mb-4">
+              ¡Ay no!
+            </h2>
+            <p className="text-center text-dgreen grid gap-2">
+              ¡No te preocupes! Ya te ayudo a volver
+            </p>
+            <div className="grid sm:flex gap-10 justify-center items-center py-3">
+              <img src={"/RANDY_06.svg"} alt="randy" className="w-40 sm:w-56" />
+            </div>
+          </div>
+        </div>
+      )}
       <Navbar />
+      {recovery && <ModalPassword setRecovery={setRecovery} />}
       <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
         {showError && (
           <div className="fixed z-20 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
@@ -263,16 +290,16 @@ export default function Login() {
                 {...register("email", {
                   minLength: {
                     value: 3,
-                    message: "Correo debe contener a mínimo 3 caracteres",
+                    message: "Correo debe contener a mínimo 3 caracteres"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Correo debe contener a máximo 50 caracteres",
+                    message: "Correo debe contener a máximo 50 caracteres"
                   },
                   pattern: {
                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Correo no válido",
-                  },
+                    message: "Correo no válido"
+                  }
                 })}
               />
             </div>
@@ -297,16 +324,16 @@ export default function Login() {
                 {...register("password", {
                   minLength: {
                     value: 3,
-                    message: "Mínimo tres caracteres",
+                    message: "Mínimo tres caracteres"
                   },
                   maxLength: {
                     value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
+                    message: "Usuario debe contener a máximo 50 caracteres"
                   },
                   pattern: {
                     value: /^[a-zA-Z0-9]+$/,
-                    message: "Solo puedes usar letras y números",
-                  },
+                    message: "Solo puedes usar letras y números"
+                  }
                 })}
               />
             </div>
@@ -367,6 +394,11 @@ export default function Login() {
         <button onClick={() => router.push("/register")}>
           <div className="text-natD underline hover:text-lorange font-mont font-semibold">
             Aún no tengo cuenta
+          </div>
+        </button>
+        <button onClick={recoveryStage}>
+          <div className="text-natD underline hover:text-lorange font-mont font-semibold">
+            Olvidé mi contraseña
           </div>
         </button>
       </div>
