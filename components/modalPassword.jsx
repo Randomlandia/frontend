@@ -144,14 +144,14 @@ export default function ModalPassword({ setRecovery }) {
           </p>
         </div>
       )}
-      <div className="flex flex-col bg-oldwhite/60 p-5 rounded-md">
+      <div className="flex flex-col bg-oldwhite/60  min-h-svh rounded-md">
         <div className="flex flex-col p-4">
           <div className="flex-col justify-center">
             <p className="font-lucky text-dgreen text-3xl text-center text-wrap">
               ¿Olvidaste tu contraseña?
             </p>
             <p className="font-mont text-black text-center">
-              Ingresa los siguientes datos
+              Ingresa los siguientes datos:
             </p>
           </div>
 

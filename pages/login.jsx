@@ -196,7 +196,7 @@ export default function Login() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
+      className="min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat flex flex-col font-mont font-bold overflow-hidden -z-10"
       style={{ backgroundImage: `url(${background})` }}
     >
       {transitioning && (
@@ -215,193 +215,199 @@ export default function Login() {
         </div>
       )}
       <Navbar />
-      {recovery && <ModalPassword setRecovery={setRecovery} />}
-      <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
-        {showError && (
-          <div className="fixed z-20 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
-            <div className="w-4/5 bg-oldwhite grid gap-6 p-6 rounded-xl shadow-2xl shadow-lorange/70">
-              <h2 className="text-4xl text-center font-bold font-ram text-dorange mb-4">
-                ¡Ay no!
-              </h2>
-              <p className="text-center text-dgreen grid gap-2">
-                Parece ser que aún no te has registrado, pero no te preocupes,
-                ¡yo te llevo!
-              </p>
-              <div className="grid sm:flex gap-10 justify-center items-center py-3">
-                <img
-                  src={"/RANDY_06.svg"}
-                  alt="randy"
-                  className="w-40 sm:w-56"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="grid gap-3  text-white ">
-          <SignedIn>
-            <div className="flex mb-3  h-24 w-24 bg-[url('/avatars/A_RANDY.svg')] rounded-full  items-end justify-center">
-              <UserButton
-                appearance={userButtonAppearance}
-                afterSignOutUrl="/"
-              />
-            </div>
-          </SignedIn>
-          <SignedOut>
-            <SignInButton mode="modal" forceRedirectUrl="/login">
-              <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
-                <p className="text-natD font-lucky text-3xl text-center">
-                  Vincula tu cuenta con:
+      {recovery ? (
+        <ModalPassword setRecovery={setRecovery} />
+      ) : (
+        <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mt-14 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
+          {showError && (
+            <div className="fixed z-20 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+              <div className="w-4/5 bg-oldwhite grid gap-6 p-6 rounded-xl shadow-2xl shadow-lorange/70">
+                <h2 className="text-4xl text-center font-bold font-ram text-dorange mb-4">
+                  ¡Ay no!
+                </h2>
+                <p className="text-center text-dgreen grid gap-2">
+                  Parece ser que aún no te has registrado, pero no te preocupes,
+                  ¡yo te llevo!
                 </p>
-                <div className="flex gap-6 mb-4">
-                  <Image src="fb_icon.svg" width={40} height={40}></Image>
-                  <Image src="google_icon.svg" width={40} height={40}></Image>
-                  <Image src="tiktok_icon.svg" width={40} height={40}></Image>
+                <div className="grid sm:flex gap-10 justify-center items-center py-3">
+                  <img
+                    src={"/RANDY_06.svg"}
+                    alt="randy"
+                    className="w-40 sm:w-56"
+                  />
                 </div>
               </div>
-            </SignInButton>
-          </SignedOut>
-          <div className="flex">
-            <div className="border-t-2 border-gray-800 w-full max-w-xs"></div>
-            <p className="w-auto text-black -translate-y-2.5 text-center px-2">
-              O
-            </p>
-            <div className="border-t-2 border-gray-800 w-full max-w-xs"></div>
-          </div>
-        </div>
-        <form
-          autoComplete="off"
-          onSubmit={handleSubmit(onSubmit)}
-          name="formLogIn"
-          className="w-full md:w-[424px] pt-3 flex flex-col text-sm gap-2"
-        >
-          <div className="flex flex-col gap-2">
-            <div className="grid gap-0.5">
-              <label name="email" className=" b-0 px-2 py-4 text-natD font-ram">
-                EMAIL
-              </label>
-              <input
-                autoComplete="off"
-                type="email"
-                name="email"
-                required
-                placeholder="ejemplo@mail.com"
-                className="bg-lorange/50  outline-lorange/50 outline-offset-1  text-white p-2 rounded-lg shadow-md "
-                {...register("email", {
-                  minLength: {
-                    value: 3,
-                    message: "Correo debe contener a mínimo 3 caracteres"
-                  },
-                  maxLength: {
-                    value: 50,
-                    message: "Correo debe contener a máximo 50 caracteres"
-                  },
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Correo no válido"
-                  }
-                })}
-              />
-            </div>
-
-            {errors.email && (
-              <p className="text-red-500 text-center" id="letra">
-                {"⚠ "} {errors.email.message}
-              </p>
-            )}
-            <div className="grid gap-0.5">
-              <label name="password" className="px-2 py-4 text-natD font-ram">
-                CONTRASEÑA
-              </label>
-
-              <input
-                type="password"
-                name="password"
-                autoComplete="off"
-                required
-                placeholder="********"
-                className="bg-lorange/50 outline-lorange/50 outline-offset-1 text-white p-2 rounded-lg shadow-md"
-                {...register("password", {
-                  minLength: {
-                    value: 3,
-                    message: "Mínimo tres caracteres"
-                  },
-                  maxLength: {
-                    value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres"
-                  },
-                  pattern: {
-                    value: /^[a-zA-Z0-9]+$/,
-                    message: "Solo puedes usar letras y números"
-                  }
-                })}
-              />
-            </div>
-            {errors.password && (
-              <p className="text-red-500 text-center" id="letra">
-                {"⚠ "} {errors.password.message}
-              </p>
-            )}
-          </div>
-
-          <div id="errorPasswordEmail" className="p-1">
-            {errors.root && (
-              <p className=" text-red-500 text-center" id="letra">
-                {"⚠ "} {errors.root.message}
-              </p>
-            )}
-          </div>
-
-          {showSuccess && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
-              <p className="text-ram text-center text-3xl font-bold text-dgreen">
-                ¡Bienvenido!
-                <br /> Ya estas listo para la aventura.
-              </p>
             </div>
           )}
 
-          <label className="flex justify-center items-center space-x-2">
-            <div className="relative">
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={handleToggleChange}
-                className="sr-only"
-              />
-              <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
-              <div
-                className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
-                  rememberMe ? "transform translate-x-full bg-natL" : ""
-                }`}
-              ></div>
+          <div className="grid gap-3  text-white ">
+            <SignedIn>
+              <div className="flex mb-3  h-24 w-24 bg-[url('/avatars/A_RANDY.svg')] rounded-full  items-end justify-center">
+                <UserButton
+                  appearance={userButtonAppearance}
+                  afterSignOutUrl="/"
+                />
+              </div>
+            </SignedIn>
+            <SignedOut>
+              <SignInButton mode="modal" forceRedirectUrl="/login">
+                <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
+                  <p className="text-natD font-lucky text-3xl text-center">
+                    Vincula tu cuenta con:
+                  </p>
+                  <div className="flex gap-6 mb-4">
+                    <Image src="fb_icon.svg" width={40} height={40}></Image>
+                    <Image src="google_icon.svg" width={40} height={40}></Image>
+                    <Image src="tiktok_icon.svg" width={40} height={40}></Image>
+                  </div>
+                </div>
+              </SignInButton>
+            </SignedOut>
+            <div className="flex">
+              <div className="border-t-2 border-gray-800 w-full max-w-xs"></div>
+              <p className="w-auto text-black -translate-y-2.5 text-center px-2">
+                O
+              </p>
+              <div className="border-t-2 border-gray-800 w-full max-w-xs"></div>
             </div>
-            <span className="text-natD font-ram font-light">RECUÉRDAME</span>
-          </label>
-
-          <button
-            className=" bg-agreen p-1.5 w-56 m-auto mt-6 mb-5  font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
-            type="submit"
+          </div>
+          <form
+            autoComplete="off"
+            onSubmit={handleSubmit(onSubmit)}
+            name="formLogIn"
+            className="w-full md:w-[424px] pt-3 flex flex-col text-sm gap-2"
           >
-            <p className=" font-ram tracking-wider">enviar</p>
+            <div className="flex flex-col gap-2">
+              <div className="grid gap-0.5">
+                <label
+                  name="email"
+                  className=" b-0 px-2 py-4 text-natD font-ram"
+                >
+                  EMAIL
+                </label>
+                <input
+                  autoComplete="off"
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="ejemplo@mail.com"
+                  className="bg-lorange/50  outline-lorange/50 outline-offset-1  text-white p-2 rounded-lg shadow-md "
+                  {...register("email", {
+                    minLength: {
+                      value: 3,
+                      message: "Correo debe contener a mínimo 3 caracteres"
+                    },
+                    maxLength: {
+                      value: 50,
+                      message: "Correo debe contener a máximo 50 caracteres"
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                      message: "Correo no válido"
+                    }
+                  })}
+                />
+              </div>
+
+              {errors.email && (
+                <p className="text-red-500 text-center" id="letra">
+                  {"⚠ "} {errors.email.message}
+                </p>
+              )}
+              <div className="grid gap-0.5">
+                <label name="password" className="px-2 py-4 text-natD font-ram">
+                  CONTRASEÑA
+                </label>
+
+                <input
+                  type="password"
+                  name="password"
+                  autoComplete="off"
+                  required
+                  placeholder="********"
+                  className="bg-lorange/50 outline-lorange/50 outline-offset-1 text-white p-2 rounded-lg shadow-md"
+                  {...register("password", {
+                    minLength: {
+                      value: 3,
+                      message: "Mínimo tres caracteres"
+                    },
+                    maxLength: {
+                      value: 50,
+                      message: "Usuario debe contener a máximo 50 caracteres"
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9]+$/,
+                      message: "Solo puedes usar letras y números"
+                    }
+                  })}
+                />
+              </div>
+              {errors.password && (
+                <p className="text-red-500 text-center" id="letra">
+                  {"⚠ "} {errors.password.message}
+                </p>
+              )}
+            </div>
+
+            <div id="errorPasswordEmail" className="p-1">
+              {errors.root && (
+                <p className=" text-red-500 text-center" id="letra">
+                  {"⚠ "} {errors.root.message}
+                </p>
+              )}
+            </div>
+
+            {showSuccess && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
+                <p className="text-ram text-center text-3xl font-bold text-dgreen">
+                  ¡Bienvenido!
+                  <br /> Ya estas listo para la aventura.
+                </p>
+              </div>
+            )}
+
+            <label className="flex justify-center items-center space-x-2">
+              <div className="relative">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={handleToggleChange}
+                  className="sr-only"
+                />
+                <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
+                <div
+                  className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
+                    rememberMe ? "transform translate-x-full bg-natL" : ""
+                  }`}
+                ></div>
+              </div>
+              <span className="text-natD font-ram font-light">RECUÉRDAME</span>
+            </label>
+
+            <button
+              className=" bg-agreen p-1.5 w-56 m-auto mt-6 mb-5  font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
+              type="submit"
+            >
+              <p className=" font-ram tracking-wider">enviar</p>
+            </button>
+          </form>
+
+          {/*<SignedOut>
+        <SignInButton />
+      </SignedOut>*/}
+
+          <button onClick={() => router.push("/register")}>
+            <div className="text-natD underline hover:text-lorange font-mont font-semibold">
+              Aún no tengo cuenta
+            </div>
           </button>
-        </form>
-
-        {/*<SignedOut>
-          <SignInButton />
-        </SignedOut>*/}
-
-        <button onClick={() => router.push("/register")}>
-          <div className="text-natD underline hover:text-lorange font-mont font-semibold">
-            Aún no tengo cuenta
-          </div>
-        </button>
-        <button onClick={recoveryStage}>
-          <div className="text-natD underline hover:text-lorange font-mont font-semibold">
-            Olvidé mi contraseña
-          </div>
-        </button>
-      </div>
+          <button onClick={recoveryStage}>
+            <div className="text-natD underline hover:text-lorange font-mont font-semibold">
+              Olvidé mi contraseña
+            </div>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
