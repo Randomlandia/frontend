@@ -58,7 +58,7 @@ export default function User() {
     router.push(`/about`);
   };
   const botonClass =
-    'bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly hover:shadow-xl hover:translate-y-1 hover:translate-x-1 hover:shadow-orange-300 ';
+    "bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly hover:shadow-xl hover:translate-y-1 hover:translate-x-1 hover:shadow-orange-300 ";
   return (
     <main className="w-full min-h-screen bg-oldwhite/70 overflow-hidden">
       {/* NAVBAR COMPONENT */}
@@ -80,7 +80,7 @@ export default function User() {
           {/* SCORE */}
           <div className="py-4 px-10 grid grid-cols-1 place-items-center lg:px-2">
             <div className="border-4 border-lorange rounded-lg py-2 px-4 grid grid-rows-2 gap-2 w-fit">
-              {' '}
+              {" "}
               <p className="relative  font-lucky text-dgreen text-2xl  text-center animate-heartbeat">
                 SCORE
               </p>
@@ -94,57 +94,29 @@ export default function User() {
         {/* BOTONES HACIA SUBMENUS */}
 
         <div className="grid gap-4 w-full py-4 px-10 md:px-32 lg:grid-cols-2 lg:gap-2 lg:px-2 xl:grid-cols-4 ">
-          <button
-            onClick={favs}
-            className={botonClass}
-          >
-            <img
-              src="/icon_userheart.svg"
-              alt=""
-              className="h-8 w-8 "
-            />
+          <button onClick={favs} className={botonClass}>
+            <img src="/icon_userheart.svg" alt="" className="h-8 w-8 " />
             <span className="font-lucky text-black text-xl xl:text-lg">
               FAVS
             </span>
           </button>
 
-          <button
-            onClick={logros}
-            className={botonClass}
-          >
-            <img
-              src="/icon_userachieve.svg"
-              alt=""
-              className="h-8 w-8 "
-            />
+          <button onClick={logros} className={botonClass}>
+            <img src="/icon_userachieve.svg" alt="" className="h-8 w-8 " />
             <span className="font-lucky text-black text-xl xl:text-lg">
               LOGROS
             </span>
           </button>
 
-          <button
-            onClick={vistos}
-            className={botonClass}
-          >
-            <img
-              src="/icon_userview.svg"
-              alt=""
-              className="h-8 w-8 "
-            />
+          <button onClick={vistos} className={botonClass}>
+            <img src="/icon_userview.svg" alt="" className="h-8 w-8 " />
             <span className="font-lucky text-black text-xl xl:text-lg ">
               VISTOS
             </span>
           </button>
 
-          <button
-            onClick={nosotros}
-            className={botonClass}
-          >
-            <img
-              src="/icon_userabt.svg"
-              alt=""
-              className="h-8 w-8"
-            />
+          <button onClick={nosotros} className={botonClass}>
+            <img src="/icon_userabt.svg" alt="" className="h-8 w-8" />
             <span className="font-lucky text-black text-xl xl:text-lg">
               NOSOTROS
             </span>
@@ -153,17 +125,8 @@ export default function User() {
       </div>
 
       {/* FOOTER CONTACTO */}
-      <div className="md:m-20 md:mb-0">
-        <ContactoFooter>
-          {emailIsValidate || (
-            <SpeechBubble
-              text="¡Revisa tu correo explorador, para validar tu cuenta!"
-              trianglePosition="right"
-              width="250px"
-              height="100px"
-            />
-          )}
-        </ContactoFooter>
+      <div className=" md:m-20">
+        <ContactoFooter />
       </div>
     </main>
   );

@@ -20,6 +20,7 @@ export default function Register() {
     watch,
     formState: { errors },
     setError,
+    setError,
   } = useForm();
 
   const handleToggleChange = () => {
@@ -64,7 +65,7 @@ export default function Register() {
             fechaNacimiento: dataRegistro.fechaNacimiento,
           }),
           headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+            "Content-type": "application/json; charset=UTF-8",
           },
         }
       );
@@ -86,7 +87,7 @@ export default function Register() {
               password: dataRegistro.contraseñaRegistro,
             }),
             headers: {
-              'Content-type': 'application/json; charset=UTF-8',
+              "Content-type": "application/json; charset=UTF-8",
             },
           }
         );
@@ -112,7 +113,7 @@ export default function Register() {
             {
               method: 'GET',
               headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
+                "Content-Type": "application/json; charset=UTF-8",
               },
             }
           );
@@ -213,15 +214,15 @@ export default function Register() {
                     {...register('userRegistro', {
                       minLength: {
                         value: 3,
-                        message: 'Usuario debe contener a mínimo 3 caracteres',
+                        message: "Usuario debe contener a mínimo 3 caracteres",
                       },
                       maxLength: {
                         value: 50,
-                        message: 'Usuario debe contener a máximo 50 caracteres',
+                        message: "Usuario debe contener a máximo 50 caracteres",
                       },
                       pattern: {
                         value: /^[a-zA-Z0-9 ]+$/i,
-                        message: 'Solo se permiten letras',
+                        message: "Solo se permiten letras",
                       },
                     })}
                   />
@@ -234,17 +235,13 @@ export default function Register() {
               </div>
               <div className="grid group">
                 <div className="flex gap-2 font-bold  justify-center">
-                  <img
-                    src="/icon_cumple.svg"
-                    alt=""
-                    className="w-9 h-9"
-                  />
+                  <img src="/icon_cumple.svg" alt="" className="w-9 h-9" />
                   <input
                     type="date"
                     name="fechaNacimiento"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register('fechaNacimiento', {
-                      required: 'La fecha de nacimiento es requerida',
+                    {...register("fechaNacimiento", {
+                      required: "La fecha de nacimiento es requerida",
                       validate: validateAge,
                     })}
                   />
@@ -275,16 +272,16 @@ export default function Register() {
                     {...register('correoRegistro', {
                       minLength: {
                         value: 3,
-                        message: 'Correo debe contener a mínimo 3 caracteres',
+                        message: "Correo debe contener a mínimo 3 caracteres",
                       },
                       maxLength: {
                         value: 50,
-                        message: 'Correo debe contener a máximo 50 caracteres',
+                        message: "Correo debe contener a máximo 50 caracteres",
                       },
                       pattern: {
                         value:
                           /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                        message: 'Correo no válido',
+                        message: "Correo no válido",
                       },
                     })}
                   />
@@ -310,17 +307,17 @@ export default function Register() {
                     {...register('contraseñaRegistro', {
                       minLength: {
                         value: 3,
-                        message: 'Contraseña debe contener mínimo 3 caracteres',
+                        message: "Contraseña debe contener mínimo 3 caracteres",
                       },
                       maxLength: {
                         value: 50,
                         message:
-                          'Contraseña debe contener máximo 50 caracteres',
+                          "Contraseña debe contener máximo 50 caracteres",
                       },
                       validate: {
                         matches: (value) =>
-                          value === watch('contraseñaRegistro') ||
-                          'Las contraseñas no coinciden',
+                          value === watch("contraseñaRegistro") ||
+                          "Las contraseñas no coinciden",
                       },
                     })}
                   />
@@ -346,8 +343,8 @@ export default function Register() {
                     {...register('confirmPassword', {
                       validate: {
                         matches: (value) =>
-                          value === watch('contraseñaRegistro') ||
-                          'Las contraseñas no coinciden',
+                          value === watch("contraseñaRegistro") ||
+                          "Las contraseñas no coinciden",
                       },
                     })}
                   />
@@ -371,12 +368,12 @@ export default function Register() {
                   <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
                   <div
                     className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
-                      rememberMe ? 'transform translate-x-full bg-natL' : ''
+                      rememberMe ? "transform translate-x-full bg-natL" : ""
                     }`}
                   ></div>
                 </div>
                 <span className="text-natD font-ram font-light">
-                  RECUÉRDAME{' '}
+                  RECUÉRDAME{" "}
                 </span>
               </label>
               <button
@@ -386,11 +383,8 @@ export default function Register() {
                 enviar
               </button>
               {showError && (
-                <p
-                  className=" text-red-500 text-center"
-                  id="letra"
-                >
-                  {'⚠ Llena los campos por favor'}
+                <p className=" text-red-500 text-center" id="letra">
+                  {"⚠ Llena los campos por favor"}
                 </p>
               )}
               <div className="flex flex-col gap-3">

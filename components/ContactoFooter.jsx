@@ -43,10 +43,7 @@ export default function ContactoFooter({ children }) {
             </a>
           </button>
           <button className="rounded-full hover:animate-ping">
-            <a
-              href="https://www.tiktok.com/@randyrandomcat"
-              target="_blank"
-            >
+            <a href="https://www.tiktok.com/@randyrandomcat" target="_blank">
               <img
                 src="/landing/tiktok.png"
                 alt="TikTok"
