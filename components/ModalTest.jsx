@@ -231,7 +231,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
             <div className="sm:pl-20 sm:pr-8 sm:pt-7 text-center">
               <SpeechBubble
                 text={
-                  "Eh llegado de una tierra misteriosa para retarte ¿Crees que lograrás vencerme?"
+                  "He llegado de una tierra misteriosa para retarte ¿Crees que lograrás vencerme?"
                 }
               />
             </div>

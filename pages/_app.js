@@ -1,4 +1,4 @@
-import React. { useEffect } from "react";
+import React, { useEffect } from "react";
 import "@/styles/globals.css";
 import { sandiasData } from "@/utils/sandiaData";
 import { checkTokenExpiry } from "@/utils/checkTokenExpiry";
