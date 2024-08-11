@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar";
 import Luz from "@/components/home/luz";
 import { MusicContext } from "@/components/home/musicContex";
 
-
 export default function Home() {
   const router = useRouter();
   const { musica, setMusica } = useContext(MusicContext);
@@ -21,7 +20,6 @@ export default function Home() {
     localStorage.setItem("exp", exp.toString());
     router.push("/menu");
   };
-
 
   return (
     <div className="max-h-screen bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-[url('/parallax_home/desk.png')] ">
