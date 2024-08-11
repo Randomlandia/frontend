@@ -3,7 +3,7 @@ const API = {
     try {
       const decoded = atob(encoded);
       const r = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/validate-email`,
+        `${process.env.NEXT_PUBLIC_API_URL}users/email/validate-email`,
         {
           method: "POST",
           headers: {
@@ -34,7 +34,6 @@ const API = {
       );
 
       const response = await r.json();
-      console.log(response);
 
       return response.success;
     } catch (error) {
