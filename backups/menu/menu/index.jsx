@@ -8,6 +8,7 @@ import RandyTextLeft from "@/components/RandyTextLeft";
 import BackgroundModal from "@/components/BackgroundModal";
 import { useState, useEffect } from "react";
 
+
 export default function Menu() {
   const [background, setBackground] = useState("../backgrounds/3.png");
 

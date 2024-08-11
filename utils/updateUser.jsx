@@ -14,7 +14,9 @@ const handleUpdateUser = async (isLogged) => {
   const username = localStorage.getItem("username") || "";
   const avatar = localStorage.getItem("avatar") || "0";
   const achieve = parseJSON(localStorage.getItem("achieve")) || {};
+
   const score = parseJSON(localStorage.getItem("score")) || "0";
+
   const tested = parseJSON(localStorage.getItem("tested")) || [];
   const userID = localStorage.getItem("userID") || "";
   const sandiasVistas = views.map((sandia) => sandia._id);
@@ -53,6 +55,7 @@ const handleUpdateUser = async (isLogged) => {
   }
 
   return false; 
+
 };
 
 export { handleUpdateUser };

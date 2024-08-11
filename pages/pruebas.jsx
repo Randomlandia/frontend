@@ -13,6 +13,7 @@ export default function Pruebas() {
         .env.local .env.development.local .env.test.local
         .env.production.local.env .env.local .env.development.local
         .env.test.local .env.production.local
+
         <ModalPassword />
       </div>
     </div>

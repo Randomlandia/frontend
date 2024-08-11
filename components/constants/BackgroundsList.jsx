@@ -1,4 +1,5 @@
 import React from "react";
+
 {
   /*const BackgroundsList = [
   {id:1, bg: "bg-1.webp"},

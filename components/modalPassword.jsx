@@ -114,7 +114,6 @@ export default function ModalPassword({ setRecovery }) {
     }
   };
   
-
   return (
     <div className="flex flex-col bg-oldwhite/60 p-5 rounded-md">
       <div className="flex flex-col p-4">

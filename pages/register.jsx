@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { handleUpdateUser } from '@/utils/updateUser';
 import { handleUpdateLocal } from '@/utils/updateLocal';
 
+
 export default function Register() {
   const [background, setBackground] = useState('bg-booksflying.webp');
   const [showSuccess, setShowSuccess] = useState(false);
@@ -40,6 +41,7 @@ export default function Register() {
     const noPassword = !dataRegistro.contraseñaRegistro;
     const noName = !dataRegistro.userRegistro;
     const noBirthday = !dataRegistro.fechaNacimiento;
+
     const isMissingFields = noEmail || noPassword || noName || noBirthday;
     rememberMe
       ? localStorage.setItem('rememberMe', 'true')
@@ -56,6 +58,7 @@ export default function Register() {
       const registroResponse = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}users`,
         {
+
           method: 'POST',
           body: JSON.stringify({
             name: dataRegistro.userRegistro,
@@ -71,6 +74,7 @@ export default function Register() {
 
       if (!registroResponse.ok) {
         throw new Error('Error en el registro');
+
       }
 
       const registroJson = await registroResponse.json();
@@ -80,6 +84,7 @@ export default function Register() {
         const loginResponse = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}users/login`,
           {
+
             method: 'POST',
             body: JSON.stringify({
               email: dataRegistro.correoRegistro,
@@ -104,6 +109,7 @@ export default function Register() {
           localStorage.setItem('userID', loginJson.data.userID);
           console.log('Login Exitoso');
 
+
           const userID = loginJson.data.userID;
 
           // Obtener la información del usuario
@@ -122,6 +128,7 @@ export default function Register() {
           }
 
           const userJson = await userResponse.json();
+
           const viewSandiaDB = userJson?.data.users.sandiasVistas;
           const viewSandiaLocal = localStorage.getItem('view');
 

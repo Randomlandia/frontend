@@ -18,6 +18,7 @@ export default function Login() {
   const [recovery, setRecovery] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
 
+
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
     if (bgNew) {
@@ -62,6 +63,7 @@ export default function Login() {
           if (cookieValue && data) {
             const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
             localStorage.setItem("exp", exp.toString());
+
             localStorage.setItem("token", cookieValue);
             localStorage.setItem("userID", idUser);
             localStorage.setItem("username", data.data.name);
@@ -239,6 +241,7 @@ export default function Login() {
             </div>
           )}
 
+
         <div className="grid gap-3  text-white ">
           <SignedIn>
             <div className="flex mb-3  h-24 w-24 bg-[url('/avatars/A_RANDY.svg')] rounded-full  items-end justify-center">
@@ -246,12 +249,14 @@ export default function Login() {
                 appearance={userButtonAppearance}
                 afterSignOutUrl="/"
               />
+
             </div>
           </SignedIn>
           <SignedOut>
             <SignInButton mode="modal" forceRedirectUrl="/login">
               <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
                 <p className="text-natD font-lucky text-3xl text-center">
+
                   Vincula tu cuenta con:
                 </p>
                 <div className="flex gap-6 mb-4">
@@ -300,6 +305,7 @@ export default function Login() {
                   pattern: {
                     value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                     message: "Correo no válido",
+
                   },
                 })}
               />
@@ -325,7 +331,9 @@ export default function Login() {
                 {...register("password", {
                   minLength: {
                     value: 3,
+
                     message: "Mínimo tres caracteres",
+
                   },
                   maxLength: {
                     value: 50,
@@ -335,6 +343,7 @@ export default function Login() {
                     value: /^[a-zA-Z0-9]+$/,
                     message: "Solo puedes usar letras y números",
                   },
+
                 })}
               />
             </div>
@@ -388,9 +397,11 @@ export default function Login() {
             </button>
           </form>
 
+
           {/*<SignedOut>
         <SignInButton />
       </SignedOut>*/}
+
 
           <button onClick={() => router.push("/register")}>
             <div className="text-natD underline hover:text-lorange font-mont font-semibold">

@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 
 import API from '@/utils/api/account.api';
 
+
 export default function User() {
   const router = useRouter();
   const [user, setData] = useState([]);
