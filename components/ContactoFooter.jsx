@@ -31,7 +31,6 @@ export default function ContactoFooter({ children }) {
         {/* ICONOS SOCIAL MEDIA */}
         <div className="flex grid-flow-col gap-6 justify-center p-3">
           <button className="rounded-full hover:animate-ping">
-          <button className="rounded-full hover:animate-ping">
             <a
               href="https://www.facebook.com/randomlandia.juego/"
               target="_blank"

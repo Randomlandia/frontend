@@ -61,11 +61,9 @@ export default function User() {
     "bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly hover:shadow-xl hover:translate-y-1 hover:translate-x-1 hover:shadow-orange-300 ";
   return (
     <main className="w-full min-h-screen bg-oldwhite/70 overflow-hidden">
-    <main className="w-full min-h-screen bg-oldwhite/70 overflow-hidden">
       {/* NAVBAR COMPONENT */}
       <Navbar />
       {/* CARD CONTAINER */}
-      <div className=" bg-oldwhite rounded-xl p-6 mt-5 md:mt-10  xl:mt-16 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
       <div className=" bg-oldwhite rounded-xl p-6 mt-5 md:mt-10  xl:mt-16 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
         <div className="md:grid grid-cols-2 ">
           {/* AVATAR COMPONENT Y NOMBRE USER*/}

@@ -411,6 +411,5 @@ export default function Login() {
           </div>
         </button>
       </div>
-    </div>
   );
 }
