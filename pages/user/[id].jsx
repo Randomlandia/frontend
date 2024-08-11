@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Avatar from '@/components/Avatar';
 import ContactoFooter from '@/components/ContactoFooter';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
 import SpeechBubble from '@/components/SpeechBubble';
 
 import API from '@/utils/api/account.api';
@@ -85,7 +83,7 @@ export default function User() {
                 SCORE
               </p>
               <p className="font-mont font-semibold text-black text-5xl text-center min-w-[140px] ">
-                {user.data.users.score || '0'}
+                {user.data.users.score || "0"}
               </p>
             </div>
           </div>

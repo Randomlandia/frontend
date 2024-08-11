@@ -8,7 +8,6 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
-
 export default function Login() {
   const router = useRouter();
   const { isLoaded, user } = useUser([]);

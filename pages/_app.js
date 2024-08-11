@@ -1,8 +1,7 @@
-import React from "react";
+import React. { useEffect } from "react";
 import "@/styles/globals.css";
 import { sandiasData } from "@/utils/sandiaData";
 import { checkTokenExpiry } from "@/utils/checkTokenExpiry";
-import { useEffect } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
 import { handleBeforeUnload } from "@/utils/beforeUnloadHandler";
 import { useRouter } from "next/router";

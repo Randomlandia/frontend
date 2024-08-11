@@ -138,7 +138,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
           achievements: achieve,
           sandiasFavoritas,
           score,
-          sandiasTested
+          sandiasTested,
         };
 
         try {
@@ -148,8 +148,8 @@ export default function ModalTest({ setShowTest, setTestCt }) {
               method: "PUT",
               body: JSON.stringify(requestBody),
               headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-              }
+                "Content-Type": "application/json; charset=UTF-8",
+              },
             }
           );
           const json = await response.json();
@@ -181,7 +181,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
       deportes: { level: 0 },
       vida: { level: 0 },
       nerd: { level: 0 },
-      artes: { level: 0 }
+      artes: { level: 0 },
     };
     let achieve =
       JSON.parse(localStorage.getItem("achieve")) || achieveStructure;
