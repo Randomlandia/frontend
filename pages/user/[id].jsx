@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar';
 import Avatar from '@/components/Avatar';
 import ContactoFooter from '@/components/ContactoFooter';
 import { useRouter } from 'next/router';
-import SpeechBubble from '@/components/SpeechBubble';
+// import SpeechBubble from '@/components/SpeechBubble';
 
 import API from '@/utils/api/account.api';
 
