@@ -57,7 +57,7 @@ export default function SandiaCardPreview({
           <button
             // falta definir la ruta para este boton, mostrara la sandia donde estan los botones de next
             // onClick={() => router.push(`/${sandia._id}`)}
-            className="py-3 relative"
+            className="py-3 relative hidden"
             onMouseEnter={() => handleMouseEnter("icon_vision")}
             onMouseLeave={handleMouseLeave}
           >
