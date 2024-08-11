@@ -7,9 +7,7 @@ export const MusicProvider = ({ children }) => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-
     audioRef.current = new Audio("music/randomMusic_out.mp3");
-
 
     return () => {
       audioRef.current.pause();
@@ -20,6 +18,7 @@ export const MusicProvider = ({ children }) => {
   useEffect(() => {
     if (musica) {
       audioRef.current.play();
+      audioRef.current.loop = true;
     } else {
       audioRef.current.pause();
     }
