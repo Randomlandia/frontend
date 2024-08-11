@@ -11,12 +11,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import CardNosotrosDescri from "@/components/landing/cardNosotrosDescri";
 import Perspectiva from "@/components/landing/perspectivaDiv";
+import { useRouter } from "next/router";
 
 const Nosotros = () => {
   const [mostarNosotros, setMostarNosotros] = useState(1);
   const [mostarIconoRandy, setMostarIconoRandy] = useState(1);
   const [mostarDescrip, setMostarDescrip] = useState(1);
-
+  const router = useRouter();
   const { handleSubmit } = useForm();
 
   async function onSubmit(e) {
@@ -26,7 +27,9 @@ const Nosotros = () => {
       );
     }
   }
-
+  const random = () => {
+    router.push(`/`);
+  };
   return (
     <div className=" flex min-h-screen font-mont flex-col font-bold overflow-hidden items-center bg-oldwhite/70">
       {/*nav */}
@@ -44,11 +47,13 @@ const Nosotros = () => {
           <div className="h-full pb-32">
             <RandyBurbuja></RandyBurbuja>
           </div>
-          <img
-            src="/logoLarge.svg"
-            alt="Random"
-            className="h-32 hover:translate-x-1 hover:translate-y-1"
-          />
+          <button onClick={random}>
+            <img
+              src="/logoLarge.svg"
+              alt="Random"
+              className="h-32 hover:translate-x-1 hover:translate-y-1"
+            />
+          </button>
         </div>
         {/*nosotros */}
         <div className="flex flex-col text-center  rounded-3xl bg-[#f6ead7]/75   p-[112px] w-auto h-auto gap-[10px] align-middle justify-center">
