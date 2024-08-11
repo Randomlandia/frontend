@@ -1,12 +1,12 @@
 module.exports = {
   parser: "@babel/eslint-parser",
   parserOptions: {
-    requireConfigFile: false,
+    requireConfigFile: false
   },
   env: {
     browser: true,
     es2021: true,
-    node: true,
+    node: true
   },
   extends: [
     "eslint:recommended",

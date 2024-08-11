@@ -20,7 +20,6 @@ export default function Register() {
     watch,
     formState: { errors },
     setError,
-    setError,
   } = useForm();
 
   const handleToggleChange = () => {
