@@ -1,11 +1,21 @@
 import React from "react";
 
-export default function ContactoFooter() {
+export default function ContactoFooter({ children }) {
   return (
     <div className="grid grid-flow-row justify-items-center md:grid-flow-col md:place-items-center h-4/5 w-[350px] md:w-4/5  lg:w-1/2  mx-auto p-4">
       {/* RANDY! */}
-
-      <img src="/RANDY_08.svg" alt="Randy" className="h-[222px]" />
+      <div className={`lg:h-[222px] relative`}>
+        {children && (
+          <div className="relative lg:absolute lg:bottom-[90%] lg:end-[60%] [&>div>div>p]:text-natD [&>div>div>p]:font-ram [&>div>div>p]:text-xs">
+            {children}
+          </div>
+        )}
+        <img
+          src="/RANDY_08.svg"
+          alt="Randy"
+          className="mx-auto h-[150px] lg:h-[222px]"
+        />
+      </div>
 
       <div>
         {/* TITLE + SUBTITLE */}
@@ -20,6 +30,7 @@ export default function ContactoFooter() {
 
         {/* ICONOS SOCIAL MEDIA */}
         <div className="flex grid-flow-col gap-6 justify-center p-3">
+          <button className="rounded-full hover:animate-ping">
           <button className="rounded-full hover:animate-ping">
             <a
               href="https://www.facebook.com/randomlandia.juego/"

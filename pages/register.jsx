@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
-import Link from "next/link";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
-import { handleUpdateUser } from "@/utils/updateUser";
-import { handleUpdateLocal } from "@/utils/updateLocal";
+import React, { useState, useEffect } from 'react';
+import Navbar from '@/components/Navbar';
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { handleUpdateUser } from '@/utils/updateUser';
+import { handleUpdateLocal } from '@/utils/updateLocal';
 
 export default function Register() {
-  const [background, setBackground] = useState("bg-booksflying.webp");
+  const [background, setBackground] = useState('bg-booksflying.webp');
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -20,6 +20,7 @@ export default function Register() {
     watch,
     formState: { errors },
     setError,
+    setError,
   } = useForm();
 
   const handleToggleChange = () => {
@@ -27,11 +28,11 @@ export default function Register() {
   };
 
   useEffect(() => {
-    const bgNew = localStorage.getItem("bg");
+    const bgNew = localStorage.getItem('bg');
     if (bgNew) {
       setBackground(`/backgrounds/${bgNew}`);
     } else {
-      setBackground("/backgrounds/3.png");
+      setBackground('/backgrounds/3.png');
     }
   }, []);
 
@@ -42,8 +43,8 @@ export default function Register() {
     const noBirthday = !dataRegistro.fechaNacimiento;
     const isMissingFields = noEmail || noPassword || noName || noBirthday;
     rememberMe
-      ? localStorage.setItem("rememberMe", "true")
-      : localStorage.setItem("rememberMe", "false");
+      ? localStorage.setItem('rememberMe', 'true')
+      : localStorage.setItem('rememberMe', 'false');
     try {
       if (isMissingFields) {
         setShowError(true);
@@ -56,7 +57,7 @@ export default function Register() {
       const registroResponse = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}users`,
         {
-          method: "POST",
+          method: 'POST',
           body: JSON.stringify({
             name: dataRegistro.userRegistro,
             email: dataRegistro.correoRegistro,
@@ -70,7 +71,7 @@ export default function Register() {
       );
 
       if (!registroResponse.ok) {
-        throw new Error("Error en el registro");
+        throw new Error('Error en el registro');
       }
 
       const registroJson = await registroResponse.json();
@@ -80,7 +81,7 @@ export default function Register() {
         const loginResponse = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}users/login`,
           {
-            method: "POST",
+            method: 'POST',
             body: JSON.stringify({
               email: dataRegistro.correoRegistro,
               password: dataRegistro.contraseñaRegistro,
@@ -92,17 +93,17 @@ export default function Register() {
         );
 
         if (!loginResponse.ok) {
-          throw new Error("Usuario o contraseña inválidos");
+          throw new Error('Usuario o contraseña inválidos');
         }
 
         const loginJson = await loginResponse.json();
 
         if (loginJson?.data?.token) {
           const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-          localStorage.setItem("exp", exp.toString());
-          localStorage.setItem("token", loginJson.data.token);
-          localStorage.setItem("userID", loginJson.data.userID);
-          console.log("Login Exitoso");
+          localStorage.setItem('exp', exp.toString());
+          localStorage.setItem('token', loginJson.data.token);
+          localStorage.setItem('userID', loginJson.data.userID);
+          console.log('Login Exitoso');
 
           const userID = loginJson.data.userID;
 
@@ -110,7 +111,7 @@ export default function Register() {
           const userResponse = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
             {
-              method: "GET",
+              method: 'GET',
               headers: {
                 "Content-Type": "application/json; charset=UTF-8",
               },
@@ -118,17 +119,17 @@ export default function Register() {
           );
 
           if (!userResponse.ok) {
-            throw new Error("No se pudieron obtener los datos del usuario");
+            throw new Error('No se pudieron obtener los datos del usuario');
           }
 
           const userJson = await userResponse.json();
           const viewSandiaDB = userJson?.data.users.sandiasVistas;
-          const viewSandiaLocal = localStorage.getItem("view");
+          const viewSandiaLocal = localStorage.getItem('view');
 
           if (viewSandiaLocal) {
             if (viewSandiaDB.length < JSON.parse(viewSandiaLocal).length) {
-              localStorage.setItem("username", userJson.data.users.name);
-              localStorage.setItem("avatar", userJson.data.users.avatar);
+              localStorage.setItem('username', userJson.data.users.name);
+              localStorage.setItem('avatar', userJson.data.users.avatar);
               handleUpdateUser();
             } else {
               handleUpdateLocal(userJson, setShowSuccess);
@@ -140,19 +141,20 @@ export default function Register() {
           setShowSuccess(true);
           setTimeout(() => {
             setShowSuccess(false);
-            router.push("/");
+            router.push('/');
           }, 2000);
 
           return;
         } else {
-          console.log("Usuario o contraseña inválidos");
-          setError("root", { message: "Usuario o contraseña inválidos" });
+          console.log('Usuario o contraseña inválidos');
+          setError('root', { message: 'Usuario o contraseña inválidos' });
         }
       } else {
-        console.log("Error en el registro");
+        console.log('Error en el registro');
       }
     } catch (error) {
-      console.log("Error:", error.message);
+      console.log('Error:', error.message);
+      console.log(error);
       setShowError(true);
     }
   }
@@ -166,7 +168,7 @@ export default function Register() {
     const year = birthDate.getFullYear();
 
     if (birthDate > today) {
-      return "La fecha no puede ser en el futuro";
+      return 'La fecha no puede ser en el futuro';
     }
 
     if (year < minYear) {
@@ -199,13 +201,17 @@ export default function Register() {
             <div className="flex gap-8 flex-col">
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
-                  <img src="/account_circle.svg" alt="" className="w-9 h-9" />
+                  <img
+                    src="/account_circle.svg"
+                    alt=""
+                    className="w-9 h-9"
+                  />
                   <input
                     type="text"
                     name="userRegistro"
                     placeholder="Nombre del usuario"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("userRegistro", {
+                    {...register('userRegistro', {
                       minLength: {
                         value: 3,
                         message: "Usuario debe contener a mínimo 3 caracteres",
@@ -253,13 +259,17 @@ export default function Register() {
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
-                  <img src="/mail.svg" alt="" className="w-9 h-9" />
+                  <img
+                    src="/mail.svg"
+                    alt=""
+                    className="w-9 h-9"
+                  />
                   <input
                     type="email"
                     name="correoRegistro"
                     placeholder="correo"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("correoRegistro", {
+                    {...register('correoRegistro', {
                       minLength: {
                         value: 3,
                         message: "Correo debe contener a mínimo 3 caracteres",
@@ -284,13 +294,17 @@ export default function Register() {
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
-                  <img src="/lock.svg" alt="" className="w-9 h-9" />
+                  <img
+                    src="/lock.svg"
+                    alt=""
+                    className="w-9 h-9"
+                  />
                   <input
                     type="password"
                     name="password"
                     placeholder="contraseñaRegistro"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("contraseñaRegistro", {
+                    {...register('contraseñaRegistro', {
                       minLength: {
                         value: 3,
                         message: "Contraseña debe contener mínimo 3 caracteres",
@@ -316,13 +330,17 @@ export default function Register() {
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
-                  <img src="/password.svg" alt="" className="w-9 h-9" />
+                  <img
+                    src="/password.svg"
+                    alt=""
+                    className="w-9 h-9"
+                  />
                   <input
                     type="password"
                     name="confirm-password"
                     placeholder="Repite tu contraseña"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("confirmPassword", {
+                    {...register('confirmPassword', {
                       validate: {
                         matches: (value) =>
                           value === watch("contraseñaRegistro") ||

@@ -1,26 +1,39 @@
-import React from "react";
-import Navbar from "@/components/Navbar";
-import Avatar from "@/components/Avatar";
-import ContactoFooter from "@/components/ContactoFooter";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import React from 'react';
+import Navbar from '@/components/Navbar';
+import Avatar from '@/components/Avatar';
+import ContactoFooter from '@/components/ContactoFooter';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import SpeechBubble from '@/components/SpeechBubble';
+
+import API from '@/utils/api/account.api';
+
 export default function User() {
   const router = useRouter();
   const [user, setData] = useState([]);
+  const [emailIsValidate, setEmailIsValidate] = useState(false);
   let id = router.query.id;
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${id}`, {
-      method: "Get",
+      method: 'Get',
     })
       .then((response) => response?.json())
       .then((json) => {
         setData(json);
       })
       .catch((error) => {
-        console.log("Error", error);
+        console.log('Error', error);
       });
+  }, [id]);
+
+  useEffect(() => {
+    const getValidateEmail = async (id) => {
+      const r = await API.verifyValidateEmail(id);
+      setEmailIsValidate(r);
+    };
+    getValidateEmail(id);
   }, [id]);
 
   {
@@ -48,9 +61,11 @@ export default function User() {
     "bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly hover:shadow-xl hover:translate-y-1 hover:translate-x-1 hover:shadow-orange-300 ";
   return (
     <main className="w-full min-h-screen bg-oldwhite/70 overflow-hidden">
+    <main className="w-full min-h-screen bg-oldwhite/70 overflow-hidden">
       {/* NAVBAR COMPONENT */}
       <Navbar />
       {/* CARD CONTAINER */}
+      <div className=" bg-oldwhite rounded-xl p-6 mt-5 md:mt-10  xl:mt-16 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
       <div className=" bg-oldwhite rounded-xl p-6 mt-5 md:mt-10  xl:mt-16 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mx-auto">
         <div className="md:grid grid-cols-2 ">
           {/* AVATAR COMPONENT Y NOMBRE USER*/}
@@ -72,7 +87,7 @@ export default function User() {
                 SCORE
               </p>
               <p className="font-mont font-semibold text-black text-5xl text-center min-w-[140px] ">
-                {user.data.users.score || "0"}
+                {user.data.users.score || '0'}
               </p>
             </div>
           </div>

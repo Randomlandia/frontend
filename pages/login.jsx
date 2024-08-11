@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
+import ModalPassword from "@/components/modalPassword";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
@@ -15,6 +16,8 @@ export default function Login() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [recovery, setRecovery] = useState(false);
+  const [transitioning, setTransitioning] = useState(false);
 
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
@@ -183,33 +186,59 @@ export default function Login() {
     },
   };
 
+  const recoveryStage = () => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setTransitioning(false);
+      setRecovery(true);
+    }, 3000);
+  };
+
   return (
     <div
-      className="min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
+      className="min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat flex flex-col font-mont font-bold overflow-hidden -z-10"
       style={{ backgroundImage: `url(${background})` }}
     >
-      <Navbar />
-      <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
-        {showError && (
-          <div className="fixed z-20 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
-            <div className="w-4/5 bg-oldwhite grid gap-6 p-6 rounded-xl shadow-2xl shadow-lorange/70">
-              <h2 className="text-4xl text-center font-bold font-ram text-dorange mb-4">
-                ¡Ay no!
-              </h2>
-              <p className="text-center text-dgreen grid gap-2">
-                Parece ser que aún no te has registrado, pero no te preocupes,
-                ¡yo te llevo!
-              </p>
-              <div className="grid sm:flex gap-10 justify-center items-center py-3">
-                <img
-                  src={"/RANDY_06.svg"}
-                  alt="randy"
-                  className="w-40 sm:w-56"
-                />
-              </div>
+      {transitioning && (
+        <div className="fixed z-20 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+          <div className="w-4/5 bg-oldwhite grid gap-6 p-6 rounded-xl shadow-2xl shadow-lorange/70">
+            <h2 className="text-4xl text-center font-bold font-ram text-dorange mb-4">
+              ¡Ay no!
+            </h2>
+            <p className="text-center text-dgreen grid gap-2">
+              ¡No te preocupes! Ya te ayudo a volver
+            </p>
+            <div className="grid sm:flex gap-10 justify-center items-center py-3">
+              <img src={"/RANDY_06.svg"} alt="randy" className="w-40 sm:w-56" />
             </div>
           </div>
-        )}
+        </div>
+      )}
+      <Navbar />
+      {recovery ? (
+        <ModalPassword setRecovery={setRecovery} />
+      ) : (
+        <div className="grid justify-items-center bg-grey/50 h-4/5 w-[350px] md:w-4/5 lg:w-1/2 mt-14 py-14 md:py-24 px-8 mx-auto rounded-[50px]">
+          {showError && (
+            <div className="fixed z-20 inset-0 bg-white bg-opacity-70 flex items-center justify-center">
+              <div className="w-4/5 bg-oldwhite grid gap-6 p-6 rounded-xl shadow-2xl shadow-lorange/70">
+                <h2 className="text-4xl text-center font-bold font-ram text-dorange mb-4">
+                  ¡Ay no!
+                </h2>
+                <p className="text-center text-dgreen grid gap-2">
+                  Parece ser que aún no te has registrado, pero no te preocupes,
+                  ¡yo te llevo!
+                </p>
+                <div className="grid sm:flex gap-10 justify-center items-center py-3">
+                  <img
+                    src={"/RANDY_06.svg"}
+                    alt="randy"
+                    className="w-40 sm:w-56"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
 
         <div className="grid gap-3  text-white ">
           <SignedIn>
@@ -277,15 +306,15 @@ export default function Login() {
               />
             </div>
 
-            {errors.email && (
-              <p className="text-red-500 text-center" id="letra">
-                {"⚠ "} {errors.email.message}
-              </p>
-            )}
-            <div className="grid gap-0.5">
-              <label name="password" className="px-2 py-4 text-natD font-ram">
-                CONTRASEÑA
-              </label>
+              {errors.email && (
+                <p className="text-red-500 text-center" id="letra">
+                  {"⚠ "} {errors.email.message}
+                </p>
+              )}
+              <div className="grid gap-0.5">
+                <label name="password" className="px-2 py-4 text-natD font-ram">
+                  CONTRASEÑA
+                </label>
 
               <input
                 type="password"
@@ -317,13 +346,13 @@ export default function Login() {
             )}
           </div>
 
-          <div id="errorPasswordEmail" className="p-1">
-            {errors.root && (
-              <p className=" text-red-500 text-center" id="letra">
-                {"⚠ "} {errors.root.message}
-              </p>
-            )}
-          </div>
+            <div id="errorPasswordEmail" className="p-1">
+              {errors.root && (
+                <p className=" text-red-500 text-center" id="letra">
+                  {"⚠ "} {errors.root.message}
+                </p>
+              )}
+            </div>
 
           {showSuccess && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
@@ -352,18 +381,30 @@ export default function Login() {
             <span className="text-natD font-ram font-light">RECUÉRDAME</span>
           </label>
 
-          <button
-            className=" bg-agreen p-1.5 w-56 m-auto mt-6 mb-5  font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
-            type="submit"
-          >
-            <p className=" font-ram tracking-wider">enviar</p>
+            <button
+              className=" bg-agreen p-1.5 w-56 m-auto mt-6 mb-5  font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
+              type="submit"
+            >
+              <p className=" font-ram tracking-wider">enviar</p>
+            </button>
+          </form>
+
+          {/*<SignedOut>
+        <SignInButton />
+      </SignedOut>*/}
+
+          <button onClick={() => router.push("/register")}>
+            <div className="text-natD underline hover:text-lorange font-mont font-semibold">
+              Aún no tengo cuenta
+            </div>
           </button>
-        </form>
-
-        {/*<SignedOut>
-          <SignInButton />
-        </SignedOut>*/}
-
+          <button onClick={recoveryStage}>
+            <div className="text-natD underline hover:text-lorange font-mont font-semibold">
+              Olvidé mi contraseña
+            </div>
+          </button>
+        </div>
+      )}
         <button onClick={() => router.push("/register")}>
           <div className="text-natD underline hover:text-lorange font-mont font-semibold">
             Aún no tengo cuenta
