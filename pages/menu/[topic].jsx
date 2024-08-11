@@ -426,7 +426,7 @@ export default function Sandia() {
           <LoadingState />
         </div>
       )}
-      {lastSandia && (
+      {(lastSandia && !showTest) && (
         <div className="fixed inset-0 bg-oldwhite flex items-center justify-center">
           <div className="bg-white w-2/3 h-80 p-6 rounded-xl shadow-xl flex justify-center items-center border-4 shadow-lorange/70">
             <div className="flex gap-16">
