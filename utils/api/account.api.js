@@ -5,9 +5,9 @@ const API = {
       const r = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/users/validate-email`,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${decoded}`,
           },
         }
@@ -26,9 +26,9 @@ const API = {
       const r = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}users/verify-email/${id}`,
         {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );

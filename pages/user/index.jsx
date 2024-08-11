@@ -1,11 +1,11 @@
-import React from 'react';
-import Navbar from '@/components/Navbar';
-import Avatar from '@/components/Avatar';
-import ContactoFooter from '@/components/ContactoFooter';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import React from "react";
+import Navbar from "@/components/Navbar";
+import Avatar from "@/components/Avatar";
+import ContactoFooter from "@/components/ContactoFooter";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
-import SpeechBubble from '@/components/SpeechBubble';
+import SpeechBubble from "@/components/SpeechBubble";
 
 export default function User() {
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function User() {
           {/* SCORE */}
           <div className="py-4 px-10 grid grid-cols-1 place-items-center lg:px-2">
             <div className="border-4 border-lorange rounded-lg py-2 px-4 grid grid-rows-2 gap-2 w-fit">
-              {' '}
+              {" "}
               <p className="font-lucky text-dgreen text-2xl  text-center">
                 SCORE
               </p>

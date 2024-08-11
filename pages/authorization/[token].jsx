@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import Router from 'next/router';
+import { useEffect } from "react";
+import Router from "next/router";
 
-import API from '@/utils/api/account.api';
+import API from "@/utils/api/account.api";
 
 export default function Authorization() {
   const router = Router.useRouter();
@@ -13,16 +13,16 @@ export default function Authorization() {
 
       if (!validate.error) {
         Router.push({
-          pathname: '/login',
+          pathname: "/login",
           query: {
-            success: 'Cuenta validada',
+            success: "Cuenta validada",
           },
         });
       } else {
         Router.push({
-          pathname: '/login',
+          pathname: "/login",
           query: {
-            error: '¡Error! Solicite un nuevo correo',
+            error: "¡Error! Solicite un nuevo correo",
           },
         });
       }
