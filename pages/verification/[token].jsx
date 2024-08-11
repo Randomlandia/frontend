@@ -17,7 +17,7 @@ export default function Authorization() {
       try {
         const validate = await API.validateEmailAccount(tk);
 
-        if (validate) setIsValidate(true);
+        if (validate === true) setIsValidate(true);
         else setIsValidate(false);
       } catch (error) {
         setIsValidate(false);
@@ -44,10 +44,10 @@ export default function Authorization() {
   }
 
   if (isValidate) {
-    return <ValidatePage status="¡Éxitoso!" />;
+    return <ValidatePage status="¡Validación exitosa!" />;
   } else if (isValidate === false) {
-    return <ValidatePage status="¡Error!" />;
+    return <ValidatePage status="Error :(" />;
   }
 
-  return <h1>Loading...</h1>;
+  return null;
 }
