@@ -298,7 +298,10 @@ export default function Sandia() {
                     <div className="sm:pl-20 sm:pr-8 sm:pt-7 text-center">
                       <SpeechBubble
                         text={
-                          showReference ? current?.reference : current?.content
+                          showReference
+                            ? current?.reference
+                            : current?.content ||
+                              "Hola!!! soy Randy y me encanta explorar el mundo"
                         }
                         height=""
                         width=""

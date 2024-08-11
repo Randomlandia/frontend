@@ -98,7 +98,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="w-full h-14 z-[4000] bg-lorange flex justify-between items-center text-white font-lucky text-xl py-3">
+      <nav className="w-full h-14 z-[4000] bg-lorange flex justify-between items-center text-white font-lucky text-sm xl:text-xl py-3">
         {/* LOGO DE RANDOMLANDIA */}
         <button
           onClick={() => {

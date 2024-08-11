@@ -9,11 +9,16 @@ import { perspectiva } from "@/components/constants/perspectiva";
 import CarruselTemas from "@/components/landing/carruselTemas";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 const Randomlandia = () => {
   const [mostarIndex, setMostarIndex] = useState(1);
   const [mostarIndexPers, setMostarIndexPers] = useState(1);
   const { handleSubmit } = useForm();
+  const router = useRouter();
+  const jugar = () => {
+    router.push(`/`);
+  };
 
   async function onSubmit(e) {
     if (!e) {
@@ -40,12 +45,15 @@ const Randomlandia = () => {
           <div className="h-full pb-32">
             <RandyBurbuja></RandyBurbuja>
           </div>
-          <img
-            src="/logoLarge.svg"
-            alt="Random"
-            className="h-32 hover:translate-x-1 hover:translate-y-1"
-          />
+          <button onClick={jugar}>
+            <img
+              src="/logoLarge.svg"
+              alt="Random"
+              className="h-32 hover:translate-x-1 hover:translate-y-1"
+            />
+          </button>
         </div>
+
         {/*inspira */}
         <div className="flex rounded-3xl bg-[#f6ead7]/75  pt-[112px] pb-[112px] max-w-[1168px] max-h-[660px] gap-[10px] p-[112px] items-center align-middle justify-center ">
           <div className="flex flex-col text-center">
