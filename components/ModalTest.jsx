@@ -94,6 +94,22 @@ export default function ModalTest({ setShowTest, setTestCt }) {
   }, []);
 
   useEffect(() => {
+    if (showWinningModal) {
+      const handleClickOutside = (event) => {
+        if (!event.target.closest("[data-exclude='true']")) {
+          router.push("/menu");
+        }
+      };
+
+      document.addEventListener("click", handleClickOutside);
+
+      return () => {
+        document.removeEventListener("click", handleClickOutside);
+      };
+    }
+  }, []);
+
+  useEffect(() => {
     if (answer !== null) {
       setTimeout(() => {
         if (answer === current?.answer) {
@@ -138,7 +154,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
           achievements: achieve,
           sandiasFavoritas,
           score,
-          sandiasTested,
+          sandiasTested
         };
 
         try {
@@ -148,8 +164,8 @@ export default function ModalTest({ setShowTest, setTestCt }) {
               method: "PUT",
               body: JSON.stringify(requestBody),
               headers: {
-                "Content-Type": "application/json; charset=UTF-8",
-              },
+                "Content-Type": "application/json; charset=UTF-8"
+              }
             }
           );
           const json = await response.json();
@@ -181,7 +197,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
       deportes: { level: 0 },
       vida: { level: 0 },
       nerd: { level: 0 },
-      artes: { level: 0 },
+      artes: { level: 0 }
     };
     let achieve =
       JSON.parse(localStorage.getItem("achieve")) || achieveStructure;
@@ -199,9 +215,10 @@ export default function ModalTest({ setShowTest, setTestCt }) {
         achieve[topic].level = updatedAchieveLevel;
         localStorage.setItem("tested", JSON.stringify(updatedTested));
         localStorage.setItem("achieve", JSON.stringify(achieve));
+        handleLogros();
       }
-      setShowWinningModal(true);
     }
+    setShowWinningModal(true);
   };
 
   const closeModal = () => {
@@ -398,24 +415,42 @@ export default function ModalTest({ setShowTest, setTestCt }) {
                 <button
                   onClick={closeModal}
                   className="bg-gradient-to-tr from-lgreen via-natL to-natD hover:bg-gradient-to-bl hover:shadow-lg hover:shadow-langL text-white p-4 rounded-full transform hover:-translate-y-3 hover:scale-105"
+                  data-exclude="true"
                 >
                   ¡Sigamos Jugando!
                 </button>
                 <button
                   onClick={() => router.push("/menu")}
                   className="bg-gradient-to-tr from-artL via-worldL to-worldD hover:bg-gradient-to-bl hover:shadow-lg hover:shadow-lifeL text-white p-4 rounded-full transform hover:-translate-y-3 hover:scale-105"
+                  data-exclude="true"
                 >
                   Al menú
                 </button>
 
-                {correctAnswersCount === 3 && (
-                  <button
-                    onClick={handleLogros}
-                    className="bg-gradient-to-tr from-lorange via-dorange to-mathD hover:bg-gradient-to-bl hover:shadow-lg hover:shadow-red-500 text-white p-4 rounded-full transform hover:-translate-y-3 hover:scale-105"
-                  >
-                    Logros
-                  </button>
-                )}
+                {
+                  correctAnswersCount === 3 && (
+                    <button
+                      onClick={
+                        isLogged
+                          ? () => router.push("/user/achv")
+                          : () => setLoginRequired(true)
+                      }
+                      className="bg-gradient-to-tr from-lorange via-dorange to-mathD hover:bg-gradient-to-bl hover:shadow-lg hover:shadow-red-500 text-white p-4 rounded-full transform hover:-translate-y-3 hover:scale-105"
+                      data-exclude="true"
+                    >
+                      Logros
+                    </button>
+                  )
+                  // :(
+                  //   <button
+                  //     onClick={()=>{setAds(true)}}
+                  //     className="bg-gradient-to-tr from-lorange via-dorange to-mathD hover:bg-gradient-to-bl hover:shadow-lg hover:shadow-red-500 text-white p-4 rounded-full transform hover:-translate-y-3 hover:scale-105"
+                  // data-exclude="true"
+                  //   >
+                  //     ¿Otro intento?
+                  //   </button>
+                  // )
+                }
               </div>
             </div>
           </div>
