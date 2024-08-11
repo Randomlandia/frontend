@@ -52,25 +52,8 @@ export default function SandiaCardPreview({
           <ScrollableBox content={sandia.content} />
         )}
       </div>
-      <div className="flex h-20 gap-1 items-baseline justify-between">
-        <div className="w-28 flex gap-1 justify-around items-baseline">
-          <button
-            // falta definir la ruta para este boton, mostrara la sandia donde estan los botones de next
-            // onClick={() => router.push(`/${sandia._id}`)}
-            className="py-3 relative hidden"
-            onMouseEnter={() => handleMouseEnter("icon_vision")}
-            onMouseLeave={handleMouseLeave}
-          >
-            <img src={"/icon_vision.svg"} alt="➕" className="w-10 h-10" />
-            {hoveredIcon === "icon_vision" && (
-              <div className="absolute inset-0 flex justify-center items-center bg-white/70 rounded-full">
-                <p className="z-10 text-dgreen font-semibold  leading-3 text-center text-xs">
-                  {getHoverText("icon_vision")}
-                </p>
-              </div>
-            )}
-          </button>
-        </div>
+      <div className="flex h-20 gap-1 items-baseline ">
+        <div className="w-28 flex gap-1 justify-around "></div>
         <div className="flex gap-1 justify-end items-baseline">
           <button
             onMouseEnter={() => handleMouseEnter("icon_turn")}
