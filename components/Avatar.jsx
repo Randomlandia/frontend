@@ -83,7 +83,6 @@ export default function Avatar(props) {
   const {
     handleSubmit,
     register,
-    setError,
     formState: { errors },
   } = useForm();
 
@@ -100,7 +99,7 @@ export default function Avatar(props) {
         <div className=" inline-flex gap-2">
           <SeleccionaAvatar avatar={props.avatar}></SeleccionaAvatar>
           <button onClick={() => setShowModal(true)}>
-            <div className="content-center">
+            <div className="content-center hover:animate-spin">
               <img
                 src="/icon_redsetting.svg"
                 alt="setting"
@@ -116,12 +115,12 @@ export default function Avatar(props) {
             <form
               name="formRegister"
               onSubmit={handleSubmit(onSubmit)}
-              className="mx-auto py-12 bg-grey/50 rounded-3xl grid gap-7 text-sm font-bold"
+              className="mx-auto py-12 bg-grey/50  rounded-3xl grid gap-7 text-sm font-bold"
             >
               <div className="inline-flex justify-center relative">
                 {/* BOTÓN CERRAR */}
 
-                <div className="absolute  top-0 right-0 ">
+                <div className="absolute  top-0 right-0 mr-10 mt-3">
                   <button
                     onClick={() => setShowModal(false)}
                     type=""
@@ -251,8 +250,11 @@ export default function Avatar(props) {
           <div className="bg-lorange p-2 rounded-lg w-fit">
             <span className="font-lucky text-black "> {props.userName}</span>
           </div>
-          <div className="content-center">
-            <button onClick={() => setShowModalName(true)}>
+          <div className="content-center ">
+            <button
+              onClick={() => setShowModalName(true)}
+              className="hover:animate-spin"
+            >
               <img
                 src="/icon_purplesetting.svg"
                 alt="setting"

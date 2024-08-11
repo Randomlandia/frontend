@@ -1,54 +1,40 @@
+import React, { useEffect, useState, useContext } from "react";
+import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 import Luz from "@/components/home/luz";
-import React from "react";
-import { useRouter } from "next/router";
-import { useState, useEffect, useRef } from "react";
+import { MusicContext } from "@/components/home/musicContex";
 
-export default function Home(props) {
+
+export default function Home() {
   const router = useRouter();
-  const [musica, setMusica] = useState(false);
+  const { musica, setMusica } = useContext(MusicContext);
   const [animacionActiva, setAnimacionActiva] = useState(false);
-  const audioRef = useRef(null);
 
   useEffect(() => {
-    audioRef.current = new Audio("music/18. The Flower Garden.mp3");
-
-    return () => {
-      // Cleanup audio on component unmount
-      audioRef.current.pause();
-      audioRef.current = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    if (musica) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-  }, [musica]);
-
-  useEffect(() => {
-    // Activar la animación al montar el componente
     setAnimacionActiva(true);
   }, []);
 
   const menu = () => {
-    router.push(`/menu`);
-  }
+    const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
+    const rm = localStorage.getItem("rememberMe");
+    !rm && localStorage.setItem("rememberMe", "waiting");
+    localStorage.setItem("exp", exp.toString());
+    router.push("/menu");
+  };
+
 
   return (
-    <div className="max-h-screen bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-center xl:bg-[url('/backgrounds/bg-6.webp')]">
+    <div className="max-h-screen bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-[url('/parallax_home/desk.png')] ">
       <Navbar />
 
       <div
-        className="flex h-10 absolute z-[5000] bg-transparent justify-center align-middle items-center
+        className="flex h-10 absolute z-[5000] bg-transparent align-middle items-center
         font-lucky text-white text-2xl md:text-5xl"
       >
         <div
           id="burbuja2"
-          className="bg-black h-20 w-20 mt-52 ml-10 mr-auto align-middle
-          flex bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
+          className=" justify-end bg-black h-20 w-20 mt-52 ml-10 mr-auto align-middle
+          bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
         >
           <button
             className="absolute z-[5000]"
@@ -82,7 +68,13 @@ export default function Home(props) {
           </div>
 
           <img
-            className="xl:hidden z-[9000] absolute m-auto pr-52 md:pb-[270px] h-[850px] pb-11 md:h-[1300px] bg-transparent"
+            className="xl:hidden z-[9000] absolute m-auto pr-52 md:pb-[270px] h-[850px]  md:h-[1300px] bg-transparent"
+            src="/parallax_home/ARBOL 1 PLANO - IZQ.png"
+            alt="ARBOL1PLANO"
+          />
+
+          <img
+            className="hidden xl:grid absolute z-[9000]  m-auto  md:pb-[950px]  md:h-[2000px] bg-transparent"
             src="/parallax_home/ARBOL 1 PLANO - IZQ.png"
             alt="ARBOL1PLANO"
           />
@@ -96,7 +88,7 @@ export default function Home(props) {
         <div
           id="burbuja2"
           className="bg-black mt-[400px] m-auto z-[1000] h-[200px] w-[200px] md:h-[300px] md:w-[300px] align-middle
-          flex bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
+          flex bg-grey/30 rounded-full shadow-amber-100 shadow-lg"
         >
           <button
             onClick={menu}

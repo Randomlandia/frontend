@@ -38,7 +38,10 @@ const TestBubble = ({
     >
       <div className="overflow-y-auto h-full text-center grid justify-center py-4 gap-3">
         {isLoading ? (
-          <p className="w-auto flex text-center">Cargando...</p>
+          <p className="w-auto flex text-center">Todo parece indicar que ya superaste todos los retos posibles...
+          <br/><br/>
+          ¡Eres increíble!
+          </p>
         ) : (
           <>
             {isFinal ? (

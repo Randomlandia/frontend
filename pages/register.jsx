@@ -1,15 +1,17 @@
-import React from "react";
-import Navbar from "@/components/Navbar";
-import Link from "next/link";
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/router";
+import React, { useState, useEffect } from 'react';
+import Navbar from '@/components/Navbar';
+import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+import { handleUpdateUser } from '@/utils/updateUser';
+import { handleUpdateLocal } from '@/utils/updateLocal';
+
 
 export default function Register() {
-  const [background, setBackground] = useState("bg-booksflying.webp");
+  const [background, setBackground] = useState('bg-booksflying.webp');
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
-
+  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
 
   const {
@@ -21,22 +23,29 @@ export default function Register() {
     setError,
   } = useForm();
 
+  const handleToggleChange = () => {
+    setRememberMe(!rememberMe);
+  };
+
   useEffect(() => {
-    const bgNew = localStorage.getItem("bg");
+    const bgNew = localStorage.getItem('bg');
     if (bgNew) {
       setBackground(`/backgrounds/${bgNew}`);
     } else {
-      setBackground("/backgrounds/bg-booksflying.webp");
+      setBackground('/backgrounds/3.png');
     }
   }, []);
 
   async function onSubmit(dataRegistro) {
     const noEmail = !dataRegistro.correoRegistro;
-    const noPassword = !dataRegistro.contraseñaRegistro; // Corregido de correoRegistro a contraseñaRegistro
+    const noPassword = !dataRegistro.contraseñaRegistro;
     const noName = !dataRegistro.userRegistro;
     const noBirthday = !dataRegistro.fechaNacimiento;
 
     const isMissingFields = noEmail || noPassword || noName || noBirthday;
+    rememberMe
+      ? localStorage.setItem('rememberMe', 'true')
+      : localStorage.setItem('rememberMe', 'false');
     try {
       if (isMissingFields) {
         setShowError(true);
@@ -49,7 +58,8 @@ export default function Register() {
       const registroResponse = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}users`,
         {
-          method: "POST",
+
+          method: 'POST',
           body: JSON.stringify({
             name: dataRegistro.userRegistro,
             email: dataRegistro.correoRegistro,
@@ -63,7 +73,8 @@ export default function Register() {
       );
 
       if (!registroResponse.ok) {
-        throw new Error("Error en el registro");
+        throw new Error('Error en el registro');
+
       }
 
       const registroJson = await registroResponse.json();
@@ -73,7 +84,8 @@ export default function Register() {
         const loginResponse = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}users/login`,
           {
-            method: "POST",
+
+            method: 'POST',
             body: JSON.stringify({
               email: dataRegistro.correoRegistro,
               password: dataRegistro.contraseñaRegistro,
@@ -85,15 +97,18 @@ export default function Register() {
         );
 
         if (!loginResponse.ok) {
-          throw new Error("Usuario o contraseña inválidos");
+          throw new Error('Usuario o contraseña inválidos');
         }
 
         const loginJson = await loginResponse.json();
 
         if (loginJson?.data?.token) {
-          localStorage.setItem("token", loginJson.data.token);
-          localStorage.setItem("userID", loginJson.data.userID);
-          console.log("Login Exitoso");
+          const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
+          localStorage.setItem('exp', exp.toString());
+          localStorage.setItem('token', loginJson.data.token);
+          localStorage.setItem('userID', loginJson.data.userID);
+          console.log('Login Exitoso');
+
 
           const userID = loginJson.data.userID;
 
@@ -101,7 +116,7 @@ export default function Register() {
           const userResponse = await fetch(
             `${process.env.NEXT_PUBLIC_API_URL}users/${userID}`,
             {
-              method: "GET",
+              method: 'GET',
               headers: {
                 "Content-Type": "application/json; charset=UTF-8",
               },
@@ -109,79 +124,100 @@ export default function Register() {
           );
 
           if (!userResponse.ok) {
-            throw new Error("No se pudieron obtener los datos del usuario");
+            throw new Error('No se pudieron obtener los datos del usuario');
           }
 
           const userJson = await userResponse.json();
 
-          if (userJson?.data) {
-            localStorage.setItem(
-              "favs",
-              JSON.stringify(userJson.data.users.sandiasFavoritas)
-            );
-            localStorage.setItem(
-              "view",
-              JSON.stringify(userJson.data.users.sandiasVistas)
-            );
-            localStorage.setItem(
-              "achieve",
-              JSON.stringify(userJson.data.users.achievements)
-            );
-            localStorage.setItem(
-              "score",
-              JSON.stringify(userJson.data.users.score)
-            );
-            localStorage.setItem("username", userJson.data.users.name);
+          const viewSandiaDB = userJson?.data.users.sandiasVistas;
+          const viewSandiaLocal = localStorage.getItem('view');
 
-            setShowSuccess(true);
-            setTimeout(() => {
-              setShowSuccess(false);
-              router.push("/");
-            }, 2000);
+          if (viewSandiaLocal) {
+            if (viewSandiaDB.length < JSON.parse(viewSandiaLocal).length) {
+              localStorage.setItem('username', userJson.data.users.name);
+              localStorage.setItem('avatar', userJson.data.users.avatar);
+              handleUpdateUser();
+            } else {
+              handleUpdateLocal(userJson, setShowSuccess);
+            }
           } else {
-            console.log("No se pudieron obtener los datos del usuario");
+            handleUpdateLocal(userJson, setShowSuccess);
           }
+
+          setShowSuccess(true);
+          setTimeout(() => {
+            setShowSuccess(false);
+            router.push('/');
+          }, 2000);
 
           return;
         } else {
-          console.log("Usuario o contraseña inválidos");
-          setError("root", { message: "Usuario o contraseña inválidos" });
+          console.log('Usuario o contraseña inválidos');
+          setError('root', { message: 'Usuario o contraseña inválidos' });
         }
       } else {
-        console.log("Error en el registro");
+        console.log('Error en el registro');
       }
     } catch (error) {
-      console.log("Error:", error.message);
+      console.log('Error:', error.message);
+      console.log(error);
       setShowError(true);
     }
   }
+
+  const validateAge = (value) => {
+    const today = new Date();
+    const birthDate = new Date(value);
+    const minYear = today.getFullYear() - 90;
+    const maxYear = today.getFullYear() - 5;
+
+    const year = birthDate.getFullYear();
+
+    if (birthDate > today) {
+      return 'La fecha no puede ser en el futuro';
+    }
+
+    if (year < minYear) {
+      return `El año no puede ser menor a ${minYear}`;
+    }
+
+    if (year > maxYear) {
+      return `El año no puede ser mayor a ${maxYear}`;
+    }
+
+    return true;
+  };
   return (
     <div
-      className="min-h-screen bg-cover bg-left-bottom lg:bg-center lg:rounded-2xl bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
+      className="min-h-screen bg-cover bg-left-bottom lg:bg-center  bg-no-repeat flex flex-col gap-14 font-mont font-bold overflow-hidden -z-10"
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="w-full min-h-screen flex flex-col gap-5 font-mont font-bold">
         <Navbar />
 
-        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2  pb-4 bg-grey/50    rounded-[50px] mt-[35px]">
+        <div className="grid mx-auto h-4/5 w-[350px] md:w-4/5 lg:w-1/2 bg-grey/50 rounded-[50px] mt-[40px]">
           <form
             name="formRegister"
             onSubmit={handleSubmit(onSubmit)}
-            className="mx-auto py-12  grid gap-7 text-sm font-bold"
+            className="mx-auto mt-[28px] mb-[28px] md:mt-[70px]   py-6  grid gap-7 text-sm font-bold"
           >
-            <p className="text-[#2E7D32] font-lucky text-2xl text-center">
+            <p className="text-[#2E7D32]  font-lucky text-3xl text-center">
               se parte de nosotros
             </p>
             <div className="flex gap-8 flex-col">
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
-                  <img src="/account_circle.svg" alt="" className="w-9 h-9" />
+                  <img
+                    src="/account_circle.svg"
+                    alt=""
+                    className="w-9 h-9"
+                  />
                   <input
                     type="text"
                     name="userRegistro"
                     placeholder="Nombre del usuario"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("userRegistro", {
+                    {...register('userRegistro', {
                       minLength: {
                         value: 3,
                         message: "Usuario debe contener a mínimo 3 caracteres",
@@ -191,7 +227,7 @@ export default function Register() {
                         message: "Usuario debe contener a máximo 50 caracteres",
                       },
                       pattern: {
-                        value: /^[A-Za-z]+$/i,
+                        value: /^[a-zA-Z0-9 ]+$/i,
                         message: "Solo se permiten letras",
                       },
                     })}
@@ -203,31 +239,43 @@ export default function Register() {
                   </p>
                 )}
               </div>
-              <div className="grid gap-0.5">
-                <div className="flex gap-2 font-bold justify-center">
+              <div className="grid group">
+                <div className="flex gap-2 font-bold  justify-center">
                   <img src="/icon_cumple.svg" alt="" className="w-9 h-9" />
                   <input
                     type="date"
                     name="fechaNacimiento"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("fechaNacimiento")}
+                    {...register("fechaNacimiento", {
+                      required: "La fecha de nacimiento es requerida",
+                      validate: validateAge,
+                    })}
                   />
-                  {/* {errors.fechaNacimiento && (
-                    <p className="text-red-500 text-center">
-                      {errors.fechaNacimiento.message}
-                    </p>
-                  )} */}
                 </div>
+                <div className="absolute left-64 hidden  group-hover:block bg-oldwhite  border-gray-200 p-2  rounded-l-lg shadow-lg w-36">
+                  <p className="text-xs text-center text-natD">
+                    Con esta fecha te recordaremos! ♥
+                  </p>
+                </div>
+                {errors.fechaNacimiento && (
+                  <p className="text-red-500 text-center">
+                    {errors.fechaNacimiento.message}
+                  </p>
+                )}
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
-                  <img src="/mail.svg" alt="" className="w-9 h-9" />
+                  <img
+                    src="/mail.svg"
+                    alt=""
+                    className="w-9 h-9"
+                  />
                   <input
                     type="email"
                     name="correoRegistro"
                     placeholder="correo"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("correoRegistro", {
+                    {...register('correoRegistro', {
                       minLength: {
                         value: 3,
                         message: "Correo debe contener a mínimo 3 caracteres",
@@ -252,13 +300,17 @@ export default function Register() {
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
-                  <img src="/lock.svg" alt="" className="w-9 h-9" />
+                  <img
+                    src="/lock.svg"
+                    alt=""
+                    className="w-9 h-9"
+                  />
                   <input
                     type="password"
                     name="password"
                     placeholder="contraseñaRegistro"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("contraseñaRegistro", {
+                    {...register('contraseñaRegistro', {
                       minLength: {
                         value: 3,
                         message: "Contraseña debe contener mínimo 3 caracteres",
@@ -284,13 +336,17 @@ export default function Register() {
               </div>
               <div className="grid gap-0.5">
                 <div className="flex gap-2 font-bold justify-center">
-                  <img src="/password.svg" alt="" className="w-9 h-9" />
+                  <img
+                    src="/password.svg"
+                    alt=""
+                    className="w-9 h-9"
+                  />
                   <input
                     type="password"
                     name="confirm-password"
                     placeholder="Repite tu contraseña"
                     className="w-60 rounded-xl px-3 outline-lorange/50 outline-offset-1 shadow-md bg-lorange/70"
-                    {...register("confirmPassword", {
+                    {...register('confirmPassword', {
                       validate: {
                         matches: (value) =>
                           value === watch("contraseñaRegistro") ||
@@ -306,10 +362,29 @@ export default function Register() {
                 )}
               </div>
             </div>
-            <div className="grid justify-center gap-3">
+            <div className="grid justify-center  gap-3">
+              <label className="flex justify-center items-center space-x-2 hover:text-lorange font-ram font-light">
+                <div className="relative">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={handleToggleChange}
+                    className="sr-only"
+                  />
+                  <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
+                  <div
+                    className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
+                      rememberMe ? "transform translate-x-full bg-natL" : ""
+                    }`}
+                  ></div>
+                </div>
+                <span className="text-natD font-ram font-light">
+                  RECUÉRDAME{" "}
+                </span>
+              </label>
               <button
                 type="submit"
-                className="bg-agreen p-1.5 w-56 m-auto font-lucky text-white text-xl tracking-wider rounded-full"
+                className="bg-agreen p-1.5 w-56 m-auto mb-1 font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
               >
                 enviar
               </button>
@@ -318,9 +393,14 @@ export default function Register() {
                   {"⚠ Llena los campos por favor"}
                 </p>
               )}
-              <Link href="./login" className="text-natD underline text-center">
-                INICIAR SESIÓN
-              </Link>
+              <div className="flex flex-col gap-3">
+                <Link
+                  href="./login"
+                  className="text-natD underline text-lg hover:text-lorange font-mont font-semibold text-center"
+                >
+                  Iniciar sesión
+                </Link>
+              </div>
             </div>
           </form>
 

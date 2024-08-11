@@ -1,4 +1,3 @@
-// .eslintrc.js
 module.exports = {
   parser: "@babel/eslint-parser",
   parserOptions: {
@@ -15,7 +14,6 @@ module.exports = {
     "plugin:@next/next/recommended",
     "plugin:react/jsx-runtime"
   ],
-  plugins: ["react"],
   rules: {
     "react/react-in-jsx-scope": "off",
     'react/prop-types': 'off', // Desactiva la regla de prop-types

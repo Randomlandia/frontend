@@ -12,7 +12,7 @@ const SandiaList = () => {
   const { topic } = router.query;
   const { favorites, toggleFavorite } = useFavorites();
   const [sandias, setSandias] = useState([]);
-  const [background, setBackground] = useState(null);
+  const [background, setBackground] = useState("../backgrounds/3.png");
   const [isHover, setISHover] = useState(false);
   const [showReference, setShowReference] = useState(false);
   const [showRandy, setShowRandy] = useState("/RANDY_favs.svg");

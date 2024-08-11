@@ -10,7 +10,7 @@ const slides = [
   { id: 5, content: <TemaContainerSlider bool={true} name="vida" /> },
   { id: 6, content: <TemaContainerSlider bool={true} name="artes" /> },
   { id: 7, content: <TemaContainerSlider bool={true} name="mundo" /> },
-  { id: 8, content: <TemaContainerSlider bool={true} name="matematicas" /> }
+  { id: 8, content: <TemaContainerSlider bool={true} name="matematicas" /> },
 ];
 
 export default function MenuTemasSlider() {
@@ -23,17 +23,19 @@ export default function MenuTemasSlider() {
   };
 
   return (
-    <div className="max-w-sm mx-auto w-auto">
+    <div className="max-w-sm mx-auto w-auto ">
       <div className="flex justify-between items-center">
         <div className="w-full overflow-hidden">
           <div
             className="flex transition-transform duration-500"
             style={{
-              transform: `translateX(-${(currentSlide * 100) / slidesPerPage}%)`
+              transform: `translateX(-${
+                (currentSlide * 100) / slidesPerPage
+              }%)`,
             }}
           >
             {slides.map((slide) => (
-              <div key={slide.id} className="flex-shrink-0 w-1/2 p-3">
+              <div key={slide.id} className="flex-shrink-0 w-1/2 p-3 mt-2 mb-2">
                 <div className="w-auto flex items-center justify-center">
                   {slide.content}
                 </div>

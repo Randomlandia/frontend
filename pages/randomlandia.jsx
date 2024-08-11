@@ -9,11 +9,16 @@ import { perspectiva } from "@/components/constants/perspectiva";
 import CarruselTemas from "@/components/landing/carruselTemas";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 const Randomlandia = () => {
   const [mostarIndex, setMostarIndex] = useState(1);
   const [mostarIndexPers, setMostarIndexPers] = useState(1);
   const { handleSubmit } = useForm();
+  const router = useRouter();
+  const jugar = () => {
+    router.push(`/`);
+  };
 
   async function onSubmit(e) {
     if (!e) {
@@ -24,7 +29,7 @@ const Randomlandia = () => {
   }
 
   return (
-    <div className=" flex  min-h-screen font-mont flex-col font-bold overflow-hidden items-center bg-white">
+    <div className=" flex  min-h-screen font-mont flex-col font-bold overflow-hidden items-center bg-oldwhite/70">
       {/*nav */}
       <div className=" fixed w-full h-14 z-[4000] bg-lorange flex justify-between items-center text-white font-lucky text-xl py-3">
         <Navbar />
@@ -40,12 +45,15 @@ const Randomlandia = () => {
           <div className="h-full pb-32">
             <RandyBurbuja></RandyBurbuja>
           </div>
-          <img
-            src="/logoLarge.svg"
-            alt="Random"
-            className="h-32 hover:translate-x-1 hover:translate-y-1"
-          />
+          <button onClick={jugar}>
+            <img
+              src="/logoLarge.svg"
+              alt="Random"
+              className="h-32 hover:translate-x-1 hover:translate-y-1"
+            />
+          </button>
         </div>
+
         {/*inspira */}
         <div className="flex rounded-3xl bg-[#f6ead7]/75  pt-[112px] pb-[112px] max-w-[1168px] max-h-[660px] gap-[10px] p-[112px] items-center align-middle justify-center ">
           <div className="flex flex-col text-center">
@@ -129,6 +137,7 @@ const Randomlandia = () => {
               {unicos.map((unico, index) => {
                 return (
                   <button
+                    key={`unico-${index}`}
                     className={
                       index == mostarIndex
                         ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
@@ -246,6 +255,7 @@ const Randomlandia = () => {
               {perspectiva.map((unico, index) => {
                 return (
                   <button
+                    key={`unico-${index}`}
                     className={
                       index == mostarIndexPers
                         ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "

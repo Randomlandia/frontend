@@ -4,9 +4,10 @@ import RandyTextRight from "./RandyTextRight";
 import BackgroundSlider from "@/components/BackgroundSlider";
 import BackgroundsList from "@/constants/BackgroundsList";
 import BackgroundCard from "./BackgroundCard";
+import Navbar from "./Navbar";
 
 export default function ModalComponent({ onClose }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  //const [currentIndex, setCurrentIndex] = useState(0);
   const [isDisabled, setIsDisabled] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBg, setSelectedBg] = useState(null);
@@ -87,20 +88,25 @@ export default function ModalComponent({ onClose }) {
   }, []);
 
   return (
-    <div className="max-h-screen">
-      <button
-        className="h-10 px-6 flex justify-end items-center"
-        onClick={openModal}
+    <div className="absolute max-h-screen ">
+      <div
+        id="burbuja2"
+        className=" bg-black z-[1000] mr-2 md:mr-6 xl:mr-10 h-12 w-12 xl:h-16 xl:w-16  justify-center text-center align-middle
+          flex bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
       >
-        <img src="/icon_edit.svg" alt="edit" className="h-8 w-8" />
-      </button>
-
+        <button className=" flex justify-end items-center" onClick={openModal}>
+          <img
+            src="/icon_edit.svg"
+            alt="edit"
+            className="h-6 w-6 md:h-8 md:w-8"
+          />
+        </button>
+      </div>
       {isOpen && (
         <div
-          className={`fixed w-full h-svh inset-0 z-40 overflow-hidden flex justify-center items-start animated fadeIn faster py-5 md:px-10`}
-          style={{ background: "white" }}
+          className={` xl:pt-16 flex-col fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/80 bg-opacity-75 py-5 md:px-10`}
         >
-          <div className="border-lgreen border-2 shadow-lg h-full max-h-3/4 max-h-screen bg-oldwhite/70 w-11/12 md:w-full lg:max-w-1/2 mx-auto rounded-lg z-50">
+          <div className=" border-lgreen border-2 shadow-lg h-full max-h-3/4 max-h-screen bg-oldwhite/80 w-11/12 md:w-full lg:max-w-1/2 mx-auto rounded-lg z-50">
             <div className="py-2 px-4 h-full  flex flex-col">
               {/* logica del titulo */}
               <div className="flex flex-col">
@@ -118,7 +124,7 @@ export default function ModalComponent({ onClose }) {
               {/* logica del slider o cuadricula */}
               <div>
                 {/* Aquí estoy insertando el slider para páginas móviles */}
-                <div className="my-5 sm:hidden" name="activador">
+                <div className="my-5 pt-8 sm:hidden" name="activador">
                   <BackgroundSlider />
                 </div>
 
@@ -135,13 +141,40 @@ export default function ModalComponent({ onClose }) {
                 </div>
               </div>
 
-              {/* Lógica botón save y Randy */}
-              <div className="flex items-center justify-around h-auto">
+              {/* Lógica botón save y Randy sm*/}
+              <div className="pt-8  md:hidden items-center justify-around h-auto">
                 <RandyTextRight
                   img={"/RANDY_08.svg"}
                   text="¿Cuál será mi hogar?"
                 />
-                <div className="flex flex-col lg:pr-96">
+                <div className="flex flex-col pt-8">
+                  <button
+                    onClick={saveHandler}
+                    className={`focus:outline-none px-4 p-2 rounded-lg text-white font-lucky sm:text-2xl ${
+                      isDisabled
+                        ? "bg-gray-400 cursor-not-allowed"
+                        : "bg-pcyan hover:bg-sportL"
+                    }`}
+                    disabled={isDisabled}
+                  >
+                    Guardar
+                  </button>
+                  {showError && (
+                    <p className="text-red-500 mt-2 font-mont font-semibold text-center text-xs sm:text-lg">
+                      ¡Oye! No has
+                      <br />
+                      elegido uno.
+                    </p>
+                  )}
+                </div>
+              </div>
+              {/* Lógica botón save y Randy md xl */}
+              <div className="hidden md:flex md:pt-2 xl:pt-8 items-center justify-around h-auto">
+                <RandyTextRight
+                  img={"/RANDY_08.svg"}
+                  text="¿Cuál será mi hogar?"
+                />
+                <div className="flex flex-col lg:pr-72">
                   <button
                     onClick={saveHandler}
                     className={`focus:outline-none px-4 p-2 rounded-lg text-white font-lucky sm:text-2xl ${
@@ -167,7 +200,7 @@ export default function ModalComponent({ onClose }) {
         </div>
       )}
       {showSuccess && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/90 bg-opacity-75">
           <p className="text-ram text-center text-3xl font-bold text-dgreen">
             ¡Perfecto!
             <br /> Ya tenemos casa.

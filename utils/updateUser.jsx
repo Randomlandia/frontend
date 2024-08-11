@@ -12,12 +12,13 @@ const handleUpdateUser = async (isLogged) => {
   const views = parseJSON(localStorage.getItem("view")) || [];
   const favs = parseJSON(localStorage.getItem("favs")) || [];
   const username = localStorage.getItem("username") || "";
-  const avatar = localStorage.getItem("avatar") || "";
+  const avatar = localStorage.getItem("avatar") || "0";
   const achieve = parseJSON(localStorage.getItem("achieve")) || {};
-  const score = parseJSON(localStorage.getItem("score")) || "";
+
+  const score = parseJSON(localStorage.getItem("score")) || "0";
+
   const tested = parseJSON(localStorage.getItem("tested")) || [];
   const userID = localStorage.getItem("userID") || "";
-
   const sandiasVistas = views.map((sandia) => sandia._id);
   const sandiasFavoritas = favs.map((sandia) => sandia._id);
   const sandiasTested = tested.map((sandia) => sandia._id);
@@ -45,15 +46,16 @@ const handleUpdateUser = async (isLogged) => {
         }
       );
       const json = await response.json();
-      console.log("Usuario actualizado", json);
-      return response.ok; // Devuelve true si la respuesta es ok
+      // console.log("Usuario actualizado");
+      return response.ok; 
     } catch (error) {
       console.log("Error", error);
-      return false; // Devuelve false si hay un error
+      return false; 
     }
   }
 
-  return false; // Devuelve false si isLogged es false
+  return false; 
+
 };
 
 export { handleUpdateUser };

@@ -17,7 +17,7 @@ export default function Sandia() {
   const [sandiasByTopic, setSandiasByTopic] = useState([]);
   const [seenSandias, setSeenSandias] = useState([]);
   const [favs, setFavs] = useState([]);
-  const [background, setBackground] = useState(null);
+  const [background, setBackground] = useState("../backgrounds/3.png");
   const [favIcon, setFavIcon] = useState("/icon_redheart.svg");
   const [lastSandia, setLastSandia] = useState(false);
   const [loggedUser, setLoggedUser] = useState(false);
@@ -25,7 +25,7 @@ export default function Sandia() {
   const [testCt, setTestCt] = useState(1); //regresar a uno al terminar de maquetar
   const [showReference, setShowReference] = useState(false);
   const [showTest, setShowTest] = useState(false); //CAMBIAR A FALSE TERMINANDO MAQUETADO
-  const [testAvail, setTestAvail]= useState(false)
+  const [testAvail, setTestAvail] = useState(false);
   const [current, setCurrent] = useState(null);
   let { topic } = router.query;
 
@@ -79,7 +79,9 @@ export default function Sandia() {
   const addSandia = (newSandia) => {
     if (!newSandia || newSandia._id === "null") return;
     setSeenSandias((prevSeenSandias) => {
-      const sandiaExists = prevSeenSandias.some((sandia) => sandia._id === newSandia._id);
+      const sandiaExists = prevSeenSandias.some(
+        (sandia) => sandia._id === newSandia._id
+      );
       if (sandiaExists) return prevSeenSandias;
       const updatedSeenSandias = [...prevSeenSandias, newSandia];
       localStorage.setItem("view", JSON.stringify(updatedSeenSandias));
@@ -98,15 +100,17 @@ export default function Sandia() {
   };
 
   const getRandomSeenSandia = () => {
-    let filteredSeenSandias;  
+    let filteredSeenSandias;
     if (topic === "default") {
       filteredSeenSandias = seenSandias;
     } else {
-      filteredSeenSandias = seenSandias.filter((sandia) => sandia?.topic.name === topic);
+      filteredSeenSandias = seenSandias.filter(
+        (sandia) => sandia?.topic.name === topic
+      );
     }
-  
+
     if (filteredSeenSandias.length === 0) return null;
-  
+
     const randomIndex = Math.floor(Math.random() * filteredSeenSandias.length);
     return filteredSeenSandias[randomIndex];
   };
@@ -131,10 +135,12 @@ export default function Sandia() {
   };
 
   const handleNextButton = () => {
-    const seenSandiasByTopic = seenSandias?.filter((sandia)=> sandia?.topic?.name == topic)
-      if (seenSandiasByTopic.length >= 10){
-        setTestAvail(true) 
-      }
+    const seenSandiasByTopic = seenSandias?.filter(
+      (sandia) => sandia?.topic?.name == topic
+    );
+    if (seenSandiasByTopic.length >= 10) {
+      setTestAvail(true);
+    }
     if ((!current || current.id === "null") && seenSandias.length === 0) {
       loadRandomSandia();
     } else if (seenSandias.length >= 1) {
@@ -166,7 +172,7 @@ export default function Sandia() {
         loadRandomSandia();
       }
     }
-    if (topic !== "default" ) {
+    if (topic !== "default") {
       setTestCt((prevTestCt) =>
         prevTestCt === 10 ? 1 && setShowTest(true) : prevTestCt + 1
       );
@@ -237,7 +243,7 @@ export default function Sandia() {
           background
             ? `/backgrounds/${background}`
             : "/backgrounds/bg-booksflying.webp"
-        }')`
+        }')`,
       }}
     >
       <Navbar />
@@ -292,7 +298,10 @@ export default function Sandia() {
                     <div className="sm:pl-20 sm:pr-8 sm:pt-7 text-center">
                       <SpeechBubble
                         text={
-                          showReference ? current?.reference : current?.content
+                          showReference
+                            ? current?.reference
+                            : current?.content ||
+                              "Hola!!! soy Randy y me encanta explorar el mundo"
                         }
                         height=""
                         width=""
