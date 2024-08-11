@@ -5,6 +5,8 @@ import ContactoFooter from "@/components/ContactoFooter";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
+import SpeechBubble from "@/components/SpeechBubble";
+
 export default function User() {
   const router = useRouter();
   const [user, setPost] = useState([]);
@@ -40,28 +42,44 @@ export default function User() {
         {/* BOTONES HACIA SUBMENUS */}
         <div className="grid gap-4 w-full py-4 px-10 md:px-32 lg:grid-cols-2 lg:gap-2 lg:px-2 xl:grid-cols-4 ">
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
-            <img src="/icon_userheart.svg" alt="" className="h-8 w-8 " />
+            <img
+              src="/icon_userheart.svg"
+              alt=""
+              className="h-8 w-8 "
+            />
             <span className="font-lucky text-black text-xl xl:text-lg">
               FAVS
             </span>
           </div>
 
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
-            <img src="/icon_userachieve.svg" alt="" className="h-8 w-8 " />
+            <img
+              src="/icon_userachieve.svg"
+              alt=""
+              className="h-8 w-8 "
+            />
             <span className="font-lucky text-black text-xl xl:text-lg">
               LOGROS
             </span>
           </div>
 
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
-            <img src="/icon_userview.svg" alt="" className="h-8 w-8 " />
+            <img
+              src="/icon_userview.svg"
+              alt=""
+              className="h-8 w-8 "
+            />
             <span className="font-lucky text-black text-xl xl:text-lg ">
               VISTOS
             </span>
           </div>
 
           <div className="bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly">
-            <img src="/icon_userabt.svg" alt="" className="h-8 w-8" />
+            <img
+              src="/icon_userabt.svg"
+              alt=""
+              className="h-8 w-8"
+            />
 
             <span className="font-lucky text-black text-xl xl:text-lg">
               NOSOTROS
@@ -71,7 +89,14 @@ export default function User() {
       </div>
 
       {/* FOOTER CONTACTO */}
-      <ContactoFooter />
+      <ContactoFooter>
+        <SpeechBubble
+          text="Regístrate para ver más"
+          trianglePosition="rigth"
+          width="200px"
+          height="200px"
+        />
+      </ContactoFooter>
     </main>
   );
 }

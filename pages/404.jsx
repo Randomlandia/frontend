@@ -1,7 +1,9 @@
+import Link from 'next/link';
 import React from 'react';
-export default function RandyNotFound() {
+
+export default function ErrorPage() {
   return (
-    <div className="flex flex-col p-10 overflow-hidden">
+    <div className="min-h-screen flex flex-col justify-center p-10 overflow-hidden">
       {/* TITULO DEL ERROR 404 */}
       <div className="flex-wrap justify-center p-3">
         <p className="font-mono text-zinc-500 text-center font-extrabold text-8xl">
@@ -20,12 +22,12 @@ export default function RandyNotFound() {
         />
       </div>
       <div className="flex justify-center ">
-        <a
+        <Link
           href="/"
           className="font-mont font-semibold text-zinc-500 hover:text-pcyan hover:underline text-center text-lg "
         >
           Regresar al inicio
-        </a>
+        </Link>
       </div>
     </div>
   );
