@@ -1,6 +1,14 @@
 import React from "react";
 export const descrip = [
   {
+    icono: "https://cdn.randomlandia.com/people/randy.webp",
+    alt: "Randy image",
+    nombre: "Randy",
+    titulo: "CEO de Randomlandia",
+    contenido:
+      "¡Me encanta aprender! Pero aún más, ¡el enseñar! ¿Te apetecé compartir conocimiento mientras tomamos café? ¡Randomlandia me llama! Nos vemos ahí?",
+  },
+  {
     icono: "https://cdn.randomlandia.com/people/aizza.webp",
     alt: "Aizza image",
     nombre: "Aizza",
