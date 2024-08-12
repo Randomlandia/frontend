@@ -12,7 +12,7 @@ const nextConfig = {
     CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
   },
   images: {
-    domains: ["www.gravatar.com"],
+    domains: ["www.gravatar.com", "cdn.randomlandia.com"],
     formats: ["image/avif", "image/webp"],
   },
   swcMinify: false,
