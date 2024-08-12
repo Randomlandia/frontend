@@ -12,6 +12,7 @@ export default function User() {
   const router = useRouter();
   const [user, setData] = useState([]);
   const [emailIsValidate, setEmailIsValidate] = useState(false);
+  const [sending, setSending] = useState(false);
   let id = router.query.id;
 
   useEffect(() => {
@@ -43,6 +44,25 @@ export default function User() {
       <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full"></main>
     );
   }
+
+  const handleResendEmail = async () => {
+    setSending("Enviando...");
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const resend = await API.resendEmail(token);
+
+      if (!resend) return setSending("Error..");
+
+      setSending("¡Enviado!");
+    } else {
+      setSending("Error...");
+    }
+
+    setTimeout(() => {
+      setSending(false);
+    }, 3000);
+  };
 
   const favs = () => {
     router.push(`/user/favs`);
@@ -160,7 +180,18 @@ export default function User() {
               trianglePosition="right"
               width="250px"
               height="100px"
-            />
+            >
+              <button
+                onClick={handleResendEmail}
+                className="absolute start-full text-white top-1/4 ms-5 bg-lgreen shadow-xl p-3 px-5 rounded"
+              >
+                {sending ? sending : "Reenviar correo"}
+                <div
+                  className="absolute top-[90%] w-0 h-0 border-t-[15px] border-t-lgreen border-x-[15px] border-x-transparent start-0"
+                  disabled={sending}
+                ></div>
+              </button>
+            </SpeechBubble>
           )}
         </ContactoFooter>
       </div>

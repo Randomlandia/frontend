@@ -15,7 +15,7 @@ const API = {
 
       const response = await r.json();
 
-      return response;
+      return response.success;
     } catch (error) {
       console.log(error);
       return { error };
@@ -29,6 +29,27 @@ const API = {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const response = await r.json();
+
+      return response.success;
+    } catch (error) {
+      console.log(error);
+      return { error };
+    }
+  },
+  async resendEmail(token) {
+    try {
+      const r = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}users/email/resend`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
