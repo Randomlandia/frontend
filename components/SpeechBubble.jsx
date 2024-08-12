@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
-const SpeechBubble = ({ text, trianglePosition, width, height }) => {
+const SpeechBubble = ({ text, trianglePosition, width, height, children }) => {
   const triangleClasses = classNames({
     "absolute bottom-[-15px] w-0 h-0 border-t-[15px] border-t-cream border-x-[15px] border-x-transparent": true,
     "left-6": trianglePosition === "left",
@@ -21,7 +21,10 @@ const SpeechBubble = ({ text, trianglePosition, width, height }) => {
       style={bubbleStyles}
     >
       <div className="overflow-y-auto h-full text-center flex flex-col justify-center py-4 gap-3">
-        <p className="w-auto text-center">{text}</p>
+        <p className="w-auto text-center">
+          {text}
+          {children}
+        </p>
       </div>
       <div className={triangleClasses}></div>
     </div>
