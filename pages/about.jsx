@@ -186,8 +186,7 @@ const Nosotros = () => {
 
         {/*descrip */}
         <div className="flex flex-col mt-3   bg-[#f6ead7]/75  md:bg-transparent text-center rounded-3xl pl-[120px] md:pl-[50px] pt-[20px]  gap-[10px]  align-middle justify-center">
-          {/*1 */}
-          <div className="hidden md:flex justify-center">
+          <div className="hidden md:flex justify-center -mt-24">
             <CardNosotrosDescri
               key={`randdy-desc`}
               icono={descrip[0].icono}
@@ -197,6 +196,7 @@ const Nosotros = () => {
               contenido={descrip[0].contenido}
             />
           </div>
+          {/*1 */}
           <div className="md:grid hidden md:grid-cols-2 xl:grid-cols-3">
             {descrip.slice(1, descrip.length).map((unico, index) => {
               return (
