@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from '@/components/Navbar';
-import Avatar from '@/components/Avatar';
-import ContactoFooter from '@/components/ContactoFooter';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from "react";
+import Navbar from "@/components/Navbar";
+import Avatar from "@/components/Avatar";
+import ContactoFooter from "@/components/ContactoFooter";
+import { useRouter } from "next/router";
 // import SpeechBubble from '@/components/SpeechBubble';
 
-import API from '@/utils/api/account.api';
-
+import API from "@/utils/api/account.api";
+import SpeechBubble from "@/components/SpeechBubble";
 
 export default function User() {
   const router = useRouter();
   const [user, setData] = useState([]);
   const [emailIsValidate, setEmailIsValidate] = useState(false);
+  const [sending, setSending] = useState(false);
   let id = router.query.id;
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}users/${id}`, {
-      method: 'Get',
+      method: "Get",
     })
       .then((response) => response?.json())
       .then((json) => {
         setData(json);
       })
       .catch((error) => {
-        console.log('Error', error);
+        console.log("Error", error);
       });
   }, [id]);
 
@@ -43,6 +44,25 @@ export default function User() {
       <main className="w-full h-full bg-white animate-pulse min-h-screen min-w-full"></main>
     );
   }
+
+  const handleResendEmail = async () => {
+    setSending("Enviando...");
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      const resend = await API.resendEmail(token);
+
+      if (!resend) return setSending("Error..");
+
+      setSending("¡Enviado!");
+    } else {
+      setSending("Error...");
+    }
+
+    setTimeout(() => {
+      setSending(false);
+    }, 3000);
+  };
 
   const favs = () => {
     router.push(`/user/favs`);
@@ -93,29 +113,57 @@ export default function User() {
         {/* BOTONES HACIA SUBMENUS */}
 
         <div className="grid gap-4 w-full py-4 px-10 md:px-32 lg:grid-cols-2 lg:gap-2 lg:px-2 xl:grid-cols-4 ">
-          <button onClick={favs} className={botonClass}>
-            <img src="/icon_userheart.svg" alt="" className="h-8 w-8 " />
+          <button
+            onClick={favs}
+            className={botonClass}
+          >
+            <img
+              src="/icon_userheart.svg"
+              alt=""
+              className="h-8 w-8 "
+            />
             <span className="font-lucky text-black text-xl xl:text-lg">
               FAVS
             </span>
           </button>
 
-          <button onClick={logros} className={botonClass}>
-            <img src="/icon_userachieve.svg" alt="" className="h-8 w-8 " />
+          <button
+            onClick={logros}
+            className={botonClass}
+          >
+            <img
+              src="/icon_userachieve.svg"
+              alt=""
+              className="h-8 w-8 "
+            />
             <span className="font-lucky text-black text-xl xl:text-lg">
               LOGROS
             </span>
           </button>
 
-          <button onClick={vistos} className={botonClass}>
-            <img src="/icon_userview.svg" alt="" className="h-8 w-8 " />
+          <button
+            onClick={vistos}
+            className={botonClass}
+          >
+            <img
+              src="/icon_userview.svg"
+              alt=""
+              className="h-8 w-8 "
+            />
             <span className="font-lucky text-black text-xl xl:text-lg ">
               VISTOS
             </span>
           </button>
 
-          <button onClick={nosotros} className={botonClass}>
-            <img src="/icon_userabt.svg" alt="" className="h-8 w-8" />
+          <button
+            onClick={nosotros}
+            className={botonClass}
+          >
+            <img
+              src="/icon_userabt.svg"
+              alt=""
+              className="h-8 w-8"
+            />
             <span className="font-lucky text-black text-xl xl:text-lg">
               NOSOTROS
             </span>
@@ -124,8 +172,28 @@ export default function User() {
       </div>
 
       {/* FOOTER CONTACTO */}
-      <div className=" md:m-20">
-        <ContactoFooter />
+      <div className="md:m-20 md:mb-0">
+        <ContactoFooter>
+          {emailIsValidate || (
+            <SpeechBubble
+              text="¡Revisa tu correo explorador, para validar tu cuenta!"
+              trianglePosition="right"
+              width="250px"
+              height="100px"
+            >
+              <button
+                onClick={handleResendEmail}
+                className="absolute start-full text-white top-1/4 ms-5 bg-lgreen shadow-xl p-3 px-5 rounded"
+              >
+                {sending ? sending : "Reenviar correo"}
+                <div
+                  className="absolute top-[90%] w-0 h-0 border-t-[15px] border-t-lgreen border-x-[15px] border-x-transparent start-0"
+                  disabled={sending}
+                ></div>
+              </button>
+            </SpeechBubble>
+          )}
+        </ContactoFooter>
       </div>
     </main>
   );

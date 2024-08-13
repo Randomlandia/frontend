@@ -6,7 +6,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/flowbite-react/lib/**/*.js", //flowbite
     "./pages/**/*.{ts,tsx}", //flowbite
-    "./public/**/*.html",  //flowbite
+    "./public/**/*.html", //flowbite
 
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
@@ -47,22 +47,25 @@ module.exports = {
         cream: "#F7E9D8",
       },
       animation: {
-        heartbeat: 'heartbeat 1s ease-in-out infinite',
+        heartbeat: "heartbeat 1s ease-in-out infinite",
+        "waving-hand": "wave 1s linear",
       },
       keyframes: {
         heartbeat: {
-          '0%, 100%': { transform: 'scale(1)' },
-          '50%': { transform: 'scale(1.25)' },
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.25)" },
+        },
+        wave: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
         },
       },
     },
   },
   variants: {
     extend: {
-      animation: ['hover'],
+      animation: ["hover"],
     },
   },
-  plugins: [
-    require('flowbite/plugin')
-  ],
+  plugins: [require("flowbite/plugin")],
 };
