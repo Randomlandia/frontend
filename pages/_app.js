@@ -10,7 +10,6 @@ import { handleLogout } from "@/utils/logoutHandler";
 //import { handleLogout } from "@/utils/logoutHandler";
 import { MusicProvider } from "@/components/home/musicContex";
 
-
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {
@@ -19,7 +18,6 @@ export default function App({ Component, pageProps }) {
     const interval = setInterval(() => {
       const exp = checkTokenExpiry();
       if (exp) return;
-
     }, 3600000);
     return () => clearInterval(interval);
   }, [router]);
@@ -53,7 +51,7 @@ export default function App({ Component, pageProps }) {
       {...pageProps}
     >
       <MusicProvider>
-        <div className="bg-white min-h-screen w-screen">
+        <div className="bg-white min-h-screen max-w-screen">
           <Component {...pageProps} />
         </div>
       </MusicProvider>
