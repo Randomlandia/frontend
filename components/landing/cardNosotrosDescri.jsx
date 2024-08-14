@@ -3,7 +3,7 @@ import React from "react";
 
 export default function CardNosotrosDescri(props) {
   return (
-    <div className="flex pr-[120px]  md:pr-0 h-[300px]  md:bg-[#f6ead7]/75 flex-col rounded-3xl m-[5px] md:w-[250px] md:h-[320px]  gap-[10px] pt-[30px]  items-center align-middle text-center">
+    <div className="md:mx-auto flex pr-[120px]  md:pr-0 h-[300px]  md:bg-[#f6ead7]/75 flex-col rounded-3xl m-[5px] md:w-[250px] md:h-[320px]  gap-[10px] pt-[30px]  items-center align-middle text-center md:shadow-md">
       <div className="flex-col ">
         <div className=" flex m-auto flex-col h-[60px] w-[60px] items-center align-middle">
           <Image

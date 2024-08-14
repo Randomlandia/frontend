@@ -3,7 +3,7 @@ export const descrip = [
   {
     icono: "https://cdn.randomlandia.com/people/randy.webp",
     alt: "Randy image",
-    nombre: "Randy",
+    nombre: "Ranndy",
     titulo: "CEO de Randomlandia",
     contenido:
       "¡Me encanta aprender! Pero aún más, ¡el enseñar! ¿Te apetecé compartir conocimiento mientras tomamos café? ¡Randomlandia me llama! Nos vemos ahí?",
