@@ -73,8 +73,8 @@ export default function User() {
   const vistos = () => {
     router.push(`/user/ackn`);
   };
-  const nosotros = () => {
-    router.push(`/about`);
+  const ranking = () => {
+    router.push(`/ranking`);
   };
   const botonClass =
     "bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly hover:shadow-xl hover:translate-y-1 hover:translate-x-1 hover:shadow-orange-300 ";
@@ -156,7 +156,7 @@ export default function User() {
           </button>
 
           <button
-            onClick={nosotros}
+            onClick={ranking}
             className={botonClass}
           >
             <img
@@ -165,7 +165,7 @@ export default function User() {
               className="h-8 w-8"
             />
             <span className="font-lucky text-black text-xl xl:text-lg">
-              NOSOTROS
+              RANKING
             </span>
           </button>
         </div>
