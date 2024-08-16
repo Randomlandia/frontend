@@ -18,7 +18,7 @@ export default function RankingPage() {
 
   return (
     <>
-      {ranking && (
+      {ranking.length > 0 ? (
         <main className="min-h-screen w-screen bg-oldwhite flex flex-col justify-center gap-6 py-5 items-center">
           <h1 className="font-lucky text-2xl md:text-4xl text-dorange flex justify-center items-center md:gap-3 bg-white/30 p-4 rounded-3xl shadow-lg">
             <Image
@@ -60,6 +60,10 @@ export default function RankingPage() {
               );
             })}
           </ul>
+        </main>
+      ) : (
+        <main>
+          <h1>Calculando...</h1>
         </main>
       )}
     </>
