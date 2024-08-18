@@ -301,10 +301,22 @@ export default function Sandia() {
                     <div className="sm:pl-20 sm:pr-8 sm:pt-7 text-center">
                       <SpeechBubble
                         text={
-                          showReference
-                            ? current?.reference
-                            : current?.content ||
-                              "Hola!!! soy Randy y me encanta explorar el mundo"
+                          showReference ? (
+                            <div className="flex p-3 text-center text-gray-600 italic">
+                              <p className="before:content-['“'] after:content-['”']">
+                                {current?.reference}
+                              </p>
+                            </div>
+                          ) : (
+                            current?.content || (
+                              <div>
+                                <p>
+                                  "Hola!!! soy Randy y me encanta explorar el
+                                  mundo"
+                                </p>
+                              </div>
+                            )
+                          )
                         }
                         height=""
                         width=""
@@ -317,31 +329,33 @@ export default function Sandia() {
                         className="w-32 sm:w-40"
                       />
                       <div className="flex flex-col gap-3 pr-5">
-                        <div className="flex justify-between gap-4 sm:gap-10">
-                          <button
-                            key="turnIcon"
-                            onClick={handleToggleReference}
-                            className="hover:transform hover:scale-125"
-                          >
-                            <img
-                              src="/icon_turn.svg"
-                              alt="Turn Icon"
-                              className="w-14 h-14 sm:w-24"
-                            />
-                          </button>
+                        {current?.content && (
+                          <div className="flex justify-between gap-4 sm:gap-10">
+                            <button
+                              key="turnIcon"
+                              onClick={handleToggleReference}
+                              className="hover:transform hover:scale-125"
+                            >
+                              <img
+                                src="/icon_turn.svg"
+                                alt="Turn Icon"
+                                className="w-14 h-14 sm:w-24"
+                              />
+                            </button>
 
-                          <button
-                            key="redHeartIcon"
-                            onClick={handleLike}
-                            className="hover:transform hover:scale-125 hover:animate-heartbeat hover:"
-                          >
-                            <img
-                              src={favIcon}
-                              alt="Red Heart Icon"
-                              className="w-12 h-12 sm:w-24"
-                            />
-                          </button>
-                        </div>
+                            <button
+                              key="redHeartIcon"
+                              onClick={handleLike}
+                              className="hover:transform hover:scale-125 hover:animate-heartbeat hover:"
+                            >
+                              <img
+                                src={favIcon}
+                                alt="Red Heart Icon"
+                                className="w-12 h-12 sm:w-24"
+                              />
+                            </button>
+                          </div>
+                        )}
                         <div className="flex justify-between gap-4 sm:hidden">
                           <button
                             key="arrowLeftIcon"
