@@ -42,6 +42,7 @@ export default function Avatar(props) {
     setTimeout(() => {
       setShowAvatar(false);
       props.update();
+      setShowModal(false);
     }, 2000);
     return;
   }
@@ -71,6 +72,7 @@ export default function Avatar(props) {
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
+      setShowModalName(false);
       props.update();
     }, 2000);
     setShowModalName(false);
