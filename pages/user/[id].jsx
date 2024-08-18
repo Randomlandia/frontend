@@ -13,6 +13,8 @@ export default function User() {
   const [user, setData] = useState([]);
   const [emailIsValidate, setEmailIsValidate] = useState(false);
   const [sending, setSending] = useState(false);
+  const [update, setUpdate] = useState(false);
+
   let id = router.query.id;
 
   useEffect(() => {
@@ -22,11 +24,12 @@ export default function User() {
       .then((response) => response?.json())
       .then((json) => {
         setData(json);
+        setUpdate(false);
       })
       .catch((error) => {
         console.log("Error", error);
       });
-  }, [id]);
+  }, [id, update]);
 
   useEffect(() => {
     const getValidateEmail = async (id) => {
@@ -34,7 +37,7 @@ export default function User() {
       setEmailIsValidate(r);
     };
     getValidateEmail(id);
-  }, [id]);
+  }, [id, update]);
 
   {
     /* animate pulse temporal*/
@@ -91,6 +94,7 @@ export default function User() {
               userName={user.data.users.name}
               id={user.data.users._id}
               avatar={user.data.users.avatar}
+              update={setUpdate}
             />
 
             {/*prueba*/}

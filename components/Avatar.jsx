@@ -41,7 +41,7 @@ export default function Avatar(props) {
     setShowAvatar(true);
     setTimeout(() => {
       setShowAvatar(false);
-      router.push("/menu");
+      props.update();
     }, 2000);
     return;
   }
@@ -71,7 +71,7 @@ export default function Avatar(props) {
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
-      router.push("/menu");
+      props.update();
     }, 2000);
     setShowModalName(false);
     setNombreNuevo(nameUser.name);
@@ -110,7 +110,10 @@ export default function Avatar(props) {
         </div>
         {/* USER AVATAR */}
 
-        <ModalAvatar className="flex align-bottom" isVisible={showModal}>
+        <ModalAvatar
+          className="flex align-bottom"
+          isVisible={showModal}
+        >
           <div>
             <form
               name="formRegister"
@@ -127,7 +130,11 @@ export default function Avatar(props) {
                     className="rounded-full w-fit border-2 border-transparent
               hover:border-red-500 p-2"
                   >
-                    <img src="/close.svg" alt="close" className="h-4 w-4" />
+                    <img
+                      src="/close.svg"
+                      alt="close"
+                      className="h-4 w-4"
+                    />
                   </button>
                 </div>
                 {/* TITULO DEL MODAL */}
@@ -281,7 +288,11 @@ export default function Avatar(props) {
               hover:border-red-500 p-2"
                     onClick={() => setShowModalName(false)}
                   >
-                    <img src="/close.svg" alt="close" className="h-4 w-4" />
+                    <img
+                      src="/close.svg"
+                      alt="close"
+                      className="h-4 w-4"
+                    />
                   </button>
                 </div>
 
@@ -312,7 +323,10 @@ export default function Avatar(props) {
                 />
               </div>
               {/*div error*/}
-              <div id="errorName" className="p-1">
+              <div
+                id="errorName"
+                className="p-1"
+              >
                 {errors.name && (
                   <p
                     className="bg-lorange/50 text-white p-2 rounded-lg flex justify-center items-center"
