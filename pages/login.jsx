@@ -271,20 +271,10 @@ export default function Login() {
                   </p>
                   <div className="flex gap-6 mb-4">
                     <Image
-                      src="fb_icon.svg"
-                      width={40}
-                      height={40}
-                    ></Image>
-                    <Image
                       src="google_icon.svg"
                       width={40}
                       height={40}
-                    ></Image>
-                    <Image
-                      src="tiktok_icon.svg"
-                      width={40}
-                      height={40}
-                    ></Image>
+                    />
                   </div>
                 </div>
               </SignInButton>
