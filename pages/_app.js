@@ -10,6 +10,10 @@ import { handleLogout } from "@/utils/logoutHandler";
 //import { handleLogout } from "@/utils/logoutHandler";
 import { MusicProvider } from "@/components/home/musicContex";
 
+if (typeof document === "undefined") {
+  React.useLayoutEffect = React.useEffect;
+}
+
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {

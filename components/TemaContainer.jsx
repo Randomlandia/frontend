@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-export default function TemaContainer({ bool, name }) {
+export default function TemaContainer({ bool = false, name = "default" }) {
   const router = useRouter();
 
   const badges = {
@@ -125,9 +125,4 @@ export default function TemaContainer({ bool, name }) {
 TemaContainer.propTypes = {
   bool: PropTypes.bool,
   name: PropTypes.string,
-};
-
-TemaContainer.defaultProps = {
-  bool: false,
-  name: "default",
 };
