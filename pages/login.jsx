@@ -18,7 +18,6 @@ export default function Login() {
   const [recovery, setRecovery] = useState(false);
   const [transitioning, setTransitioning] = useState(false);
 
-
   useEffect(() => {
     const bgNew = localStorage.getItem("bg");
     if (bgNew) {
@@ -82,6 +81,14 @@ export default function Login() {
             );
             localStorage.setItem("score", JSON.stringify(data.data.score));
           }
+
+          setShowSuccess(true);
+          setTimeout(() => {
+            setTimeout(() => {
+              setShowSuccess(false);
+              router.push("/");
+            }, 2000);
+          }, 2000);
         } catch (error) {
           console.log("Error: ", error);
         }
@@ -143,6 +150,8 @@ export default function Login() {
         }
       );
 
+      setShowSuccess(true);
+
       const userJson = await userResponse.json();
       if (userJson?.data) {
         const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
@@ -167,11 +176,8 @@ export default function Login() {
         );
 
         setTimeout(() => {
-          setShowSuccess(true);
-          setTimeout(() => {
-            setShowSuccess(false);
-            router.push("/");
-          }, 2000);
+          setShowSuccess(false);
+          router.push("/");
         }, 2000);
       } else {
         // console.log("No se pudieron obtener los datos del usuario");
@@ -210,7 +216,11 @@ export default function Login() {
               ¡No te preocupes! Ya te ayudo a volver
             </p>
             <div className="grid sm:flex gap-10 justify-center items-center py-3">
-              <img src={"/RANDY_06.svg"} alt="randy" className="w-40 sm:w-56" />
+              <img
+                src={"/RANDY_06.svg"}
+                alt="randy"
+                className="w-40 sm:w-56"
+              />
             </div>
           </div>
         </div>
@@ -241,153 +251,180 @@ export default function Login() {
             </div>
           )}
 
-
-        <div className="grid gap-3  text-white ">
-          <SignedIn>
-            <div className="flex mb-3  h-24 w-24 bg-[url('/avatars/A_RANDY.svg')] rounded-full  items-end justify-center">
-              <UserButton
-                appearance={userButtonAppearance}
-                afterSignOutUrl="/"
-              />
-
-            </div>
-          </SignedIn>
-          <SignedOut>
-            <SignInButton mode="modal" forceRedirectUrl="/login">
-              <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
-                <p className="text-natD font-lucky text-3xl text-center">
-
-                  Vincula tu cuenta con:
-                </p>
-                <div className="flex gap-6 mb-4">
-                  <Image src="fb_icon.svg" width={40} height={40}></Image>
-                  <Image src="google_icon.svg" width={40} height={40}></Image>
-                  <Image src="tiktok_icon.svg" width={40} height={40}></Image>
-                </div>
+          <div className="grid gap-3  text-white ">
+            <SignedIn>
+              <div className="flex mb-3  h-24 w-24 bg-[url('/avatars/A_RANDY.svg')] rounded-full  items-end justify-center">
+                <UserButton
+                  appearance={userButtonAppearance}
+                  afterSignOutUrl="/"
+                />
               </div>
-            </SignInButton>
-          </SignedOut>
-          <div className="flex">
-            <div className="border-t-2 border-gray-800 w-full max-w-xs"></div>
-            <p className="w-auto text-black -translate-y-2.5 text-center px-2">
-              O
-            </p>
-            <div className="border-t-2 border-gray-800 w-full max-w-xs"></div>
-          </div>
-        </div>
-        <form
-          autoComplete="off"
-          onSubmit={handleSubmit(onSubmit)}
-          name="formLogIn"
-          className="w-full md:w-[424px] pt-3 flex flex-col text-sm gap-2"
-        >
-          <div className="flex flex-col gap-2">
-            <div className="grid gap-0.5">
-              <label name="email" className=" b-0 px-2 py-4 text-natD font-ram">
-                EMAIL
-              </label>
-              <input
-                autoComplete="off"
-                type="email"
-                name="email"
-                required
-                placeholder="ejemplo@mail.com"
-                className="bg-lorange/50  outline-lorange/50 outline-offset-1  text-white p-2 rounded-lg shadow-md "
-                {...register("email", {
-                  minLength: {
-                    value: 3,
-                    message: "Correo debe contener a mínimo 3 caracteres",
-                  },
-                  maxLength: {
-                    value: 50,
-                    message: "Correo debe contener a máximo 50 caracteres",
-                  },
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Correo no válido",
-
-                  },
-                })}
-              />
+            </SignedIn>
+            <SignedOut>
+              <SignInButton
+                mode="modal"
+                forceRedirectUrl="/login"
+              >
+                <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
+                  <p className="text-natD font-lucky text-3xl text-center">
+                    Vincula tu cuenta con:
+                  </p>
+                  <div className="flex gap-6 mb-4">
+                    <Image
+                      src="fb_icon.svg"
+                      width={40}
+                      height={40}
+                    ></Image>
+                    <Image
+                      src="google_icon.svg"
+                      width={40}
+                      height={40}
+                    ></Image>
+                    <Image
+                      src="tiktok_icon.svg"
+                      width={40}
+                      height={40}
+                    ></Image>
+                  </div>
+                </div>
+              </SignInButton>
+            </SignedOut>
+            <div className="flex">
+              <div className="border-t-2 border-gray-800 w-full max-w-xs"></div>
+              <p className="w-auto text-black -translate-y-2.5 text-center px-2">
+                O
+              </p>
+              <div className="border-t-2 border-gray-800 w-full max-w-xs"></div>
             </div>
+          </div>
+          <form
+            autoComplete="off"
+            onSubmit={handleSubmit(onSubmit)}
+            name="formLogIn"
+            className="w-full md:w-[424px] pt-3 flex flex-col text-sm gap-2"
+          >
+            <div className="flex flex-col gap-2">
+              <div className="grid gap-0.5">
+                <label
+                  name="email"
+                  className=" b-0 px-2 py-4 text-natD font-ram"
+                >
+                  EMAIL
+                </label>
+                <input
+                  autoComplete="off"
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="ejemplo@mail.com"
+                  className="bg-lorange/50  outline-lorange/50 outline-offset-1  text-white p-2 rounded-lg shadow-md "
+                  {...register("email", {
+                    minLength: {
+                      value: 3,
+                      message: "Correo debe contener a mínimo 3 caracteres",
+                    },
+                    maxLength: {
+                      value: 50,
+                      message: "Correo debe contener a máximo 50 caracteres",
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                      message: "Correo no válido",
+                    },
+                  })}
+                />
+              </div>
 
               {errors.email && (
-                <p className="text-red-500 text-center" id="letra">
+                <p
+                  className="text-red-500 text-center"
+                  id="letra"
+                >
                   {"⚠ "} {errors.email.message}
                 </p>
               )}
               <div className="grid gap-0.5">
-                <label name="password" className="px-2 py-4 text-natD font-ram">
+                <label
+                  name="password"
+                  className="px-2 py-4 text-natD font-ram"
+                >
                   CONTRASEÑA
                 </label>
 
-              <input
-                type="password"
-                name="password"
-                autoComplete="off"
-                required
-                placeholder="********"
-                className="bg-lorange/50 outline-lorange/50 outline-offset-1 text-white p-2 rounded-lg shadow-md"
-                {...register("password", {
-                  minLength: {
-                    value: 3,
+                <input
+                  type="password"
+                  name="password"
+                  autoComplete="off"
+                  required
+                  placeholder="********"
+                  className="bg-lorange/50 outline-lorange/50 outline-offset-1 text-white p-2 rounded-lg shadow-md"
+                  {...register("password", {
+                    minLength: {
+                      value: 3,
 
-                    message: "Mínimo tres caracteres",
-
-                  },
-                  maxLength: {
-                    value: 50,
-                    message: "Usuario debe contener a máximo 50 caracteres",
-                  },
-                  pattern: {
-                    value: /^[a-zA-Z0-9]+$/,
-                    message: "Solo puedes usar letras y números",
-                  },
-
-                })}
-              />
+                      message: "Mínimo tres caracteres",
+                    },
+                    maxLength: {
+                      value: 50,
+                      message: "Usuario debe contener a máximo 50 caracteres",
+                    },
+                    pattern: {
+                      value: /^[a-zA-Z0-9]+$/,
+                      message: "Solo puedes usar letras y números",
+                    },
+                  })}
+                />
+              </div>
+              {errors.password && (
+                <p
+                  className="text-red-500 text-center"
+                  id="letra"
+                >
+                  {"⚠ "} {errors.password.message}
+                </p>
+              )}
             </div>
-            {errors.password && (
-              <p className="text-red-500 text-center" id="letra">
-                {"⚠ "} {errors.password.message}
-              </p>
-            )}
-          </div>
 
-            <div id="errorPasswordEmail" className="p-1">
+            <div
+              id="errorPasswordEmail"
+              className="p-1"
+            >
               {errors.root && (
-                <p className=" text-red-500 text-center" id="letra">
+                <p
+                  className=" text-red-500 text-center"
+                  id="letra"
+                >
                   {"⚠ "} {errors.root.message}
                 </p>
               )}
             </div>
 
-          {showSuccess && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
-              <p className="text-ram text-center text-3xl font-bold text-dgreen">
-                ¡Bienvenido!
-                <br /> Ya estas listo para la aventura.
-              </p>
-            </div>
-          )}
+            {showSuccess && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/70 bg-opacity-75">
+                <p className="text-ram text-center text-3xl font-bold text-dgreen">
+                  ¡Bienvenido!
+                  <br /> Ya estas listo para la aventura.
+                </p>
+              </div>
+            )}
 
-          <label className="flex justify-center items-center space-x-2">
-            <div className="relative">
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={handleToggleChange}
-                className="sr-only"
-              />
-              <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
-              <div
-                className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
-                  rememberMe ? "transform translate-x-full bg-natL" : ""
-                }`}
-              ></div>
-            </div>
-            <span className="text-natD font-ram font-light">RECUÉRDAME</span>
-          </label>
+            <label className="flex justify-center items-center space-x-2">
+              <div className="relative">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={handleToggleChange}
+                  className="sr-only"
+                />
+                <div className="block bg-lorange/20 w-10 h-6 rounded-full"></div>
+                <div
+                  className={`dot absolute left-1 top-1 bg-lorange w-4 h-4 rounded-full transition ${
+                    rememberMe ? "transform translate-x-full bg-natL" : ""
+                  }`}
+                ></div>
+              </div>
+              <span className="text-natD font-ram font-light">RECUÉRDAME</span>
+            </label>
 
             <button
               className=" bg-agreen p-1.5 w-56 m-auto mt-6 mb-5  font-lucky hover:shadow-xl hover:translate-y-1 hover:translate-x-1  hover:shadow-orange-300 text-white text-xl tracking-wider rounded-full"
@@ -397,11 +434,9 @@ export default function Login() {
             </button>
           </form>
 
-
           {/*<SignedOut>
         <SignInButton />
       </SignedOut>*/}
-
 
           <button onClick={() => router.push("/register")}>
             <div className="text-natD underline hover:text-lorange font-mont font-semibold">
@@ -415,11 +450,11 @@ export default function Login() {
           </button>
         </div>
       )}
-        <button onClick={() => router.push("/register")}>
-          <div className="text-natD underline hover:text-lorange font-mont font-semibold">
-            Aún no tengo cuenta
-          </div>
-        </button>
-      </div>
+      <button onClick={() => router.push("/register")}>
+        <div className="text-natD underline hover:text-lorange font-mont font-semibold">
+          Aún no tengo cuenta
+        </div>
+      </button>
+    </div>
   );
 }
