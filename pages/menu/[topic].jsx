@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "@/components/Navbar";
 import { useFavorites } from "@/utils/useFavorites";
 import { useRouter } from "next/router";
@@ -7,6 +7,7 @@ import LoadingState from "@/components/LoadingState";
 import TemaContainer from "@/components/TemaContainer";
 import SpeechBubble from "@/components/SpeechBubble";
 import ModalTest from "@/components/ModalTest";
+import { MusicContext } from "@/components/home/musicContex";
 
 // 1) guardar cada numero que salga en random en un arreglo
 // 2 un contador que llegue a 10
@@ -27,6 +28,8 @@ export default function Sandia() {
   const [showTest, setShowTest] = useState(false); //CAMBIAR A FALSE TERMINANDO MAQUETADO
   const [testAvail, setTestAvail] = useState(false);
   const [current, setCurrent] = useState(null);
+  const { musica, setMusica } = useContext(MusicContext);
+
   let { topic } = router.query;
 
   useEffect(() => {
@@ -247,6 +250,25 @@ export default function Sandia() {
       }}
     >
       <Navbar />
+
+      <div className="flex absolute bottom-3 end-8 md:bottom-8 z-[5000] bg-transparent">
+        <div
+          id="burbuja2"
+          className="bg-black bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
+        >
+          <button onClick={() => setMusica((prev) => !prev)}>
+            <img
+              className="aspect-square h-10 md:h-20"
+              src={
+                musica
+                  ? "/home/encendidoVolumen.svg"
+                  : "/home/apagadoVolumen.svg"
+              }
+            />
+          </button>
+        </div>
+      </div>
+
       {showTest && testAvail ? (
         <ModalTest
           setShowTest={setShowTest}
@@ -308,14 +330,8 @@ export default function Sandia() {
                               </p>
                             </div>
                           ) : (
-                            current?.content || (
-                              <div>
-                                <p>
-                                  "Hola!!! soy Randy y me encanta explorar el
-                                  mundo"
-                                </p>
-                              </div>
-                            )
+                            current?.content ||
+                            "Hola!!! soy Randy y me encanta explorar el mundo"
                           )
                         }
                         height=""
