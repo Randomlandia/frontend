@@ -51,7 +51,7 @@ export default function App({ Component, pageProps }) {
       {...pageProps}
     >
       <MusicProvider>
-        <div className="bg-white min-h-screen max-w-screen">
+        <div className="bg-white min-h-screen max-w-screen overflow-hidden">
           <Component {...pageProps} />
         </div>
       </MusicProvider>

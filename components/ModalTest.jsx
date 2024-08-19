@@ -25,6 +25,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
   const [showWinningModal, setShowWinningModal] = useState(false);
   const [showConfirm, setShowconfirm] = useState(true);
   const [loginRequired, setLoginRequired] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const getRandomQuestion = (sandias) => {
     if (attempt < 3 && topic !== "default") {
@@ -119,6 +120,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
           setIsCorrect(false);
         }
         setTimeout(() => {
+          setLoader(false);
           setIsQuestion(false);
           setShowResult(true);
         }, 1000);
@@ -154,7 +156,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
           achievements: achieve,
           sandiasFavoritas,
           score,
-          sandiasTested
+          sandiasTested,
         };
 
         try {
@@ -164,8 +166,8 @@ export default function ModalTest({ setShowTest, setTestCt }) {
               method: "PUT",
               body: JSON.stringify(requestBody),
               headers: {
-                "Content-Type": "application/json; charset=UTF-8"
-              }
+                "Content-Type": "application/json; charset=UTF-8",
+              },
             }
           );
           const json = await response.json();
@@ -197,7 +199,7 @@ export default function ModalTest({ setShowTest, setTestCt }) {
       deportes: { level: 0 },
       vida: { level: 0 },
       nerd: { level: 0 },
-      artes: { level: 0 }
+      artes: { level: 0 },
     };
     let achieve =
       JSON.parse(localStorage.getItem("achieve")) || achieveStructure;
@@ -252,7 +254,11 @@ export default function ModalTest({ setShowTest, setTestCt }) {
                 }
               />
             </div>
-            <img src={getRandyImage()} alt="randy" className="w-32 sm:w-56" />
+            <img
+              src={getRandyImage()}
+              alt="randy"
+              className="w-32 sm:w-56"
+            />
           </div>
           <div className="grid sm:flex items-center gap-5">
             <button
@@ -286,7 +292,11 @@ export default function ModalTest({ setShowTest, setTestCt }) {
               onClick={() => router.push("/menu")}
               className="hover:transform hover:scale-125"
             >
-              <img src="/close.svg" alt="Close Icon" className="w-10 h-10" />
+              <img
+                src="/close.svg"
+                alt="Close Icon"
+                className="w-10 h-10"
+              />
             </button>
           </div>
           <div className="flex gap-3">
@@ -309,6 +319,8 @@ export default function ModalTest({ setShowTest, setTestCt }) {
                           : "¡Incorrecto!"
                         : ""
                     }
+                    loader={loader}
+                    loaderset={setLoader}
                     content={current?.content}
                     isQuestion={isQuestion}
                     isLoading={isLoading}
@@ -345,7 +357,10 @@ export default function ModalTest({ setShowTest, setTestCt }) {
               </div>
             </div>
             <div className="hidden lg:grid">
-              <div id="forlg" className="w-20 flex justify-end items-start">
+              <div
+                id="forlg"
+                className="w-20 flex justify-end items-start"
+              >
                 <button
                   onClick={() => router.push("/menu")}
                   className="hover:transform hover:scale-125"
@@ -467,7 +482,11 @@ export default function ModalTest({ setShowTest, setTestCt }) {
               te llevo!
             </p>
             <div className="grid sm:flex gap-10 justify-center items-center py-3">
-              <img src={"/RANDY_06.svg"} alt="randy" className="w-40 sm:w-56" />
+              <img
+                src={"/RANDY_06.svg"}
+                alt="randy"
+                className="w-40 sm:w-56"
+              />
             </div>
           </div>
         </div>
