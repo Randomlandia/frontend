@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Navbar from "@/components/Navbar";
 import { useFavorites } from "@/utils/useFavorites";
 import { useRouter } from "next/router";
@@ -7,6 +7,7 @@ import LoadingState from "@/components/LoadingState";
 import TemaContainer from "@/components/TemaContainer";
 import SpeechBubble from "@/components/SpeechBubble";
 import ModalTest from "@/components/ModalTest";
+import { MusicContext } from "@/components/home/musicContex";
 
 // 1) guardar cada numero que salga en random en un arreglo
 // 2 un contador que llegue a 10
@@ -27,6 +28,8 @@ export default function Sandia() {
   const [showTest, setShowTest] = useState(false); //CAMBIAR A FALSE TERMINANDO MAQUETADO
   const [testAvail, setTestAvail] = useState(false);
   const [current, setCurrent] = useState(null);
+  const { musica, setMusica } = useContext(MusicContext);
+
   let { topic } = router.query;
 
   useEffect(() => {
@@ -247,8 +250,30 @@ export default function Sandia() {
       }}
     >
       <Navbar />
+
+      <div className="flex absolute bottom-3 end-8 md:bottom-8 z-[5000] bg-transparent">
+        <div
+          id="burbuja2"
+          className="bg-black bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
+        >
+          <button onClick={() => setMusica((prev) => !prev)}>
+            <img
+              className="aspect-square h-10 md:h-20"
+              src={
+                musica
+                  ? "/home/encendidoVolumen.svg"
+                  : "/home/apagadoVolumen.svg"
+              }
+            />
+          </button>
+        </div>
+      </div>
+
       {showTest && testAvail ? (
-        <ModalTest setShowTest={setShowTest} setTestCt={setTestCt} />
+        <ModalTest
+          setShowTest={setShowTest}
+          setTestCt={setTestCt}
+        />
       ) : (
         <div className="sm:p-4 min-h-screen bg-oldwhite/50 sm:bg-transparent">
           <div
@@ -298,10 +323,16 @@ export default function Sandia() {
                     <div className="sm:pl-20 sm:pr-8 sm:pt-7 text-center">
                       <SpeechBubble
                         text={
-                          showReference
-                            ? current?.reference
-                            : current?.content ||
-                              "Hola!!! soy Randy y me encanta explorar el mundo"
+                          showReference ? (
+                            <div className="flex p-3 text-center text-gray-600 italic">
+                              <p className="before:content-['“'] after:content-['”']">
+                                {current?.reference}
+                              </p>
+                            </div>
+                          ) : (
+                            current?.content ||
+                            "Hola!!! soy Randy y me encanta explorar el mundo"
+                          )
                         }
                         height=""
                         width=""
@@ -314,31 +345,33 @@ export default function Sandia() {
                         className="w-32 sm:w-40"
                       />
                       <div className="flex flex-col gap-3 pr-5">
-                        <div className="flex justify-between gap-4 sm:gap-10">
-                          <button
-                            key="turnIcon"
-                            onClick={handleToggleReference}
-                            className="hover:transform hover:scale-125"
-                          >
-                            <img
-                              src="/icon_turn.svg"
-                              alt="Turn Icon"
-                              className="w-14 h-14 sm:w-24"
-                            />
-                          </button>
+                        {current?.content && (
+                          <div className="flex justify-between gap-4 sm:gap-10">
+                            <button
+                              key="turnIcon"
+                              onClick={handleToggleReference}
+                              className="hover:transform hover:scale-125"
+                            >
+                              <img
+                                src="/icon_turn.svg"
+                                alt="Turn Icon"
+                                className="w-14 h-14 sm:w-24"
+                              />
+                            </button>
 
-                          <button
-                            key="redHeartIcon"
-                            onClick={handleLike}
-                            className="hover:transform hover:scale-125 hover:animate-heartbeat hover:"
-                          >
-                            <img
-                              src={favIcon}
-                              alt="Red Heart Icon"
-                              className="w-12 h-12 sm:w-24"
-                            />
-                          </button>
-                        </div>
+                            <button
+                              key="redHeartIcon"
+                              onClick={handleLike}
+                              className="hover:transform hover:scale-125 hover:animate-heartbeat hover:"
+                            >
+                              <img
+                                src={favIcon}
+                                alt="Red Heart Icon"
+                                className="w-12 h-12 sm:w-24"
+                              />
+                            </button>
+                          </div>
+                        )}
                         <div className="flex justify-between gap-4 sm:hidden">
                           <button
                             key="arrowLeftIcon"
@@ -368,7 +401,10 @@ export default function Sandia() {
                   </div>
                 </div>
                 <div className="hidden lg:grid ">
-                  <div id="forlg" className="w-20 flex justify-end items-start">
+                  <div
+                    id="forlg"
+                    className="w-20 flex justify-end items-start"
+                  >
                     <button
                       onClick={() => router.push("/menu")}
                       className="hover:transform hover:scale-125"
@@ -426,12 +462,16 @@ export default function Sandia() {
           <LoadingState />
         </div>
       )}
-      {(lastSandia && !showTest) && (
+      {lastSandia && !showTest && (
         <div className="fixed inset-0 bg-oldwhite flex items-center justify-center">
           <div className="bg-white w-2/3 h-80 p-6 rounded-xl shadow-xl flex justify-center items-center border-4 shadow-lorange/70">
             <div className="flex gap-16">
               <div>
-                <img src="/RANDY_02.svg" alt="randy" className="w-36" />
+                <img
+                  src="/RANDY_02.svg"
+                  alt="randy"
+                  className="w-36"
+                />
               </div>
               <div className="grid text-center text-dgreen">
                 <h2 className="text-4xl font-bold mb-4 font-ram text-dorange">

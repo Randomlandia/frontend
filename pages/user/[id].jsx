@@ -13,6 +13,8 @@ export default function User() {
   const [user, setData] = useState([]);
   const [emailIsValidate, setEmailIsValidate] = useState(false);
   const [sending, setSending] = useState(false);
+  const [update, setUpdate] = useState(false);
+
   let id = router.query.id;
 
   useEffect(() => {
@@ -22,11 +24,12 @@ export default function User() {
       .then((response) => response?.json())
       .then((json) => {
         setData(json);
+        setUpdate(false);
       })
       .catch((error) => {
         console.log("Error", error);
       });
-  }, [id]);
+  }, [id, update]);
 
   useEffect(() => {
     const getValidateEmail = async (id) => {
@@ -34,7 +37,7 @@ export default function User() {
       setEmailIsValidate(r);
     };
     getValidateEmail(id);
-  }, [id]);
+  }, [id, update]);
 
   {
     /* animate pulse temporal*/
@@ -73,8 +76,8 @@ export default function User() {
   const vistos = () => {
     router.push(`/user/ackn`);
   };
-  const nosotros = () => {
-    router.push(`/about`);
+  const ranking = () => {
+    router.push(`/ranking`);
   };
   const botonClass =
     "bg-lorange rounded-lg py-2 px-4 inline-flex gap-1 place-content-evenly hover:shadow-xl hover:translate-y-1 hover:translate-x-1 hover:shadow-orange-300 ";
@@ -91,6 +94,7 @@ export default function User() {
               userName={user.data.users.name}
               id={user.data.users._id}
               avatar={user.data.users.avatar}
+              update={setUpdate}
             />
 
             {/*prueba*/}
@@ -156,7 +160,7 @@ export default function User() {
           </button>
 
           <button
-            onClick={nosotros}
+            onClick={ranking}
             className={botonClass}
           >
             <img
@@ -165,7 +169,7 @@ export default function User() {
               className="h-8 w-8"
             />
             <span className="font-lucky text-black text-xl xl:text-lg">
-              NOSOTROS
+              RANKING
             </span>
           </button>
         </div>

@@ -10,6 +10,10 @@ import { handleLogout } from "@/utils/logoutHandler";
 //import { handleLogout } from "@/utils/logoutHandler";
 import { MusicProvider } from "@/components/home/musicContex";
 
+if (typeof document === "undefined") {
+  React.useLayoutEffect = React.useEffect;
+}
+
 export default function App({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {
@@ -51,7 +55,7 @@ export default function App({ Component, pageProps }) {
       {...pageProps}
     >
       <MusicProvider>
-        <div className="bg-white min-h-screen max-w-screen">
+        <div className="bg-white min-h-screen max-w-screen overflow-hidden">
           <Component {...pageProps} />
         </div>
       </MusicProvider>

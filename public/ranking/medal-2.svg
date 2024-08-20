@@ -1,0 +1,44 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="MEDALLA_2LUGAR">
+<g id="Group 632923">
+<g id="M CIENCIA">
+<path id="Union" fill-rule="evenodd" clip-rule="evenodd" d="M46.1945 45.0189C51.5524 40.8565 55 34.3516 55 27.0415C55 14.4763 44.8139 4.29022 32.2487 4.29022C19.6835 4.29022 9.49738 14.4763 9.49738 27.0415C9.49738 34.3516 12.945 40.8565 18.3029 45.0189L15.2471 55.9814C14.6197 58.2319 16.6919 60.3041 18.9424 59.6768L31.4431 56.1922C31.9701 56.0453 32.5272 56.0453 33.0542 56.1922L45.5549 59.6768C47.8054 60.3041 49.8776 58.2319 49.2503 55.9814L46.1945 45.0189Z" fill="url(#paint0_linear_1116_2363)"/>
+<path id="Ellipse 2" d="M53 27.0415C53 38.5022 43.7093 47.7928 32.2487 47.7928C20.7881 47.7928 11.4974 38.5022 11.4974 27.0415C11.4974 15.5809 20.7881 6.29022 32.2487 6.29022C43.7093 6.29022 53 15.5809 53 27.0415Z" fill="url(#paint1_radial_1116_2363)" stroke="url(#paint2_linear_1116_2363)" stroke-width="4"/>
+</g>
+</g>
+<path id="2" d="M40.543 23.4414C40.543 24.3789 40.373 25.2754 40.0332 26.1309C39.6934 26.9746 39.2422 27.7715 38.6797 28.5215C38.1289 29.2598 37.4961 29.9453 36.7812 30.5781C36.0781 31.1992 35.3633 31.7617 34.6367 32.2656H40.1914L39.7695 39.5781L23.3164 39.0156V32.6172C23.9375 32.4062 24.5879 32.1543 25.2676 31.8613C25.959 31.5566 26.6328 31.2109 27.2891 30.8242C27.957 30.4375 28.584 30.0039 29.1699 29.5234C29.7676 29.043 30.2891 28.5215 30.7344 27.959C31.1914 27.3848 31.5488 26.7637 31.8066 26.0957C32.0762 25.4277 32.2109 24.707 32.2109 23.9336C32.2109 23.4883 32.1289 23.0957 31.9648 22.7559C31.8125 22.416 31.5957 22.1348 31.3145 21.9121C31.0332 21.6777 30.7051 21.5078 30.3301 21.4023C29.9668 21.2852 29.5742 21.2266 29.1523 21.2266C28.8008 21.2266 28.4434 21.2676 28.0801 21.3496C27.7168 21.4199 27.3594 21.5254 27.0078 21.666C26.6562 21.8066 26.3223 21.9824 26.0059 22.1934C25.7012 22.3926 25.4258 22.6211 25.1797 22.8789L23.6328 15.9883C24.0664 15.5547 24.5645 15.1914 25.127 14.8984C25.6895 14.6055 26.2812 14.3711 26.9023 14.1953C27.5234 14.0078 28.1562 13.873 28.8008 13.791C29.4453 13.709 30.0781 13.668 30.6992 13.668C32.082 13.668 33.3711 13.9199 34.5664 14.4238C35.7617 14.916 36.7988 15.6016 37.6777 16.4805C38.5684 17.3477 39.2656 18.3789 39.7695 19.5742C40.2852 20.7695 40.543 22.0586 40.543 23.4414Z" fill="url(#paint3_linear_1116_2363)"/>
+<path id="Star 5" d="M8.5 56L10.4304 51.4304L15 49.5L10.4304 47.5696L8.5 43L6.5696 47.5696L2 49.5L6.5696 51.4304L8.5 56Z" fill="url(#paint4_angular_1116_2363)"/>
+<path id="Star 6" d="M55.5 15L57.4304 10.4304L62 8.5L57.4304 6.5696L55.5 2L53.5696 6.5696L49 8.5L53.5696 10.4304L55.5 15Z" fill="url(#paint5_angular_1116_2363)"/>
+<path id="Star 4" d="M49.5 47L52.0244 41.0244L58 38.5L52.0244 35.9756L49.5 30L46.9756 35.9756L41 38.5L46.9756 41.0244L49.5 47Z" fill="url(#paint6_angular_1116_2363)"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1116_2363" x1="32.2487" y1="4.29022" x2="32.2487" y2="59.7904" gradientUnits="userSpaceOnUse">
+<stop stop-color="#DCE8EE"/>
+<stop offset="1" stop-color="#5F6C6E"/>
+</linearGradient>
+<radialGradient id="paint1_radial_1116_2363" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32.2487 27.0415) rotate(90) scale(22.7513 22.7513)">
+<stop stop-color="#F9FCFF"/>
+<stop offset="1" stop-color="#3F4754"/>
+</radialGradient>
+<linearGradient id="paint2_linear_1116_2363" x1="32.2487" y1="4.29022" x2="32.2487" y2="49.7928" gradientUnits="userSpaceOnUse">
+<stop stop-color="#DCE8EE"/>
+<stop offset="1" stop-color="#5F6C6E"/>
+</linearGradient>
+<linearGradient id="paint3_linear_1116_2363" x1="32" y1="18" x2="32" y2="40" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E0E7F0"/>
+<stop offset="0.844" stop-color="#474B51"/>
+</linearGradient>
+<radialGradient id="paint4_angular_1116_2363" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(8.5 49.5) rotate(-90) scale(6.5)">
+<stop offset="0.184" stop-color="#C5CED4"/>
+<stop offset="0.944" stop-color="#39393D"/>
+</radialGradient>
+<radialGradient id="paint5_angular_1116_2363" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(55.5 8.5) rotate(-90) scale(6.5)">
+<stop offset="0.184" stop-color="#C5CED4"/>
+<stop offset="0.944" stop-color="#39393D"/>
+</radialGradient>
+<radialGradient id="paint6_angular_1116_2363" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(49.5 38.5) rotate(-90) scale(8.5)">
+<stop offset="0.184" stop-color="#C5CED4"/>
+<stop offset="0.944" stop-color="#39393D"/>
+</radialGradient>
+</defs>
+</svg>
