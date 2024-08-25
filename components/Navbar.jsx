@@ -1,28 +1,28 @@
-import React from "react";
-import { useLayoutEffect, useState, Fragment, useEffect } from "react";
-import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
-import { useUser } from "@clerk/nextjs";
-import { handleUpdateUser } from "@/utils/updateUser";
+import React from 'react';
+import { useLayoutEffect, useState, Fragment, useEffect } from 'react';
+import { getCookieValueByName } from '@/components/utils/getCookieValueByName';
+import { useUser } from '@clerk/nextjs';
+import { handleUpdateUser } from '@/utils/updateUser';
 import {
   Menu,
   Transition,
   MenuButton,
   MenuItems,
   MenuItem,
-} from "@headlessui/react";
-import { useClerk } from "@clerk/nextjs";
-import { useRouter } from "next/router";
+} from '@headlessui/react';
+import { useClerk } from '@clerk/nextjs';
+import { useRouter } from 'next/router';
 
 export default function Navbar() {
   const router = useRouter();
   const { signOut } = useClerk();
   const [isLogged, setIsLogged] = useState(false);
-  const [userName, setUserName] = useState("Explorador");
-  const [userId, setUserId] = useState("Explorador");
+  const [userName, setUserName] = useState('Explorador');
+  const [userId, setUserId] = useState('Explorador');
   const [userAvatar, setUserAvatar] = useState(0);
   const [hovered, setHovered] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
-  const [userIdHamburguesa, setUserIdHamburguesa] = useState("");
+  const [userIdHamburguesa, setUserIdHamburguesa] = useState('');
   const { isLoaded, user } = useUser([]);
   const [cookie, setCookie] = useState(false);
   const [loginRequired, setLoginRequired] = useState(false);
@@ -36,15 +36,15 @@ export default function Navbar() {
 
   //post
   useLayoutEffect(() => {
-    const token = localStorage.getItem("token");
-    const idUser = localStorage.getItem("userID");
-    const user = localStorage.getItem("username");
-    const avatarValue = localStorage.getItem("avatar");
+    const token = localStorage.getItem('token');
+    const idUser = localStorage.getItem('userID');
+    const user = localStorage.getItem('username');
+    const avatarValue = localStorage.getItem('avatar');
 
     if (token || user) {
       setIsLogged(true);
-      setUserName(user || "Explorador");
-      setUserId(idUser || "Explorador");
+      setUserName(user || 'Explorador');
+      setUserId(idUser || 'Explorador');
       setUserIdHamburguesa(idUser);
       setUserAvatar(avatarValue || 0);
       setCookie(false);
@@ -53,31 +53,31 @@ export default function Navbar() {
 
   const avatarSrc = () => {
     const avatars = [
-      "/avatars/A_RANDY.svg",
-      "/avatars/A_RANDY_DED.svg",
-      "/avatars/A_RANDY_OH.svg",
-      "/avatars/A_RANDY_SAD.svg",
-      "/avatars/A_RANDY_SMILE.svg",
-      "/avatars/A_RANDY-WINK.svg",
-      "/avatars/A_RANDY_ANGRY.svg",
+      '/avatars/A_RANDY.svg',
+      '/avatars/A_RANDY_DED.svg',
+      '/avatars/A_RANDY_OH.svg',
+      '/avatars/A_RANDY_SAD.svg',
+      '/avatars/A_RANDY_SMILE.svg',
+      '/avatars/A_RANDY-WINK.svg',
+      '/avatars/A_RANDY_ANGRY.svg',
     ];
     return avatars[userAvatar] || avatars[0];
   };
 
   const handleLogout = async () => {
-    const rm = localStorage.getItem("rememberMe");
+    const rm = localStorage.getItem('rememberMe');
     const keysToRemove = [
-      "token",
-      "username",
-      "tested",
-      "avatar",
-      "score",
-      "view",
-      "favs",
-      "achieve",
-      "exp",
-      "userID",
-      "rememberMe",
+      'token',
+      'username',
+      'tested',
+      'avatar',
+      'score',
+      'view',
+      'favs',
+      'achieve',
+      'exp',
+      'userID',
+      'rememberMe',
     ];
     try {
       const updateSuccess = await handleUpdateUser(isLogged);
@@ -85,16 +85,16 @@ export default function Navbar() {
         keysToRemove.forEach((key) => localStorage.removeItem(key));
         await signOut();
         setIsLogged(false);
-        router.push("/");
+        router.push('/');
       } else {
-        console.log("Failed to update user, logout aborted.");
+        console.log('Failed to update user, logout aborted.');
       }
     } catch (error) {
-      console.log("Error during logout:", error);
+      console.log('Error during logout:', error);
     }
   };
 
-  const classNames = (...classes) => classes.filter(Boolean).join(" ");
+  const classNames = (...classes) => classes.filter(Boolean).join(' ');
 
   return (
     <>
@@ -102,10 +102,9 @@ export default function Navbar() {
         {/* LOGO DE RANDOMLANDIA */}
         <button
           onClick={() => {
-            router.push("/");
+            router.push('/');
           }}
-          className="py-3 px-3"
-        >
+          className="py-3 px-3">
           <img
             src="/logoLarge.svg"
             alt="Random"
@@ -116,12 +115,17 @@ export default function Navbar() {
           {/* SECCION DESKTOP */}
           <div className="hidden lg:flex gap-3 items-center px-3">
             <div className="flex">
-              <button onClick={() => router.push("/randomlandia")}>
+              <button onClick={() => router.push('/randomlandia')}>
                 <p className="px-5 py-1 rounded-[10px] flex items-center hover:bg-dorange transform hover:scale-110">
                   RANDOMLANDIA
                 </p>
               </button>
-              <button onClick={() => router.push("/about")}>
+              <button onClick={() => router.push('/ranking')}>
+                <p className="px-5 py-1 rounded-[10px] flex items-center hover:bg-dorange transform hover:scale-110">
+                  RANKING
+                </p>
+              </button>
+              <button onClick={() => router.push('/about')}>
                 <p className="px-5 py-1 rounded-[10px] flex items-center hover:bg-dorange transform hover:scale-110">
                   NOSOTROS
                 </p>
@@ -131,9 +135,8 @@ export default function Navbar() {
               <>
                 <button
                   onClick={() => {
-                    router.push("/menu");
-                  }}
-                >
+                    router.push('/menu');
+                  }}>
                   <p className="bg-natL h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110">
                     ¡JUGAR!
                   </p>
@@ -142,8 +145,7 @@ export default function Navbar() {
                   className="flex items-center transform hover:scale-110"
                   onClick={() => {
                     router.push(`/user/${userId}`);
-                  }}
-                >
+                  }}>
                   {/*botonAvatarImagen */}
                   <div className="py-1 px-1">
                     <img
@@ -161,27 +163,24 @@ export default function Navbar() {
               <>
                 <button
                   onClick={() => {
-                    router.push("/login");
-                  }}
-                >
+                    router.push('/login');
+                  }}>
                   <p className="px-5 py-1 rounded-[10px] flex items-center hover:bg-dorange transform hover:scale-110">
                     INICIAR SESIÓN
                   </p>
                 </button>
                 <button
                   onClick={() => {
-                    router.push("/register");
-                  }}
-                >
+                    router.push('/register');
+                  }}>
                   <p className="bg-dorange h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110">
                     CREAR CUENTA
                   </p>
                 </button>
                 <button
                   onClick={() => {
-                    router.push("/menu");
-                  }}
-                >
+                    router.push('/menu');
+                  }}>
                   <p className="bg-natL h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110">
                     ¡JUGAR!
                   </p>
@@ -194,8 +193,7 @@ export default function Navbar() {
               <>
                 <button
                   onClick={() => handleLogout()}
-                  className="flex items-center pr-2 pt-1"
-                >
+                  className="flex items-center pr-2 pt-1">
                   <img
                     src="/icon_close.svg"
                     alt="🚪"
@@ -217,8 +215,7 @@ export default function Navbar() {
                   router.push(`/user/${userId}`);
                 }}
                 onTouchStart={() => setHovered(true)}
-                onTouchEnd={() => setHovered(false)}
-              >
+                onTouchEnd={() => setHovered(false)}>
                 {/*botonAvatarImagen */}
                 <div className="py-1 px-1">
                   <img
@@ -236,10 +233,9 @@ export default function Navbar() {
             ) : (
               <button
                 onClick={() => {
-                  router.push("/login");
+                  router.push('/login');
                 }}
-                className="flex"
-              >
+                className="flex">
                 <p className="text-sm leading-4 bg-dorange px-6 py-1.5 rounded-[10px]">
                   INICIAR
                   <br />
@@ -251,8 +247,7 @@ export default function Navbar() {
             {/* SECCION MENU SANDIA */}
             <Menu
               as="div"
-              className="relative inline-block text-left z-10 mr-2 mt-2"
-            >
+              className="relative inline-block text-left z-10 mr-2 mt-2">
               <div>
                 <MenuButton className="inline-flex w-full justify-center gap-x-1.5 shadow-sm">
                   <img
@@ -269,15 +264,13 @@ export default function Navbar() {
                 enterTo="transform opacity-100 scale-100"
                 leave="transition ease-in duration-75"
                 leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
+                leaveTo="transform opacity-0 scale-95">
                 <MenuItems className="absolute right-0 z-10 w-44 origin-top-right rounded-md bg-agreen/80 shadow-lg ring-1 ring-natD ring-opacity-50 focus:outline-none">
                   <div className="py-1 flex flex-col">
                     <MenuItem>
                       {({ active }) => (
                         <button
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center`}
-                        >
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center`}>
                           <div className="">
                             <img
                               src={avatarSrc()}
@@ -297,12 +290,11 @@ export default function Navbar() {
                             onClick={() => {
                               router.push(`/user/${userIdHamburguesa}`);
                             }}
-                            onTouchStart={() => setSelectedMenu("user")}
+                            onTouchStart={() => setSelectedMenu('user')}
                             onTouchEnd={() => setSelectedMenu(null)}
                             className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                              selectedMenu === "register" ? "bg-natD" : ""
-                            }`}
-                          >
+                              selectedMenu === 'register' ? 'bg-natD' : ''
+                            }`}>
                             Mi perfil
                           </button>
                         )}
@@ -311,13 +303,12 @@ export default function Navbar() {
                       <MenuItem>
                         {({ active }) => (
                           <button
-                            onClick={() => router.push("/register")}
-                            onTouchStart={() => setSelectedMenu("register")}
+                            onClick={() => router.push('/register')}
+                            onTouchStart={() => setSelectedMenu('register')}
                             onTouchEnd={() => setSelectedMenu(null)}
                             className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                              selectedMenu === "register" ? "bg-natD" : ""
-                            }`}
-                          >
+                              selectedMenu === 'register' ? 'bg-natD' : ''
+                            }`}>
                             Crear cuenta
                           </button>
                         )}
@@ -326,13 +317,12 @@ export default function Navbar() {
                     <MenuItem>
                       {({ active }) => (
                         <button
-                          onClick={() => router.push("/about")}
-                          onTouchStart={() => setSelectedMenu("about")}
+                          onClick={() => router.push('/about')}
+                          onTouchStart={() => setSelectedMenu('about')}
                           onTouchEnd={() => setSelectedMenu(null)}
                           className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                            selectedMenu === "about" ? "bg-natD" : ""
-                          }`}
-                        >
+                            selectedMenu === 'about' ? 'bg-natD' : ''
+                          }`}>
                           ¿Quiénes somos?
                         </button>
                       )}
@@ -340,27 +330,38 @@ export default function Navbar() {
                     <MenuItem>
                       {({ active }) => (
                         <button
-                          onClick={() => router.push("/randomlandia")}
-                          onTouchStart={() => setSelectedMenu("randomlandia")}
+                          onClick={() => router.push('/randomlandia')}
+                          onTouchStart={() => setSelectedMenu('randomlandia')}
                           onTouchEnd={() => setSelectedMenu(null)}
                           className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                            selectedMenu === "randomlandia" ? "bg-natD" : ""
-                          }`}
-                        >
+                            selectedMenu === 'randomlandia' ? 'bg-natD' : ''
+                          }`}>
                           Randomlandia
+                        </button>
+                      )}
+                    </MenuItem>
+                    <MenuItem>
+                      {() => (
+                        <button
+                          onClick={() => router.push('/ranking')}
+                          onTouchStart={() => setSelectedMenu('ranking')}
+                          onTouchEnd={() => setSelectedMenu(null)}
+                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                            selectedMenu === 'ranking' ? 'bg-natD' : ''
+                          }`}>
+                          Ranking
                         </button>
                       )}
                     </MenuItem>
                     <MenuItem>
                       {({ active }) => (
                         <button
-                          onClick={() => router.push("/")}
-                          onTouchStart={() => setSelectedMenu("home")}
+                          onClick={() => router.push('/')}
+                          onTouchStart={() => setSelectedMenu('home')}
                           onTouchEnd={() => setSelectedMenu(null)}
                           className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                            selectedMenu === "home" ? "bg-natD" : ""
-                          }`}
-                        >
+                            selectedMenu === 'home' ? 'bg-natD' : ''
+                          }`}>
                           ¡JUGAR!
                         </button>
                       )}
@@ -372,12 +373,11 @@ export default function Navbar() {
                           <button
                             type="submit"
                             onClick={handleLogout}
-                            onTouchStart={() => setSelectedMenu("logout")}
+                            onTouchStart={() => setSelectedMenu('logout')}
                             onTouchEnd={() => setSelectedMenu(null)}
                             className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                              selectedMenu === "logout" ? "bg-natD" : ""
-                            }`}
-                          >
+                              selectedMenu === 'logout' ? 'bg-natD' : ''
+                            }`}>
                             Cerrar Sesión
                           </button>
                         )}
@@ -386,13 +386,12 @@ export default function Navbar() {
                       <MenuItem>
                         {({ active }) => (
                           <button
-                            onClick={() => router.push("/login")}
-                            onTouchStart={() => setSelectedMenu("login")}
+                            onClick={() => router.push('/login')}
+                            onTouchStart={() => setSelectedMenu('login')}
                             onTouchEnd={() => setSelectedMenu(null)}
                             className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
-                              selectedMenu === "login" ? "bg-natD" : ""
-                            }`}
-                          >
+                              selectedMenu === 'login' ? 'bg-natD' : ''
+                            }`}>
                             Iniciar Sesión
                           </button>
                         )}
@@ -417,7 +416,7 @@ export default function Navbar() {
             </p>
             <div className="grid sm:flex gap-10 justify-center items-center py-3">
               <img
-                src={"/RANDY_06.svg"}
+                src={'/RANDY_06.svg'}
                 alt="randy"
                 className="w-40 sm:w-56"
               />
