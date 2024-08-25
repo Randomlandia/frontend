@@ -17,7 +17,7 @@ export default function RankingPage() {
     };
 
     getData();
-  }, [ranking]);
+  }, []);
 
   const handleRouterHome = () => {
     router.push('/');
