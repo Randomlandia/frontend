@@ -41,6 +41,11 @@ export default function Menu() {
     router.push("menu/ciencias");
   };
 
+  const handlePlay = () => {
+    localStorage.setItem("recorrido", "true");
+    setShowTour(false);
+  };
+
   return (
     <div
       className="relative min-h-screen bg-cover bg-center bg-no-repeat"
@@ -59,7 +64,6 @@ export default function Menu() {
 
       <div className={`flex ${showTour ? "pointer-events-none" : ""}`}>
         <Navbar />
-
         <BackgroundModal onClose={updateBackground} />
       </div>
 
@@ -101,7 +105,7 @@ export default function Menu() {
       </div>
 
       {showTour && (
-        <div className="fixed inset-x-0 bottom-16 flex justify-center items-center pb-24 z-20 pointer-events-auto">
+        <div className="fixed inset-x-0 bottom-16 flex justify-center items-center pb-24 z-50 pointer-events-auto">
           <Burbuja id="burbuja2">
             <div className="flex flex-col items-center">
               <RandyTextLeft
@@ -109,12 +113,20 @@ export default function Menu() {
                 text="Este es el menú de temas, aquí encontrarás temas totalmente randoms."
                 className="text-xs"
               />
-              <button
-                onClick={handleContinue}
-                className="bg-natL mt-4 h-9 px-5 rounded-[10px] flex items-center transform hover:scale-110 text-xl justify-center align-middle font-lucky"
-              >
-                Continuar
-              </button>
+              <div className="flex gap-4 mt-4">
+                <button
+                  onClick={handlePlay}
+                  className="bg-green-500 font-lucky text-xl text-white rounded-full px-4 py-2 transform hover:scale-110"
+                >
+                  Jugar
+                </button>
+                <button
+                  onClick={handleContinue}
+                  className="bg-lorange text-xl font-lucky text-white rounded-full px-4 py-2 transform hover:scale-110"
+                >
+                  Recorrido
+                </button>
+              </div>
             </div>
           </Burbuja>
         </div>

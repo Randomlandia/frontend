@@ -586,13 +586,13 @@ export default function Sandia() {
                 <div className="flex gap-4 mt-4">
                   <button
                     onClick={() => handleTourFinal("play")}
-                    className="bg-green-500 font-lucky text-white rounded-full px-4 py-2 transform hover:scale-110"
+                    className="bg-green-500 text-lg font-lucky text-white rounded-full px-4 py-2 transform hover:scale-110"
                   >
                     Jugar
                   </button>
                   <button
                     onClick={() => handleTourFinal("tour")}
-                    className="bg-lorange font-lucky text-white rounded-full px-4 py-2 transform hover:scale-110"
+                    className="bg-lorange text-lg font-lucky text-white rounded-full px-4 py-2 transform hover:scale-110"
                   >
                     Recorrido
                   </button>
