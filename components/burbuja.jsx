@@ -1,10 +1,14 @@
 import React from "react";
 
-export default function Burbuja({ id, children }) {
+export default function Burbuja({ id, children, className = "" }) {
   return (
     <div
       id={id}
-      className="relative mx-auto z-[1000] h-[420px] w-[450px] md:h-[500px] md:w-[500px] flex items-center justify-center rounded-full shadow-amber-100 shadow-lg"
+      className={`relative mx-auto z-[1000] flex items-center justify-center rounded-full shadow-amber-100 shadow-lg ${className}`}
+      style={{
+        height: "420px", // Medidas por defecto
+        width: "450px", // Medidas por defecto
+      }}
     >
       {/* Capa de la burbuja con opacidad y efectos */}
       <div
@@ -21,7 +25,7 @@ export default function Burbuja({ id, children }) {
 
       {/* Segunda capa transparente para el contenido */}
       <div className="relative flex items-center justify-center h-full w-full rounded-full">
-        <div className="relative  text-white text-center z-[1000]">
+        <div className="relative text-white text-center z-[1000]">
           {children}
         </div>
       </div>
