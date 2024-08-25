@@ -14,18 +14,14 @@ export default function RankingPage() {
     };
 
     getData();
-  }, [ranking]);
+  }, []);
 
   return (
     <>
       {ranking.length > 0 ? (
         <main className="min-h-screen w-screen bg-[url('/backgrounds/ranking.jpg')] bg-cover bg-left-bottom bg-no-repeat flex flex-col justify-center gap-6 py-5 items-center">
           <h1 className="font-lucky text-2xl md:text-4xl text-dorange flex justify-center items-center md:gap-3 bg-white/30 p-4 rounded-3xl shadow-lg">
-            <Image
-              src="/ranking/flag.svg"
-              width={40}
-              height={40}
-            />
+            <Image src="/ranking/flag.svg" width={40} height={40} />
             <span>Tabla de posiciones</span>
           </h1>
           <ul className="w-full max-w-[700px] flex flex-col justify-center items-center bg-white/30 shadow-lg border-4 border-lorange rounded-3xl text-black relative p-2">

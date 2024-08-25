@@ -216,11 +216,7 @@ export default function Login() {
               ¡No te preocupes! Ya te ayudo a volver
             </p>
             <div className="grid sm:flex gap-10 justify-center items-center py-3">
-              <img
-                src={"/RANDY_06.svg"}
-                alt="randy"
-                className="w-40 sm:w-56"
-              />
+              <img src={"/RANDY_06.svg"} alt="randy" className="w-40 sm:w-56" />
             </div>
           </div>
         </div>
@@ -261,20 +257,13 @@ export default function Login() {
               </div>
             </SignedIn>
             <SignedOut>
-              <SignInButton
-                mode="modal"
-                forceRedirectUrl="/login"
-              >
+              <SignInButton mode="modal" forceRedirectUrl="/login">
                 <div className="flex flex-col justify-center items-center gap-3 cursor-pointer">
                   <p className="text-natD font-lucky text-3xl text-center">
                     Vincula tu cuenta con:
                   </p>
                   <div className="flex gap-6 mb-4">
-                    <Image
-                      src="google_icon.svg"
-                      width={40}
-                      height={40}
-                    />
+                    <Image src="google_icon.svg" width={40} height={40} />
                   </div>
                 </div>
               </SignInButton>
@@ -326,18 +315,12 @@ export default function Login() {
               </div>
 
               {errors.email && (
-                <p
-                  className="text-red-500 text-center"
-                  id="letra"
-                >
+                <p className="text-red-500 text-center" id="letra">
                   {"⚠ "} {errors.email.message}
                 </p>
               )}
               <div className="grid gap-0.5">
-                <label
-                  name="password"
-                  className="px-2 py-4 text-natD font-ram"
-                >
+                <label name="password" className="px-2 py-4 text-natD font-ram">
                   CONTRASEÑA
                 </label>
 
@@ -366,24 +349,15 @@ export default function Login() {
                 />
               </div>
               {errors.password && (
-                <p
-                  className="text-red-500 text-center"
-                  id="letra"
-                >
+                <p className="text-red-500 text-center" id="letra">
                   {"⚠ "} {errors.password.message}
                 </p>
               )}
             </div>
 
-            <div
-              id="errorPasswordEmail"
-              className="p-1"
-            >
+            <div id="errorPasswordEmail" className="p-1">
               {errors.root && (
-                <p
-                  className=" text-red-500 text-center"
-                  id="letra"
-                >
+                <p className=" text-red-500 text-center" id="letra">
                   {"⚠ "} {errors.root.message}
                 </p>
               )}
@@ -440,11 +414,6 @@ export default function Login() {
           </button>
         </div>
       )}
-      <button onClick={() => router.push("/register")}>
-        <div className="text-natD underline hover:text-lorange font-mont font-semibold">
-          Aún no tengo cuenta
-        </div>
-      </button>
     </div>
   );
 }

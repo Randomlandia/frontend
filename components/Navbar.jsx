@@ -1,6 +1,4 @@
-import React from "react";
-import { useLayoutEffect, useState, Fragment, useEffect } from "react";
-import { getCookieValueByName } from "@/components/utils/getCookieValueByName";
+import React, { useLayoutEffect, useState, Fragment, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { handleUpdateUser } from "@/utils/updateUser";
 import {
@@ -26,17 +24,20 @@ export default function Navbar() {
   const { isLoaded, user } = useUser([]);
   const [cookie, setCookie] = useState(false);
   const [loginRequired, setLoginRequired] = useState(false);
+  const [showExplorerButton, setShowExplorerButton] = useState(false);
 
-  //clerck
   useEffect(() => {
     if (isLoaded && user) {
       setCookie(true);
     }
-  }, []);
+  }, [isLoaded, user]);
 
-  //post
   useLayoutEffect(() => {
     const token = localStorage.getItem("token");
+    if (!token || token === "false") {
+      setShowExplorerButton(true);
+    }
+
     const idUser = localStorage.getItem("userID");
     const user = localStorage.getItem("username");
     const avatarValue = localStorage.getItem("avatar");
@@ -65,7 +66,6 @@ export default function Navbar() {
   };
 
   const handleLogout = async () => {
-    const rm = localStorage.getItem("rememberMe");
     const keysToRemove = [
       "token",
       "username",
@@ -94,8 +94,6 @@ export default function Navbar() {
     }
   };
 
-  const classNames = (...classes) => classes.filter(Boolean).join(" ");
-
   return (
     <>
       <nav className="w-full h-14 z-[4000] bg-lorange flex justify-between items-center text-white font-lucky text-sm xl:text-xl py-3">
@@ -106,11 +104,7 @@ export default function Navbar() {
           }}
           className="py-3 px-3"
         >
-          <img
-            src="/logoLarge.svg"
-            alt="Random"
-            className="h-6 sm:h-10"
-          />
+          <img src="/logoLarge.svg" alt="Random" className="h-6 sm:h-10" />
         </button>
         <div className="flex">
           {/* SECCION DESKTOP */}
@@ -127,6 +121,14 @@ export default function Navbar() {
                 </p>
               </button>
             </div>
+            {showExplorerButton && (
+              <button
+                onClick={() => router.push("/user")}
+                className="px-5 py-1 rounded-[10px] flex items-center  transform hover:scale-110"
+              >
+                Explorador
+              </button>
+            )}
             {isLogged ? (
               <>
                 <button
@@ -144,13 +146,8 @@ export default function Navbar() {
                     router.push(`/user/${userId}`);
                   }}
                 >
-                  {/*botonAvatarImagen */}
                   <div className="py-1 px-1">
-                    <img
-                      src={avatarSrc()}
-                      alt="😄"
-                      className="h-10 w-10"
-                    />
+                    <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
                   </div>
                   <div className="bg-dorange h-9 px-5 rounded-[10px] flex items-center">
                     <p>{userName}</p>
@@ -196,11 +193,7 @@ export default function Navbar() {
                   onClick={() => handleLogout()}
                   className="flex items-center pr-2 pt-1"
                 >
-                  <img
-                    src="/icon_close.svg"
-                    alt="🚪"
-                    className="w-12"
-                  />
+                  <img src="/icon_close.svg" alt="🚪" className="w-12" />
                 </button>
                 <div className="absolute right-1 hidden group-hover:block bg-oldwhite border border-gray-200 p-2 rounded-lg shadow-lg mt-3 w-32">
                   <p className="text-sm text-center text-natD">¿Ya te vas?</p>
@@ -208,6 +201,7 @@ export default function Navbar() {
               </>
             )}
           </div>
+
           {/* SECCION MOBILE Y TABLET */}
           <div className="flex lg:hidden items-center gap-2 transform hover:scale-110">
             {isLogged ? (
@@ -219,13 +213,8 @@ export default function Navbar() {
                 onTouchStart={() => setHovered(true)}
                 onTouchEnd={() => setHovered(false)}
               >
-                {/*botonAvatarImagen */}
                 <div className="py-1 px-1">
-                  <img
-                    src={avatarSrc()}
-                    alt="😄"
-                    className="h-10 w-10"
-                  />
+                  <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
                 </div>
                 {hovered && (
                   <div className="bg-dorange h-9 px-5 rounded-[10px] flex items-center">
@@ -255,11 +244,7 @@ export default function Navbar() {
             >
               <div>
                 <MenuButton className="inline-flex w-full justify-center gap-x-1.5 shadow-sm">
-                  <img
-                    src="/menu.svg"
-                    alt="menu"
-                    className="w-14 h-16"
-                  />
+                  <img src="/menu.svg" alt="menu" className="w-14 h-16" />
                 </MenuButton>
               </div>
               <Transition
@@ -273,22 +258,37 @@ export default function Navbar() {
               >
                 <MenuItems className="absolute right-0 z-10 w-44 origin-top-right rounded-md bg-agreen/80 shadow-lg ring-1 ring-natD ring-opacity-50 focus:outline-none">
                   <div className="py-1 flex flex-col">
-                    <MenuItem>
-                      {({ active }) => (
-                        <button
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center`}
-                        >
-                          <div className="">
-                            <img
-                              src={avatarSrc()}
-                              alt="😄"
-                              className="h-6 w-6"
-                            />
+                    {showExplorerButton && (
+                      <MenuItem>
+                        {({ active }) => (
+                          <button
+                            onClick={() => router.push("/user")}
+                            className="flex w-full hover:bg-natD rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center"
+                          >
+                            Explorador
+                          </button>
+                        )}
+                      </MenuItem>
+                    )}
+                    {!showExplorerButton && (
+                      <MenuItem>
+                        {({ active }) => (
+                          <div
+                            className={`flex w-full  rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center`}
+                          >
+                            <div className="">
+                              <img
+                                src={avatarSrc()}
+                                alt="😄"
+                                className="h-6 w-6"
+                              />
+                            </div>
+                            <p>{userName}</p>
                           </div>
-                          <p>{userName}</p>
-                        </button>
-                      )}
-                    </MenuItem>
+                        )}
+                      </MenuItem>
+                    )}
+
                     <hr className="w-full border border-zinc-200 my-1" />
                     {isLogged ? (
                       <MenuItem>
@@ -416,11 +416,7 @@ export default function Navbar() {
               te llevo!
             </p>
             <div className="grid sm:flex gap-10 justify-center items-center py-3">
-              <img
-                src={"/RANDY_06.svg"}
-                alt="randy"
-                className="w-40 sm:w-56"
-              />
+              <img src={"/RANDY_06.svg"} alt="randy" className="w-40 sm:w-56" />
             </div>
           </div>
         </div>

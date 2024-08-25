@@ -117,57 +117,29 @@ export default function User() {
         {/* BOTONES HACIA SUBMENUS */}
 
         <div className="grid gap-4 w-full py-4 px-10 md:px-32 lg:grid-cols-2 lg:gap-2 lg:px-2 xl:grid-cols-4 ">
-          <button
-            onClick={favs}
-            className={botonClass}
-          >
-            <img
-              src="/icon_userheart.svg"
-              alt=""
-              className="h-8 w-8 "
-            />
+          <button onClick={favs} className={botonClass}>
+            <img src="/icon_userheart.svg" alt="" className="h-8 w-8 " />
             <span className="font-lucky text-black text-xl xl:text-lg">
               FAVS
             </span>
           </button>
 
-          <button
-            onClick={logros}
-            className={botonClass}
-          >
-            <img
-              src="/icon_userachieve.svg"
-              alt=""
-              className="h-8 w-8 "
-            />
+          <button onClick={logros} className={botonClass}>
+            <img src="/icon_userachieve.svg" alt="" className="h-8 w-8 " />
             <span className="font-lucky text-black text-xl xl:text-lg">
               LOGROS
             </span>
           </button>
 
-          <button
-            onClick={vistos}
-            className={botonClass}
-          >
-            <img
-              src="/icon_userview.svg"
-              alt=""
-              className="h-8 w-8 "
-            />
+          <button onClick={vistos} className={botonClass}>
+            <img src="/icon_userview.svg" alt="" className="h-8 w-8 " />
             <span className="font-lucky text-black text-xl xl:text-lg ">
               VISTOS
             </span>
           </button>
 
-          <button
-            onClick={ranking}
-            className={botonClass}
-          >
-            <img
-              src="/icon_userabt.svg"
-              alt=""
-              className="h-8 w-8"
-            />
+          <button onClick={ranking} className={botonClass}>
+            <img src="/icon_userabt.svg" alt="" className="h-8 w-8" />
             <span className="font-lucky text-black text-xl xl:text-lg">
               RANKING
             </span>
