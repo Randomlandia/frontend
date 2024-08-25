@@ -6,7 +6,7 @@ import BackgroundsList from "@/constants/BackgroundsList";
 import BackgroundCard from "./BackgroundCard";
 import Navbar from "./Navbar";
 
-export default function ModalComponent({ onClose }) {
+export default function ModalComponent({ onClose, className }) {
   //const [currentIndex, setCurrentIndex] = useState(0);
   const [isDisabled, setIsDisabled] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
@@ -88,10 +88,10 @@ export default function ModalComponent({ onClose }) {
   }, []);
 
   return (
-    <div className="absolute max-h-screen ">
+    <div className="absolute max-h-screen pt-16 pl-2 md:pl-5">
       <div
         id="burbuja2"
-        className=" bg-black z-[1000] mr-2 md:mr-6 xl:mr-10 h-12 w-12 xl:h-16 xl:w-16  justify-center text-center align-middle
+        className=" bg-black  z-[1000] mr-2 md:mr-6 xl:mr-10 h-12 w-12 xl:h-16 xl:w-16  justify-center text-center align-middle
           flex bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
       >
         <button className=" flex justify-end items-center" onClick={openModal}>
@@ -202,7 +202,7 @@ export default function ModalComponent({ onClose }) {
       {showSuccess && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/90 bg-opacity-75">
           <p className="text-ram text-center text-3xl font-bold text-dgreen">
-            ¡Perfecto!
+            ¡Prrrfecto!
             <br /> Ya tenemos casa.
           </p>
         </div>

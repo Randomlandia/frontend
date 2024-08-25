@@ -38,7 +38,7 @@ export default function Menu() {
   const handleContinue = () => {
     localStorage.setItem("recorrido", "true");
     setShowTour(false);
-    router.push("/user");
+    router.push("menu/ciencias");
   };
 
   return (
@@ -59,6 +59,7 @@ export default function Menu() {
 
       <div className={`flex ${showTour ? "pointer-events-none" : ""}`}>
         <Navbar />
+
         <BackgroundModal onClose={updateBackground} />
       </div>
 
