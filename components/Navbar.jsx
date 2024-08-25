@@ -1,6 +1,4 @@
-import React from 'react';
-import { useLayoutEffect, useState, Fragment, useEffect } from 'react';
-import { getCookieValueByName } from '@/components/utils/getCookieValueByName';
+import React, { useLayoutEffect, useState, Fragment, useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { handleUpdateUser } from '@/utils/updateUser';
 import {
@@ -26,17 +24,20 @@ export default function Navbar() {
   const { isLoaded, user } = useUser([]);
   const [cookie, setCookie] = useState(false);
   const [loginRequired, setLoginRequired] = useState(false);
+  const [showExplorerButton, setShowExplorerButton] = useState(false);
 
-  //clerck
   useEffect(() => {
     if (isLoaded && user) {
       setCookie(true);
     }
-  }, []);
+  }, [isLoaded, user]);
 
-  //post
   useLayoutEffect(() => {
     const token = localStorage.getItem('token');
+    if (!token || token === 'false') {
+      setShowExplorerButton(true);
+    }
+
     const idUser = localStorage.getItem('userID');
     const user = localStorage.getItem('username');
     const avatarValue = localStorage.getItem('avatar');
@@ -65,7 +66,6 @@ export default function Navbar() {
   };
 
   const handleLogout = async () => {
-    const rm = localStorage.getItem('rememberMe');
     const keysToRemove = [
       'token',
       'username',
@@ -93,8 +93,6 @@ export default function Navbar() {
       console.log('Error during logout:', error);
     }
   };
-
-  const classNames = (...classes) => classes.filter(Boolean).join(' ');
 
   return (
     <>
@@ -131,6 +129,13 @@ export default function Navbar() {
                 </p>
               </button>
             </div>
+            {showExplorerButton && (
+              <button
+                onClick={() => router.push('/user')}
+                className="px-5 py-1 rounded-[10px] flex items-center  transform hover:scale-110">
+                Explorador
+              </button>
+            )}
             {isLogged ? (
               <>
                 <button
@@ -146,7 +151,6 @@ export default function Navbar() {
                   onClick={() => {
                     router.push(`/user/${userId}`);
                   }}>
-                  {/*botonAvatarImagen */}
                   <div className="py-1 px-1">
                     <img
                       src={avatarSrc()}
@@ -206,6 +210,7 @@ export default function Navbar() {
               </>
             )}
           </div>
+
           {/* SECCION MOBILE Y TABLET */}
           <div className="flex lg:hidden items-center gap-2 transform hover:scale-110">
             {isLogged ? (
@@ -216,7 +221,6 @@ export default function Navbar() {
                 }}
                 onTouchStart={() => setHovered(true)}
                 onTouchEnd={() => setHovered(false)}>
-                {/*botonAvatarImagen */}
                 <div className="py-1 px-1">
                   <img
                     src={avatarSrc()}
@@ -267,21 +271,35 @@ export default function Navbar() {
                 leaveTo="transform opacity-0 scale-95">
                 <MenuItems className="absolute right-0 z-10 w-44 origin-top-right rounded-md bg-agreen/80 shadow-lg ring-1 ring-natD ring-opacity-50 focus:outline-none">
                   <div className="py-1 flex flex-col">
-                    <MenuItem>
-                      {({ active }) => (
-                        <button
-                          className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center`}>
-                          <div className="">
-                            <img
-                              src={avatarSrc()}
-                              alt="😄"
-                              className="h-6 w-6"
-                            />
+                    {showExplorerButton && (
+                      <MenuItem>
+                        {({ active }) => (
+                          <button
+                            onClick={() => router.push('/user')}
+                            className="flex w-full hover:bg-natD rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center">
+                            Explorador
+                          </button>
+                        )}
+                      </MenuItem>
+                    )}
+                    {!showExplorerButton && (
+                      <MenuItem>
+                        {({ active }) => (
+                          <div
+                            className={`flex w-full  rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center`}>
+                            <div className="">
+                              <img
+                                src={avatarSrc()}
+                                alt="😄"
+                                className="h-6 w-6"
+                              />
+                            </div>
+                            <p>{userName}</p>
                           </div>
-                          <p>{userName}</p>
-                        </button>
-                      )}
-                    </MenuItem>
+                        )}
+                      </MenuItem>
+                    )}
+
                     <hr className="w-full border border-zinc-200 my-1" />
                     {isLogged ? (
                       <MenuItem>

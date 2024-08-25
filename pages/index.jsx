@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <div className="h-screen w-screen bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-[url('/parallax_home/desk.png')] relative">
+    <div className="max-h-screen bg-cover md:bg-center bg-left-bottom bg-no-repeat flex flex-col font-mont font-bold overflow-hidden bg-[url('/backgrounds/randyBosque.svg')] xl:bg-[url('/parallax_home/desk.png')] ">
       <Navbar />
 
       <div
@@ -51,10 +51,7 @@ export default function Home() {
         </div>
       </div>
 
-      <Luz
-        className="min-h-full relative"
-        active={animacionActiva}
-      >
+      <Luz className="min-h-full relative" active={animacionActiva}>
         <div>
           <div
             id="burbuja"
@@ -82,11 +79,14 @@ export default function Home() {
         </div>
       </Luz>
 
-      <div className="absolute top-0 flex items-end pb-8 md:pb-48 bg-transparent w-full min-h-full z-[100] font-lucky text-white text-2xl md:text-5xl overflow-hidden">
+      <div
+        className="flex absolute bg-transparent w-screen h-screen z-[100]
+        font-lucky text-white text-2xl md:text-5xl"
+      >
         <div
           id="burbuja2"
-          className="bg-black mx-auto z-[1000] h-[200px] w-[200px] md:h-[300px] md:w-[300px] align-middle
-    flex bg-grey/30 rounded-full shadow-amber-100 shadow-lg"
+          className="bg-black mt-[400px] m-auto z-[1000] h-[200px] w-[200px] md:h-[300px] md:w-[300px] align-middle
+          flex bg-grey/30 rounded-full shadow-amber-100 shadow-lg"
         >
           <button
             onClick={menu}
