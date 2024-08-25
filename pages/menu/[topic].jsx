@@ -270,10 +270,7 @@ export default function Sandia() {
       </div>
 
       {showTest && testAvail ? (
-        <ModalTest
-          setShowTest={setShowTest}
-          setTestCt={setTestCt}
-        />
+        <ModalTest setShowTest={setShowTest} setTestCt={setTestCt} />
       ) : (
         <div className="sm:p-4 min-h-screen bg-oldwhite/50 sm:bg-transparent">
           <div
@@ -401,10 +398,7 @@ export default function Sandia() {
                   </div>
                 </div>
                 <div className="hidden lg:grid ">
-                  <div
-                    id="forlg"
-                    className="w-20 flex justify-end items-start"
-                  >
+                  <div id="forlg" className="w-20 flex justify-end items-start">
                     <button
                       onClick={() => router.push("/menu")}
                       className="hover:transform hover:scale-125"
@@ -467,11 +461,7 @@ export default function Sandia() {
           <div className="bg-white w-2/3 h-80 p-6 rounded-xl shadow-xl flex justify-center items-center border-4 shadow-lorange/70">
             <div className="flex gap-16">
               <div>
-                <img
-                  src="/RANDY_02.svg"
-                  alt="randy"
-                  className="w-36"
-                />
+                <img src="/RANDY_02.svg" alt="randy" className="w-36" />
               </div>
               <div className="grid text-center text-dgreen">
                 <h2 className="text-4xl font-bold mb-4 font-ram text-dorange">
