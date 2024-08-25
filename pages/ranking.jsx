@@ -5,6 +5,7 @@ import Image from 'next/image';
 
 import API from '@/utils/api/globals.api';
 import SeleccionaAvatar from '@/components/SeleccionaAvatar';
+import Luz from '@/components/home/luz';
 
 export default function RankingPage() {
   const router = useRouter();
@@ -27,6 +28,9 @@ export default function RankingPage() {
     <>
       {ranking.length > 0 ? (
         <main className="min-h-screen w-screen bg-[url('/backgrounds/ranking.jpg')] bg-cover bg-left-bottom bg-no-repeat flex flex-col justify-center gap-6 py-5 items-center">
+          <div className="absolute inset-0 overflow-hidden">
+            <Luz />
+          </div>
           <ButtonHome goHome={handleRouterHome} />
           <h1 className="font-lucky text-2xl md:text-4xl text-dorange flex justify-center items-center md:gap-3 bg-grey/75 p-4 rounded-3xl shadow-lg">
             <Image
@@ -36,7 +40,7 @@ export default function RankingPage() {
             />
             <span>Tabla de posiciones</span>
           </h1>
-          <ul className="w-11/12 max-w-[500px] flex flex-col justify-center items-center bg-grey/80 shadow-lg border-lorange border-[7px] rounded-3xl text-black relative p-2">
+          <ul className="w-11/12 max-w-[500px] xl:max-w-[700px] flex flex-col justify-center items-center bg-grey/80 shadow-lg border-lorange border-[7px] rounded-3xl text-black relative p-2 z-50">
             {ranking?.map(({ name, score, avatar }, index) => {
               return (
                 <Row key={`rank-${index}`}>
