@@ -6,6 +6,7 @@ import Image from 'next/image';
 import API from '@/utils/api/globals.api';
 import SeleccionaAvatar from '@/components/SeleccionaAvatar';
 import Luz from '@/components/home/luz';
+import Navbar from '@/components/Navbar';
 
 export default function RankingPage() {
   const router = useRouter();
@@ -28,7 +29,13 @@ export default function RankingPage() {
     <>
       {ranking.length > 0 ? (
         <main className="min-h-screen w-screen bg-[url('/backgrounds/ranking.jpg')] bg-cover bg-left-bottom bg-no-repeat flex flex-col justify-center gap-6 py-5 items-center">
+          <div className="absolute inset-0 overflow-hidden z-[101]">
+            <Navbar />
+          </div>
           <div className="absolute inset-0 overflow-hidden">
+            <Luz />
+          </div>
+          <div className="absolute inset-0 overflow-hidden z-[100]">
             <Luz />
           </div>
           <ButtonHome goHome={handleRouterHome} />
@@ -112,7 +119,7 @@ function CellScore({ scoreUser }) {
 function ButtonHome({ goHome }) {
   return (
     <div
-      className="absolute top-3 start-5 lg:top-10 lg:start-10 bg-black z-[1000] mr-2 md:mr-6 xl:mr-10 h-12 w-12 xl:h-16 xl:w-16  justify-center text-center align-middle
+      className="hidden lg:absolute top-24 start-10 bg-black z-[1000] mr-2 md:mr-6 xl:mr-10 h-12 w-12 xl:h-16 xl:w-16  justify-center text-center align-middle
       flex bg-grey/50 rounded-full">
       <button
         className=" flex justify-end items-center"

@@ -1,8 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useRouter } from "next/router";
-import Navbar from "../components/Navbar";
-import Luz from "@/components/home/luz";
-import { MusicContext } from "@/components/home/musicContex";
+import React, { useEffect, useState, useContext } from 'react';
+import { useRouter } from 'next/router';
+import Navbar from '../components/Navbar';
+import Luz from '@/components/home/luz';
+import { MusicContext } from '@/components/home/musicContex';
 
 export default function Home() {
   const router = useRouter();
@@ -15,10 +15,10 @@ export default function Home() {
 
   const menu = () => {
     const exp = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-    const rm = localStorage.getItem("rememberMe");
-    !rm && localStorage.setItem("rememberMe", "waiting");
-    localStorage.setItem("exp", exp.toString());
-    router.push("/menu");
+    const rm = localStorage.getItem('rememberMe');
+    !rm && localStorage.setItem('rememberMe', 'waiting');
+    localStorage.setItem('exp', exp.toString());
+    router.push('/menu');
   };
 
   return (
@@ -27,23 +27,20 @@ export default function Home() {
 
       <div
         className="flex h-10 absolute z-[5000] bg-transparent align-middle items-center
-        font-lucky text-white text-2xl md:text-5xl"
-      >
+        font-lucky text-white text-2xl md:text-5xl">
         <div
           id="burbuja2"
           className=" justify-end bg-black h-20 w-20 mt-52 ml-10 mr-auto align-middle
-          bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
-        >
+          bg-grey/20 rounded-full shadow-amber-100 shadow-lg">
           <button
             className="absolute z-[5000]"
-            onClick={() => setMusica((prev) => !prev)}
-          >
+            onClick={() => setMusica((prev) => !prev)}>
             <img
               className="h-20 w-20"
               src={
                 musica
-                  ? "/home/encendidoVolumen.svg"
-                  : "/home/apagadoVolumen.svg"
+                  ? '/home/encendidoVolumen.svg'
+                  : '/home/apagadoVolumen.svg'
               }
               alt=""
             />
@@ -51,13 +48,20 @@ export default function Home() {
         </div>
       </div>
 
-      <Luz className="min-h-full relative" active={animacionActiva}>
+      <Luz
+        className="min-h-full relative"
+        active={animacionActiva}>
+        <div className="absolute inset-0 overflow-hidden">
+          <Luz />
+        </div>
+        <div className="absolute inset-0 overflow-hidden">
+          <Luz />
+        </div>
         <div>
           <div
             id="burbuja"
             className="bg-black z-[1000] absolute h-[200px] w-[200px] xl:h-[300px] xl:w-[300px] pt-16
-            flex bg-grey/20 rounded-full justify-center items-end shadow-amber-100 shadow-lg"
-          >
+            flex bg-grey/20 rounded-full justify-center items-end shadow-amber-100 shadow-lg">
             <img
               className="h-[100px] w-[144px] xl:h-[200px] xl:w-[244px]"
               src="/RANDY_08.svg"
@@ -81,18 +85,15 @@ export default function Home() {
 
       <div
         className="flex absolute bg-transparent w-screen h-screen z-[100]
-        font-lucky text-white text-2xl md:text-5xl"
-      >
+        font-lucky text-white text-2xl md:text-5xl">
         <div
           id="burbuja2"
           className="bg-black mt-[400px] m-auto z-[1000] h-[200px] w-[200px] md:h-[300px] md:w-[300px] align-middle
-          flex bg-grey/30 rounded-full shadow-amber-100 shadow-lg"
-        >
+          flex bg-grey/30 rounded-full shadow-amber-100 shadow-lg">
           <button
             onClick={menu}
             type="submit"
-            className="m-auto w-40 h-16 md:w-60 md:h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2 hover:shadow-orange-300 bg-agreen font-lucky items-center text-center justify-center rounded-3xl"
-          >
+            className="m-auto w-40 h-16 md:w-60 md:h-28 hover:shadow-xl hover:translate-y-3 hover:translate-x-2 hover:shadow-orange-300 bg-agreen font-lucky items-center text-center justify-center rounded-3xl">
             Jugar
           </button>
         </div>
