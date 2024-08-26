@@ -23,14 +23,14 @@ export default function ContactoFooter({ children }) {
           <h2 className="font-lucky text-dgreen text-3xl text-center">
             CONTÁCTANOS
           </h2>
-          <p className="font-mont text-black font-semibold text-center">
-            ¡Síguenos en nuestras redes sociales!
+          <p className="font-mont pt-2 text-black font-semibold text-center">
+            ¡Apóyanos a que siga siendo gratuito!
           </p>
         </div>
 
         {/* ICONOS SOCIAL MEDIA */}
         <div className="flex grid-flow-col gap-6 justify-center p-3">
-          <button className="rounded-full hover:animate-ping">
+          <button className="rounded-full hover:animate-heartbeat">
             <a
               href="https://www.facebook.com/randomlandia.juego/"
               target="_blank"
@@ -42,7 +42,7 @@ export default function ContactoFooter({ children }) {
               />
             </a>
           </button>
-          <button className="rounded-full hover:animate-ping">
+          <button className="rounded-full hover:animate-heartbeat">
             <a href="https://www.tiktok.com/@randyrandomcat" target="_blank">
               <img
                 src="/landing/tiktok.png"
@@ -51,7 +51,7 @@ export default function ContactoFooter({ children }) {
               />
             </a>
           </button>
-          <button className="rounded-full hover:animate-ping">
+          <button className="rounded-full hover:animate-heartbeat">
             <a
               href="https://open.spotify.com/user/31ux5pywufhwh6gexijksz7r5ztq?si=0e013d965ce148d5"
               target="_blank"
@@ -63,9 +63,24 @@ export default function ContactoFooter({ children }) {
               />
             </a>
           </button>
+          {/* ICONO Shopping con modal hover */}
+          <div className="relative group">
+            <button className="rounded-full bg-orange-400 hover:animate-heartbeat">
+              <a href="https://shop.randomlandia.com" target="_blank">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/9308/9308487.png"
+                  alt="Shopping"
+                  className="h-[60px] w-[60px]"
+                />
+              </a>
+            </button>
+            <div className="absolute bottom-[110%] left-1/2 transform -translate-x-1/2 w-64 p-2 bg-green-500  font-lucky text-sm text-white text-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+              Apóyanos comprando tu mercancía de Ranndy ♥
+            </div>
+          </div>
         </div>
 
-        {/* LINKS A AVISOS  */}
+        {/* LINKS A AVISOS */}
         <div className="flex grid-flow-col gap-6 justify-center p-3 ">
           <a
             href="/avisoprivacidad"

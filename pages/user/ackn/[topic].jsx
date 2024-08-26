@@ -81,7 +81,8 @@ const SandiaList = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      <Navbar />
+      <Navbar className="fixed" />
+
       <div
         className="relative min-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat bg-fixed py-6"
         style={{
