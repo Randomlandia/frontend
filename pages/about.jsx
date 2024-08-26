@@ -1,18 +1,18 @@
-import React from 'react';
-import Navbar from '../components/Navbar';
-import CardRandyIcono from '@/components/about/cardRandyIcono';
-import { nosotros } from '@/components/constants/nosotros';
-import ContactoFooter from '@/components/ContactoFooter';
-import RandyBurbuja from '@/components/landing/randyBurbuja';
-import { iconoRandyCard } from '@/components/constants/iconoRandyCard';
-import { descrip } from '@/components/constants/descrip';
-import CarruselTemas from '@/components/landing/carruselTemas';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import CardNosotrosDescri from '@/components/landing/cardNosotrosDescri';
-import Perspectiva from '@/components/landing/perspectivaDiv';
-import { useRouter } from 'next/router';
-import BurbujaAdaptable from '@/components/BurbujaAdaptable';
+import React from "react";
+import Navbar from "../components/Navbar";
+import CardRandyIcono from "@/components/about/cardRandyIcono";
+import { nosotros } from "@/components/constants/nosotros";
+import ContactoFooter from "@/components/ContactoFooter";
+import RandyBurbuja from "@/components/landing/randyBurbuja";
+import { iconoRandyCard } from "@/components/constants/iconoRandyCard";
+import { descrip } from "@/components/constants/descrip";
+import CarruselTemas from "@/components/landing/carruselTemas";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import CardNosotrosDescri from "@/components/landing/cardNosotrosDescri";
+import Perspectiva from "@/components/landing/perspectivaDiv";
+import { useRouter } from "next/router";
+import BurbujaAdaptable from "@/components/BurbujaAdaptable";
 
 const Nosotros = () => {
   const [mostarNosotros, setMostarNosotros] = useState(1);
@@ -20,6 +20,9 @@ const Nosotros = () => {
   const [mostarDescrip, setMostarDescrip] = useState(1);
   const router = useRouter();
   const { handleSubmit } = useForm();
+  const jugar = () => {
+    router.push(`/`);
+  };
 
   async function onSubmit(e) {
     if (!e) {
@@ -41,19 +44,28 @@ const Nosotros = () => {
         className="
       xl:bg-transparent  xl:w-[1168px] xl:gap-[10px]
        md:w-[669px] md:gap-[10px]
-       w-[340px] min-h-screen gap-[10px]">
+       w-[340px] min-h-screen gap-[10px]"
+      >
         {/*logo*/}
         <div className="flex flex-row mb-5 mt-20 rounded-3xl bg-[#f6ead7]/75  w-auto h-auto pt-[50px] pb-[50px] align-middle items-center justify-center">
           <div className="h-full pb-32">
             <RandyBurbuja></RandyBurbuja>
           </div>
-          <button onClick={random}></button>
+          <button onClick={jugar}>
+            <img
+              src="/logoLarge.svg"
+              alt="Random"
+              className="h-32 hover:translate-x-1 hover:translate-y-1"
+            />
+          </button>
         </div>
+
         {/*nosotros */}
         <div className="flex flex-col text-center  rounded-3xl bg-[#f6ead7]/75   p-[112px] w-auto h-auto gap-[10px] align-middle justify-center">
           <div
             className=" 
-            flex font-lucky justify-center align-middle items-center   text-dgreen text-2xl xl:text-6xl md:text-5xl ">
+            flex font-lucky justify-center align-middle items-center   text-dgreen text-2xl xl:text-6xl md:text-5xl "
+          >
             Nosotros
           </div>
           {/* 1 */}
@@ -65,7 +77,8 @@ const Nosotros = () => {
                   icono={unico.icono}
                   alt={unico.alt}
                   tema={unico.tema}
-                  contenido={unico.contenido}></Perspectiva>
+                  contenido={unico.contenido}
+                ></Perspectiva>
               );
             })}
           </div>
@@ -79,23 +92,26 @@ const Nosotros = () => {
                     icono={unico.icono}
                     alt={unico.alt}
                     tema={unico.tema}
-                    contenido={unico.contenido}></CarruselTemas>
+                    contenido={unico.contenido}
+                  ></CarruselTemas>
                 )
               );
             })}
 
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-row  pt-7 align-middle justify-center items-center">
+              className="flex flex-row  pt-7 align-middle justify-center items-center"
+            >
               {nosotros.map((unico, index) => {
                 return (
                   <button
                     className={
                       index == mostarNosotros
-                        ? 'h-6 w-6 m-1 rounded-full bg-[#21643f] '
-                        : 'h-6 w-6 m-1 rounded-full bg-slate-500'
+                        ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
+                        : "h-6 w-6 m-1 rounded-full bg-slate-500"
                     }
-                    onClick={() => setMostarNosotros(index)}></button>
+                    onClick={() => setMostarNosotros(index)}
+                  ></button>
                 );
               })}
             </form>
@@ -113,7 +129,8 @@ const Nosotros = () => {
                   icono={unico.icono}
                   alt={unico.alt}
                   tema={unico.tema}
-                  contenido={unico.contenido}></CardRandyIcono>
+                  contenido={unico.contenido}
+                ></CardRandyIcono>
               );
             })}
           </div>
@@ -127,23 +144,26 @@ const Nosotros = () => {
                     icono={unico.icono}
                     alt={unico.alt}
                     tema={unico.tema}
-                    contenido={unico.contenido}></CardRandyIcono>
+                    contenido={unico.contenido}
+                  ></CardRandyIcono>
                 )
               );
             })}
 
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-row h-auto w-72 pb-[120px] align-middle justify-center items-center">
+              className="flex flex-row h-auto w-72 pb-[120px] align-middle justify-center items-center"
+            >
               {iconoRandyCard.map((unico, index) => {
                 return (
                   <button
                     className={
                       index == mostarIconoRandy
-                        ? 'h-6 w-6 m-1 rounded-full bg-[#21643f] '
-                        : 'h-6 w-6 m-1 rounded-full bg-slate-500'
+                        ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
+                        : "h-6 w-6 m-1 rounded-full bg-slate-500"
                     }
-                    onClick={() => setMostarIconoRandy(index)}></button>
+                    onClick={() => setMostarIconoRandy(index)}
+                  ></button>
                 );
               })}
             </form>
@@ -162,7 +182,8 @@ const Nosotros = () => {
           <div>
             <div
               className=" 
-            flex font-lucky justify-center align-middle items-center  text-dgreen text-2xl xl:text-6xl md:text-3xl">
+            flex font-lucky justify-center align-middle items-center  text-dgreen text-2xl xl:text-6xl md:text-3xl"
+            >
               ¿Quiénes somos?
             </div>
           </div>
@@ -190,7 +211,8 @@ const Nosotros = () => {
                   alt={unico.alt}
                   nombre={unico.nombre}
                   titulo={unico.titulo}
-                  contenido={unico.contenido}></CardNosotrosDescri>
+                  contenido={unico.contenido}
+                ></CardNosotrosDescri>
               );
             })}
           </div>
@@ -205,23 +227,26 @@ const Nosotros = () => {
                     alt={unico.alt}
                     nombre={unico.nombre}
                     titulo={unico.titulo}
-                    contenido={unico.contenido}></CardNosotrosDescri>
+                    contenido={unico.contenido}
+                  ></CardNosotrosDescri>
                 )
               );
             })}
 
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-row pt-2 pr-28">
+              className="flex flex-row pt-2 pr-28"
+            >
               {descrip.map((unico, index) => {
                 return (
                   <button
                     className={
                       index == mostarDescrip
-                        ? 'h-6 w-6 m-1 rounded-full bg-[#21643f] '
-                        : 'h-6 w-6 m-1 rounded-full bg-slate-500'
+                        ? "h-6 w-6 m-1 rounded-full bg-[#21643f] "
+                        : "h-6 w-6 m-1 rounded-full bg-slate-500"
                     }
-                    onClick={() => setMostarDescrip(index)}></button>
+                    onClick={() => setMostarDescrip(index)}
+                  ></button>
                 );
               })}
             </form>

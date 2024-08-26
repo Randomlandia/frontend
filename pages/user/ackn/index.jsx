@@ -23,7 +23,7 @@ export default function Menu() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      className="max-h-screen bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url('${
           background
