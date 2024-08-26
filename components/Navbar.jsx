@@ -118,11 +118,7 @@ export default function Navbar() {
                   RANDOMLANDIA
                 </p>
               </button>
-              <button onClick={() => router.push('/ranking')}>
-                <p className="px-5 py-1 rounded-[10px] flex items-center hover:bg-dorange transform hover:scale-110">
-                  RANKING
-                </p>
-              </button>
+
               <button onClick={() => router.push('/about')}>
                 <p className="px-5 py-1 rounded-[10px] flex items-center hover:bg-dorange transform hover:scale-110">
                   NOSOTROS
@@ -324,7 +320,7 @@ export default function Navbar() {
                             onClick={() => router.push('/register')}
                             onTouchStart={() => setSelectedMenu('register')}
                             onTouchEnd={() => setSelectedMenu(null)}
-                            className={`flex w-full rounded-md pl-4 py-1 text-sm font-ram font-normal gap-2 items-center hover:bg-natD ${
+                            className={`flex w-full rounded-md pl-4 py-1 text-xs font-ram font-normal gap-2 items-center hover:bg-natD ${
                               selectedMenu === 'register' ? 'bg-natD' : ''
                             }`}>
                             Crear cuenta
