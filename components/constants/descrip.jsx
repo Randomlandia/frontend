@@ -14,7 +14,7 @@ export const descrip = [
     nombre: "Aizza",
     titulo: "Estudiambre",
     contenido:
-      "Ilustradora amateur, mega fan del ánime, amante de los conejos, obsesionada con sucesos paranormales y firmemente creyente de que Randy será el futuro vencedor de Sukuna.",
+      "Ilustradora amateur, mega fan del ánime, amante de los conejos, obsesionada con sucesos paranormales y firmemente creyente de que Ranndy será el futuro vencedor de Sukuna.",
   },
   {
     icono: "https://cdn.randomlandia.com/people/soni.webp",

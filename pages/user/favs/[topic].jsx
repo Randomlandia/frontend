@@ -138,7 +138,7 @@ const SandiaList = () => {
                     ) : (
                       <ScrollableBox
                         content={
-                          "Aqui verás cosas super interesantes, si das click en Randy puedes dejar de recordarlas también."
+                          "Aqui verás cosas super interesantes, si das click en Ranndy puedes dejar de recordarlas también."
                         }
                       />
                     )}
