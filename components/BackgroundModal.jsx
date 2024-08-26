@@ -1,10 +1,11 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import RandyTextRight from "./RandyTextRight";
-import BackgroundSlider from "@/components/BackgroundSlider";
-import BackgroundsList from "@/constants/BackgroundsList";
-import BackgroundCard from "./BackgroundCard";
-import Navbar from "./Navbar";
+import React from 'react';
+import { useState, useEffect } from 'react';
+import RandyTextRight from './RandyTextRight';
+import BackgroundSlider from '@/components/BackgroundSlider';
+import BackgroundsList from '@/constants/BackgroundsList';
+import BackgroundCard from './BackgroundCard';
+import Navbar from './Navbar';
+import BurbujaAdaptable from './BurbujaAdaptable';
 
 export default function ModalComponent({ onClose, className }) {
   //const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,7 +19,7 @@ export default function ModalComponent({ onClose, className }) {
   const openModal = () => setIsOpen(true);
   const closeModal = () => {
     setIsOpen(false);
-    localStorage.removeItem("bg2");
+    localStorage.removeItem('bg2');
     if (onClose) {
       onClose();
     }
@@ -30,14 +31,14 @@ export default function ModalComponent({ onClose, className }) {
 
   useEffect(() => {
     if (selectedBg) {
-      localStorage.setItem("bg2", selectedBg);
+      localStorage.setItem('bg2', selectedBg);
     }
   }, [selectedBg]);
 
   const saveHandler = (e) => {
     e.preventDefault();
-    const bg = localStorage.getItem("bg");
-    const bg2 = localStorage.getItem("bg2");
+    const bg = localStorage.getItem('bg');
+    const bg2 = localStorage.getItem('bg2');
 
     if (!bg && !bg2) {
       setStored(false);
@@ -47,7 +48,7 @@ export default function ModalComponent({ onClose, className }) {
 
     if (bg2) {
       setStored(true);
-      localStorage.setItem("bg", bg2);
+      localStorage.setItem('bg', bg2);
       setShowError(false);
       setTimeout(() => {
         setShowSuccess(true);
@@ -55,14 +56,14 @@ export default function ModalComponent({ onClose, className }) {
           closeModal();
           setShowSuccess(false);
         }, 2000);
-        localStorage.removeItem("bg2");
+        localStorage.removeItem('bg2');
       }, 1000);
     }
     return;
   };
 
   const checkLocalStorage = () => {
-    const bg2 = localStorage.getItem("bg2");
+    const bg2 = localStorage.getItem('bg2');
     if (!bg2) {
       setIsDisabled(true);
       setShowError(true);
@@ -80,41 +81,45 @@ export default function ModalComponent({ onClose, className }) {
       checkLocalStorage();
     };
 
-    window.addEventListener("click", handleStorageChange);
+    window.addEventListener('click', handleStorageChange);
 
     return () => {
-      window.removeEventListener("click", handleStorageChange);
+      window.removeEventListener('click', handleStorageChange);
     };
   }, []);
 
   return (
-    <div className="absolute max-h-screen pt-16 pl-2 md:pl-5">
+    <div className="absolute end-0 max-h-screen pt-16 pl-2 md:pl-5">
       <div
         id="burbuja2"
-        className=" bg-black  z-[1000] mr-2 md:mr-6 xl:mr-10 h-12 w-12 xl:h-16 xl:w-16  justify-center text-center align-middle
-          flex bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
-      >
-        <button className=" flex justify-end items-center" onClick={openModal}>
-          <img
-            src="/icon_edit.svg"
-            alt="edit"
-            className="h-6 w-6 md:h-8 md:w-8"
-          />
-        </button>
+        className="z-[1000] mr-2 md:mr-6 xl:mr-10 h-12 w-12 xl:h-16 xl:w-16  justify-center text-center align-middle flex rounded-full">
+        <BurbujaAdaptable className="aspect-square h-16">
+          <button
+            className="flex justify-end items-center"
+            onClick={openModal}>
+            <img
+              src="/icon_edit.svg"
+              alt="edit"
+              className="h-10 aspect-square"
+            />
+          </button>
+        </BurbujaAdaptable>
       </div>
       {isOpen && (
         <div
-          className={` xl:pt-16 flex-col fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/80 bg-opacity-75 py-5 md:px-10`}
-        >
+          className={` xl:pt-16 flex-col fixed inset-0 z-50 flex items-center justify-center bg-oldwhite/80 bg-opacity-75 py-5 md:px-10`}>
           <div className=" border-lgreen border-2 shadow-lg h-full max-h-3/4 max-h-screen bg-oldwhite/80 w-11/12 md:w-full lg:max-w-1/2 mx-auto rounded-lg z-50">
             <div className="py-2 px-4 h-full  flex flex-col">
               {/* logica del titulo */}
               <div className="flex flex-col">
                 <div
                   className="cursor-pointer flex justify-end"
-                  onClick={closeModal}
-                >
-                  <img src="/close.svg" alt="X" className="w-5 h-5" />
+                  onClick={closeModal}>
+                  <img
+                    src="/close.svg"
+                    alt="X"
+                    className="w-5 h-5"
+                  />
                 </div>
                 <p className="text-5xl font-bold font-lucky text-center text-dgreen">
                   ¡ELIGE TU ESCENARIO!
@@ -124,14 +129,18 @@ export default function ModalComponent({ onClose, className }) {
               {/* logica del slider o cuadricula */}
               <div>
                 {/* Aquí estoy insertando el slider para páginas móviles */}
-                <div className="my-5 pt-8 sm:hidden" name="activador">
+                <div
+                  className="my-5 pt-8 sm:hidden"
+                  name="activador">
                   <BackgroundSlider />
                 </div>
 
                 {/* Aqui esta el mapeo para tablets y desktop */}
                 <div className="hidden py-6 sm:grid sm:grid-cols-2 lg:grid-cols-3 w-auto sm:gap-2 lg:gap-6">
                   {BackgroundsList.map((image, index) => (
-                    <div key={index} className="w-full max-w-lg mx-auto">
+                    <div
+                      key={index}
+                      className="w-full max-w-lg mx-auto">
                       <BackgroundCard
                         img={`/backgrounds/${image.bg}`}
                         onSelect={() => handleBgSelect(image)}
@@ -144,7 +153,7 @@ export default function ModalComponent({ onClose, className }) {
               {/* Lógica botón save y Randy sm*/}
               <div className="pt-8  md:hidden items-center justify-around h-auto">
                 <RandyTextRight
-                  img={"/RANDY_08.svg"}
+                  img={'/RANDY_08.svg'}
                   text="¿Cuál será mi hogar?"
                 />
                 <div className="flex flex-col pt-8">
@@ -152,11 +161,10 @@ export default function ModalComponent({ onClose, className }) {
                     onClick={saveHandler}
                     className={`focus:outline-none px-4 p-2 rounded-lg text-white font-lucky sm:text-2xl ${
                       isDisabled
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-pcyan hover:bg-sportL"
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-pcyan hover:bg-sportL'
                     }`}
-                    disabled={isDisabled}
-                  >
+                    disabled={isDisabled}>
                     Guardar
                   </button>
                   {showError && (
@@ -171,7 +179,7 @@ export default function ModalComponent({ onClose, className }) {
               {/* Lógica botón save y Randy md xl */}
               <div className="hidden md:flex md:pt-2 xl:pt-8 items-center justify-around h-auto">
                 <RandyTextRight
-                  img={"/RANDY_08.svg"}
+                  img={'/RANDY_08.svg'}
                   text="¿Cuál será mi hogar?"
                 />
                 <div className="flex flex-col lg:pr-72">
@@ -179,11 +187,10 @@ export default function ModalComponent({ onClose, className }) {
                     onClick={saveHandler}
                     className={`focus:outline-none px-4 p-2 rounded-lg text-white font-lucky sm:text-2xl ${
                       isDisabled
-                        ? "bg-gray-400 cursor-not-allowed"
-                        : "bg-pcyan hover:bg-sportL"
+                        ? 'bg-gray-400 cursor-not-allowed'
+                        : 'bg-pcyan hover:bg-sportL'
                     }`}
-                    disabled={isDisabled}
-                  >
+                    disabled={isDisabled}>
                     Guardar
                   </button>
                   {showError && (
