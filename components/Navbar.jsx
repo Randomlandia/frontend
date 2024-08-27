@@ -104,7 +104,11 @@ export default function Navbar() {
           }}
           className="py-3 px-3"
         >
-          <img src="/logoLarge.svg" alt="Random" className="h-6 sm:h-10" />
+          <img
+            src="/logoLarge.svg"
+            alt="Random"
+            className="h-6 sm:h-10"
+          />
         </button>
         <div className="flex">
           {/* SECCION DESKTOP */}
@@ -148,7 +152,11 @@ export default function Navbar() {
                   }}
                 >
                   <div className="py-1 px-1">
-                    <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
+                    <img
+                      src={avatarSrc()}
+                      alt="😄"
+                      className="h-10 w-10"
+                    />
                   </div>
                   <div className="bg-dorange h-9 px-5 rounded-[10px] flex items-center">
                     <p>{userName}</p>
@@ -194,7 +202,11 @@ export default function Navbar() {
                   onClick={() => handleLogout()}
                   className="flex items-center pr-2 pt-1"
                 >
-                  <img src="/icon_close.svg" alt="🚪" className="w-12" />
+                  <img
+                    src="/icon_close.svg"
+                    alt="🚪"
+                    className="w-12"
+                  />
                 </button>
                 <div className="absolute right-1 hidden group-hover:block bg-oldwhite border border-gray-200 p-2 rounded-lg shadow-lg mt-3 w-32">
                   <p className="text-sm text-center text-natD">¿Ya te vas?</p>
@@ -215,7 +227,11 @@ export default function Navbar() {
                 onTouchEnd={() => setHovered(false)}
               >
                 <div className="py-1 px-1">
-                  <img src={avatarSrc()} alt="😄" className="h-10 w-10" />
+                  <img
+                    src={avatarSrc()}
+                    alt="😄"
+                    className="h-10 w-10"
+                  />
                 </div>
                 {hovered && (
                   <div className="bg-dorange h-9 px-5 rounded-[10px] flex items-center">
@@ -245,7 +261,11 @@ export default function Navbar() {
             >
               <div>
                 <MenuButton className="inline-flex w-full justify-center gap-x-1.5 shadow-sm">
-                  <img src="/menu.svg" alt="menu" className="w-14 h-16" />
+                  <img
+                    src="/menu.svg"
+                    alt="menu"
+                    className="w-14 h-16"
+                  />
                 </MenuButton>
               </div>
               <Transition
@@ -431,7 +451,11 @@ export default function Navbar() {
               te llevo!
             </p>
             <div className="grid sm:flex gap-10 justify-center items-center py-3">
-              <img src={"/RANDY_06.svg"} alt="randy" className="w-40 sm:w-56" />
+              <img
+                src={"/RANDY_06.svg"}
+                alt="randy"
+                className="w-40 sm:w-56"
+              />
             </div>
           </div>
         </div>
