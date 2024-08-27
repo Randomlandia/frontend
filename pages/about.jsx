@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import CardNosotrosDescri from "@/components/landing/cardNosotrosDescri";
 import Perspectiva from "@/components/landing/perspectivaDiv";
 import { useRouter } from "next/router";
+import BurbujaAdaptable from "@/components/BurbujaAdaptable";
 
 const Nosotros = () => {
   const [mostarNosotros, setMostarNosotros] = useState(1);
@@ -19,6 +20,9 @@ const Nosotros = () => {
   const [mostarDescrip, setMostarDescrip] = useState(1);
   const router = useRouter();
   const { handleSubmit } = useForm();
+  const jugar = () => {
+    router.push(`/`);
+  };
 
   async function onSubmit(e) {
     if (!e) {
@@ -47,7 +51,7 @@ const Nosotros = () => {
           <div className="h-full pb-32">
             <RandyBurbuja></RandyBurbuja>
           </div>
-          <button onClick={random}>
+          <button onClick={jugar}>
             <img
               src="/logoLarge.svg"
               alt="Random"
@@ -55,6 +59,7 @@ const Nosotros = () => {
             />
           </button>
         </div>
+
         {/*nosotros */}
         <div className="flex flex-col text-center  rounded-3xl bg-[#f6ead7]/75   p-[112px] w-auto h-auto gap-[10px] align-middle justify-center">
           <div

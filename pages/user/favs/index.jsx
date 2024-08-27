@@ -7,7 +7,6 @@ import RandyTextLeft from "@/components/RandyTextLeft";
 import BackgroundModal from "@/components/BackgroundModal";
 import React, { useState, useEffect } from "react";
 
-
 export default function Menu() {
   const [background, setBackground] = useState("../backgrounds/3.png");
 
@@ -24,7 +23,7 @@ export default function Menu() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      className="max-h-screen bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url('${
           background
@@ -90,7 +89,7 @@ export default function Menu() {
           <div className="lg:w-4/5 mx-auto">
             <MenuFavsCircle />
           </div>
-          <div className="mt-6">
+          <div className="">
             <p> </p>
             <RandyTextLeft
               img={"/RANDY_08.svg"}

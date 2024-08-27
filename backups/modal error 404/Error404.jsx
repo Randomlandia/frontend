@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React from "react";
 
 export default function RandyNotFound() {
   return (
@@ -10,7 +9,7 @@ export default function RandyNotFound() {
           4 0 4
         </p>
         <p className="font-mono text-zinc-500 text-center  text-lg">
-          Randy no pudo encontrar la página que estabas buscando
+          Ranndy no pudo encontrar la página que estabas buscando
         </p>
       </div>
       {/* RANDY */}

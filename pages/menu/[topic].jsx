@@ -1,16 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { useFavorites } from "@/utils/useFavorites";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import LoadingState from "@/components/LoadingState";
 import TemaContainer from "@/components/TemaContainer";
 import SpeechBubble from "@/components/SpeechBubble";
 import ModalTest from "@/components/ModalTest";
 import { MusicContext } from "@/components/home/musicContex";
-
-// 1) guardar cada numero que salga en random en un arreglo
-// 2 un contador que llegue a 10
+import Burbuja from "@/components/burbuja";
+import RandyTextLeft from "@/components/RandyTextLeft";
+import BurbujaAdaptable from "@/components/BurbujaAdaptable";
 
 export default function Sandia() {
   const router = useRouter();
@@ -22,17 +21,25 @@ export default function Sandia() {
   const [favIcon, setFavIcon] = useState("/icon_redheart.svg");
   const [lastSandia, setLastSandia] = useState(false);
   const [loggedUser, setLoggedUser] = useState(false);
-  const [loading, setLoading] = useState(true); // regresar a true al finalizar logica
-  const [testCt, setTestCt] = useState(1); //regresar a uno al terminar de maquetar
+  const [loading, setLoading] = useState(true);
+  const [testCt, setTestCt] = useState(1);
   const [showReference, setShowReference] = useState(false);
-  const [showTest, setShowTest] = useState(false); //CAMBIAR A FALSE TERMINANDO MAQUETADO
+  const [showTest, setShowTest] = useState(false);
   const [testAvail, setTestAvail] = useState(false);
   const [current, setCurrent] = useState(null);
   const { musica, setMusica } = useContext(MusicContext);
 
+  // Estado del recorrido
+  const [tourStep, setTourStep] = useState(0);
+
   let { topic } = router.query;
 
   useEffect(() => {
+    const tourMenu = localStorage.getItem("tourMenu");
+    if (!tourMenu) {
+      setTourStep(1); // Inicia el tour si no existe en localStorage
+    }
+
     const storedFavs = JSON.parse(localStorage.getItem("favs")) || [];
     setFavs(storedFavs);
     const storedSeenSandias = JSON.parse(localStorage.getItem("view")) || [];
@@ -135,6 +142,34 @@ export default function Sandia() {
       toggleFavorite(newFav);
       setFavIcon("/icon_redheartfill.svg");
     }
+
+    if (tourStep === 1) {
+      setTourStep(2); // Avanza al siguiente paso del tour
+    }
+  };
+
+  const handleToggleReference = () => {
+    setShowReference((prev) => !prev);
+
+    if (tourStep === 2) {
+      setTourStep(3); // Avanza al siguiente paso del tour
+    }
+  };
+
+  const handleTourNavigation = () => {
+    if (tourStep === 3) {
+      setTourStep(4); // Avanza al último paso del tour
+    }
+  };
+
+  const handleTourFinal = (option) => {
+    if (option === "play") {
+      localStorage.setItem("tourMenu", "true");
+      setTourStep(0); // Finaliza el tour
+    } else if (option === "tour") {
+      localStorage.setItem("tourMenu", "true");
+      router.push("/user");
+    }
   };
 
   const handleNextButton = () => {
@@ -180,10 +215,6 @@ export default function Sandia() {
         prevTestCt === 10 ? 1 && setShowTest(true) : prevTestCt + 1
       );
     }
-  };
-
-  const handleToggleReference = () => {
-    setShowReference((prev) => !prev);
   };
 
   const loadRandomSandia = () => {
@@ -240,7 +271,9 @@ export default function Sandia() {
 
   return (
     <div
-      className="max-w-screen overflow-hidden flex flex-col sm:gap-5 relative h-screen max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat font-mont font-semibold sm:text-2xl"
+      className={`${
+        tourStep > 0 ? "pointer-events-none filter blur-[2] " : ""
+      } max-w-screen overflow-hidden flex flex-col sm:gap-5 relative h-screen max-h-screen bg-cover bg-left-bottom lg:bg-center bg-no-repeat font-mont font-semibold sm:text-2xl`}
       style={{
         backgroundImage: `url('${
           background
@@ -251,31 +284,31 @@ export default function Sandia() {
     >
       <Navbar />
 
-      <div className="flex absolute bottom-3 end-8 md:bottom-8 z-[5000] bg-transparent">
-        <div
-          id="burbuja2"
-          className="bg-black bg-grey/20 rounded-full shadow-amber-100 shadow-lg"
-        >
-          <button onClick={() => setMusica((prev) => !prev)}>
-            <img
-              className="aspect-square h-10 md:h-20"
-              src={
-                musica
-                  ? "/home/encendidoVolumen.svg"
-                  : "/home/apagadoVolumen.svg"
-              }
-            />
-          </button>
+      {tourStep > 0 && (
+        <div className="fixed inset-0 backdrop-blur-[2px] pointer-events-none z-10"></div>
+      )}
+
+      <div className="flex absolute bottom-3 start-10 sm:bottom-8  sm:start-1/2 sm:transition sm:-translate-x-1/2 lg:start-16 z-[5000] bg-transparent">
+        <div id="burbuja2" className="rounded-full">
+          <BurbujaAdaptable className="aspect-square h-12 md:h-20">
+            <button onClick={() => setMusica((prev) => !prev)}>
+              <img
+                className="aspect-square h-12 md:h-20"
+                src={
+                  musica
+                    ? "/home/encendidoVolumen.svg"
+                    : "/home/apagadoVolumen.svg"
+                }
+              />
+            </button>
+          </BurbujaAdaptable>
         </div>
       </div>
 
       {showTest && testAvail ? (
-        <ModalTest
-          setShowTest={setShowTest}
-          setTestCt={setTestCt}
-        />
+        <ModalTest setShowTest={setShowTest} setTestCt={setTestCt} />
       ) : (
-        <div className="sm:p-4 min-h-screen bg-oldwhite/50 sm:bg-transparent">
+        <div className="sm:p-4 min-h-screen sm:bg-transparent">
           <div
             id="card-sandia"
             className="w-full h-full lg:w-[85%]  sm:bg-cream/50 px-3 py-5 lg:mx-auto sm:rounded-xl"
@@ -331,7 +364,7 @@ export default function Sandia() {
                             </div>
                           ) : (
                             current?.content ||
-                            "Hola!!! soy Randy y me encanta explorar el mundo"
+                            "Hola!!! soy Ranndy y me encanta explorar el mundo"
                           )
                         }
                         height=""
@@ -344,13 +377,13 @@ export default function Sandia() {
                         alt="randy"
                         className="w-32 sm:w-40"
                       />
-                      <div className="flex flex-col gap-3 pr-5">
+                      <div className="flex flex-col gap-3">
                         {current?.content && (
                           <div className="flex justify-between gap-4 sm:gap-10">
                             <button
                               key="turnIcon"
                               onClick={handleToggleReference}
-                              className="hover:transform hover:scale-125"
+                              className="hover:transform hover:scale-125 shadow-[0_0_10px_5px_rgba(255,255,255,0.8)] rounded-full p-3 bg-gray-400/50 sm:shadow-none sm:bg-transparent"
                             >
                               <img
                                 src="/icon_turn.svg"
@@ -362,12 +395,12 @@ export default function Sandia() {
                             <button
                               key="redHeartIcon"
                               onClick={handleLike}
-                              className="hover:transform hover:scale-125 hover:animate-heartbeat hover:"
+                              className="hover:transform hover:scale-125 hover:animate-heartbeat shadow-[0_0_10px_5px_rgba(255,255,255,0.8)] rounded-full p-3 bg-gray-400/50 sm:shadow-none sm:bg-transparent"
                             >
                               <img
                                 src={favIcon}
                                 alt="Red Heart Icon"
-                                className="w-12 h-12 sm:w-24"
+                                className="w-14 h-14 sm:w-24 "
                               />
                             </button>
                           </div>
@@ -376,7 +409,7 @@ export default function Sandia() {
                           <button
                             key="arrowLeftIcon"
                             onClick={reverseSandia}
-                            className="hover:transform hover:scale-125"
+                            className="hover:transform hover:scale-125 shadow-[0_0_10px_5px_rgba(255,255,255,0.8)] rounded-full p-3 bg-gray-400/50"
                           >
                             <img
                               src={"/icon_arrowleft.svg"}
@@ -387,7 +420,7 @@ export default function Sandia() {
                           <button
                             key="turnRightIcon"
                             onClick={handleNextButton}
-                            className="hover:transform hover:scale-125"
+                            className="hover:transform hover:scale-125 shadow-[0_0_10px_5px_rgba(255,255,255,0.8)] rounded-full p-3 bg-gray-400/50"
                           >
                             <img
                               src={"/icon_turnright.svg"}
@@ -401,10 +434,7 @@ export default function Sandia() {
                   </div>
                 </div>
                 <div className="hidden lg:grid ">
-                  <div
-                    id="forlg"
-                    className="w-20 flex justify-end items-start"
-                  >
+                  <div id="forlg" className="w-20 flex justify-end items-start">
                     <button
                       onClick={() => router.push("/menu")}
                       className="hover:transform hover:scale-125"
@@ -467,11 +497,7 @@ export default function Sandia() {
           <div className="bg-white w-2/3 h-80 p-6 rounded-xl shadow-xl flex justify-center items-center border-4 shadow-lorange/70">
             <div className="flex gap-16">
               <div>
-                <img
-                  src="/RANDY_02.svg"
-                  alt="randy"
-                  className="w-36"
-                />
+                <img src="/RANDY_02.svg" alt="randy" className="w-36" />
               </div>
               <div className="grid text-center text-dgreen">
                 <h2 className="text-4xl font-bold mb-4 font-ram text-dorange">
@@ -484,29 +510,98 @@ export default function Sandia() {
           </div>
         </div>
       )}
+
+      {/* Burbuja del tour */}
+      {tourStep > 0 && (
+        <div className="fixed inset-x-0 bottom-16 flex justify-center items-center pb-24 z-50 pointer-events-auto">
+          <Burbuja id="burbuja2">
+            {tourStep === 1 && (
+              <div className="flex flex-col items-center">
+                <RandyTextLeft
+                  img={"/RANDY_08.svg"}
+                  text="Con el botón me gusta podrás guardar tus favs ♥"
+                  className="text-xs"
+                />
+                <button
+                  onClick={() => setTourStep(2)}
+                  className=" bg-amber-200/50 w-28 mt-4 h-12 px-5 rounded-[10px] flex items-center transform hover:scale-110 text-xl justify-center align-middle font-lucky"
+                >
+                  <img
+                    src="/icon_redheart.svg"
+                    alt="Like"
+                    className="w-6 h-6"
+                  />
+                </button>
+              </div>
+            )}
+            {tourStep === 2 && (
+              <div className="flex flex-col items-center">
+                <RandyTextLeft
+                  img={"/RANDY_08.svg"}
+                  text="Con el botón de reversa podras ver las referencias"
+                  className="text-xs"
+                />
+                <button
+                  onClick={() => setTourStep(3)}
+                  className=" bg-amber-200/50 w-28 mt-4 h-12 px-5 rounded-[10px] flex items-center transform hover:scale-110 text-xl justify-center align-middle font-lucky"
+                >
+                  <img src="/icon_turn.svg" alt="Reversa" className="w-6 h-6" />
+                </button>
+              </div>
+            )}
+            {tourStep === 3 && (
+              <div className="flex flex-col items-center">
+                <RandyTextLeft
+                  img={"/RANDY_08.svg"}
+                  text="Puedes ir hacia adelante o hacia atrás."
+                  className="text-xs"
+                />
+                <div className="flex gap-4 mt-4">
+                  <button
+                    onClick={() => setTourStep(4)}
+                    className="bg-amber-200/50 justify-between flex w-28 mt-4 h-12 rounded-full px-4 py-2 transform hover:scale-110 flex items-center"
+                  >
+                    <img
+                      src="/icon_arrowleft.svg"
+                      alt="Arrow Left Icon"
+                      className="w-6 h-6 mr-2"
+                    />
+
+                    <img
+                      src="/icon_turnright.svg"
+                      alt="Turn Right Icon"
+                      className="w-6 h-6 mr-2"
+                    />
+                  </button>
+                </div>
+              </div>
+            )}
+            {tourStep === 4 && (
+              <div className="flex flex-col items-center">
+                <RandyTextLeft
+                  img={"/RANDY_08.svg"}
+                  text="¿Quieres quedarte? ♥ Estás en Ciencias o puedes seguir con el recorrido."
+                  className="text-xs"
+                />
+                <div className="flex gap-4 mt-4">
+                  <button
+                    onClick={() => handleTourFinal("play")}
+                    className="bg-green-500 text-lg font-lucky text-white rounded-full px-4 py-2 transform hover:scale-110"
+                  >
+                    Jugar
+                  </button>
+                  <button
+                    onClick={() => handleTourFinal("tour")}
+                    className="bg-lorange text-lg font-lucky text-white rounded-full px-4 py-2 transform hover:scale-110"
+                  >
+                    Recorrido
+                  </button>
+                </div>
+              </div>
+            )}
+          </Burbuja>
+        </div>
+      )}
     </div>
   );
-}
-
-{
-  /* async function likeSandia(sandia) {
-    console.log("im clicked");
-    const userID = localStorage.getItem("userID");
-    addSandia(sandia); //add sandia to localStorage
-
-    fetch(`http://localhost:3005/users/${userID}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        sandiasFavoritas: updatedFavs,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => console.log(json))
-      .catch((error) => {
-        console.log("Error", error);
-      });
-  } */
 }

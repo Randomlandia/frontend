@@ -311,7 +311,7 @@ export default function Avatar(props) {
                 <input
                   type="name"
                   className="text-black font-mont font-black placeholder:text-dorange placeholder:font-mont bg-transparent text-center text-xl focus:outline-none focus:ring-2 focus:ring-lorange"
-                  placeholder="Randy es genial"
+                  placeholder="Ranndy es genial"
                   {...register("name", {
                     minLength: {
                       value: 3,
